@@ -1,0 +1,420 @@
+@keyframes round1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes round2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes dou {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.qiangmiao-content {
+  height: 99.6%;
+}
+.item_list {
+  font-size: 0.83333333vw;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: stretch;
+}
+.item_list .item_gun {
+  position: relative;
+  width: 33.2%;
+  height: 12.5vw;
+  box-sizing: border-box;
+  background: url(../../../assets/img/item-gun-bg.png) no-repeat center center;
+  background-size: 105% 140%;
+}
+.item_list .item_gun .check {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.04166667vw;
+  height: 1.04166667vw;
+}
+.item_list .item_gun .left {
+  position: absolute;
+  left: 3.4375vw;
+  top: 2.1875vw;
+  width: 6.04166667vw;
+  height: 8.22916667vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+}
+.item_list .item_gun .left div {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item_list .item_gun .center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 5.72916667vw;
+  height: 5.72916667vw;
+}
+.item_list .item_gun .center div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.item_list .item_gun .center .bg {
+  width: 5.72916667vw;
+  height: 5.72916667vw;
+  background: url(../../../assets/img/linshi1.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round1 5s linear infinite;
+}
+.item_list .item_gun .center .bg2 {
+  width: 4.16666667vw;
+  height: 4.16666667vw;
+  background: url(../../../assets/img/linshi2.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round2 3s linear infinite;
+}
+.item_list .item_gun .center .gun {
+  z-index: 0;
+  width: 2.60416667vw;
+  height: 1.82291667vw;
+  background: url(../../../assets/img/g1-1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.item_list .item_gun .right {
+  position: absolute;
+  right: 3.125vw;
+  top: 2.1875vw;
+  width: 5.83333333vw;
+  height: 8.22916667vw;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+  flex-wrap: wrap;
+}
+.item_list .item_gun .right div {
+  width: 100%;
+  text-align: center;
+}
+.item_list .item_gun .right div p {
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item_list .item_gun .right div:nth-child(2) {
+  cursor: pointer;
+}
+.item_list .item_gun .right div:nth-child(3) {
+  cursor: pointer;
+}
+.item_list .item_gun .right div:last-child {
+  cursor: pointer;
+}
+.item_list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.item_list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.item_list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.none-data {
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 0.2rem;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 1rem auto;
+  border-radius: 0.2rem;
+}
+.zhezhao {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9;
+}
+.alert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 60%;
+  z-index: 1;
+  height: 8rem;
+  background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}
+.alert .close {
+  position: absolute;
+  right: 1.05rem;
+  bottom: 0.06rem;
+  width: 1.7rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  z-index: 99;
+  color: #fff;
+  cursor: pointer;
+}
+.alert p {
+  font-size: 0.5rem;
+}
+.alert4 {
+  width: 50%;
+  height: 7.2rem;
+}
+.alert4 .text {
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  width: 100%;
+  height: 3rem;
+  font-size: 0.16rem;
+}
+.alert4 .text .title {
+  width: 96%;
+  height: 0.4rem;
+  margin-left: 2%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 3fr 3fr 5fr 5fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 0.03rem;
+  border: 0.01rem solid #3f52c0;
+}
+.alert4 .text .title span {
+  text-align: center;
+  line-height: 0.4rem;
+  border-right: 0.01rem solid #3f52c0;
+}
+.alert4 .text .title span:last-child {
+  border: none;
+}
+.alert4 .text .list {
+  width: 96%;
+  height: 0.4rem;
+  margin-left: 2%;
+  background: rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 3fr 3fr 5fr 5fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 0.03rem;
+  border: 0.01rem solid #3f52c0;
+  border-top: none;
+}
+.alert4 .text .list span {
+  text-align: center;
+  line-height: 0.4rem;
+  border-right: 0.01rem solid #3f52c0;
+}
+.alert4 .text .list span:last-child {
+  border: none;
+}
+.alert4 .text .list_wrap {
+  max-height: 2.4rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.alert4 .list_wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.alert4 .list_wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.alert4 .list_wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.alert4 .contentwrap {
+  width: 100%;
+  height: 90%;
+  position: relative;
+}
+.alert4 .contentwrap .top {
+  position: absolute;
+  left: 50%;
+  top: 3rem;
+  width: 6rem;
+  height: 3rem;
+  z-index: 1;
+  transform: translateX(-40%);
+  background: url(../../../assets/img/gun-xq.png) no-repeat;
+  background-size: 100% 100%;
+}
+.alert4 .contentwrap .bottom {
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 7rem;
+  height: 7rem;
+  transform-origin: center bottom;
+  transform: rotateX(80deg);
+}
+.alert4 .contentwrap .bottom > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.alert4 .contentwrap .up {
+  background: url(../../../assets/img/dipan-up.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round1 6s linear infinite;
+}
+.alert4 .contentwrap .down {
+  background: url(../../../assets/img/dipan-down.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round2 6s linear infinite;
+}
+.jiebang {
+  color: #e73535;
+  transform: translate3d(0, 0, 0);
+}
+.bingbox {
+  width: 60%;
+  height: 70%;
+  box-sizing: border-box;
+  padding-top: 0.8rem;
+  padding-left: 1.2rem;
+  background: url(../../../assets/img/round-bg.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  font-size: 0.18rem;
+}
+.bingbox .close {
+  position: absolute;
+  right: 0.4rem;
+  top: 0.4rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #ee8a8a;
+  color: #fff;
+  cursor: pointer;
+}
+.bingbox .text {
+  width: 3rem;
+  height: 0.4rem;
+  margin-left: 50%;
+  margin-bottom: 0.1rem;
+  transform: translateX(-80%);
+}
+.bingbox .m-item-wrap {
+  width: 88%;
+  height: 70%;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.bingbox .m-item-wrap .m-item {
+  width: 2rem;
+  height: 0.4rem;
+  border-radius: 0.06rem;
+  background: #005cc8;
+  margin: 0.09rem 0.09rem 0 0.09rem;
+  display: flex;
+  line-height: 0.4rem;
+  cursor: pointer;
+}
+.bingbox .m-item-wrap .m-item span {
+  width: 100%;
+  text-indent: 0.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bingbox .m-item-wrap .no-data {
+  font-size: 0.18rem;
+  line-height: 2rem;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.bingbox .m-item-wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.bingbox .m-item-wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.bingbox .m-item-wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.bingbox .sub {
+  padding: 0.03rem 0.06rem;
+  border-radius: 0.03rem;
+  margin-left: 50%;
+  margin-top: 0.1rem;
+  transform: translateX(-130%);
+}

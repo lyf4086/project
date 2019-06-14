@@ -1,0 +1,304 @@
+.jigou {
+  width: 100%;
+  height: 96%;
+  background: url(../../assets/img/jigouguanli.png) no-repeat;
+  background-size: 100% 100%;
+  color: #55affd;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+.tree-menu {
+  width: 11%;
+  height: 100%;
+}
+.tree-menu h3 {
+  width: 100%;
+  height: 0.5rem;
+  font-size: 0.2rem;
+  line-height: 0.5rem;
+  text-indent: 0.3rem;
+  color: #fff;
+}
+.tree-menu .nav-wrap {
+  transform: scaleX(0.96) translate3d(0, 0, 0);
+}
+.top-nav {
+  width: 88%;
+  height: 0.3rem;
+  position: absolute;
+  right: 0;
+  display: flex;
+}
+.top-nav .bread-wrap {
+  width: 60%;
+  height: 100%;
+}
+.top-nav .search-wrap {
+  width: 40%;
+  height: 100%;
+  font-size: 0.16rem;
+  border: 1px solid #55affd;
+  overflow: hidden;
+  display: flex;
+}
+.top-nav .search-wrap .sel {
+  flex: 3;
+  font-size: 0.14rem;
+  background: #20364e;
+  color: #fff;
+}
+.top-nav .search-wrap .textput {
+  flex: 7;
+  font-size: 0.14rem;
+  text-indent: 0.15rem;
+  background: #20364e;
+  color: #fff;
+  border-left: 0.01rem solid #55affd;
+  border-right: 0.01rem solid #55affd;
+}
+.top-nav .search-wrap .sub {
+  flex: 1;
+  font-size: 0.16rem;
+  cursor: pointer;
+  background: #20364e url(../../assets/img/search.jpg) no-repeat center;
+}
+.page-index {
+  width: 42%;
+  padding-right: 0.2rem;
+  padding-left: 0.2rem;
+  height: 3.6vh;
+  position: absolute;
+  right: 0;
+  bottom: -4.6vh;
+  background: url(../../assets/img/fenye.png) no-repeat;
+  background-size: 100% 100%;
+}
+.message-box {
+  width: 55%;
+  height: 0.5rem;
+  font-size: 0.18rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0.33rem;
+  right: 3rem;
+  text-align: center;
+  line-height: 0.5rem;
+}
+.add-del {
+  width: 4.6rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  position: absolute;
+  top: 5%;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.add-del button {
+  font-size: 0.12rem;
+  background: none;
+  color: #a4d3ff;
+  margin: 0 0.1rem;
+  cursor: pointer;
+}
+.add-del button:before {
+  display: inline-block;
+  content: '';
+  margin: 0 0.02rem;
+  margin-bottom: -0.07rem;
+  width: 0.26rem;
+  height: 0.26rem;
+}
+.add-del button:active {
+  color: #c74512;
+}
+.add-del button:nth-child(1):before {
+  background: url(../../assets/img/add.png) no-repeat;
+  background-size: 100% 100%;
+}
+.add-del button:nth-child(2):before {
+  background: url(../../assets/img/delete.png) no-repeat;
+  background-size: 100% 100%;
+}
+.add-del button:nth-child(3):before {
+  background: url(../../assets/img/retext.png) no-repeat;
+  background-size: 100% 100%;
+}
+.content {
+  width: 88.9%;
+  height: 89%;
+  position: absolute;
+  right: 0;
+  top: 8.5vh;
+}
+.alert {
+  position: fixed;
+  z-index: 199;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+}
+.alert .text-wrap {
+  width: 40%;
+  height: 46%;
+  background: url(../../assets/img/changepass.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.alert .text-wrap .text-title {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin-top: 0.5rem;
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  line-height: 0.38rem;
+}
+.alert .text-wrap .text-content {
+  height: 50%;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 0.12rem;
+}
+.alert .text-wrap .text-content div {
+  margin: 0.2rem 0;
+  height: 0.4rem;
+  line-height: 0.5rem;
+}
+.alert .text-wrap .text-content div input {
+  height: 0.4rem;
+  width: 3rem;
+  border-radius: 0.05rem;
+  text-indent: 0.15rem;
+}
+.alert .text-wrap .text-content div select {
+  height: 0.4rem;
+  width: 1rem;
+  border-radius: 0.05rem;
+}
+.alert .text-wrap .text-content .check-person {
+  background: #185277;
+  position: relative;
+  z-index: 5;
+  width: 6rem;
+  height: auto;
+  max-height: 3rem;
+  border-radius: 0.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.alert .text-wrap .text-content .check-person .p-item {
+  background: #064681;
+  margin: 0.05rem;
+  width: 2.85rem;
+  border-radius: 0.03rem;
+  text-indent: 0.1rem;
+  cursor: pointer;
+}
+.alert .text-wrap .text-content .check-person::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 0.08rem;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0.08rem;
+}
+.alert .text-wrap .text-content .check-person::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 0.05rem;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.alert .text-wrap .text-content .check-person::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.alert .text-wrap .submit {
+  margin: 0rem auto;
+  font-size: 0.18rem;
+  letter-spacing: 0.18rem;
+  width: 1rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  text-indent: 0.16rem;
+  background: #185277;
+  color: #fff;
+  border-radius: 0.1rem;
+}
+.alert .text-wrap i {
+  position: absolute;
+  width: 0.3rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  border-radius: 50%;
+  background: #fff;
+  color: blue;
+  top: 0.2rem;
+  right: 0.2rem;
+  text-align: center;
+  cursor: pointer;
+}
+.alert .text-wrap i:hover {
+  background: red;
+}
+.xiugai {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 5.5rem;
+  height: 3rem;
+  box-sizing: border-box;
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+  font-size: 0.16rem;
+  background: url(../../assets/img/changepass.png) no-repeat;
+  background-size: 100% 100%;
+}
+.xiugai input {
+  text-indent: 0.1rem;
+}
+.xiugai .del {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.xiugai .del:hover {
+  background: crimson;
+}
+.xiugai .change-type {
+  width: 4rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  margin-top: 0.06rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.xiugai .sub-wrap {
+  position: absolute;
+  bottom: 0.2rem;
+  left: 50%;
+  padding: 0.03rem 0.1rem;
+  border-radius: 0.05rem;
+  transform: translateX(-50%);
+  cursor: pointer;
+}

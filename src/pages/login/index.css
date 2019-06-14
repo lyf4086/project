@@ -1,0 +1,77 @@
+.login2 {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  top: 0;
+  left: 0;
+  background: url(../../assets/img/login1.jpg) no-repeat;
+  background-size: 100% 100%;
+  font-size: 0.14rem;
+}
+.fromwrap {
+  width: 8.1rem;
+  height: 5.14rem;
+  background: url(../../assets/img/input-bg.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.fromwrap .username {
+  width: 4.45rem;
+  height: 0.5rem;
+  position: absolute;
+  top: 2rem;
+  left: 0.26rem;
+  background: url(../../assets/img/text-bg1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.fromwrap .username input {
+  width: 2rem;
+  height: 0.5rem;
+  margin-left: 0.7rem;
+  border: none;
+  background: transparent;
+}
+.fromwrap .pass {
+  width: 4.45rem;
+  height: 0.5rem;
+  position: absolute;
+  top: 2.8rem;
+  left: 0.26rem;
+  background: url(../../assets/img/text-bg2.png) no-repeat;
+  background-size: 100% 100%;
+}
+.fromwrap .pass input {
+  width: 2rem;
+  height: 0.5rem;
+  margin-left: 0.7rem;
+  border: none;
+  background: transparent;
+}
+.fromwrap .sub {
+  width: 1.5rem;
+  height: 0.3rem;
+  background: url(../../assets/img/btn-bg1.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 3.8rem;
+  left: 0.3rem;
+  cursor: pointer;
+}
+.fromwrap .reset {
+  width: 1.5rem;
+  height: 0.3rem;
+  background: url(../../assets/img/btn-bg2.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 3.8rem;
+  left: 2.2rem;
+  cursor: pointer;
+}
+.fromwrap .reset:active {
+  box-shadow: 0 0 0.1rem 0.1rem #ccc;
+}

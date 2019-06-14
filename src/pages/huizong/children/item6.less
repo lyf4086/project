@@ -1,0 +1,198 @@
+@rem: 100rem;
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+
+
+
+  p {
+    width: 95%;
+    height: 30/@rem;
+    font-size: 14/@rem;
+    color: #fff;
+    line-height: 30/@rem;
+    text-indent: 30/@rem;
+    background: url(../../../assets/img/26.png)no-repeat;
+    background-size: 100% 100%;
+    margin-top: 10/@rem;
+    margin-left: 5%;
+  }
+
+  div {
+    height: 100%;
+    position: relative;
+  }
+
+}
+
+
+#char-left {
+  position: absolute;
+  // width:100%;
+  width: 150%;
+  height: 140%;
+  // height:60%;
+  // margin-top:-18%;
+  margin-top: -18%;
+  margin-left: -10%;
+  transform: scale3d(0.6, 0.8, 1) translateX(-20%);
+  box-sizing: border-box;
+
+  // padding-left:10px;
+  &:hover {
+    transition: .5s;
+    transform: scale3d(1, 1, 1) translateX(-10%);
+    width: 150%;
+    height: 140%;
+    margin-top: -28%;
+    background: rgb(49, 133, 230);
+    z-index: 2;
+  }
+
+}
+
+#char-center {
+  position: absolute;
+  width: 300%;
+  // height:240%;
+  height: 60vh;
+  // top:-145/@rem;
+  // top:-170/@rem;
+  top: -15.5vh;
+  left: -250/@rem;
+  transform: scale(0.35);
+
+  &:hover {
+    z-index: 1;
+    transition: .5s;
+    transform: scale(1) translateY(-26%);
+    background: rgb(49, 133, 230);
+  }
+}
+
+
+.itemleft {
+  width: 42%;
+  height: 100%;
+}
+
+.itemcenter {
+  width: 24%;
+  height: 100%;
+
+}
+
+.itemright {
+  width: 34%;
+  height: 100%;
+  position: relative;
+
+  .diandian {
+    position: absolute;
+    top: 18%;
+    left: 9%;
+    width: 5/@rem;
+    height: 76%;
+    background: rgb(94, 154, 233);
+
+    @keyframes dian {
+      0% {
+        transform: scale(1)
+      }
+
+      80% {
+        transform: scale(1.5)
+      }
+
+      98% {
+        transform: scale(1.5)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+
+    .item {
+      position: relative;
+      height: 33%;
+
+      span {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 10/@rem;
+        height: 10/@rem;
+        left: -2.5/@rem;
+        border-radius: 50%;
+        background: rgb(247, 247, 250);
+        transform: scale(0.8);
+      }
+
+      &:nth-child(2) {
+        span {
+          animation: dian 2s infinite;
+        }
+      }
+    }
+
+
+  }
+
+  .yuqi {
+    width: 90%;
+    height: 80%;
+    font-size: 16/@rem;
+    color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+
+
+
+    .liebiao {
+      position: absolute;
+      height: 100%;
+      // height:400/@rem;
+      width: 100%;
+
+      .one {
+        height: 33.3%;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: rotate3d(0, 0, 0);
+        transform: scale(0.8);
+        transition: 0.3s;
+        color: rgb(243, 236, 236);
+
+        div {
+          height: 60%;
+        }
+
+        h6 {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      .one:nth-child(2) {
+
+        font-weight: bolder;
+        transform: scale(1);
+        color: #fff;
+      }
+    }
+
+
+
+  }
+}

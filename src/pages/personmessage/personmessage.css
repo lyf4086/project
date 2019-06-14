@@ -1,0 +1,313 @@
+@keyframes round1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes round2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.main {
+  font-size: 0.18rem;
+  line-height: 0.3rem;
+  color: #3b7fe6;
+  background: #07112b url(../../assets/img/mine-message-bg.png) no-repeat;
+  background-position: right center;
+  background-position-x: 13rem;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.main .imgwrap {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+  width: 5rem;
+  height: 6.2rem;
+  overflow: hidden;
+}
+.main .imgwrap img {
+  width: 100%;
+}
+.main .textwrap {
+  position: absolute;
+  left: 0.3rem;
+  top: 0.3rem;
+  width: 5.9rem;
+  height: 6.2rem;
+  background: rgba(124, 156, 175, 0.2);
+}
+.main .gunwrap {
+  position: absolute;
+  left: 6.4rem;
+  top: 0.3rem;
+  width: 5rem;
+  height: 6.2rem;
+  background: rgba(124, 156, 175, 0.2);
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.main .gunwrap .item {
+  width: 4.5rem;
+  height: 2rem;
+  background: rgba(35, 84, 110, 0.3);
+  position: relative;
+  margin: 0.1rem 0;
+}
+.main .gunwrap .item .gun {
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+  width: 1.56rem;
+  height: 1rem;
+  background: url(../../assets/img/g1-1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.main .prev {
+  position: absolute;
+  left: 1.1rem;
+  bottom: 0.4rem;
+  padding: 0.25rem;
+  border-radius: 0.05rem;
+  cursor: pointer;
+  background: url(../../assets/img/mine-message-icon.png) no-repeat center;
+}
+.main .content {
+  width: 13.6rem;
+  height: 6.8rem;
+  position: absolute;
+  top: 0.2rem;
+  left: 1.2rem;
+  background: url(../../assets/img/mine-message-item.png) no-repeat;
+  background-size: 100% 100%;
+}
+.main .content .text {
+  position: absolute;
+  left: 0.9rem;
+  top: 1rem;
+  width: 9rem;
+  height: 4.9rem;
+  font-size: 0.16rem;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.main .content .text .item {
+  width: 4.5rem;
+  height: 0.8rem;
+  display: flex;
+  line-height: 0.8rem;
+}
+.main .content .text .gun_list {
+  width: 9rem;
+  height: 2.4rem;
+  overflow-x: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main .content .text .gun_list .gun_item {
+  width: 2.8rem;
+  height: 2rem;
+  margin: 0.05rem;
+  background: rgba(11, 57, 117, 0.3);
+  box-sizing: border-box;
+  padding: 0.3rem;
+}
+.main .content .text .gun_list .gun_item button {
+  margin-top: 0.3rem;
+  border-radius: 0.05rem;
+  padding: 0.05rem 0.15rem;
+  background: #6fbdd1;
+  cursor: pointer;
+}
+.main .content .img_wrap {
+  position: absolute;
+  right: 0;
+  top: 0.6rem;
+  width: 2.2rem;
+  height: 3rem;
+  border-radius: 0.1rem;
+  overflow: hidden;
+}
+.main .content .img_wrap img {
+  width: 100%;
+}
+.main .cover {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.main .cover .alert_box {
+  position: absolute;
+  width: 50%;
+  height: 7.2rem;
+  background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.main .cover .alert_box .close {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.07rem;
+  width: 1.8rem;
+  height: 0.28rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 33;
+}
+.main .cover .alert_box .contentwrap {
+  width: 100%;
+  height: 90%;
+  position: relative;
+}
+.main .cover .alert_box .contentwrap .top {
+  position: absolute;
+  left: 50%;
+  top: 3rem;
+  width: 6rem;
+  height: 3rem;
+  z-index: 1;
+  transform: translateX(-40%);
+  background: url(../../assets/img/gun-xq.png) no-repeat;
+  background-size: 100% 100%;
+}
+.main .cover .alert_box .contentwrap .bottom {
+  position: absolute;
+  bottom: -0.2rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 7rem;
+  height: 7rem;
+  transform-origin: center bottom;
+  transform: rotateX(80deg);
+}
+.main .cover .alert_box .contentwrap .bottom > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.main .cover .alert_box .contentwrap .up {
+  background: url(../../assets/img/dipan-up.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round1 6s linear infinite;
+}
+.main .cover .alert_box .contentwrap .down {
+  background: url(../../assets/img/dipan-down.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round2 6s linear infinite;
+}
+.main .cover .alert_box .text {
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  width: 100%;
+  height: 3rem;
+  font-size: 0.16rem;
+}
+.main .cover .alert_box .title {
+  width: 96%;
+  height: 0.4rem;
+  margin-left: 2%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 3fr 3fr 5fr 5fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 0.03rem;
+  border: 0.01rem solid #3f52c0;
+}
+.main .cover .alert_box .title span {
+  text-align: center;
+  line-height: 0.4rem;
+  border-right: 0.01rem solid #3f52c0;
+}
+.main .cover .alert_box .title span:last-child {
+  border: none;
+}
+.main .cover .alert_box .list {
+  width: 96%;
+  height: 0.4rem;
+  margin-left: 2%;
+  background: rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 3fr 3fr 5fr 5fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 0.03rem;
+  border: 0.01rem solid #3f52c0;
+  border-top: none;
+}
+.main .cover .alert_box .list span {
+  text-align: center;
+  line-height: 0.4rem;
+  border-right: 0.01rem solid #3f52c0;
+}
+.main .cover .alert_box .list span:last-child {
+  border: none;
+}
+.main .cover .alert_box .no_data {
+  width: 100%;
+  text-align: center;
+  line-height: 1.5rem;
+}
+.main .cover .alert_box .list_wrap {
+  max-height: 2.4rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.main .cover .alert_box .list_wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.main .cover .alert_box .list_wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.main .cover .alert_box .list_wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.gun_list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.gun_list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.gun_list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}

@@ -1,0 +1,134 @@
+
+@vw:100rem;
+
+.content{
+  font-size: 16/@vw;
+  color: #bcbfbe;
+  // position: relative;
+  .prev{
+    position: absolute;
+    width:25px;
+    height:30px;
+    background: url(../../../assets/img/mine-message-icon.png) no-repeat center;
+    background-size: 100% 100%;
+    bottom:60/@vw;
+  }
+  .two{
+    .title{
+      width:1466/@vw;
+      height:66/@vw;
+      margin:0 auto;
+      box-sizing: border-box;
+      border:3/@vw solid #00a0e9;
+
+      display: flex;
+      span{
+        width:1466/3/@vw;
+        line-height: 60/@vw;
+        text-align: center;
+        box-sizing: border-box;
+        border-right: 3/@vw solid #00a0e9;
+      }
+      span:last-child{
+        border:none
+      }
+    }
+    .list{
+      width:1466/@vw;
+      max-height:600/@vw;
+      margin:0 auto;
+      box-sizing: border-box;
+      border:3/@vw solid #00a0e9;
+      overflow-y: auto;
+      li{
+        width:100%;
+        height:668/11/@vw;
+
+        box-sizing: border-box;
+        border-bottom:3/@vw solid #00a0e9;
+        display: flex;
+        span{
+          width:1466/3/@vw;
+          line-height: 60/@vw;
+          text-align: center;
+          border-right: 3/@vw solid #00a0e9;
+        }
+        span:first-child{
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        span:last-child{
+          border:none
+        }
+      }
+      li:last-child{
+        border: none;
+      }
+    }
+  }
+  .three{
+    .title{
+      width:1466/@vw;
+      height:66/@vw;
+      margin:0 auto;
+      box-sizing: border-box;
+      border:3/@vw solid #00a0e9;
+
+      display: flex;
+      span{
+        width:1466/7/@vw;
+        line-height: 60/@vw;
+        text-align: center;
+        box-sizing: border-box;
+        border-right: 3/@vw solid #00a0e9;
+      }
+      span:last-child{
+        border:none
+      }
+    }
+    .list{
+      width:1466/@vw;
+      max-height:600/@vw;
+      margin:0 auto;
+      box-sizing: border-box;
+      border:3/@vw solid #00a0e9;
+      overflow-y: auto;
+      li{
+        width:100%;
+        height:668/11/@vw;
+
+        box-sizing: border-box;
+        border-bottom:3/@vw solid #00a0e9;
+        display: flex;
+        span{
+          width:1466/7/@vw;
+          line-height: 60/@vw;
+          text-align: center;
+          border-right: 3/@vw solid #00a0e9;
+        }
+        span:last-child{
+          border:none
+        }
+      }
+      li:last-child{
+        border: none;
+      }
+    }
+  }
+}
+
+
+.list::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.list::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.list::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}

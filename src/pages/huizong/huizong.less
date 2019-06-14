@@ -1,0 +1,322 @@
+
+@rem:100rem;
+@keyframes round {
+    0%{
+        transform: rotate(0deg)
+    }
+    100%{
+        transform: rotate(360deg)
+    }
+}
+.backImg(){
+    background: url("../../assets/img/0.png") no-repeat ;
+    background-size: 100% 100%;
+  }
+  
+.wrap{
+    width:100%;
+    height:100%;
+   
+}
+.jiao{
+    position:absolute;
+    width:7/@rem;
+    height:7/@rem;
+    background: red;
+}
+.jiao-t{
+    top:-1/@rem;
+    left:-1/@rem;
+    background: url(../../assets/img/jian.png)
+}
+.jiao-r{
+    top:-1/@rem;
+    right:-1/@rem;
+    background: url(../../assets/img/jian.png);
+     transform: rotate(90deg)
+}
+.jiao-b{
+    bottom:-1/@rem;
+    right:-1/@rem;
+    background: url(../../assets/img/jian.png);
+     transform: rotate(180deg)
+}
+.jiao-l{
+    bottom:-1/@rem;
+    left:-1/@rem;
+    background: url(../../assets/img/jian.png);
+    transform: rotate(270deg)
+}
+.up{
+    width: 100%;
+    height:60%;
+    display: flex;
+    justify-content: space-between;
+    .fourbox{
+        width:1176/@rem;
+        height:100%;
+        display: grid;
+        grid-template-columns:1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        .echart-item{
+            // border:1/@rem solid #4b89ba;
+            .qiangzhi{
+                width:96%;
+                height:90%;
+                
+                position: relative;
+                left:14/@rem;
+                .float-l{
+                    width:200/@rem;
+                    height:100%;
+                    background: url(../../assets/img/441.png) no-repeat;
+                    background-size:100%; 
+                }
+                .yuan{
+                    position: absolute;
+                    width:280/@rem;
+                    height:280/@rem;
+                    background: url(../../assets/img/round.png) no-repeat;
+                    background-size: cover;
+                    border-radius: 50%;
+                    top:-32/@rem;
+                    left:0;
+                    right:0;
+                    margin:auto;
+                    transform-origin: center 134/@rem;
+                    animation: round 5s linear infinite;
+                }
+                .gun{
+                    position: absolute;
+                    width:180/@rem;
+                    height:180/@rem;
+                    border-radius: 50%;
+                    position: absolute;
+                    top:10/@rem;
+                    left:188/@rem;
+                    box-shadow: inset 0 0 50/@rem 2/@rem rgba(255,255,255,0.7);
+                    background: url(../../assets/img/gun.png)no-repeat center;
+                    background-size: 55%;
+                }
+                .float-r{
+                    width:200/@rem;
+                    height:100%;
+                    position: absolute;
+                    right:0;
+                    top:0;
+                    transform: rotateY(180deg);
+                    background: url(../../assets/img/441.png) no-repeat;
+                    background-size:100%; 
+                    // background-position-y: 20/@rem;
+                }
+                .text-left{
+                    position: absolute;
+                    
+                    top:0;
+                    left:0;
+                    bottom:0;
+                    margin:auto;
+                    width:130/@rem;
+                    height:150/@rem;
+                    padding-left:10/@rem;
+                    p{
+                        letter-spacing: 2/@rem;
+                        line-height:30/@rem
+                    }
+            //   ..........................
+                }
+                .text-right{
+                    position: absolute;
+                    right:0;
+                    top:0;
+                    bottom:0;
+                    margin:auto;
+                    width:130/@rem;
+                    height:150/@rem;
+                    p{
+                        letter-spacing: 2/@rem; 
+                    }
+                   
+                }
+                .num{
+                    color:#fff;
+
+
+                    width:100/@rem;
+                    height:30/@rem;
+                    margin:5/@rem;
+                    display: grid;
+                    grid-gap:3/@rem;
+                    grid-template-columns: repeat(8,1fr);
+                    i{
+                        width:100%;
+                        height:100%;
+
+                        .backImg
+                    }
+                }
+            }
+            p{
+                font-size: 12/@rem;
+                line-height: 24/@rem;
+                color:#90cffb;
+                letter-spacing: 6/@rem;
+            }
+            span{
+                position:absolute;
+                width:7/@rem;
+                height:7/@rem;
+                // background: red;
+            }
+            .jiao-t{
+                top:-1/@rem;
+                left:-1/@rem;
+                background: url(../../assets/img/jian.png)
+            }
+            .jiao-r{
+                top:-1/@rem;
+                right:-1/@rem;
+                background: url(../../assets/img/jian.png);
+                 transform: rotate(90deg)
+            }
+            .jiao-b{
+                 bottom:-1/@rem;
+                 right:-1/@rem;
+                 background: url(../../assets/img/jian.png);
+                  transform: rotate(180deg)
+            }
+            .jiao-l{
+                 bottom:-1/@rem;
+                 left:-1/@rem;
+                 background: url(../../assets/img/jian.png);
+                 transform: rotate(270deg)
+            }
+           .itemwrap{
+               width:97%;
+               height:85%;
+               background: rgba(255,255,255,0.08);
+               border:1/@rem solid #4b89ba;
+                position: relative;
+               display: flex;
+               justify-content: space-around;
+              
+               &>div:nth-child(1){
+                   width:120%;
+
+               }
+              
+           }
+           .list{
+               left:8/@rem;
+              
+           }
+
+        }
+    }
+    
+    .zongshu{
+        width:200/@rem;
+        height:100%;
+        background: tan
+    }
+    .rightbox{
+        width: 540/@rem;
+        height:97%;
+        position: relative;
+        top:10/@rem;
+        &>p{
+                font-size: 12/@rem;
+                text-indent: 20/@rem;
+                color:#90cffb;
+                letter-spacing: 6/@rem;
+        }
+       
+    }
+    .jibiefenbu{
+        position: absolute;
+        bottom: 0;
+        right:0;
+        margin:auto;
+        width:95%;
+        height:95%;
+        border:1/@rem solid #4b89ba;
+        background:rgba(255,255,255,0.08);
+        
+    }
+}
+
+// #firstbox{
+
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-content: space-around;
+//     p{
+//         margin:0;
+//         padding:0;
+//         width:45%;
+//         height:35/@rem;
+//         line-height:35/@rem; 
+//         background: url(../../assets/img/26.png) no-repeat;
+//         background-size: cover;
+//         text-indent: 24/@rem;
+//     }
+//     #chuqing{
+//         width:50%;
+//        background: red
+//     }
+//     #zhanbi{
+//         width:50%
+//     }
+
+// }
+
+
+
+
+
+.down{
+    width:100%;
+    height:40%;
+    display: flex;
+    justify-content: space-between;
+    .leftbox{
+        position: relative;
+        width:920/@rem;
+        height:90%;
+        
+    }
+    .dianliang{
+        position: absolute;;
+        width:100%;
+        height:95%;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        margin:auto;
+        border:1/@rem solid #4b89ba;
+        background:rgba(255,255,255,0.08);
+    }
+    .chuqin{
+        position: absolute;;
+        width:100%;
+        height:95%;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        margin:auto;
+        border:1/@rem solid #4b89ba;
+        background:rgba(255,255,255,0.08);
+    }
+    .rightbox{
+        position: relative;
+        width:742/@rem;
+        height:100%;
+        
+    }
+}
+
+
+
+

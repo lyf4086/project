@@ -1,0 +1,272 @@
+<template>
+  <div class="chiqiang">
+    <div class="tree-menu">
+      <h3>持枪人员</h3>
+      <div class="nav-wrap">
+        <el-tree
+          :data="treeListData"
+          :props="defaultProps"
+          :highlight-current="true"
+          accordion
+          node-key="id"
+          current-node-key="316"
+          default-expand-all
+          @node-click="handleNodeClick"
+        ></el-tree>
+      </div>
+    </div>
+    <div class="top-nav">
+      <div class="bread-wrap">
+        <!--面包屑导航-->
+        <breadNav title="持枪人员" :next="active_title"/>
+      </div>
+      <div class="search-wrap">
+        <!--搜索框-->
+        <select class="sel" v-model="selValue">
+          <option value disabled selected>请选择搜索类型</option>
+          <option value="uname">警员姓名</option>
+          <option value="police_number">警员编号</option>
+        </select>
+        <input
+          type="text"
+          class="textput"
+          v-model="putValue"
+          @keyup.13="subSearch"
+          placeholder="请输入搜素关键字"
+        >
+        <button class="sub" @click="subSearch"></button>
+      </div>
+    </div>
+    <div class="page-index">
+      <el-pagination
+        :page-size="4"
+        :pager-count="9"
+        layout="prev, pager, next"
+        @current-change="currentChange"
+        :total="pageTotal"
+        ref="page"
+      ></el-pagination>
+    </div>
+
+    <div class="content" v-if="dataList">
+      <div class="none-data" v-if="!dataList.length">暂时没有数据......</div>
+      <onePerson
+        v-for="(item,index) in dataList"
+        :key="item.id"
+        :oneDate="item"
+        @toNew="toNew"
+        @toHistory="toHistory"
+      />
+    </div>
+    <div class="alert" v-show="mapShow">
+      <div class="map_wrap">
+        <div id="map-content"></div>
+        <button class="del" @click="mapOff">取消</button>
+      </div>
+    </div>
+  </div>
+</template>
+<style scoped>
+@import url(./index.css);
+</style>
+<script>
+import breadNav from "@/components/breadnav";
+import onePerson from "./children/onePerson";
+
+export default {
+  components: { breadNav, onePerson },
+  data() {
+    return {
+      mapShow: false,
+      active_title: "",
+      selValue: "",
+      putValue: "",
+      treeListData: [],
+      dataList: [],
+      activeItem: "",
+      pageTotal: 0,
+      defaultProps: {
+        children: "child",
+        label: "mechanism_name"
+      }
+    };
+  },
+  methods: {
+    subSearch() {
+      if (!this.selValue) {
+        this.$message("请选择搜索的条件");
+        return;
+      }
+      if (!this.putValue.trim()) {
+        this.$message("请输入关键字！");
+      }
+
+      this.search();
+    },
+    mapInit(obj) {
+      let map = new AMap.Map("map-content", {
+        center: [obj.longitude, obj.latitude],
+        resizeEnable: true,
+        zoom: 13
+      });
+      var marker = new AMap.Marker({
+        position: new AMap.LngLat(obj.longitude, obj.latitude), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+        title: obj.policeName
+      });
+      map.add(marker);
+      map.setFitView([...marker]);
+    },
+    mapOff() {
+      this.mapShow = false;
+      this.hasTime = false;
+    },
+    searchByTime() {
+      this.hasTime = false;
+    },
+    toNew(obj) {
+      if (!obj.longitude) {
+        this.$message({
+          type: "error",
+          message: "该人员暂无轨迹信息"
+        });
+        return;
+      }
+      this.mapShow = true;
+
+      this.mapInit(obj);
+    },
+    toHistory(obj) {
+      if (!obj.longitude) {
+        this.$message({
+          type: "error",
+          message: "该人员暂无轨迹信息"
+        });
+        return;
+      }
+
+      this.$router.push({
+        name: "GuiJi",
+        params: obj
+      });
+    },
+    getTreeList() {
+      // ......................该组件默认加载树形菜单数据
+      var key = this.$store.state.key;
+      var objs = { p: 1, ps: 6, mechanism_id: 1 };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("p", objs.p);
+      params.append("ps", objs.ps);
+      params.append("mechanism_id", objs.mechanism_id);
+      params.append("sign", sign);
+      params.append("token", token);
+
+      this.$axios({
+        url:
+          "http://s.tronl.cn/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          this.treeListData = data.data.data.list;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      this.hasData = true;
+    },
+    handleNodeClick(item) {
+      //树形菜单点击
+      this.$refs.page.internalCurrentPage = 1;
+      this.activeItem = item; //记录当前激活的树形菜单子项
+      this.active_title = item.mechanism_name;
+      this.getDataList(item.id);
+    },
+    getDataList(jigou_id, active_p = 1) {
+      //................获取持枪人员列表信息函数
+      if (!jigou_id) {
+        jigou_id = this.$gscookie.getCookie("mechanism_id");
+      }
+      var key = this.$store.state.key;
+      var objs = { id: jigou_id, page: active_p };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("id", objs.id);
+      params.append("page", objs.page);
+
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Gunlibrary&a=index",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.data.code == 200) {
+            this.dataList = data.data.data;
+            this.pageTotal = data.data.total - 0;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    currentChange(n) {
+      this.getDataList(this.activeItem.id, n);
+    },
+    search() {
+      let sel = this.selValue;
+      let val = this.putValue;
+      var key = this.$store.state.key;
+      var objs = { state: 1 };
+      objs[sel] = val;
+
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append(sel, objs[sel]);
+      params.append("state", objs.state);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Gunlibrary&a=index",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.data.code == 200) {
+            this.dataList = data.data.data;
+            this.pageTotal = data.data.total - 0;
+            this.selValue = "";
+            this.putValue = "";
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  },
+  created() {
+    this.getTreeList();
+    this.getDataList();
+    let item = this.$gscookie.getCookie("message_obj");
+    if (item.role_id == 3) {
+      this.$router.push({
+        name: "GuiJi"
+      });
+    }
+    let str = this.$gscookie.getCookie("gun");
+    if (JSON.stringify(str) == "{}") {
+      this.$router.push("/loginput");
+      return;
+    }
+  }
+};
+</script>

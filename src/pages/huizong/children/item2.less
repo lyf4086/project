@@ -1,0 +1,119 @@
+
+@rem:100rem;
+@keyframes round{
+    from{
+        transform: rotate(0deg)
+    }
+    to{
+        transform: rotate(360deg)
+    }
+}
+@keyframes changeShadow {
+  from {
+    box-shadow: inset 0 0 30/@rem 10/@rem #fff;
+  }
+  to{
+    box-shadow: inset 0 0 6/@rem 3/@rem #fff;
+  }
+}
+
+.main{
+    width:100%;
+    // height:100%;
+    height:188/@rem;
+
+    display: block;
+    position: relative;
+}
+.left-bg{
+    position: absolute;
+    left:0;
+    width:35%;
+    // height:100%;
+    height:188/@rem;
+    background: url(../../../assets/img/441.png) no-repeat;
+    background-size: 100% 100%;
+}
+.right-bg{
+    width:35%;
+    // height:100%;
+    height:188/@rem;
+    position: absolute;
+    right:0;
+    background: url(../../../assets/img/441.png) no-repeat;
+    background-size: 100% 100%;
+    transform: rotate(180deg)
+}
+.center-round-up{
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    margin:auto;
+    width:170/@rem;
+    height:170/@rem;
+    border-radius: 50%;
+    box-shadow: inset 0 0 30/@rem 10/@rem #fff;
+    background: url(../../../assets/img/gun.png) no-repeat center center;
+    background-size: 50% 50%;
+    animation: changeShadow .6s linear infinite alternate;
+}
+.center-round-under{
+    position: absolute;
+    top:7/@rem;
+    right:0;
+    bottom:0;
+    left:0;
+    margin:auto;
+    width:260/@rem;
+    height:260/@rem;
+    border-radius: 50%;
+    background: url(../../../assets/img/round2.png)no-repeat;
+    background-size: 100%;
+    transform-origin: 130/@rem 127/@rem;
+    animation: round 6s linear infinite ;
+}
+.box:hover .center-round-under{
+    animation-play-state:paused;
+}
+.box:hover .center-round-up{
+  animation-play-state:paused;
+}
+.text-left{
+    position: absolute;
+    left:0;
+    top:10/@rem;
+    width:110/@rem;
+    height:80%;
+    padding:10/@rem;
+    text-align: center;
+    // background: pink
+}
+.text-right{
+    position: absolute;
+    right:0;
+    top:10/@rem;
+    width:110/@rem;
+    height:80%;
+    text-align: center;
+    box-sizing: border-box;
+    padding:10/@rem;
+    padding-right:15/@rem;
+    strong{
+      padding-right: 5/@rem;
+    }
+}
+.text-left p,.text-right p{
+    font-size: 12/@rem;
+    color:#ebebeb;
+    line-height: 30/@rem;
+}
+.text-left strong,.text-right strong{
+    font-size: 20/@rem;
+    font-weight: bold;
+    line-height: 40/@rem;
+    color:#ec8735;
+    width:100/@rem;
+    cursor: pointer;
+}

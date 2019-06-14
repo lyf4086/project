@@ -1,0 +1,36 @@
+.qiangku-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.item-wrap {
+  width: 98%;
+  height: 94%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: url(../../../assets/img/qiangku.png) no-repeat;
+  background-size: 100% 100%;
+  box-sizing: border-box;
+  padding: 0 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.item-wrap .title {
+  width: 100%;
+  height: 0.3rem;
+  font-size: 0.12rem;
+  padding-top: 0.2rem;
+  margin: 0 auto;
+  border-bottom: 0.01rem solid #127fa8;
+}
+.item-wrap .item {
+  width: 28%;
+  height: 80%;
+  background: url(../../../assets/img/qiangkuxiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}

@@ -1,0 +1,366 @@
+@rem: 100rem;
+
+.jigou {
+  width: 100%;
+  height: 96%;
+  background: url(../../assets/img/jigouguanli.png) no-repeat;
+  background-size: 100% 100%;
+  color: #55affd;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.tree-menu {
+  width: 11%;
+  height: 100%;
+
+  h3 {
+    width: 100%;
+    height: 50/@rem;
+    font-size: 20/@rem;
+    line-height: 50/@rem;
+    text-indent: 30/@rem;
+    color: #fff;
+  }
+
+  .nav-wrap {
+    // width:120%;
+    // height:120%;
+    // margin-left:-10%;
+    // margin-top:-50%;
+    // padding-left:5/@rem;
+    transform: scaleX(0.96) translate3d(0, 0, 0);
+
+  }
+}
+
+.top-nav {
+  width: 88%;
+  height: 30/@rem;
+  position: absolute;
+  right: 0;
+  display: flex;
+
+  .bread-wrap {
+    width: 60%;
+    height: 100%;
+  }
+
+  .search-wrap {
+    width: 40%;
+    height: 100%;
+    // box-sizing: border-box;
+    font-size: 16/@rem;
+    border: 1px solid #55affd;
+    overflow: hidden;
+    display: flex;
+
+    .sel {
+      flex: 3;
+      font-size: 14/@rem;
+      background: #20364e;
+      color: #fff;
+    }
+
+    .textput {
+      flex: 7;
+      font-size: 14/@rem;
+      text-indent: 15/@rem;
+      background: #20364e;
+      color: #fff;
+      border-left: 1/@rem solid #55affd;
+      border-right: 1/@rem solid #55affd;
+    }
+
+    .sub {
+      flex: 1;
+      font-size: 16/@rem;
+      cursor: pointer;
+      background: #20364e url(../../assets/img/search.jpg) no-repeat center;
+
+    }
+  }
+}
+
+.page-index {
+  width: 42%;
+  padding-right: 20/@rem;
+  padding-left: 20/@rem;
+  // height: 40/@rem;
+  height: 3.6vh;
+  position: absolute;
+  right: 0;
+  // bottom: -47/@rem;
+  bottom: -4.6vh;
+  background: url(../../assets/img/fenye.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+.message-box {
+  width: 55%;
+  height: 50/@rem;
+  font-size: 18/@rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 33/@rem;
+  right: 300/@rem;
+  text-align: center;
+  line-height: 50/@rem;
+}
+
+.add-del {
+  width: 460/@rem;
+  height: 50/@rem;
+  line-height: 50/@rem;
+  position: absolute;
+  // top:30/@rem;
+  top: 5%;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  button {
+    font-size: 12/@rem;
+    background: none;
+    color: #a4d3ff;
+    margin: 0 10/@rem;
+    cursor: pointer;
+  }
+
+  button:before {
+    display: inline-block;
+    content: '';
+    margin: 0 2/@rem;
+    margin-bottom: -7/@rem;
+    width: 26/@rem;
+    height: 26/@rem;
+  }
+
+  button:active {
+    color: #c74512
+  }
+
+  button:nth-child(1):before {
+    background: url(../../assets/img/add.png) no-repeat;
+    background-size: 100% 100%;
+  }
+
+  button:nth-child(2):before {
+    background: url(../../assets/img/delete.png) no-repeat;
+    background-size: 100% 100%;
+  }
+
+  button:nth-child(3):before {
+    background: url(../../assets/img/retext.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.content {
+  width: 88.9%;
+  height: 89%;
+  position: absolute;
+  right: 0;
+  // top: 83/@rem;
+  top: 8.5vh;
+}
+
+.alert {
+  position: fixed;
+  z-index: 199;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+
+  .text-wrap {
+    width: 40%;
+    height: 46%;
+    background: url(../../assets/img/changepass.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+
+    .text-title {
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      margin-top: 50/@rem;
+      font-size: 24/@rem;
+      line-height: 40/@rem;
+      line-height: 38/@rem;
+    }
+
+    .text-content {
+      height: 50%;
+      width: 80%;
+      margin: 0 auto;
+      // margin:6% 0;
+
+      font-size: 12/@rem;
+
+      div {
+        margin: 20/@rem 0;
+        height: 40/@rem;
+        line-height: 50/@rem;
+
+        input {
+          height: 40/@rem;
+          width: 300/@rem;
+          border-radius: 5/@rem;
+          text-indent: 15/@rem;
+        }
+
+        select {
+          height: 40/@rem;
+          width: 100/@rem;
+          border-radius: 5/@rem;
+        }
+      }
+
+      .check-person {
+        background: #185277;
+        position: relative;
+        z-index: 5;
+        width: 600/@rem;
+        height: auto;
+        max-height: 300/@rem;
+
+        border-radius: 10/@rem;
+        display: flex;
+        flex-wrap: wrap;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .p-item {
+          background: #064681;
+          margin: 5/@rem ;
+          width: 285/@rem;
+          border-radius: 3/@rem;
+          text-indent: 10/@rem;
+          cursor: pointer;
+
+        }
+      }
+
+      .check-person::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 8/@rem;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 8/@rem;
+      }
+
+      .check-person::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 5/@rem;
+        -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+        background: rgba(34, 3, 117, 0.8);
+      }
+
+      .check-person::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        border-radius: 0;
+        background: rgba(221, 213, 213, 0.6);
+      }
+
+
+
+    }
+
+    .submit {
+      margin: 0/@rem auto;
+      font-size: 18/@rem;
+      letter-spacing: 18/@rem;
+      width: 100/@rem;
+      height: 30/@rem;
+      text-align: center;
+      line-height: 30/@rem;
+      text-indent: 16/@rem;
+      background: #185277;
+      color: #fff;
+      border-radius: 10/@rem;
+    }
+
+    i {
+      position: absolute;
+      width: 30/@rem;
+      height: 30/@rem;
+      line-height: 30/@rem;
+      border-radius: 50%;
+      background: #fff;
+      color: blue;
+      top: 20/@rem;
+      right: 20/@rem;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    i:hover {
+      background: red
+    }
+  }
+}
+
+.xiugai {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 550/@rem;
+  height: 300/@rem;
+  box-sizing: border-box;
+  padding-top: 50/@rem;
+  padding-left: 50/@rem;
+  font-size: 16/@rem;
+  background: url(../../assets/img/changepass.png) no-repeat;
+  background-size: 100% 100%;
+
+  input {
+    text-indent: 10/@rem;
+  }
+
+  .del {
+    position: absolute;
+    top: 20/@rem;
+    right: 20/@rem;
+    width: 40/@rem;
+    height: 40/@rem;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .del:hover {
+    background: crimson
+  }
+
+  .change-type {
+    width: 400/@rem;
+    height: 30/@rem;
+    line-height: 30/@rem;
+    margin-top: 6/@rem;
+    // background: pink;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sub-wrap {
+    position: absolute;
+    bottom: 20/@rem;
+    left: 50%;
+    padding: 3/@rem 10/@rem;
+    border-radius: 5/@rem;
+    transform: translateX(-50%);
+    cursor: pointer;
+  }
+}

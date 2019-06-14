@@ -1,0 +1,14 @@
+.map {
+  color: red;
+  position: absolute;
+  z-index: 43444;
+  width: 12rem;
+  height: 8rem;
+  background: rgba(221, 123, 99, 0.3);
+  top: -2rem;
+}
+.map button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

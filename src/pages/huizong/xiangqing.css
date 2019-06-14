@@ -1,0 +1,120 @@
+.main {
+  width: 100%;
+  height: 100%;
+  font-size: 0.9375vw;
+  color: #d6d7d2;
+  position: relative;
+}
+.main .prev {
+  position: absolute;
+  width: 25px;
+  height: 30px;
+  background: url(../../assets/img/mine-message-icon.png) no-repeat center;
+  background-size: 100% 100%;
+  bottom: 1.04166667vw;
+}
+.main .center {
+  width: 63.54166667vw;
+  height: 100%;
+  margin: 0 auto;
+}
+.main .center .time_check {
+  width: 44.27083333vw;
+  height: 4.16666667vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.main .center .time_check input {
+  width: 11.71875vw;
+  height: 1.5625vw;
+  border: 0.05208333vw solid #fff;
+  background: none;
+  border-radius: 0.26041667vw;
+}
+.main .center .time_check .s_time {
+  color: #d6d7d2;
+}
+.main .center .time_check .e_time {
+  color: #d6d7d2;
+}
+.main .center .time_check button {
+  width: 6.77083333vw;
+  height: 1.875vw;
+  color: #d6d7d2;
+  background: #00a0e9;
+  border-radius: 0.26041667vw;
+}
+.main .center .chart {
+  width: 100%;
+  height: 17.1875vw;
+  background: #4b626d;
+}
+.main .center .chart div {
+  height: 100%;
+}
+.main .center .grid {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0.15625vw solid #00a0e9;
+  border-bottom: none;
+}
+.main .center .grid .title {
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  width: 100%;
+  border-bottom: 0.15625vw solid #00a0e9;
+  display: flex;
+}
+.main .center .grid .title span {
+  flex: 1;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.main .center .grid .title span:last-child {
+  border: none;
+}
+.main .center .grid .wrap {
+  max-height: 13.02083333vw;
+  overflow-y: auto;
+}
+.main .center .grid .wrap .item {
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  width: 100%;
+  border-bottom: 0.15625vw solid #00a0e9;
+  display: flex;
+}
+.main .center .grid .wrap .item span {
+  flex: 1;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.main .center .grid .wrap .item span:last-child {
+  border: none;
+}
+.main .center .grid .wrap .item .more {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}

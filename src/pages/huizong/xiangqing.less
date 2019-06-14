@@ -1,0 +1,127 @@
+
+@vw:19.2vw;
+
+.main{
+  width: 100%;
+  height:100%;
+  font-size: 18/@vw;
+  color:#d6d7d2;
+  position: relative;
+  .prev{
+    position: absolute;
+    width:25px;
+    height:30px;
+    background: url(../../assets/img/mine-message-icon.png) no-repeat center;
+    background-size: 100% 100%;
+    bottom:20/@vw;
+  }
+  .center{
+    width:1220/@vw;
+    height:100%;
+    margin:0 auto;
+    .time_check{
+      width:850/@vw;
+      height:80/@vw;
+      margin:0 auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      input{
+        width:225/@vw;
+        height:30/@vw;
+        border:1/@vw solid #fff;
+        background: none;
+        border-radius: 5/@vw;
+      }
+      .s_time{
+        color:#d6d7d2;
+
+      }
+      .e_time{
+        color:#d6d7d2;
+      }
+      button{
+        width:130/@vw;
+        height:36/@vw;
+        color:#d6d7d2;
+        background: #00a0e9;
+        border-radius: 5/@vw;
+      }
+    }
+    .chart{
+      width: 100%;
+      height:330/@vw;
+      background: #4b626d;
+      div{
+        height:100%;
+
+      }
+
+    }
+    .grid{
+      width:100%;
+      // height:302/@vw;
+      box-sizing: border-box;
+      border: 3/@vw solid #00a0e9;
+      border-bottom: none;
+      .title{
+        box-sizing: border-box;
+        height:50/@vw;
+        width:100%;
+        border-bottom: 3/@vw solid #00a0e9;
+        display: flex;
+        span{
+          flex:1;
+          line-height: 50/@vw;
+          text-align: center;
+          border-right: 3/@vw solid #00a0e9;
+        }
+        span:last-child{
+          border:none;
+        }
+      }
+      .wrap{
+        max-height: 250/@vw;
+        overflow-y: auto;
+        .item{
+          box-sizing: border-box;
+          height:50/@vw;
+          width:100%;
+          border-bottom: 3/@vw solid #00a0e9;
+          display: flex;
+          span{
+            flex:1;
+            line-height: 50/@vw;
+            text-align: center;
+            border-right: 3/@vw solid #00a0e9;
+          }
+          span:last-child{
+            border:none;
+          }
+          .more{
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+  }
+}
+
+
+
+.wrap::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.wrap::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.wrap::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}

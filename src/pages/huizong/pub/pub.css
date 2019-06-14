@@ -1,0 +1,476 @@
+.next {
+  width: 100%;
+  height: 100%;
+  font-size: 0.72916667vw;
+  color: #ccc;
+  position: relative;
+}
+.next .prev {
+  position: absolute;
+  width: 25px;
+  height: 30px;
+  background: url(../../../assets/img/mine-message-icon.png) no-repeat center;
+  background-size: 100% 100%;
+  bottom: 2.08333333vw;
+  left: 6.25vw;
+}
+.con {
+  width: 100%;
+  height: 100%;
+  font-size: 0.72916667vw;
+  color: #ccc;
+  position: relative;
+}
+.con .prev {
+  position: absolute;
+  width: 25px;
+  height: 30px;
+  background: url(../../../assets/img/mine-message-icon.png) no-repeat center;
+  background-size: 100% 100%;
+  bottom: 2.08333333vw;
+  left: 6.25vw;
+}
+.con .item4 .title {
+  width: 52.08333333vw;
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item4 .title span {
+  box-sizing: border-box;
+  width: 50%;
+  line-height: 2.60416667vw;
+  text-align: center;
+}
+.con .item4 .title span:first-child {
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item4 .list {
+  width: 52.08333333vw;
+  margin: 0 auto;
+  max-height: 28.64583333vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.con .item4 .list li {
+  box-sizing: border-box;
+  width: 52.08333333vw;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  border-top: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item4 .list li span {
+  box-sizing: border-box;
+  width: 50%;
+  line-height: 2.60416667vw;
+  text-align: center;
+}
+.con .item4 .list li span:first-child {
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item7 .title {
+  width: 78.125vw;
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item7 .title span {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item7 .title span:last-child {
+  border: none;
+}
+.con .item7 .list {
+  width: 78.125vw;
+  margin: 0 auto;
+  max-height: 28.64583333vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.con .item7 .list li {
+  box-sizing: border-box;
+  width: 78.125vw;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  border-top: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item7 .list li span {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item7 .list li span:last-child {
+  border: none;
+}
+.con .item8 .title {
+  width: 62.5vw;
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item8 .title span {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item8 .title span:last-child {
+  border: none;
+}
+.con .item8 .list {
+  width: 62.5vw;
+  margin: 0 auto;
+  max-height: 28.64583333vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.con .item8 .list li {
+  box-sizing: border-box;
+  width: 62.5vw;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  border-top: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item8 .list li span {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item8 .list li span:last-child {
+  border: none;
+}
+.con .item9 .title {
+  width: 62.5vw;
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item9 .title span {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item9 .title span:last-child {
+  border: none;
+}
+.con .item9 .list {
+  width: 62.5vw;
+  margin: 0 auto;
+  max-height: 28.64583333vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.con .item9 .list li {
+  box-sizing: border-box;
+  width: 62.5vw;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  border-top: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .item9 .list li span {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .item9 .list li span:last-child {
+  border: none;
+}
+.con .gun_history .title {
+  width: 52.08333333vw;
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .gun_history .title span {
+  box-sizing: border-box;
+  width: 7.44047619vw;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .gun_history .title span:nth-child(2) {
+  width: 5.20833333vw;
+}
+.con .gun_history .title span:nth-child(3) {
+  width: 5.20833333vw;
+}
+.con .gun_history .title span:nth-child(4) {
+  width: 9.375vw;
+}
+.con .gun_history .title span:nth-child(5) {
+  width: 9.375vw;
+}
+.con .gun_history .title span:last-child {
+  border: none;
+}
+.con .gun_history .list {
+  width: 52.08333333vw;
+  margin: 0 auto;
+  max-height: 28.64583333vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.con .gun_history .list li {
+  box-sizing: border-box;
+  width: 52.08333333vw;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  border-top: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.con .gun_history .list li span {
+  box-sizing: border-box;
+  width: 7.44047619vw;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.con .gun_history .list li span:nth-child(2) {
+  width: 5.20833333vw;
+}
+.con .gun_history .list li span:nth-child(3) {
+  width: 5.20833333vw;
+}
+.con .gun_history .list li span:nth-child(4) {
+  width: 9.375vw;
+}
+.con .gun_history .list li span:nth-child(5) {
+  width: 9.375vw;
+}
+.con .gun_history .list li span:last-child {
+  border: none;
+}
+.list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px #2a58f080;
+  background: rgba(74, 16, 233, 0.8);
+}
+.list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.next {
+  width: 100%;
+  height: 100%;
+  font-size: 0.72916667vw;
+  color: #ccc;
+}
+.next .item4 .title {
+  width: 52.08333333vw;
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.next .item4 .title span {
+  box-sizing: border-box;
+  width: 25%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.next .item4 .title span:last-child {
+  border: none;
+}
+.next .item4 .list {
+  width: 52.08333333vw;
+  margin: 0 auto;
+  height: 31.25vw;
+  max-height: 31.25vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.next .item4 .list li {
+  box-sizing: border-box;
+  width: 52.08333333vw;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  border-top: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.next .item4 .list li span {
+  box-sizing: border-box;
+  width: 25%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.next .item4 .list li span:last-child {
+  border: none;
+}
+.next .item4 .list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.next .item4 .list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px #2a58f080;
+  background: rgba(74, 16, 233, 0.8);
+}
+.next .item4 .list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px #2a58f080;
+  background: rgba(74, 16, 233, 0.8);
+}
+.list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.gun_history {
+  width: 100%;
+  height: 100%;
+  font-size: 0.72916667vw;
+  color: #ccc;
+}
+.gun_history .item4 .title {
+  width: 52.08333333vw;
+  box-sizing: border-box;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.gun_history .item4 .title span {
+  box-sizing: border-box;
+  width: 25%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.gun_history .item4 .title span:last-child {
+  border: none;
+}
+.gun_history .item4 .list {
+  width: 52.08333333vw;
+  margin: 0 auto;
+  height: 31.25vw;
+  max-height: 31.25vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.gun_history .item4 .list li {
+  box-sizing: border-box;
+  width: 52.08333333vw;
+  height: 2.60416667vw;
+  border: 0.15625vw solid #00a0e9;
+  border-top: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.gun_history .item4 .list li span {
+  box-sizing: border-box;
+  width: 25%;
+  line-height: 2.60416667vw;
+  text-align: center;
+  border-right: 0.15625vw solid #00a0e9;
+}
+.gun_history .item4 .list li span:last-child {
+  border: none;
+}
+.gun_history .item4 .list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.gun_history .item4 .list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px #2a58f080;
+  background: rgba(74, 16, 233, 0.8);
+}
+.gun_history .item4 .list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}

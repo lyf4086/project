@@ -1,0 +1,98 @@
+
+
+@rem:100rem;
+
+.wrap{
+    height:100%;
+    // background: red
+
+
+}
+.num-icon{
+    width:100%;
+    height:120/@rem;
+    margin-bottom: 10/@rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .item{
+        width:90/@rem;
+        height:90/@rem;
+        border-radius: 50%;
+        border:1/@rem solid #e2883c;
+        box-shadow: 0 0 1px 1px #5fd5f3,0 0 2px 1px #5fd5f3;
+        transition: 0.3s;
+        &>p{
+            font-size: 12/@rem;
+            line-height: 24/@rem;
+            transform: scale(0.7) ;
+            text-align: center;
+        }
+        p:first-child{
+            margin-top:5/@rem;
+            color:#c57b4a
+        }
+        p:last-child{
+            color:#6ca5d2
+        }
+        .num{
+            width:90%;
+            color:#fff;
+            font-size: 18/@rem;
+            text-align: center;
+            height:20/@rem;
+
+        }
+    }
+    .item:hover{
+        transform: scale(1.2);
+        box-shadow: inset 0 0 26/@rem 1/@rem #63deff;
+    }
+    .active{
+      transform: scale(1.3);
+      box-shadow: inset 0 0 26/@rem 1/@rem #63deff;
+    }
+}
+.echarts-wrap{
+    width:100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    .title{
+        width:49%;
+        height:36/@rem;
+        line-height: 36/@rem;
+        font-size: 12/@rem;
+        color:#e4e7ec;
+        text-indent: 28/@rem;
+        background: url(../../assets/img/26.png);
+        background-size: cover;
+    }
+    #chart1{
+        position: absolute;
+        width:100%;
+        height:500/@rem;
+        left:-25%;
+        transform: scale(0.5) translateY(-32%);
+        &:hover{
+          transition: .5s;
+          transform: scale(1) translateY(-32%);
+          background: rgb(49, 133, 230);
+          z-index: 2;
+        }
+    }
+    #chart2{
+        position: absolute;
+        top:-22%;
+        width:100%;
+        height:500/@rem;
+        transform: scale(0.5) translateY(-30%) translateX(50%);
+        &:hover{
+          transition: .5s;
+          transform: scale(1) translateY(-32%) translateX(8%);
+          background: rgb(49, 133, 230);
+          z-index: 2;
+        }
+
+    }
+}

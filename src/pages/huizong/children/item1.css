@@ -1,0 +1,52 @@
+.wrap {
+  width: 100%;
+  height: 1.88rem;
+  display: flex;
+}
+.wrap > div {
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
+.wrap p {
+  width: 95%;
+  height: 0.3rem;
+  font-size: 0.14rem;
+  color: #fff;
+  line-height: 0.3rem;
+  text-indent: 0.25rem;
+  background: url(../../../assets/img/26.png) no-repeat;
+  background-size: 100% 100%;
+  margin-top: 0.1rem;
+  margin-left: 5%;
+}
+#char1 {
+  position: absolute;
+  width: 200%;
+  height: 190%;
+  top: -30%;
+  left: -45%;
+  box-sizing: border-box;
+  padding-left: 0.1rem;
+  transform: scale(0.5);
+}
+#char1:hover {
+  transition: .5s;
+  z-index: 1;
+  transform: scale(1);
+  background: #3185e6;
+}
+#char2 {
+  position: absolute;
+  width: 200%;
+  height: 240%;
+  top: -70%;
+  left: -50%;
+  transform: scale(0.4);
+}
+#char2:hover {
+  transition: .5s;
+  z-index: 22;
+  transform: scale(1);
+  background: #3185e6;
+}

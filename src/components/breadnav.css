@@ -1,0 +1,33 @@
+.breadnav {
+  height: 100%;
+  display: flex;
+  line-height: 0.3rem;
+}
+.breadnav .title {
+  width: 1.4rem;
+  height: 90%;
+  font-size: 0.14rem;
+  line-height: 0.3rem;
+  text-indent: 0.28rem;
+  background: url(../assets/img/first.png) no-repeat;
+  background-size: 100% 100%;
+  margin-left: -0.1rem;
+}
+.breadnav .next {
+  min-width: 1.6rem;
+  height: 90%;
+  line-height: 0.3rem;
+  text-indent: 0.18rem;
+  font-size: 0.14rem;
+  background: url(../assets/img/jiantou.png) no-repeat;
+  background-size: 100% 100%;
+}
+.breadnav .mes {
+  width: 1.5rem;
+  height: 90%;
+  line-height: 0.3rem;
+  text-indent: 0.18rem;
+  font-size: 0.14rem;
+  background: url(../assets/img/jiantou.png) no-repeat;
+  background-size: 100% 100%;
+}
