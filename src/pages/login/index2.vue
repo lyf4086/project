@@ -2,15 +2,15 @@
   <div class="login2">
     <div class="fromwrap">
       <div class="username">
-        <input type="text" placeholder="用户名" v-model="username" ref="put">
+        <input type="text" placeholder="用户名" v-model="username" ref="put" />
       </div>
       <div class="pass">
-        <input type="password" placeholder="密码" v-model="pwd" @keyup.13="sub">
+        <input type="password" placeholder="密码" v-model="pwd" @keyup.13="sub" />
       </div>
 
-      <input type="submit" class="sub" value @click="sub">
+      <input type="submit" class="sub" value @click="sub" />
 
-      <input type="reset" class="reset" value @click="res">
+      <input type="reset" class="reset" value @click="res" />
     </div>
   </div>
 </template>
@@ -63,6 +63,13 @@ export default {
               type: "success",
               message: "登陆成功！"
             });
+
+            // this.$store.commit("setSync", {
+            //   sync: res.data.data.sync
+            // });
+            // 不能刷新页面，弃用
+            this.$gscookie.setCookie("sync", res.data.data.sync);
+
             if (res.data.data.role_id == 3) {
               this.$router.push(`/indexg/guiji`);
             } else {

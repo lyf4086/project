@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="枪支管理" :next="active_title"/>
+        <breadNav title="枪支管理" :next="active_title" />
       </div>
       <div class="search-wrap">
         <!--搜索框-->
@@ -33,7 +33,7 @@
           v-model="putValue"
           @keyup.13="subSearch"
           placeholder="请输入搜素关键字"
-        >
+        />
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
@@ -51,7 +51,7 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{active_title}} *** 下的枪支信息</p>
     </div>
-    <div class="add-del" v-show="active_title">
+    <div class="add-del" v-show="active_title" v-if="sync===0">
       <button @click="addGun">添加枪支</button>
       <button @click="deleteGun">删除枪支</button>
       <button @click="modify">修改枪支</button>
@@ -72,7 +72,7 @@
         <div class="text-content">
           <div>
             枪支编号：
-            <input type="text" v-model="add_gun.gun_type">
+            <input type="text" v-model="add_gun.gun_type" />
           </div>
           <div>
             枪支类型：
@@ -93,7 +93,7 @@
               @focus="putFocus"
               @blur="putBlur"
               placeholder="请输入警员ID"
-            >
+            />
             <div class="check-person" v-show="noCheckPerson">
               <p v-if="!allPersonList.length" style="text-align:center">该机构下暂无警员</p>
               <div
@@ -125,7 +125,7 @@
         </div>
         <div class="change-type">
           <span>枪支编号：{{xiugaiData.gun_code}}</span>
-          <input type="text" v-model="changedCode">
+          <input type="text" v-model="changedCode" />
         </div>
 
         <button class="sub-wrap" @click="subChange">确认修改</button>
@@ -174,7 +174,8 @@ export default {
       checkedPersonData: "", //.........新增枪支被选中的人员整条数据
       noCheckPerson: false,
       allPersonList: "",
-      isRemoving: false
+      isRemoving: false,
+      sync: 0 //判断动静态，默认静态
     };
   },
 
@@ -189,9 +190,7 @@ export default {
       }, 200);
     },
     onePersonClick(item) {
-      this.checkPerson = `名字：${item.policeuser_name} , 警员ID：${
-        item.policeuser_id
-      }`;
+      this.checkPerson = `名字：${item.policeuser_name} , 警员ID：${item.policeuser_id}`;
       this.checkedPersonData = item; //..................被选中的这条数据
     },
     updataView() {
@@ -629,6 +628,7 @@ export default {
     } //..........................解绑end
   },
   created() {
+    this.sync = this.$gscookie.getCookie("sync");
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");
     if (item.role_id == 3) {

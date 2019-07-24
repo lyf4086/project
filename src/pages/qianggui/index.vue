@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="枪柜详情" :next="active_title"/>
+        <breadNav title="枪柜详情" :next="active_title" />
       </div>
       <div class="search-wrap">
         <!--搜索框-->
@@ -33,7 +33,7 @@
           v-model="putValue"
           @keyup.13="subSearch"
           placeholder="请输入搜素关键字"
-        >
+        />
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
@@ -50,14 +50,15 @@
           <div class="list">
             <div class="item" v-for="(item,index) in dataArr" :key="index">
               <p>单位：{{item.org_name}}</p>
-              <img src="../../assets/img/qingguitest.png" alt="枪柜">
+              <img src="../../assets/img/qingguitest.png" alt="枪柜" />
               <p>枪柜类型：{{item.vtype}}</p>
               <p>枪柜名称：{{item.vdevSN}}</p>
               <h6 @click="look(item)" style="color:#fff;">&nbsp;&nbsp;&nbsp;&nbsp;</h6>
+              <button v-if="false" @click="openVidio" style="cursor:pointer">查看</button>
             </div>
           </div>
         </div>
-        <div class="xiangqing-wrap" v-show="qiangguishow">
+        <div class="xiangqing-wrap" v-show="qiangguishow || vidio">
           <div class="xiangqing" v-show="qiangguishow">
             <button class="close" @click="close">取消</button>
             <div class="content">
@@ -84,16 +85,9 @@
               </div>
             </div>
           </div>
-          <!-- <div class="owner" :class="{'big':ownerMesShow}">
-                      <button class="close" @click="closeOwner">X</button>
-                      <p>所属警员：{{ownerMes.opoliceuser_name}}</p>
-                      <div class="imgwrap">
-                        <img :src="ownerMes.icon" alt="">
-                      </div>
-
-                      <p>警号：{{ownerMes.police_number}}</p>
-                      <p>角色：{{juese(ownerMes.role_id)}}</p>
-          </div>-->
+          <div class="vidio" v-show="vidio">
+            <button class="close" @click="closeVidio">关闭</button>
+          </div>
         </div>
       </div>
     </div>
@@ -102,22 +96,22 @@
         <div class="text-title">新增人员</div>
         <div class="text-content">
           <span>名称:</span>
-          <input type="text">
+          <input type="text" />
 
           <span>编号:</span>
-          <input type="text">
+          <input type="text" />
 
           <span>枪支数量:</span>
-          <input type="text">
+          <input type="text" />
 
           <span>警员数量:</span>
-          <input type="text">
+          <input type="text" />
 
           <span>所属单位:</span>
-          <input type="text">
+          <input type="text" />
 
           <span>创建日期:</span>
-          <input type="text">
+          <input type="text" />
         </div>
         <div class="submit">确认</div>
       </div>
@@ -148,7 +142,8 @@ export default {
       xiangqingindex: 0,
       qiangguishow: false,
       xiangqingData: [],
-      fromQiangZhi: false
+      fromQiangZhi: false,
+      vidio: false
     };
   },
   methods: {
@@ -163,7 +158,12 @@ export default {
         return "领导";
       }
     },
-
+    openVidio() {
+      this.vidio = true;
+    },
+    closeVidio() {
+      this.vidio = false;
+    },
     subSearch() {
       if (!this.selValue) {
         this.$message({ message: "请选择搜索条件", type: "warning" });

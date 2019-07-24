@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="人员管理" :next="activeItem.mechanism_name"/>
+        <breadNav title="人员管理" :next="activeItem.mechanism_name" />
       </div>
       <div class="search-wrap">
         <!--搜索框-->
@@ -36,7 +36,7 @@
           v-model="putValue"
           placeholder="请输入搜索关键字"
           @keyup.13="subSearch"
-        >
+        />
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
@@ -54,10 +54,11 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{activeItem.mechanism_name}} *** 下的人员信息</p>
     </div>
-    <div class="add-del" v-show="activeItem">
+    <div class="add-del" v-show="activeItem" v-if="sync===0">
       <button @click="add">新增人员</button>
       <button @click="delOneData">删除人员</button>
     </div>
+    <div class="check-type" v-if="0">同步数据</div>
     <div class="content">
       <Content
         :list="itemList"
@@ -67,6 +68,7 @@
         :showXiangqing="showXiangqing"
         :activeYeMa="active_yema"
         :activeTreeId="activeTreeId"
+        :sync="sync"
       />
     </div>
     <div class="alert" v-show="alert">
@@ -75,11 +77,11 @@
         <div class="text-content">
           <div>
             <span>名称:</span>
-            <input type="text" v-model="addPerson.uname">
+            <input type="text" v-model="addPerson.uname" />
           </div>
           <div>
             <span>手机号:</span>
-            <input type="text" v-model="addPerson.mobile" ref="phoneput">
+            <input type="text" v-model="addPerson.mobile" ref="phoneput" />
           </div>
           <div>
             <span>性别:</span>
@@ -91,11 +93,11 @@
 
           <div>
             <span>持枪证到期时间:</span>
-            <input type="date" v-model="addPerson.robcode_endtime">
+            <input type="date" v-model="addPerson.robcode_endtime" />
           </div>
           <div>
             <span>警号:</span>
-            <input type="text" v-model="addPerson.police_number">
+            <input type="text" v-model="addPerson.police_number" />
           </div>
           <div>
             <span>角色:</span>
@@ -155,7 +157,8 @@ export default {
       selValue: "",
       putValue: "",
       showXiangqing: false,
-      currentPage: 0
+      currentPage: 0,
+      sync: 0 //动静态区分，默认静态，1为动态
     };
   },
   methods: {
@@ -424,6 +427,8 @@ export default {
     } //..................删除人员结束
   },
   created() {
+    this.sync = this.$gscookie.getCookie("sync");
+
     let obj = this.$store.state;
     let item = this.$gscookie.getCookie("message_obj");
     if (item.role_id == 3) {

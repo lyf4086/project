@@ -13,7 +13,7 @@
             ref="put1"
             @blur="put1blur(index)"
             @keydown.13="put1blur(index)"
-          >
+          />
         </p>
         <p>角色名：</p>
         <p class="put-wrap select-wrap">
@@ -29,7 +29,7 @@
         <p>创建时间：</p>
         <p class="put-wrap">
           <span>{{changeTime(item.created)}}</span>
-          <input type="text" v-show="item.put3show" v-model="item.created" ref="put3">
+          <input type="text" v-show="item.put3show" v-model="item.created" ref="put3" />
         </p>
         <p>状态：</p>
         <p>
@@ -40,12 +40,12 @@
         </p>
       </div>
       <div class="headpic">
-        <img :src="item.icon" v-if="item.icon" alt="no pic">
-        <img src="../../../assets/img/head-icon.png" v-else="!item.icon" alt="no pic">
+        <img :src="item.icon" v-if="item.icon" alt="no pic" />
+        <img src="../../../assets/img/head-icon.png" v-else="!item.icon" alt="no pic" />
       </div>
       <button class="xiangqing" @click="lookxiangqing(item)">查看详情</button>
       <div class="btns">
-        <span @click="changeperson(index)">修改人员</span>
+        <span @click="changeperson(index)" v-if="sync===0">修改人员</span>
         <span @click="setjuese(index)">设置角色</span>
         <span @click="setmima(item)">设置初始密码</span>
       </div>
@@ -56,11 +56,11 @@
         <i>用户：{{changing}} 设置初始密码</i>
         <div class="putwrap">
           <span>新 密 码：</span>
-          <input type="password" class="pass1" placeholder="新密码" v-model="pwd1">
+          <input type="password" class="pass1" placeholder="新密码" v-model="pwd1" />
         </div>
         <div class="putwrap">
           <span>确认密码：</span>
-          <input type="password" class="pass1" placeholder="再次确认新密码" v-model="pwd2">
+          <input type="password" class="pass1" placeholder="再次确认新密码" v-model="pwd2" />
         </div>
 
         <p>
@@ -71,8 +71,8 @@
       <div class="change-msg" v-show="xiangqing">
         <button class="delete" @click="deleteMsg">X</button>
         <div class="imgwrap">
-          <img :src="active_item.icon" v-if="active_item.icon" alt>
-          <img src="../../../assets/img/head-icon.png" v-else="!active_item.icon" alt>
+          <img :src="active_item.icon" v-if="active_item.icon" alt />
+          <img src="../../../assets/img/head-icon.png" v-else="!active_item.icon" alt />
         </div>
         <div class="mes">
           <div class="title">
@@ -91,12 +91,12 @@
                 ref="put1"
                 @blur="bl1"
                 v-model="active_item.policeuser_name"
-              >
+              />
             </div>
             <div class="itemwrap">
               <span>{{active_item.mobile}}</span>
               <!-- <i class="el-icon-edit" @click="cl2"></i> -->
-              <input class="put" type="text" ref="put2" @blur="bl2" v-model="active_item.mobile">
+              <input class="put" type="text" ref="put2" @blur="bl2" v-model="active_item.mobile" />
             </div>
             <div class="itemwrap">
               <span>{{active_item.police_number}}</span>
@@ -107,12 +107,12 @@
                 ref="put3"
                 @blur="bl3"
                 v-model="active_item.police_number"
-              >
+              />
             </div>
             <div class="itemwrap">
               <span>{{active_item.mechanism_name}}</span>
               <!-- <i class="el-icon-edit"></i> -->
-              <input class="put" type="text">
+              <input class="put" type="text" />
             </div>
           </div>
           <!-- <div class="toMore" @click="toMore">
@@ -128,7 +128,7 @@
 </style>
 <script>
 export default {
-  props: ["list", "isRemoving", "activeYeMa", "activeTreeId"],
+  props: ["list", "isRemoving", "activeYeMa", "activeTreeId", "sync"],
   data() {
     return {
       changeShow: false,

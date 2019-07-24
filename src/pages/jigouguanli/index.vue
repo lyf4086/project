@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="机构管理" :next="activeHandTreeData.mechanism_name"/>
+        <breadNav title="机构管理" :next="activeHandTreeData.mechanism_name" />
       </div>
       <div class="search-wrap">
         <!--搜索框-->
@@ -33,7 +33,7 @@
           v-model.trim="putValue"
           @keyup.13="subSearch"
           placeholder="请输入搜索关键字"
-        >
+        />
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
@@ -50,7 +50,7 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{activeHandTreeData.mechanism_name}} *** 下的机构信息</p>
     </div>
-    <div class="add-del" v-show="activeHandTreeData">
+    <div class="add-del" v-show="activeHandTreeData" v-if="sync===0">
       <button @click="addjigou">新增机构</button>
       <button @click="shanchujigou">删除机构</button>
     </div>
@@ -61,6 +61,7 @@
         @changeOneData="changeOneData"
         :dataList="jigoulist"
         :dataLength="jigoulist.length"
+        :sync="sync"
       />
     </div>
     <div class="alert" v-show="addShow">
@@ -69,7 +70,7 @@
         <div class="text">
           <div>
             <p>机构名称</p>
-            <input type="text" v-model="add_name">
+            <input type="text" v-model="add_name" />
           </div>
           <div>
             <p>父机构</p>
@@ -78,11 +79,11 @@
           </div>
           <div>
             <p>机构编号</p>
-            <input type="text" v-model="add_bianhao">
+            <input type="text" v-model="add_bianhao" />
           </div>
           <div>
             <p>机构描述</p>
-            <input type="text" v-model="add_miaoshu">
+            <input type="text" v-model="add_miaoshu" />
           </div>
         </div>
         <div class="submit" @click="submitadd">确认</div>
@@ -95,7 +96,7 @@
         <div class="put-wrap">
           <span>{{changeData.mechanism_name}}</span>
           <i @click="changeText1"></i>
-          <input type="text" ref="put1" @blur="edit1=false" v-model="changeData.mechanism_name">
+          <input type="text" ref="put1" @blur="edit1=false" v-model="changeData.mechanism_name" />
         </div>
       </div>
       <div class="dataitem" :class="{'checked':edit2}">
@@ -103,7 +104,7 @@
         <div class="put-wrap">
           <span>{{changeData.code}}</span>
           <i @click="changeText2"></i>
-          <input type="text" ref="put2" @blur="edit2=false" v-model="changeData.code">
+          <input type="text" ref="put2" @blur="edit2=false" v-model="changeData.code" />
         </div>
       </div>
 
@@ -154,7 +155,8 @@ export default {
         jiGouBianHao: ""
       },
       selValue: "",
-      putValue: ""
+      putValue: "",
+      sync: 0 //判断动静态，默认静态
     };
   },
 
@@ -486,16 +488,15 @@ export default {
       })
         .then(data => {
           this.treeData = data.data.data.list;
-          // this.handClick(this.treeData[0]);
+
+          this.handClick(this.treeData[0]);
           function creatTreeStr(obj) {
             let str = "";
 
             if (obj.length > 0) {
               for (let i = 0; i < obj.length; i++) {
                 // let levelstr = levelStr(obj[i].level);
-                str += `<option value="${obj[i].id}-${obj[i].root_id}" > ${
-                  obj[i].mechanism_name
-                }</option>`;
+                str += `<option value="${obj[i].id}-${obj[i].root_id}" > ${obj[i].mechanism_name}</option>`;
                 if (obj[i]["child"].length > 0) {
                   str += creatTreeStr(obj[i].child);
                 }
@@ -520,6 +521,7 @@ export default {
     }
   },
   created() {
+    this.sync = this.$gscookie.getCookie("sync");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     this.handClick(this.currentNodeKey);
     let item = this.$gscookie.getCookie("message_obj");

@@ -22,7 +22,7 @@ let LoginPut = () => import('../pages/login/index2');
 let RenYuan = () => import('../pages/renyuanguanli');
 let PersonMessage = () => import('../pages/personmessage');
 let GunMessage = () => import('../pages/gunmessage');
-// let Map =()=>import('../pages/map/index.vue');
+let BigMap = () => import('../pages/map/index.vue');
 let XiangQing = () => import('../pages/huizong/xiangqing');
 let List = () => import('../pages/huizong/list');
 let Item2 = () => import('../pages/huizong/item2/index.vue');
@@ -52,6 +52,14 @@ let router = new Router({
           path: 'guiji',
           name: 'GuiJi',
           component: GuiJi,
+          meta: {
+            keepAlive: true
+          }
+        },
+        {
+          path: 'map',
+          name: 'Map',
+          component: BigMap,
           meta: {
             keepAlive: true
           }
@@ -124,14 +132,6 @@ let router = new Router({
           name: 'GunMessage',
           component: GunMessage
         },
-        // {
-        //   path:'map',
-        //   name:'Map',
-        //   component:Map,
-        //   meta:{
-        //     keepAlive:true
-        //   }
-        // },
         {
           path: 'xiangqing',
           name: 'XiangQing',

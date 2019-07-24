@@ -18,7 +18,8 @@
             :class="{'left_view':!oneAlarmPersonListBox}"
           ></i>
           <div class="img_wrap">
-            <img :src="filterMessage.imgSrc" alt>
+            <img v-if="filterMessage.imgSrc" :src="filterMessage.imgSrc" alt />
+            <img v-if="!filterMessage.imgSrc" src="../../assets/img/head-icon.png" />
           </div>
           <h6>{{filterMessage.uname}}</h6>
           <p>警员编号：</p>
@@ -52,7 +53,7 @@
             <div class="item" v-for="item,index in computedList" :key="index">
               <p>
                 <span class="img_wrap">
-                  <img :src="item.policeuser.icon" alt>
+                  <img :src="item.policeuser.icon" alt />
                 </span>
                 <span class>{{item.policeuser_name}}</span>
               </p>
@@ -77,7 +78,7 @@
           <div class="person-list-wrap">
             <div class="person-list" v-for="item,index in fillSeilf" :key="index">
               <span>
-                <input type="checkbox" v-model="item.checked">
+                <input type="checkbox" v-model="item.checked" />
               </span>
               <span :title="item.mechanism_name">{{item.mechanism_name}}</span>
               <span>{{item.policeuser_name}}</span>
@@ -96,7 +97,8 @@
         >
           <div class="item" v-for="item,index in oneAlarmPersonList">
             <div class="img_wrap">
-              <img :src="item.icon" alt>
+              <img v-if="item.icon" :src="item.icon" />
+              <img v-if="!item.icon" src="../../assets/img/head-icon.png" />
             </div>
             <span :title="item.policeuser_name">{{item.policeuser_name}}</span>
             <span :title="item.police_number">{{item.police_number}}</span>
@@ -149,9 +151,8 @@
         <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.datetime}}</p>
         <p v-else="!oneAlarmMessage.datetime">--|--</p>
       </div>
-      <div v-if="false">
-        <strong>状态：</strong>
-        <p>启用</p>
+      <div v-if="oneAlarmMessage.datetime">
+        <button class="del-area" @click="del">删除该区域</button>
       </div>
       <button class="goback" @click="outIn">
         <i class="ii"></i>
@@ -160,21 +161,21 @@
     <!-- 所有报警区域列表 -->
     <div class="cover" v-show="checkTime || setAreaTime">
       <div class="sel_time" v-show="checkTime">
-        <input type="submit" class="del" value="X" @click="checkTime=false">
+        <input type="submit" class="del" value="X" @click="checkTime=false" />
         <h6>请选择起止时间</h6>
         <div class="put_wrap">
           <span>开始时间：</span>
-          <input type="datetime-local" v-model="startTime" ref="star">
+          <input type="datetime-local" v-model="startTime" ref="star" />
         </div>
         <div class="put_wrap">
           <span>结束时间：</span>
-          <input type="datetime-local" v-model="endTime">
+          <input type="datetime-local" v-model="endTime" />
         </div>
         <button @click="searchByTime">搜索</button>
       </div>
 
       <div class="sel_time" v-show="setAreaTime">
-        <input type="submit" class="del" value="X" @click="stopSetArea">
+        <input type="submit" class="del" value="X" @click="stopSetArea" />
         <h6>请选择起止时间</h6>
         <div class="put_wrap">
           <span>报警类型：</span>
@@ -186,29 +187,29 @@
         <div class="danci" v-show="alarmType==1">
           <div class="put_wrap">
             <span>开始时间：</span>
-            <input type="datetime-local" v-model="startTime" ref="star">
+            <input type="datetime-local" v-model="startTime" ref="star" />
           </div>
           <div class="put_wrap">
             <span>结束时间：</span>
-            <input type="datetime-local" v-model="endTime">
+            <input type="datetime-local" v-model="endTime" />
           </div>
           <div class="put_wrap">
             <span>区域名称：</span>
-            <input type="text" v-model="areaName">
+            <input type="text" v-model="areaName" />
           </div>
         </div>
         <div class="lichang" v-show="alarmType==2">
           <div class="put_wrap">
             <span>开始时间：</span>
-            <input type="time" v-model="startTime" ref="star">
+            <input type="time" v-model="startTime" ref="star" />
           </div>
           <div class="put_wrap">
             <span>结束时间：</span>
-            <input type="time" v-model="endTime">
+            <input type="time" v-model="endTime" />
           </div>
           <div class="put_wrap">
             <span>区域名称：</span>
-            <input type="text" v-model="areaName">
+            <input type="text" v-model="areaName" />
           </div>
         </div>
         <button @click="submitSetAreaWarning">确认</button>
@@ -218,6 +219,9 @@
 </template>
 <style >
 @import url(./guiji.css);
+.delArea {
+  padding: 0 6px;
+}
 </style>
 <script>
 //
@@ -261,7 +265,6 @@ export default {
       aaimg: "",
       setWarning: false,
       markerArr: [], //当前临时标记点数组
-
       polyline: "",
       polygon: "",
       polygonArr: "",
@@ -281,7 +284,9 @@ export default {
       timer2: null,
       allPersonIEMIStr: "",
       showAllIMEI: false,
-      yongqiangyuan: false
+      yongqiangyuan: false,
+      areaTimer: null,
+      delId: ""
     };
   },
   computed: {
@@ -367,10 +372,12 @@ export default {
       // console.log(this.markerArr)
     },
     showOne() {
+      this.markerArr.forEach(item => {
+        item.stopMove();
+      });
       let v = this.$refs.alarmSelect.value;
-      let id = this.alarmId;
-      //  console.log(v,';',id)
-
+      // let id = this.alarmId;
+      this.delId = v;
       if (!v) {
         this.$message({
           type: "warning",
@@ -379,14 +386,28 @@ export default {
         return;
       }
 
+      setTimeout(() => {
+        this.overArea(v);
+      }, 500);
+      clearInterval(this.areaTimer);
+      this.areaTimer = setInterval(() => {
+        this.overArea(v);
+      }, 10000);
+
       this.getOneAlarmArea(v);
 
       this.noClick = true;
       this.isChange = true;
     },
+    del() {
+      let id = this.delId;
+
+      if (confirm("确定要删除吗？")) {
+        this.delOneAlarmArea(id);
+      }
+    },
     showAll() {
       let v = this.$refs.alarmSelect.value;
-      // console.log(v)
 
       this.getOneAlarmArea(v);
       // this.showAllAlarmArea(this.allAlarmAreaList)
@@ -394,8 +415,9 @@ export default {
     submitSetAreaWarning() {
       let newArr1 = [...this.checkedPersonArr, this.selectedPerson];
       let gun_ids11 = newArr1.map(e => e.gun_id);
+      // console.log(this.markerArr);
       let pointsArr11 = this.markerArr.map(
-        e => `${e.G.position.M}|${e.G.position.O}`
+        e => `${e.Ge.position.lng}|${e.Ge.position.lat}`
       );
       let policeuser_id = this.selectedPerson.policeuser_id;
       let s_t = this.startTime.replace("T", " ");
@@ -428,7 +450,7 @@ export default {
       // console.log('247',arr,id)
       let map = this.map;
       let that = this;
-      let arr2 = arr.map(e => e.G.position);
+      let arr2 = arr.map(e => e.Ge.position);
       var polygon = new AMap.Polygon({
         path: arr2,
         fillColor: "rgba(165,233,170,0.5)", // 多边形填充颜色
@@ -443,7 +465,7 @@ export default {
           "删除该区域",
           function() {
             polygon.hide();
-            that.delOneAlarmArea(ev.target.G.area_alarm_id);
+            that.delOneAlarmArea(ev.target.Ge.area_alarm_id);
           },
           0
         );
@@ -515,15 +537,15 @@ export default {
             "删除该区域",
             function() {
               e.hide(); //
-              that.delOneAlarmArea(ev.target.G.area_alarm_id);
+              that.delOneAlarmArea(ev.target.Ge.area_alarm_id);
             },
             0
           );
           contextMenu.addItem(
             "显示该区域人员",
             function() {
-              console.log("显示该区域人员", ev.target.G.area_alarm_id);
-              that.getOneAlarmArea(ev.target.G.area_alarm_id);
+              console.log("显示该区域人员", ev.target.Ge.area_alarm_id);
+              that.getOneAlarmArea(ev.target.Ge.area_alarm_id);
             },
             1
           );
@@ -626,6 +648,8 @@ export default {
       }
       this.noCheckedList.forEach(e => (e.checked = false));
       this.checkedPersonArr.length = 0;
+      //清除循环请求是否超出区域的定时器
+      clearInterval(this.areaTimer);
 
       this.shuaXinMap(); //......刷新地图
       this.$refs.alarmSelect.value = "";
@@ -638,10 +662,14 @@ export default {
       this.filterMessage.bianhao = this.selectedPerson.policeuser.police_number;
       this.filterMessage.imgSrc = this.selectedPerson.policeuser.icon;
       // this.filterMessage.newOrOld=this.oldOrNew
+      if (this.markerArr.length) {
+        this.markerArr.forEach(item => {
+          item.stopMove();
+        });
+      }
 
       this.$refs.star.max = nowTime();
       if (this.oldOrNew == "old") {
-        // console.log(nowTime())
         this.checkTime = true;
         return;
       }
@@ -862,6 +890,11 @@ export default {
     this.role_id = this.$gscookie.getCookie("message_obj").role_id;
   },
   mounted() {
+    /**
+     *
+     *
+     */
+    //调用报警方法，
     this.timer2 = setInterval(() => {
       this.hasWarning();
     }, 10000);

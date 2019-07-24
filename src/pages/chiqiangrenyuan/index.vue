@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="持枪人员" :next="active_title"/>
+        <breadNav title="持枪人员" :next="active_title" />
       </div>
       <div class="search-wrap">
         <!--搜索框-->
@@ -33,7 +33,7 @@
           v-model="putValue"
           @keyup.13="subSearch"
           placeholder="请输入搜素关键字"
-        >
+        />
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
@@ -104,6 +104,7 @@ export default {
       this.search();
     },
     mapInit(obj) {
+      console.log(obj);
       let map = new AMap.Map("map-content", {
         center: [obj.longitude, obj.latitude],
         resizeEnable: true,

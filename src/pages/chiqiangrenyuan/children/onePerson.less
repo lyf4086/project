@@ -1,112 +1,126 @@
-@rem:100rem;
-    .item{
+@rem: 100rem;
 
-        width:680/@rem;
-        height:300/@rem;
-        margin:20/@rem 34/@rem 0;
-        background: url(../../../assets/img/chiqiang.png) no-repeat;
-        background-size: 100% 100%;
-        box-sizing: border-box;
-        padding-top:65/@rem;
-        padding-left:40/@rem;
-        display: flex;
-        flex-wrap: wrap;
-        .imgwrap{
-          width:80/@rem;
-          height:100/@rem;
-          overflow: hidden;
-          img{
-            width:80/@rem;
-          }
-        }
+.item {
 
-        .textwrap{
-            width:520/@rem;
-            height:80/@rem;
-            margin-left:20/@rem;
-            position: relative;
-            display:flex;
-            flex-wrap: wrap;
-            font-size:16/@rem;
-            color:#fff;
-            p{
-                line-height: 28/@rem;
-                padding:0 10/@rem;
-            }
-            button{
-                // position: absolute;
-                float:right;
-                margin-right:3/@rem;
-                right:0;
-                padding:0/@rem 5/@rem;
-                border-radius: 3/@rem;
-                border:1/@rem solid #00b2fc;
-                color:#fff;
-                background: linear-gradient(to top,#00b2fc,#00b2fc,transparent);
-                cursor: pointer;
-            }
-            button:nth-of-type(1){
-                right:90/@rem
-            }
-        }
-        .mes-l{
-            width:40%;
-            height:80/@rem;
-            font-size: 16/@rem;
-            span{
-                float:left;
-                width:30/@rem;
-                height:30/@rem;
-                background: url(../../../assets/img/shenpi.png) no-repeat;
-                margin:20/@rem 10/@rem 0 10/@rem;
-                background-size: 100% 100%;
+  width: 680/@rem;
+  height: 300/@rem;
+  margin: 20/@rem 34/@rem 0;
+  background: url(../../../assets/img/chiqiang.png) no-repeat;
+  background-size: 100% 100%;
+  box-sizing: border-box;
+  padding-top: 65/@rem;
+  padding-left: 40/@rem;
+  display: flex;
+  flex-wrap: wrap;
 
-            }
-            p{
-                line-height: 25/@rem;
-                color:#fff;
-            }
-            p:nth-of-type(1){
-                margin-top:10/@rem
-            }
-        }
-        .mes-r{
-            width:55%;
-            height:80/@rem;
-            font-size: 16/@rem;
-            span{
-                float:left;
-                width:30/@rem;
-                height:30/@rem;
-                background: url(../../../assets/img/shijian.png) no-repeat;
-                margin:20/@rem 10/@rem 0 10/@rem;
-                background-size: 100% 100%;
+  .imgwrap {
+    width: 80/@rem;
+    height: 100/@rem;
+    overflow: hidden;
 
-            }
+    img {
+      width: 80/@rem;
+    }
+  }
 
-            p{
-                line-height: 25/@rem;
-                color:#fff;
-            }
-            p:nth-of-type(1){
-                margin-top:10/@rem
-            }
-        }
-        @keyframes warning {
-          0%{
-            opacity: 0;
-          }
-          50%{
-            opacity: 1;
-          }
-        }
-        .alert{
-          span{
-            background: url(../../../assets/img/guiji-icon7.png) no-repeat;
-            animation: warning 0.5s linear infinite;
-            background-size: 100% 100%;
-          }
-        }
+  .textwrap {
+    width: 520/@rem;
+    height: 80/@rem;
+    margin-left: 20/@rem;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 16/@rem;
+    color: #fff;
+
+    p {
+      line-height: 28/@rem;
+      padding: 0 10/@rem;
     }
 
+    button {
+      // position: absolute;
+      float: right;
+      margin-right: 3/@rem;
+      right: 0;
+      padding: 0/@rem 5/@rem;
+      border-radius: 3/@rem;
+      border: 1/@rem solid #00b2fc;
+      color: #fff;
+      background: linear-gradient(to top, #00b2fc, #00b2fc, transparent);
+      cursor: pointer;
+    }
 
+    button:nth-of-type(1) {
+      right: 90/@rem
+    }
+  }
+
+  .mes-l {
+    width: 35%;
+    height: 80/@rem;
+    font-size: 16/@rem;
+
+    span {
+      float: left;
+      width: 30/@rem;
+      height: 30/@rem;
+      background: url(../../../assets/img/shenpi.png) no-repeat;
+      margin: 20/@rem 10/@rem 0 10/@rem;
+      background-size: 100% 100%;
+
+    }
+
+    p {
+      line-height: 25/@rem;
+      color: #fff;
+    }
+
+    p:nth-of-type(1) {
+      margin-top: 10/@rem
+    }
+  }
+
+  .mes-r {
+    width: 62%;
+    height: 80/@rem;
+    font-size: 16/@rem;
+
+    span {
+      float: left;
+      width: 30/@rem;
+      height: 30/@rem;
+      background: url(../../../assets/img/shijian.png) no-repeat;
+      margin: 20/@rem 10/@rem 0 10/@rem;
+      background-size: 100% 100%;
+
+    }
+
+    p {
+      line-height: 25/@rem;
+      color: #fff;
+    }
+
+    p:nth-of-type(1) {
+      margin-top: 10/@rem
+    }
+  }
+
+  @keyframes warning {
+    0% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .alert {
+    span {
+      background: url(../../../assets/img/guiji-icon7.png) no-repeat;
+      animation: warning 0.5s linear infinite;
+      background-size: 100% 100%;
+    }
+  }
+}

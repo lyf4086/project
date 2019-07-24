@@ -67,6 +67,7 @@
 }
 .item_list .item_gun .left div {
   width: 100%;
+  line-height: 1.30208333vw;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -39,14 +39,13 @@
   font-size: 16/@vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   align-content: stretch;
   overflow-x: hidden;
   overflow-y: auto;
 
   .item_miao {
     width: 32%;
-    height: 300/@vw;
+    height: 233/@vw;
     margin: 2/@vh 0.6%;
     overflow: hidden;
     box-sizing: border-box;
@@ -54,10 +53,11 @@
     background: url(../../../assets/img/itwm-miao-bg.png) no-repeat center center;
     background-size: 100% 100%;
 
+
     .check {
       position: absolute;
-      top: 20/@rem;
-      left: 20/@rem;
+      top: 10/@rem;
+      left: 10/@rem;
       width: 20/@rem;
       height: 20/@rem;
       display: none;
@@ -73,8 +73,6 @@
       margin: auto;
       width: 140/@rem;
       height: 140/@rem;
-      // border-radius: 50%;
-      // background: #ccc;
 
       .round1 {
         position: absolute;
@@ -119,7 +117,6 @@
         width: 100/@rem;
         height: 50/@rem;
 
-        // border:1px solid blue;
         .text {
           position: absolute;
           margin-left: -50%;
@@ -229,12 +226,13 @@
     .content {
       position: absolute;
       left: 47/@vw;
-      top: 86/@vw;
+      top: 67/@vw;
       width: 83%;
-      height: 156/@vw;
+      height: 120/@vw;
       box-sizing: border-box;
       display: flex;
       flex-wrap: wrap;
+
 
       .item {
         width: 33%;
@@ -260,6 +258,16 @@
 
       .item:nth-child(5) {
         cursor: pointer;
+      }
+
+      .item:nth-child(6) {
+        p {
+          width: 88%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
       }
 
       .item:first-child {

@@ -10,6 +10,16 @@
   }
 }
 
+@keyframes zhuan {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
 #header {
   width: 100%;
   height: 157/@rem;
@@ -33,6 +43,7 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
+
     }
   }
 
@@ -98,11 +109,13 @@
   }
 
   .btns {
-    width: 360/@rem;
+    // width: 360/@rem;
+    width: 430/@rem;
     height: 40/@rem;
     margin-top: 40/@rem;
     display: flex;
     justify-content: flex-end;
+    // background: #0b9eb8;
 
     span {
       width: 49/@rem;
@@ -114,27 +127,37 @@
     }
 
     span:nth-child(1) {
+      background: url('../assets/img/tongbu.png');
+      background-size: cover;
+
+    }
+
+    span:nth-child(1):hover {
+      animation: zhuan 3s linear infinite;
+    }
+
+    span:nth-child(2) {
       background: url('../assets/img/icon6.png');
       background-size: cover;
 
     }
 
-    span:nth-child(2) {
+    span:nth-child(3) {
       background: url('../assets/img/icon22.png');
       background-size: cover
     }
 
-    span:nth-child(3) {
+    span:nth-child(4) {
       background: url('../assets/img/icon2.png');
       background-size: cover
     }
 
-    span:nth-child(4) {
+    span:nth-child(5) {
       background: url('../assets/img/mine.png');
       background-size: cover
     }
 
-    span:nth-child(5) {
+    span:nth-child(6) {
       background: url('../assets/img/icon5.png');
       background-size: cover
     }
@@ -599,4 +622,27 @@
   width: 100/@rem;
   height: 200/@rem;
   background: red;
+}
+
+.tongbu {
+  width: 300/@rem;
+  height: 300/@rem;
+  position: absolute;
+  color: #fff;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+
+
+  .round {
+    width: 100/@rem;
+    height: 100/@rem;
+    margin: 30/@rem auto;
+    background: url(../assets/img/round2.png) no-repeat;
+    background-size: 100% 100%;
+    animation: zhuan 4s linear infinite;
+  }
 }

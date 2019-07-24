@@ -26,14 +26,13 @@
   font-size: 0.83333333vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   align-content: stretch;
   overflow-x: hidden;
   overflow-y: auto;
 }
 .main .item_miao {
   width: 32%;
-  height: 15.625vw;
+  height: 12.13541667vw;
   margin: 0.18518519vh 0.6%;
   overflow: hidden;
   box-sizing: border-box;
@@ -43,8 +42,8 @@
 }
 .main .item_miao .check {
   position: absolute;
-  top: 0.2rem;
-  left: 0.2rem;
+  top: 0.1rem;
+  left: 0.1rem;
   width: 0.2rem;
   height: 0.2rem;
   display: none;
@@ -186,9 +185,9 @@
 .main .item_miao .content {
   position: absolute;
   left: 2.44791667vw;
-  top: 4.47916667vw;
+  top: 3.48958333vw;
   width: 83%;
-  height: 8.125vw;
+  height: 6.25vw;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -211,6 +210,12 @@
 }
 .main .item_miao .content .item:nth-child(5) {
   cursor: pointer;
+}
+.main .item_miao .content .item:nth-child(6) p {
+  width: 88%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .main .item_miao .content .item:first-child {
   cursor: pointer;

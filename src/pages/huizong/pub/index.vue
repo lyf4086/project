@@ -45,7 +45,7 @@
       <ul class="list">
         <li v-for="item,index in item8_data" :key="index">
           <span>{{item.type_name}}</span>
-          <span>{{item.policeuser_name}}</span>
+          <span>{{item.policeuser_name||"无"}}</span>
           <span>{{item.gun_code}}</span>
           <span>{{item.gposition}}</span>
         </li>
@@ -90,13 +90,6 @@
           <span>{{item.planTime}}</span>
           <span>{{item.taskinfo}}</span>
           <span>{{item.username}}</span>
-          <!-- <span>机构名称</span>
-          <span>枪支类型</span>
-          <span>枪支编号</span>
-          <span>借出时间</span>
-          <span>归还时间</span>
-          <span>用途</span>
-          <span>用枪员</span>-->
         </li>
       </ul>
     </div>
@@ -174,10 +167,9 @@ export default {
         data: params
       })
         .then(data => {
-          console.log("item7", data);
           if (data.status == 200) {
             this.item7_data = data.data.data;
-            // console.log(this.item7_data)
+            console.log("item7", this.item7_data);
           }
         })
         .catch(error => {

@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="机构管理" :next="active_title"/>
+        <breadNav title="机构管理" :next="active_title" />
       </div>
       <div class="search-wrap">
         <!--搜索框-->
@@ -32,13 +32,13 @@
           v-model="putValue"
           @keyup.13="subSearch"
           placeholder="请输入搜素关键字"
-        >
+        />
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
     <div class="page-index" v-show="pageTotal&&ishand">
       <el-pagination
-        :page-size="6"
+        :page-size="9"
         :pager-count="9"
         layout="prev, pager, next"
         @current-change="currentChange"
@@ -62,7 +62,7 @@
         :allGunList="allGunList"
         @updataView="updataView"
       ></newContent>
-      <MapAlert :isShow="mapIsShow" :delthis="delMap"/>
+      <MapAlert :isShow="mapIsShow" :delthis="delMap" />
     </div>
     <div class="cover" v-show="alert||xiugai">
       <div class="text-wrap" v-show="alert">
@@ -88,7 +88,7 @@
         <div>原名字：{{xiugaiData.IMEI}}</div>
         <div>
           新名字：
-          <input type="text" v-model="xiugaiStr">
+          <input type="text" v-model="xiugaiStr" />
         </div>
         <button class="sub" @click="subChange">确认修改</button>
       </div>
@@ -254,7 +254,7 @@ export default {
           console.log(error);
         });
     },
-    getDataList(jigou_id = 1, p = 1, ps = 6) {
+    getDataList(jigou_id = 1, p = 1, ps = 9) {
       //.............................获取枪瞄列表数据函数
       var key = this.$store.state.key;
       var objs = { mechanism_id: jigou_id, p: p, ps: ps };
@@ -534,7 +534,6 @@ export default {
               checked: false
             };
           });
-
           this.allGunList = dataArr;
         })
         .catch(error => {

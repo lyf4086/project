@@ -37,7 +37,7 @@
   overflow: hidden;
 }
 .guiji .marker-route .img_wrap img {
-  width: 100%;
+  width: 102%;
 }
 .guiji .left_mes {
   position: absolute;
@@ -616,6 +616,14 @@ div.info-bottom img {
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.16rem;
+}
+.alarm_list .del-area {
+  width: 1.05rem;
+  height: 0.36rem;
+  line-height: 0.33rem;
+  background: #0198dd;
+  border-radius: 0.05rem;
+  color: #fff;
 }
 .alarm_list > div {
   width: 100%;

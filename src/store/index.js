@@ -11,8 +11,7 @@ let store = new Vuex.Store({
     role_id: '',
     policeuser_id: '',
     yeMa: '',
-    jiGouId: '',
-
+    jiGouId: ''
 
   },
   mutations: {

@@ -1,4 +1,6 @@
 //一些事件函数模块
+
+
 function GetDistance(lng1, lat1, lng2, lat2) { //..计算两坐标点之间的距离单位千米
   var radLat1 = lat1 * Math.PI / 180.0;
   var radLat2 = lat2 * Math.PI / 180.0;
@@ -75,6 +77,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     let a1 = data.data.data.list.map(e => {
       return [e.longitude * 1, e.latitude * 1]
     })
+    // console.log(a1)
     let dataList = data.data.data.list
     let newArr = this.checkedPersonArr
     newArr.unshift(this.selectedPerson)
@@ -84,8 +87,6 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     })
 
     this.moveingPersonList = newArr //当前要做动画运动的人
-
-
 
     var arrN = [];
     var d = data.data.data.list;
@@ -101,7 +102,9 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
       return Object.assign(item, o)
     })
 
+
     let markerArr = bbb.map((e, i) => {
+
       return new AMap.Marker({
         content: `<div class="marker-route" >
                     <div class="cover" ></div>
@@ -119,14 +122,15 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
         heart: e.heart,
         ptype: e.ptype,
         positions: e.gun_code,
-        offset: new AMap.Pixel(-16, -39)
+        offset: new AMap.Pixel(-16, -39),
+        policeuser_id: e.policeuser_id
       })
     })
 
     markerArr.forEach(item => {
       AMap.event.addListener(item, 'click', function (ev) {
 
-        that.creatInfoBox(ev.target.G.title, ev.target.G.position, item)
+        that.creatInfoBox(item)
 
       })
     })
@@ -171,18 +175,20 @@ function getJiGouStr() {
     changeOrigin: true,
     data: params
   }).then((data) => {
+
     function creatTreeStr(obj) {
       let str = ``;
       if (obj.length > 0) {
         for (let i = 0; i < obj.length; i++) {
           // let levelstr = levelStr(obj[i].level);
-          str += `<option value="${obj[i].id}" > ${obj[i].mechanism_name}</option>`;
-          if (obj[i]['child'].length > 0) {
 
+          str += `<option value="${obj[i].id}" >${"&nbsp;&nbsp;".repeat(obj[i].index)}${obj[i].mechanism_name}</option>`;
+          if (obj[i]['child'].length > 0) {
             str += creatTreeStr(obj[i].child);
           }
         };
       }
+
       return str;
     }
 
@@ -236,7 +242,74 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
         let that = this
         let lineArrAndBaoJing = data.data.data.list.filter(e => e.alarm)
         let lineArr = data.data.data.list.map((e) => [e.longitude - 0, e.latitude - 0])
-        this.guijiHistory(lineArr)
+
+
+
+
+        let pathParam = data.data.data.list.map((item, index) => {
+          return {
+            "x": item.longitude - 0,
+            "y": item.latitude - 0,
+            "sp": 10,
+            "ag": 0,
+            "tm": 180
+          }
+
+        })
+
+
+        let graspRoad;
+        if (!graspRoad) {
+          graspRoad = new AMap.GraspRoad()
+        }
+
+        graspRoad.driving(pathParam, function (error, result) {
+
+          if (!error) {
+            var path2 = [];
+            var newPath = result.data.points;
+            for (var i = 0; i < newPath.length; i += 1) {
+              path2.push([newPath[i].x, newPath[i].y])
+            }
+            var newLine = new AMap.Polyline({
+              path: path2,
+              strokeWeight: 8,
+              strokeOpacity: 0.8,
+              strokeColor: '#0091ea',
+              showDir: true
+            })
+
+            that.map.add(newLine)
+            that.map.setFitView()
+          } else {
+            console.log(error)
+          }
+        })
+
+
+        return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // ...................原方法
+        // this.guijiHistory(lineArr)
+        // ..................原方法
+
+
+
 
 
         // var polyline = new AMap.Polyline({
@@ -273,12 +346,12 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
         markerArr.forEach(item => {
           AMap.event.addListener(item, 'click', function (ev) {
             // infoWindow.open(map, item.getPosition());
-            creatInfoBox(item.G.title, item.G.position, item, item.G.created)
+            creatInfoBox(item, item.G.created)
 
           })
         })
 
-        function creatInfoBox(tit = '离枪报警', jingweidu, item, timer) {
+        function creatInfoBox(item, timer) {
           let t = changeTime(timer)
 
           function changeTime(timestamp) {
@@ -366,36 +439,44 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
   })
 }
 
-function creatInfoBox(tit = '李业锋', jingweidu, item, ...res) {
+function creatInfoBox(item, ...res) {
+  console.log(item)
+  setTimeout(() => { //如果没有手动关闭，20秒之后自动关闭
+    closeInfoWindow()
+  }, 15000)
 
-  function toTxet(n) {
-    if (n == 1) {
-      return '92式'
-    } else if (n == 2) {
-      return '95式'
-    } else if (n == 3) {
-      return '77式'
-    } else if (n == 4) {
-      return '64式'
-    } else if (n == 5) {
-      return '92改'
-    }
+  function changeTime() {
+    var date = new Date(); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var Y = date.getFullYear() + "-";
+    var M =
+      (date.getMonth() + 1 < 10 ?
+        "0" + (date.getMonth() + 1) :
+        date.getMonth() + 1) + "-";
+    var D =
+      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
+    var h =
+      (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":";
+    var m =
+      (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
+      ":";
+    var s =
+      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
   }
 
   let that = this
   let map = this.map
-  var title = `警员姓名：<span style="font-size:11px;color:#F00;">${tit}</span>`,
+  var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title}</span>`,
     content = [];
-  // <img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>
-
-  content.push(`<img src='${item.G.src}' style="float:left;width:1rem;">`)
-  // content.push(`<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134' >`)
-  content.push(`所属机构：${item.G.jigou}<br/>枪支类型：${toTxet(item.G.gtype)}`);
-  content.push(`最后定位时间:${item.G.time}`);
-  content.push(`枪支编号:${item.G.positions}`);
+  content.push(`<img alt="头像" src='${item.Ge.src }' style="float:left;width:1rem;">`)
+  content.push(`所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`);
+  // content.push(`最后定位时间:${item.G.time}`);
+  content.push(`最后定位时间:${changeTime()}`);
+  content.push(`枪支编号:${item.Ge.positions}`);
   // content.push(`<span class="toxiangqing" >详细信息</span>`);
-  content.push(`是否在线:${item.G.heart==1?"在线":"不在线"}`);
-  content.push(`定位类型:${item.G.ptype}`);
+  content.push(`是否在线:${item.Ge.heart==1?"在线":"不在线"}`);
+  content.push(`定位类型:${item.Ge.ptype}`);
+  content.push(`枪瞄编号:${item.Ge.IMEI}`);
   var infoWindow = new AMap.InfoWindow({
     isCustom: true, //使用自定义窗体
     content: createInfoWindow(title, content.join("<br/>")),
@@ -490,6 +571,7 @@ function getPersonAndGunStr(id) {
     changeOrigin: true,
     data: params
   }).then((data) => {
+
     if (data.data.code == 200) {
 
       this.allPersonIEMIStr = data.data.IMEIs
@@ -522,13 +604,14 @@ function getPersonAndGunStr(id) {
     }
 
     function optionStr(arr) {
+      let img = require('@/assets/img/head-icon.png')
       let str = ''
       if (!arr.length) {
         return str = `<option >暂时没有数据</option>`
       }
       arr.forEach(e => {
-        if (!e.policeuser.img) e.policeuser.img = "123";
-        str += `<option value="${e.IMEI}|${e.policeuser.img}"  >枪支编号：${e.gun_code} , 所属警员：${e.policeuser_name ?e.policeuser_name:'暂未绑定人员'}</option>`
+        if (!e.policeuser.img) e.policeuser.img = img;
+        str += `<option value="${e.IMEI}|${e.policeuser.img}"  >枪支编号：${e.gun_code} , 所属警员：${e.policeuser_name ?e.policeuser_name:'暂未绑定人员'},枪瞄编号：${e.IMEI}</option>`
       })
       return str
     }
@@ -708,9 +791,10 @@ function setWarningRange() {
 }
 
 function setMarker(ev) {
+
   let map = this.map
   var marker = new AMap.Marker({
-    position: new AMap.LngLat(ev.lnglat.M, ev.lnglat.O)
+    position: new AMap.LngLat(ev.lnglat.Q, ev.lnglat.P)
 
   });
 
@@ -731,7 +815,7 @@ function confirmSetArea() {
 
   let map = this.map
   let that = this
-  let arr = this.markerArr.map(e => e.G.position)
+  let arr = this.markerArr.map(e => e.Ge.position)
 
   //............这里有待考证
   // arr.map(e=>{
@@ -839,6 +923,10 @@ function shezhiquyu(gun_ids, pointsArr, policeuser_id, stime, etime, text, IMEIS
       this.getAlarmList()
       // this.$refs.alarmSelect.value=data.data.data.area_alarm_id
       // this.alarmId=data.data.data.area_alarm_id
+      setTimeout(() => {
+
+        this.$router.go(0)
+      }, 2000)
 
     }
 
@@ -931,7 +1019,7 @@ function showOneAlarmPolygon(arr, id, state = 0) {
     var contextMenu = new AMap.ContextMenu();
     contextMenu.addItem("删除该区域", function () {
       polygon.hide()
-      that.delOneAlarmArea(ev.target.G.area_alarm_id)
+      that.delOneAlarmArea(ev.target.Ge.area_alarm_id)
       that.shuaXinMap()
       that.filterMessage.uname = ''
     }, 0);
@@ -952,16 +1040,18 @@ function showOneAlarmPolygon(arr, id, state = 0) {
 
 function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   let that = this
+  let noneImg = require('@/assets/img/head-icon.png')
   this.filterMessage.uname = data.policeuser_name
   this.filterMessage.bianhao = data.police_number
   this.filterMessage.newOrOld = 'old'
   this.filterMessage.imgSrc = data.icon
   let markerArr = data.child.map((e, i) => {
+    let imgurl = e.img ? `<img src="${e.img}" />` : `<img src="${noneImg}" />`
     return new AMap.Marker({
       content: `<div class="marker-route" >
                 <div class="cover" ></div>
                 <div class="img_wrap">
-                  <img src="${e.img}" />
+                  ${imgurl}
                 </div>
               </div>`,
       position: [e.position.longitude, e.position.latitude],
@@ -969,8 +1059,10 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
       src: e.icon,
       jigou: e.mechanism.mechanism_name,
       gtype: e.gtype,
-      time: e.position.created,
+      time: e.created,
       IMEI: e.IMEI,
+      ptype: e.ptype,
+      positions: e.gun_code,
       offset: new AMap.Pixel(-16, -43)
     })
   })
@@ -978,7 +1070,7 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   markerArr.forEach(item => {
     AMap.event.addListener(item, 'click', function (ev) {
       // infoWindow.open(map, item.getPosition());
-      that.creatInfoBox(ev.target.G.title, ev.target.G.position, item)
+      that.creatInfoBox(item)
 
     })
   })
@@ -1011,7 +1103,7 @@ function delOneAlarmArea(id) { //.....删除一个报警区域
   }).then((data) => {
 
     if (data.data.code == 200) {
-
+      this.$router.go(0) //刷新当前页面
       this.$message('删除成功')
       this.getAlarmList()
     }
@@ -1022,8 +1114,9 @@ function delOneAlarmArea(id) { //.....删除一个报警区域
 }
 
 function getNewPosition(id) {
-  // if(!id){ return }
+
   let IMEIstr = this.moveingPersonList.map(e => e.IMEI).join()
+
   var objs = {
     "IMEI": IMEIstr,
     "ps": 99,
@@ -1045,26 +1138,8 @@ function getNewPosition(id) {
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
+      // ...匀速运动有问题
       this.unifromSpeedMoveing(data.data.data.list)
-      let state = data.data.state
-      if (!this.polygon) {
-        return
-      }
-      // this.$message(`${state}`)
-      if (state == 1) {
-        setTimeout(() => {
-          this.polygon.setOptions({
-            fillColor: 'rgba(195,13,35,0.4)'
-          })
-        }, 180000)
-      } else {
-        setTimeout(() => {
-          this.polygon.setOptions({
-            fillColor: 'rgba(1,221,156,0.4)'
-          })
-        }, 180000)
-
-      }
     }
   }).catch((error) => {
     console.log(error)
@@ -1076,9 +1151,9 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
 
   this.oldPositionArr = this.markerArr.map(item => {
     return {
-      "IMEI": item.G.IMEI,
-      "lng": item.G.position.lng,
-      "lat": item.G.position.lat
+      "IMEI": item.Ge.IMEI,
+      "lng": item.Ge.position.lng - 0,
+      "lat": item.Ge.position.lat - 0
     }
   })
 
@@ -1096,13 +1171,15 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
   })
 
 
-  let juliArr = newA.map((item, index) => {
-    return GetDistance(item.lng, item.lat, this.oldPositionArr[index].lng, this.oldPositionArr[index].lat) * 20
+  let juliArr = newA.map((item, index) => { //..计算两坐标点之间的距离单位千米
+    // console.log(item)
+    return GetDistance(item.lng, item.lat, this.oldPositionArr[index].lng, this.oldPositionArr[index].lat)
   })
 
-  // let speedArr=juliArr.map(e=>e*20)// 最新速度数组3分钟走完的速度
-  let speedArr = juliArr.map(e => 3) //临时
-  // let speedArr=juliArr.map(e=>e*360) //  10秒走完的速度
+  // let speedArr = juliArr.map(e => e * 20) // 最新速度数组3分钟走完的速度
+  // let speedArr = juliArr.map(e => e * 30) // 最新速度数组2分钟走完的速度
+  // let speedArr = juliArr.map(e => 3) //临时
+  let speedArr = juliArr.map(e => e * 360) //  10秒走完的速度
   console.log('距离', juliArr, '速度', speedArr)
   let targetPosition = paixuArr.map(item => { //...新的目标点数组
     return [item.lng, item.lat]
@@ -1117,6 +1194,9 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
   //   this.markerArr[index].moveTo(item,2)
   // })
   //问题就出在这里
+  //标记点所有动画停止
+
+
   targetPosition.forEach((item, index) => {
     let speed = speedArr[index] ? speedArr[index] : 10
     this.markerArr[index].moveTo(item, speed)

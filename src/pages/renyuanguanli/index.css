@@ -122,6 +122,19 @@
   background: url(../../assets/img/delete.png) no-repeat;
   background-size: 100% 100%;
 }
+.check-type {
+  width: 2.6rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  position: absolute;
+  font-size: 0.16rem;
+  text-align: center;
+  top: 0.3rem;
+  right: 50%;
+  cursor: pointer;
+  transform: translateX(50%);
+  background: rgba(158, 153, 153, 0.2);
+}
 .content {
   width: 88.9%;
   height: 88%;

@@ -1,14 +1,15 @@
 <template>
   <div class="item">
     <div class="imgwrap">
-      <img :src="oneDate.icon" alt="警员">
+      <img v-if="oneDate.icon" :src="oneDate.icon" alt="警员" />
+      <img v-if="!oneDate.icon" src="../../../assets/img/head-icon.png" alt />
     </div>
     <div class="textwrap">
       <p>警员：{{oneDate.policeName}}</p>
       <p>警号：{{oneDate.policeNum}}</p>
       <p>持枪证号：{{oneDate.permitid}}</p>
       <p>单位：{{oneDate.mechanism_name}}</p>
-      <p>持枪编号：{{oneDate.gunNum}}</p>
+      <p>枪支编号：{{oneDate.gunNum}}</p>
       <p>持枪类型：{{oneDate.bulletType}}</p>
       <p>
         <button @click="toHistory(oneDate)">历史轨迹</button>

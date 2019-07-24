@@ -9,16 +9,16 @@
         ref="item"
         :class="{'dou':isRemoving}"
       >
-        <input class="check" type="checkbox" v-model="item.checked" v-show="item.checked">
+        <input class="check" type="checkbox" v-model="item.checked" v-show="item.checked" />
         <div class="del_one" v-show="false">X</div>
         <div class="left">
           <div class="btn" title="枪支编号">
             <p>{{item.gun_code}}</p>
           </div>
-          <div class="btn" title="枪支类型">{{item.gtype}}</div>
+          <div class="btn" title="枪支类型">{{item.gtype||"暂无"}}</div>
           <div class="btn" title="所属机构">{{item.mechanism_name}}</div>
           <div class="btn text" title="枪柜编号" @click="toXiangQing(item)">
-            <p>{{item.guncabinet_code||'&nbsp;'}}</p>
+            <p>{{item.guncabinet_code||'无'}}</p>
           </div>
         </div>
         <div class="center">
@@ -27,7 +27,7 @@
           <div class="gun"></div>
         </div>
         <div class="right">
-          <div class="btn" title="枪锁位">枪锁位：{{item.gposition}}</div>
+          <div class="btn" title="枪锁位">枪锁位：{{item.gposition || '无'}}</div>
           <div class="btn text" title="枪瞄编号">
             <p
               v-if="item.gunaiming_id!=0"
@@ -111,7 +111,7 @@
           placeholder="请输入枪瞄ID"
           v-model="activeMiaoId"
           @input="putChange"
-        >
+        />
         <div class="m-item-wrap">
           <div class="no-data" v-if="allMiaoList.length==0">该机构下暂时没有枪瞄数据</div>
           <div

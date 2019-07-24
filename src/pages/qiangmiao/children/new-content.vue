@@ -8,16 +8,24 @@
         </div>
         <div class="item" title="枪瞄状态">{{item.heart==1 ? "在线":"不在线"}}</div>
         <div class="item" title="电量" @click="tanchuang2(item.electricity)">{{item.electricity}}%</div>
-        <div class="item" title="充电状态">{{item.ischarging || '未充电'}}</div>
+        <div class="item" title="充电状态">{{ischarging(item.ischarging)}}</div>
         <div class="item" title="所属警员" @click="lookPerson(item)">{{item.policeuser_name || '暂无'}}</div>
-        <div class="item" title="所属机构">{{item.mechanism_name}}</div>
-        <div class="item" title="绑定枪支">
+        <div class="item" title="所属机构">
+          <p>{{item.mechanism_name}}</p>
+        </div>
+        <div class="item" title="绑定解绑">
           <span @click="tanchuang3(item)" v-if="item.gun_id==0">绑定</span>
-          <span v-if="item.gun_id>0" class="jiebang" @click="jiebang(item)" style="color:red;">解绑</span>
+          <span
+            v-if="item.gun_id>0"
+            class="jiebang"
+            @click="jiebang(item)"
+            style="color:red;"
+            :title="item.gun_code"
+          >解绑</span>
         </div>
         <div class="item" title="最后定位时间">{{item.created}}</div>
       </div>
-      <input type="checkbox" id="checkbox" class="check" v-model="item.checked">
+      <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
     </div>
     <div class="zhezhao" v-show="tan1||tan2||tan3||map">
       <div class="alert1" v-show="tan1" v-if="OneMessage">
@@ -49,7 +57,7 @@
       <div class="alert3" v-show="tan3">
         <p class="t">选择要绑定的枪支</p>
         <button class="close" @click="close3">X</button>
-        <input @input="putChange" class="put1" v-model.trim="xuanZhongGunId" placeholder="输入枪支ID">
+        <input @input="putChange" class="put1" v-model.trim="xuanZhongGunId" placeholder="输入枪支ID" />
         <div class="list" ref="list">
           <div class="no-data" v-if="allGunList.length==0">该机构下暂时没有枪支信息,请前往添加</div>
           <div
@@ -59,11 +67,11 @@
             v-for="e,key in allGunList"
             @click="gunListClick(e,key)"
           >
-            枪支ID:{{e.gun_id}} ，类型：{{e.gtype}}
+            枪支编号:{{e.gun_code}} ，类型：{{e.gtype || "无"}}
             <!-- <input type="checkbox" v-model="e.checked" /> -->
           </div>
         </div>
-        <input type="submit" class="btn" @click="submitBt" value="确认绑定">
+        <input type="submit" class="btn" @click="submitBt" value="确认绑定" />
       </div>
     </div>
   </div>
@@ -99,7 +107,15 @@ export default {
       active_dianliang: ""
     };
   },
+
   methods: {
+    ischarging(num) {
+      if (num == "02") {
+        return "充电中";
+      } else {
+        return "未充电";
+      }
+    },
     lookPerson(item) {
       this.$store.commit("setPoliceId", {
         policeuser_id: item.policeuser_id

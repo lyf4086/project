@@ -2,7 +2,7 @@
   <div id="wrap">
     <div id="header">
       <div class="logo">
-        <img src="@/assets/img/logo1.png">
+        <img src="@/assets/img/logo1.png" />
       </div>
       <div class="nav_wrap">
         <div class="nav-btns">
@@ -19,19 +19,22 @@
             </router-link>
           </div>
           <div class="btns">
+            <span title="同步数据" @click="tongbu" v-show="sync===1"></span>
             <router-link
+              title="人员管理"
               v-show="mes.role_id==3||mes.role_id==2?false:true"
               to="/indexg/renyuan"
               tag="span"
             ></router-link>
             <router-link
+              title="机构管理"
               v-show="mes.role_id==3||mes.role_id==4||mes.role_id==2?false:true"
               to="/indexg/jigouguanli"
               tag="span"
             ></router-link>
-            <span @click="pas"></span>
-            <span @click="mine" class="mine"></span>
-            <span @click="logout"></span>
+            <span title="修改密码" @click="pas"></span>
+            <span title="个人信息" @click="mine" class="mine"></span>
+            <span title="推出登录" @click="logout"></span>
           </div>
         </div>
         <div class="title">
@@ -45,8 +48,8 @@
           <div class="line4"></div>
           <p class="mine-title">个人信息</p>
           <div class="imgwrap">
-            <img :src="mes.icon" v-if="mes.icon" alt="head pic">
-            <img src="@/assets/img/head-icon.png" v-else="!mes.icon" alt="head pic">
+            <img :src="mes.icon" v-if="mes.icon" alt="head pic" />
+            <img src="@/assets/img/head-icon.png" v-else="!mes.icon" alt="head pic" />
           </div>
 
           <p class="mine-name">姓名：{{mes.uname}}</p>
@@ -57,15 +60,18 @@
 
           <button @click="uploadImg" class="change_pass">上传或修改头像</button>
         </div>
-        <div class="cover" v-show="pasShow || upPic">
+        <div class="cover" v-show="pasShow || upPic || tb">
+          <div class="tongbu" v-show="tb">
+            <div class="round"></div>数据同步中，请稍后...
+          </div>
           <div class="changepass" v-show="pasShow">
             <div class="pas">
               <span>请输入密码：</span>
-              <input type="password" placeholder="请输入密码" v-model="pwd1" ref="pass1">
+              <input type="password" placeholder="请输入密码" v-model="pwd1" ref="pass1" />
             </div>
             <div class="pas">
               <span>确认 密码：</span>
-              <input type="password" placeholder="请再次确认密码" v-model="pwd2" ref="pass2">
+              <input type="password" placeholder="请再次确认密码" v-model="pwd2" ref="pass2" />
             </div>
             <div class="subs">
               <button @click="subChange">确定修改</button>
@@ -85,7 +91,7 @@
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
             >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </div>
@@ -108,7 +114,7 @@
         >
           <div class="warning_item">
             <span :title="index+1">{{index+1}}</span>
-            <span @click="itemClick(item)">{{item.policeuser_name}} {{item.type}}</span>
+            <span @click="itemClick(item)">{{item.policeuser_name||"暂无"}} {{item.type||"暂无"}}</span>
             <span class="chuli" @click="done(index)">极速处理</span>
           </div>
         </transition>
@@ -189,10 +195,37 @@ export default {
       mes: null,
       warningList: [],
       warningMove: false,
-      warningBoxIsShow: true
+      warningBoxIsShow: true,
+      tb: false,
+      sync: ""
     };
   },
   methods: {
+    tongbu() {
+      this.tb = true;
+      var objs = {};
+      var token = this.$gscookie.getCookie("gun");
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
+      var params = new URLSearchParams();
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url: "http://s.tronl.cn/weixin/project/index.php?m=home&c=Jd&a=index",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.data.code == 200) {
+            this.tb = false;
+            this.$message("数据同步成功");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     itemClick(item) {
       if (this.$route.name == "BaoJing") {
         new Promise(resolve => {
@@ -490,9 +523,11 @@ export default {
     tishi() {
       //.........所借枪支即将到期提示
       let roleId = this.$store.state.role_id;
+      //.获取提示信息
+
       setInterval(() => {
         this.getTiShi();
-      }, 10000);
+      }, 100000);
       if (roleId == 3) {
       }
     },
@@ -527,6 +562,7 @@ export default {
     }
   },
   created() {
+    this.sync = this.$gscookie.getCookie("sync");
     this.getAllWarningList();
     this.getNav();
     this.mes = this.$gscookie.getCookie("message_obj");
@@ -550,6 +586,7 @@ export default {
     }
     this.listMoving();
     let that = this;
+    //重复请求有下角报警列表
     setInterval(() => {
       that.getAllWarningList();
     }, 20000);

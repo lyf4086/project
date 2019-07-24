@@ -333,10 +333,19 @@
       position: absolute;
       bottom: 15/@rem;
       text-indent: 26/@rem;
-      background: none;
       // transform: scaleY(0.8);
       color: #333;
       cursor: pointer;
+    }
+
+    button {
+      position: absolute;
+      right: 20/@rem;
+      bottom: 14/@rem;
+      width: 50/@rem;
+      height: 22/@rem;
+      font-size: 12/@rem;
+      line-height: 22/@rem;
     }
   }
 }
@@ -364,6 +373,7 @@
 
 .xiangqing-wrap {
   position: fixed;
+  z-index: 9;
   top: 0;
   left: 0;
   width: 100vw;
@@ -401,7 +411,7 @@
       top: 80/@rem;
       width: 88%;
       max-height: 84%;
-      // overflow: auto;
+      overflow: auto;
       display: flex;
       flex-wrap: wrap;
 
@@ -512,26 +522,52 @@
       }
     }
 
-    // .content::-webkit-scrollbar {
-    //   /*滚动条整体样式*/
-    //   width: 4px;
-    //   /*高宽分别对应横竖滚动条的尺寸*/
-    //   height: 4px;
-    // }
+    .content::-webkit-scrollbar {
+      /*滚动条整体样式*/
+      width: 4px;
+      /*高宽分别对应横竖滚动条的尺寸*/
+      height: 4px;
+    }
 
-    // .content::-webkit-scrollbar-thumb {
-    //   /*滚动条里面小方块*/
-    //   border-radius: 5px;
-    //   -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
-    //   background: rgba(34, 3, 117, 0.8);
-    // }
+    .content::-webkit-scrollbar-thumb {
+      /*滚动条里面小方块*/
+      border-radius: 5px;
+      -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+      background: rgba(34, 3, 117, 0.8);
+    }
 
-    // .content::-webkit-scrollbar-track {
-    //   /*滚动条里面轨道*/
-    //   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    //   border-radius: 0;
-    //   background: rgba(221, 213, 213, 0.6);
-    // }
+    .content::-webkit-scrollbar-track {
+      /*滚动条里面轨道*/
+      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      border-radius: 0;
+      background: rgba(221, 213, 213, 0.6);
+    }
+  }
+
+  .vidio {
+    width: 70%;
+    height: 90%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: url(../../assets/img/qiangguixiangqing.png) no-repeat center;
+    background-size: 100% 100%;
+
+    .close {
+      position: absolute;
+      width: 240/@rem;
+      height: 30/@rem;
+      right: 150/@rem;
+      // top:50/@rem;
+      font-size: 18/@rem;
+      bottom: 9/@rem;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+    }
   }
 
   .owner {
