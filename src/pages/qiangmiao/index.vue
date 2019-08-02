@@ -115,7 +115,7 @@ export default {
       qiangmiaoData: [], //...........当前显示的枪瞄数据
       active_title: "", //...当前显示谁的数据
       treeData: [], //树形菜单数据
-      currentNodeKey: "316",
+      currentNodeKey: "",
       firstId: undefined, //...属性菜单第一个数据得id
       defaultProps: {
         children: "child",
@@ -367,28 +367,30 @@ export default {
     delQiaoMiao() {
       let arr1 = this.qiangmiaoData.filter(e => e.checked);
       let nojiebang = arr1.find(e => e.gun_id != 0);
-      if (arr1.length) {
-        if (!confirm("确定要删除吗？请三思")) return;
-      }
-      if (nojiebang) {
-        this.$message({
-          message: "无法删除已绑定枪支，请先解绑后删除",
-          type: "warning"
-        });
-        return;
-      }
-
       if (!arr1.length) {
         this.$message("请选择要删除的枪瞄");
+        return;
       }
-      let idStr = arr1.map(e => e.gunaiming_id).join(",");
-      // console.log(idStr)
-      this.deleteData(idStr);
-      // if(arr1.length==this.qiangmiaoData.length){
-      //   this.getDataList(this.active_fujigou)
-      //   // this.pageTotal-=1
+      this.$confirm("确定要删除吗？请三思", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          if (nojiebang) {
+            this.$message({
+              message: "无法删除已绑定枪支，请先解绑后删除",
+              type: "warning"
+            });
+            return;
+          }
 
-      // }
+          let idStr = arr1.map(e => e.gunaiming_id).join(",");
+          this.deleteData(idStr);
+        })
+        .catch(() => {
+          console.log("取消删除");
+        });
     },
     modifyMiao() {
       let modifyArr = this.qiangmiaoData.filter(e => e.checked);
@@ -543,6 +545,7 @@ export default {
   },
   created() {
     let item = this.$gscookie.getCookie("message_obj");
+    this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     if (item.role_id == 3) {
       this.$router.push({
         name: "GuiJi"

@@ -226,7 +226,7 @@
   height: 0.4rem;
   margin-left: 2%;
   display: grid;
-  grid-template-columns: 1fr 3fr 3fr 3fr 3fr 5fr 5fr 3fr;
+  grid-template-columns: 1fr 3fr 3fr 3fr 5fr 5fr 3fr;
   grid-template-rows: 1fr;
   grid-gap: 0.03rem;
   border: 0.01rem solid #3f52c0;
@@ -245,7 +245,7 @@
   margin-left: 2%;
   background: rgba(0, 0, 0, 0.2);
   display: grid;
-  grid-template-columns: 1fr 3fr 3fr 3fr 3fr 5fr 5fr 3fr;
+  grid-template-columns: 1fr 3fr  3fr 3fr 5fr 5fr 3fr;
   grid-template-rows: 1fr;
   grid-gap: 0.03rem;
   border: 0.01rem solid #3f52c0;

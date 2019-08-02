@@ -8,7 +8,7 @@
                     :props="defaultProps"
                     :highlight-current="true"
                     node-key="id"
-                     current-node-key="316"
+                     :current-node-key="currentNodeKey"
                      default-expand-all
                     @node-click="handleNodeClick"
                   ></el-tree>
@@ -70,6 +70,7 @@ import Content from './children/content'
           data() {
           return {
             dataList:[],
+            currentNodeKey:'',
             pageTotal:0,
             active_page:1,
              active_title:'',
@@ -173,6 +174,7 @@ import Content from './children/content'
                         }
                       })
                         this.dataList=list
+                        console.log(data)
                         this.pageTotal=data.data.total-0
                     }
                 }).catch((error)=>{
@@ -257,14 +259,15 @@ import Content from './children/content'
             }
         },
         created(){
-          let item =this.$gscookie.getCookie("message_obj")
+          let item =this.$gscookie.getCookie("message_obj");
+          this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
             if(item.role_id==3){
               this.$router.push({
                 name:'GuiJi'
               })
             }
           this.getTreeList()
-          this.getDataList()
+          // this.getDataList()
             let str=this.$gscookie.getCookie('gun')
             if(JSON.stringify(str)=="{}"){
                 this.$router.push("/loginput")

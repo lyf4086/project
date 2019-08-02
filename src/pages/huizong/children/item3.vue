@@ -3,7 +3,8 @@
     <div class="left" v-if="personList">
       <div class="item" v-for="(item,index) in personList" :key="index">
         <div class="tou">
-          <img :src="item.thumb_icon" alt>
+          <img v-if="item.thumb_icon" :src="item.thumb_icon" alt />
+          <img v-if="!item.thumb_icon" src="../../../assets/img/head-icon.png" alt />
         </div>
         <div class="text">
           <p>姓名：{{item.uname}} &nbsp;tell：{{item.mobile}}</p>

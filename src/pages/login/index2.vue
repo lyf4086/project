@@ -68,6 +68,7 @@ export default {
             //   sync: res.data.data.sync
             // });
             // 不能刷新页面，弃用
+
             this.$gscookie.setCookie("sync", res.data.data.sync);
 
             if (res.data.data.role_id == 3) {

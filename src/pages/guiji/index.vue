@@ -124,6 +124,15 @@
         </select>
       </div>
       <button @click="searchOnePerson" v-show="activeIMEI">查找</button>
+      <div class="sel_item">
+        <select
+          class="last-sel"
+          v-model="value"
+          v-html="optionsStr"
+          v-show="hasPerson"
+          @change="TypeChange"
+        ></select>
+      </div>
     </div>
     <div class="warning">
       <div class="btns">
@@ -215,12 +224,18 @@
         <button @click="submitSetAreaWarning">确认</button>
       </div>
     </div>
+    <!-- 切换航速据模式 -->
+    <!-- <el-select v-show="hasPerson" v-model="value" placeholder="请选择" @change="TypeChange">
+      <el-option v-for="item in options" :key="item.id" :label="item.loca_name" :value="item.id"></el-option>
+    </el-select>-->
   </div>
 </template>
 <style >
 @import url(./guiji.css);
 .delArea {
   padding: 0 6px;
+}
+.el-input__inner {
 }
 </style>
 <script>
@@ -286,7 +301,18 @@ export default {
       showAllIMEI: false,
       yongqiangyuan: false,
       areaTimer: null,
-      delId: ""
+      delId: "",
+      shezhiyanse: null,
+      options: [
+        {
+          value: "选项1",
+          label: "黄金糕"
+        }
+      ],
+      value: "",
+      optionsStr: "",
+      hasPerson: false,
+      clickTrue: true
     };
   },
   computed: {
@@ -302,6 +328,21 @@ export default {
   methods: {
     ...meth,
     ...more,
+    TypeChange() {
+      //切模式
+      console.log(this.value);
+      if (!this.hasPerson) return;
+
+      if (this.value == 3) {
+        this.$message("当前为基站定位，定位数据仅供参考");
+      }
+      //先清除动画一面报错
+      this.markerArr.forEach(item => {
+        item.stopMove();
+      });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
     spanToXiangQing(item) {
       this.$store.commit("setPoliceId", {
         policeuser_id: item.policeuser_id
@@ -372,6 +413,8 @@ export default {
       // console.log(this.markerArr)
     },
     showOne() {
+      this.hasPerson = false;
+
       this.markerArr.forEach(item => {
         item.stopMove();
       });
@@ -401,10 +444,22 @@ export default {
     },
     del() {
       let id = this.delId;
+      let that = this;
 
-      if (confirm("确定要删除吗？")) {
-        this.delOneAlarmArea(id);
-      }
+      this.$confirm("此操作将永久删除该区域, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          that.delOneAlarmArea(id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
     showAll() {
       let v = this.$refs.alarmSelect.value;
@@ -636,6 +691,7 @@ export default {
     searchOnePerson() {
       // clearInterval(this.moveTimer);
       //.........搜索人员后弹出该人员信息
+      this.oneAlarmMessage = {};
       this.oneAlarmPersonList.length = 0;
       if (!this.isChange) {
         console.log("重复点击");
@@ -645,6 +701,11 @@ export default {
       if (this.showAllIMEI) {
         this.getAllPersonByIMEI(this.allPersonIEMIStr);
         return;
+      }
+      if (this.markerArr.length) {
+        this.markerArr.forEach(item => {
+          item.stopMove();
+        });
       }
       this.noCheckedList.forEach(e => (e.checked = false));
       this.checkedPersonArr.length = 0;
@@ -662,11 +723,6 @@ export default {
       this.filterMessage.bianhao = this.selectedPerson.policeuser.police_number;
       this.filterMessage.imgSrc = this.selectedPerson.policeuser.icon;
       // this.filterMessage.newOrOld=this.oldOrNew
-      if (this.markerArr.length) {
-        this.markerArr.forEach(item => {
-          item.stopMove();
-        });
-      }
 
       this.$refs.star.max = nowTime();
       if (this.oldOrNew == "old") {

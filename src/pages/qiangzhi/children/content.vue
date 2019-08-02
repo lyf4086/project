@@ -81,8 +81,8 @@
           <div class="title">
             <span></span>
             <span>用枪人</span>
-            <span>审批人</span>
-            <span>操作人</span>
+            <span>警员编号</span>
+            <!-- <span>操作人</span> -->
             <span>枪支类型</span>
             <span>借出时间</span>
             <span>归还时间</span>
@@ -92,12 +92,12 @@
             <div class="list" v-for="item,index in xiangqingList" :key="index">
               <span>{{index+1}}</span>
               <span>{{item.usrename}}</span>
-              <span>{{item.aprvname}}</span>
-              <span>{{item.opname}}</span>
+              <span>{{item.policeNum}}</span>
+              <!-- <span>{{item.opname}}</span> -->
               <span>{{item.gtype}}</span>
               <span>{{item.oprtime}}</span>
               <span>{{item.planTime}}</span>
-              <span>{{item.taskinfo}}</span>
+              <span>{{item.tasktype}}</span>
             </div>
           </div>
         </div>
@@ -262,8 +262,7 @@ export default {
       // console.log(item)
       this.bindalert = true;
       this.activeGunId = item.gun_id; //.........记录挡墙要绑定的枪支
-      // console.log(this.activeJigouId)
-      // return
+
       this.getMiaoList(this.activeJigouId); //........获取所有未绑定的枪瞄
     },
     subBind() {

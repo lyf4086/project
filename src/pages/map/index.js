@@ -47,7 +47,7 @@ function getPersonAndGunStr(id) {
       }
       arr.forEach(e => {
         if (!e.policeuser.img) e.policeuser.img = "123";
-        str += `<option value="${e.IMEI}|${e.policeuser.img}"  >枪支编号：${e.gun_code} , 所属警员：${e.policeuser_name ?e.policeuser_name:'暂未绑定人员'},枪瞄编号：${e.IMEI}</option>`
+        str += `<option value="${e.IMEI}|${e.policeuser.img}"  >枪支编号：${e.gun_code} , 所属警员：${e.policeuser_name ? e.policeuser_name : '暂未绑定人员'},枪瞄编号：${e.IMEI}</option>`
       })
       return str
     }
@@ -129,6 +129,7 @@ function stopSetArea() {
 
 function showOne() {
   let v = this.$refs.alarmSelect.value
+  this.hasPerson = false;
   if (!v) {
     this.$message({
       type: "warning",
@@ -353,6 +354,7 @@ function searchByTime() { //.....根据时间搜索历史轨迹
 
 function searchOnePerson() { //.........搜索人员后弹出该人员信息
   this.oneAlarmPersonList.length = 0
+  this.oneAlarmMessage = {};
   if (this.polygon) {
     this.polygon.remove()
     this.polygon = ''

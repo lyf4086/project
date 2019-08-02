@@ -54,7 +54,7 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{activeItem.mechanism_name}} *** 下的人员信息</p>
     </div>
-    <div class="add-del" v-show="activeItem" v-if="sync===0">
+    <div class="add-del" v-show="activeItem" v-if="sync !=1">
       <button @click="add">新增人员</button>
       <button @click="delOneData">删除人员</button>
     </div>
@@ -131,7 +131,7 @@ export default {
     return {
       hasData: false,
       alert: false,
-      currentNodeKey: "316",
+      currentNodeKey: "",
       activeItem: "", //当前被点击的树形菜单数据
       activeTreeId: "",
       active_yema: "0", //当前页码
@@ -254,7 +254,6 @@ export default {
             this.activeTreeId = data.data.data.list[0].mechanism_id;
             this.clickTree(this.treeListData[0].mechanism_id, 1);
           }
-          // this.handleNodeClick(this.treeListData[0])
         })
         .catch(error => {
           console.log(error);
@@ -272,7 +271,7 @@ export default {
     },
     addOnePerson() {
       //。。。。。。添加人员
-      console.log(this.addPerson);
+      // console.log(this.addPerson);
       for (let item in this.addPerson) {
         if (this.addPerson[item].trim() == "") {
           this.$message({
@@ -379,56 +378,105 @@ export default {
     },
     clickOneDataToRemove(item) {
       //...........点击选择要删除的数据
-
-      if (!confirm("确定要删除该人员吗 ？请三思！")) {
-        this.isRemoveimg = false;
-        return;
-      } else {
-        //................执行删除操作
-
-        var key = this.$store.state.key;
-        var objs = { policeuser_id: item.policeuser_id };
-        var sign = this.$methods.mkSign(objs, key);
-
-        var token = this.$gscookie.getCookie("gun");
-        var params = new URLSearchParams();
-        params.append("policeuser_id", objs.policeuser_id);
-
-        params.append("sign", sign);
-        params.append("token", token);
-
-        this.$axios({
-          url:
-            "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=del",
-          method: "POST",
-          changeOrigin: true,
-          data: params
-        })
-          .then(data => {
-            if (data.data.code == 200) {
-              this.isRemoveimg = false; //........还原删除状态
-              let index = this.itemList.findIndex(
-                e => e.policeuser_id == item.policeuser_id
-              );
-              this.itemList.splice(index, 1);
-              if (!this.itemList.length) {
-                //......如果当前页面被删除空了，调到上一页
-                this.clickTree(
-                  this.activeItem.mechanism_id,
-                  this.active_yema - 1
-                );
-              }
-            }
+      this.$confirm("此操作将永久删除该人员, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          var key = this.$store.state.key;
+          var objs = { policeuser_id: item.policeuser_id };
+          var sign = this.$methods.mkSign(objs, key);
+          var token = this.$gscookie.getCookie("gun");
+          var params = new URLSearchParams();
+          params.append("policeuser_id", objs.policeuser_id);
+          params.append("sign", sign);
+          params.append("token", token);
+          this.$axios({
+            url:
+              "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=del",
+            method: "POST",
+            changeOrigin: true,
+            data: params
           })
-          .catch(error => {
-            console.log(error);
-          });
-      }
+            .then(data => {
+              if (data.data.code == 200) {
+                this.$message({
+                  type: "success",
+                  message: "已删除"
+                });
+                this.isRemoveimg = false; //........还原删除状态
+                let index = this.itemList.findIndex(
+                  e => e.policeuser_id == item.policeuser_id
+                );
+                this.itemList.splice(index, 1);
+                if (!this.itemList.length) {
+                  //......如果当前页面被删除空了，调到上一页
+                  this.clickTree(
+                    this.activeItem.mechanism_id,
+                    this.active_yema - 1
+                  );
+                }
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        })
+        .catch(error => {
+          this.isRemoveimg = false;
+          return;
+        });
+
+      // if (!confirm("确定要删除该人员吗 ？请三思！")) {
+      //   this.isRemoveimg = false;
+      //   return;
+      // } else {
+      //   //................执行删除操作
+
+      //   var key = this.$store.state.key;
+      //   var objs = { policeuser_id: item.policeuser_id };
+      //   var sign = this.$methods.mkSign(objs, key);
+
+      //   var token = this.$gscookie.getCookie("gun");
+      //   var params = new URLSearchParams();
+      //   params.append("policeuser_id", objs.policeuser_id);
+
+      //   params.append("sign", sign);
+      //   params.append("token", token);
+
+      //   this.$axios({
+      //     url:
+      //       "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=del",
+      //     method: "POST",
+      //     changeOrigin: true,
+      //     data: params
+      //   })
+      //     .then(data => {
+      //       if (data.data.code == 200) {
+      //         this.isRemoveimg = false; //........还原删除状态
+      //         let index = this.itemList.findIndex(
+      //           e => e.policeuser_id == item.policeuser_id
+      //         );
+      //         this.itemList.splice(index, 1);
+      //         if (!this.itemList.length) {
+      //           //......如果当前页面被删除空了，调到上一页
+      //           this.clickTree(
+      //             this.activeItem.mechanism_id,
+      //             this.active_yema - 1
+      //           );
+      //         }
+      //       }
+      //     })
+      //     .catch(error => {
+      //       console.log(error);
+      //     });
+      // }
     } //..................删除人员结束
   },
   created() {
     this.sync = this.$gscookie.getCookie("sync");
-
+    this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let obj = this.$store.state;
     let item = this.$gscookie.getCookie("message_obj");
     if (item.role_id == 3) {

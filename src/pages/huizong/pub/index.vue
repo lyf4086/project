@@ -24,14 +24,14 @@
         <span>机构名称</span>
       </div>
       <ul class="list">
-        <li v-for="e in 20">
-          <span>枪支类型</span>
-          <span>借出时间</span>
-          <span>归还时间</span>
-          <span>用途</span>
-          <span>用枪人</span>
-          <span>枪支编号</span>
-          <span>机构名称</span>
+        <li v-for="item,index in item7_data" :key="index">
+          <span>{{item.gunType}}</span>
+          <span>{{item.oprtime}}</span>
+          <span>{{item.planTime}}</span>
+          <span>{{item.taskinfo}}</span>
+          <span>{{item.username}}</span>
+          <span>{{item.gunNum}}</span>
+          <span>{{item.org_name}}</span>
         </li>
       </ul>
     </div>

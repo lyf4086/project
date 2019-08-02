@@ -8,7 +8,7 @@
         </div>
         <div class="item" title="枪瞄状态">{{item.heart==1 ? "在线":"不在线"}}</div>
         <div class="item" title="电量" @click="tanchuang2(item.electricity)">{{item.electricity}}%</div>
-        <div class="item" title="充电状态">{{ischarging(item.ischarging)}}</div>
+        <div class="item" title="充电状态">{{item.ischarging}}</div>
         <div class="item" title="所属警员" @click="lookPerson(item)">{{item.policeuser_name || '暂无'}}</div>
         <div class="item" title="所属机构">
           <p>{{item.mechanism_name}}</p>
@@ -109,14 +109,14 @@ export default {
   },
 
   methods: {
-    ischarging(num) {
-      if (num == "02") {
-        return "充电中";
-      } else {
-        return "未充电";
-      }
-    },
     lookPerson(item) {
+      if (!item.policeuser_id){
+        this.$message({
+          type:'error',
+          message:'暂无'
+        })
+        return
+      };
       this.$store.commit("setPoliceId", {
         policeuser_id: item.policeuser_id
       });
@@ -213,8 +213,22 @@ export default {
       this.active_qiangmiao = "";
     },
     jiebang(item) {
-      if (!confirm("确定要解除绑定吗？")) return;
-      this.unbind(item.gun_id, item.gunaiming_id); //...............解绑枪支枪瞄
+      // if (!confirm("确定要解除绑定吗？")) return;
+
+      this.$confirm("确定要解除绑定吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.unbind(item.gun_id, item.gunaiming_id); //...............解绑枪支枪瞄
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消解绑"
+          });
+        });
     },
     bind(gun_id, miao_id) {
       //....................绑定枪支和枪瞄

@@ -173,7 +173,6 @@ export default {
       };
       Echart1.setOption(option);
       Echart1.on("click", function(ev) {
-        // console.log(ev.name)
         that.$router.push({
           name: "Pub",
           params: {

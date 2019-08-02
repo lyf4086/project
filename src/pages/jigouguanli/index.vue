@@ -50,7 +50,7 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{activeHandTreeData.mechanism_name}} *** 下的机构信息</p>
     </div>
-    <div class="add-del" v-show="activeHandTreeData" v-if="sync===0">
+    <div class="add-del" v-show="activeHandTreeData" v-if="sync!=1">
       <button @click="addjigou">新增机构</button>
       <button @click="shanchujigou">删除机构</button>
     </div>
@@ -426,7 +426,6 @@ export default {
     },
     handClick(id, n = 1) {
       //请求数据列表
-
       this.deleteShow = false;
       if (!id) return;
       var token = this.$gscookie.getCookie("gun");
@@ -488,8 +487,7 @@ export default {
       })
         .then(data => {
           this.treeData = data.data.data.list;
-
-          this.handClick(this.treeData[0]);
+          this.handClick(this.treeData[0].id);
           function creatTreeStr(obj) {
             let str = "";
 

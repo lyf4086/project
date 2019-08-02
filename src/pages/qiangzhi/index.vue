@@ -51,7 +51,7 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{active_title}} *** 下的枪支信息</p>
     </div>
-    <div class="add-del" v-show="active_title" v-if="sync===0">
+    <div class="add-del" v-show="active_title" v-if="sync !=1">
       <button @click="addGun">添加枪支</button>
       <button @click="deleteGun">删除枪支</button>
       <button @click="modify">修改枪支</button>
@@ -59,7 +59,7 @@
     <div class="content">
       <Content
         :data="activeDataList"
-        :activeJigouId="active_jigou.mechanism_id"
+        :activeJigouId="activeJiGouId"
         @updataView="updataView"
         :isRemoving="isRemoving"
         ref="myChild"
@@ -77,12 +77,12 @@
           <div>
             枪支类型：
             <!--<input type="text" v-model="add_gun.gun_number"/>-->
-            <select v-model="add_gun.gun_number">
-              <option value="1">92式</option>
+            <select v-model="add_gun.gun_number" v-html="optionStr">
+              <!-- <option value="1">92式</option>
               <option value="2">95式</option>
               <option value="3">77式</option>
               <option value="4">64式</option>
-              <option value="5">92改</option>
+              <option value="5">92改</option>-->
             </select>
           </div>
           <div>
@@ -115,12 +115,13 @@
         </div>
         <div class="change-type">
           <span>枪支类型：{{xiugaiData.gtype}}</span>
-          <select class="sel-type" v-model="changedGtype">
-            <option value="1">92式</option>
+          <!--  -->
+          <select class="sel-type" v-model="changedGtype" v-html="optionStr" @change="change11">
+            <!-- <option value="1">92式</option>
             <option value="2">95式</option>
             <option value="3">77式</option>
             <option value="4">64式</option>
-            <option value="5">92改</option>
+            <option value="5">92改</option>-->
           </select>
         </div>
         <div class="change-type">
@@ -165,6 +166,7 @@ export default {
         gun_type: "",
         gun_number: ""
       },
+      optionStr: "",
       selValue: "",
       putValue: "",
       pageTotal: null, //........页码总数
@@ -180,6 +182,7 @@ export default {
   },
 
   methods: {
+    change11(e) {},
     putFocus() {
       this.noCheckPerson = true;
     },
@@ -213,6 +216,31 @@ export default {
       }
 
       this.search(1, this.putValue);
+    },
+    getOptionStr() {
+      var objs = {};
+      var token = this.$gscookie.getCookie("gun");
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
+      var params = new URLSearchParams();
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          "http://s.tronl.cn/weixin/project/index.php?m=home&c=gun&a=gun_type",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          let str = data.data.gtype.map(item => {
+            return `<option value=${item.id}>${item.type_name}</option>`;
+          });
+          this.optionStr = str;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     search(n = 1, val = "", state = false, gun_id) {
       var objs = {
@@ -272,8 +300,9 @@ export default {
     },
     subChange() {
       //.......................确定修改枪支信息
+      // console.log(this.changedGtype, "-", this.xiugaiData.gtype);
+      let t = this.changedGtype ? this.changedGtype : this.xiugaiData.gtype;
 
-      let t = this.changedGtype || this.xiugaiData.gtype;
       let c = this.changedCode || this.xiugaiData.gun_code;
       let id = this.active_jigou.mechanism_id;
       var key = this.$store.state.key;
@@ -283,6 +312,7 @@ export default {
         gun_code: c,
         gtype: t
       };
+
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -290,8 +320,6 @@ export default {
       params.append("gun_id", objs.gun_id);
       params.append("gun_code", objs.gun_code);
       params.append("gtype", objs.gtype);
-      // params.append('policeuser_id',objs.policeuser_id)
-      // params.append('policeuser_name',objs.policeuser_name)
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
@@ -303,29 +331,18 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
-            function toTxet(n) {
-              if (n == 1) {
-                return "92式";
-              } else if (n == 2) {
-                return "95式";
-              } else if (n == 3) {
-                return "77式";
-              } else if (n == 4) {
-                return "64式";
-              } else if (n == 5) {
-                return "92改";
-              }
-            }
-            let text1 = toTxet(t);
+            let text1 = t;
+
             this.$message({ message: "修改枪支成功", type: "success" });
             this.xiugai = false;
-            this.activeDataList.forEach(e => {
-              if (e.gun_id == this.xiugaiData.gun_id) {
-                e.checked = false;
-                e.gtype = text1;
-                e.gun_code = c;
-              }
-            });
+            // this.activeDataList.forEach(e => {
+            //   if (e.gun_id == this.xiugaiData.gun_id) {
+            //     e.checked = false;
+            //     e.gtype = text1;
+            //     e.gun_code = c;
+            //   }
+            // });
+            this.getDataList(this.active_jigou.mechanism_id, this.active_yema); //...........更新视图
             this.changedGtype = "";
             this.changedCode = "";
           }
@@ -395,18 +412,25 @@ export default {
         this.$message.error("请选择需要删除的选项");
         return;
       }
-      if (!confirm("确定要删除吗？")) return;
-      let idStr = this.activeDataList
-        .filter(e => e.checked)
-        .map(e => e.gun_id)
-        .join(",");
+      this.$confirm("确定要删除吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let idStr = this.activeDataList
+            .filter(e => e.checked)
+            .map(e => e.gun_id)
+            .join(",");
 
-      this.deleteData(idStr);
-      // if(this.activeDataList.filter(e=>e.checked).map(e=>e.gun_id).length==this.activeDataList.length){
-      //   this.getDataList(this.active_jigou.mechanism_id,this.active_yema-1)//...........更新视图
-      // }else{
-      //   this.getDataList(this.active_jigou.mechanism_id,this.active_yema)//...........更新视图
-      // }
+          this.deleteData(idStr);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
     del() {
       this.alert = false;
@@ -440,10 +464,13 @@ export default {
       })
         .then(data => {
           this.treeData = data.data.data.list;
+          console.log(data.data.data.list);
+          this.active_title = data.data.data.list[0].mechanism_name;
+          this.active_jigou = data.data.data.list[0];
           this.hasData = true;
           if (isCreate) {
             this.currentNodeKey = data.data.data.list[0].id;
-            this.getDataList(data.data.data.list[0].id, 1);
+            // this.getDataList(data.data.data.list[0].id, 1);
           }
         })
         .catch(error => {
@@ -478,10 +505,6 @@ export default {
           });
           this.activeDataList = dataArr;
           this.pageTotal = data.data.data.psum * 1;
-
-          // if(!this.activeDataList.length){//..........如果说当前页面数据删除完了，跳到上一页
-          //   this.getDataList(this.active_jigou.mechanism_id,this.active_yema)
-          // }
         })
         .catch(error => {
           console.log(error);
@@ -628,6 +651,7 @@ export default {
     } //..........................解绑end
   },
   created() {
+    this.getOptionStr();
     this.sync = this.$gscookie.getCookie("sync");
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");

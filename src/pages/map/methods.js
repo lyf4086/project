@@ -28,7 +28,8 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
   var key = this.$store.state.key
   var objs = {
     "IMEI": IMEIStr,
-    "ps": 9999
+    "ps": 9999,
+    "lid": this.value - 0
   };
   var sign = this.$methods.mkSign(objs, key);
   var token = this.$gscookie.getCookie('gun')
@@ -36,7 +37,8 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
   params.append('IMEI', objs.IMEI);
   params.append('ps', objs.ps);
   params.append('sign', sign);
-  params.append('token', token)
+  params.append('token', token);
+  params.append('lid', objs.lid);
   this.$axios({
     url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=positions',
     method: 'POST',
@@ -45,7 +47,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
   }).then((data) => {
     let that = this
     this.isChange = false //避免多次点击
-
+    this.hasPerson = true;
     let newArr = this.checkedPersonArr
     newArr.unshift(this.selectedPerson)
 
@@ -65,19 +67,20 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:3vw;
                     box-sizing:border-box;border:2px solid red;
                     border-radius:1.2vw;`
-    let styleStr3 = `position:absolute;width:2.5vw;height:3vw;border:1px solid red;
+    let styleStr3 = `background:#ccc;position:absolute;width:2.5vw;height:3vw;border:1px solid red;
                     border-radius:1.2vw; overflow: hidden;`
     let styleStr4 = `position:absolute;bottom:-1vw;left:0.65vw;
                     width:0;height:0;border-width:0.5vw;border-style:solid;
                     border-color:red transparent transparent transparent;
 
                     `
-    let styleImg = `width:2.5vw`
+    let styleImg = `position:absolute;top:50%;width:2.5vw;transform:translateY(-50%)`
+    let noimg = require('@/assets/img/head-icon.png')
     let divIconArr = this.checkedPersonArr.map((item, index) => {
       return this.BM.divIcon({
         html: `<div class="icon_wrap" style="${styleStr1}">
                 <div class="img_wrap" style="${styleStr3}">
-                  <img src="${item.policeuser.icon}" style="${styleImg}"/>
+                  <img src="${item.policeuser.icon ? item.policeuser.icon : noimg}" style="${styleImg}"/>
                 </div>
                 <div class="round_cover" style="${styleStr2}"><i style="${styleStr4}"></i></div>
               </div>`
@@ -97,6 +100,18 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     // })
     this.markerArr = markerArr
     //把当前显示的标记点存一下
+
+
+    markerArr.forEach((e, i) => {
+      e.bindPopup(`警员姓名：${this.checkedPersonArr[i].policeuser_name} \</br>
+        所属机构：${this.checkedPersonArr[i].mechanism_name}\</br>
+        枪支类型：${this.checkedPersonArr[i].gtype} \</br>
+        枪支编号：${this.checkedPersonArr[i].gun_code} \</br>
+        是否在线：${data.data.data.list[i].heart == 1 ? "在线" : "不在线"} \</br>
+        定位类型：${data.data.data.list[i].ptype} \</br>
+        枪瞄编号：${this.checkedPersonArr[i].IMEI} \</br>
+        `);
+    });
     this.fitBoundsArr = arr
     //地图自适应显示
 
@@ -632,7 +647,9 @@ function getAlarmList() { //.....获取报警区域列表
 
     if (data.data.code == 200) {
       this.allAlarmAreaList = data.data.data
-
+      this.options = data.data.ltype
+      this.optionsStr = data.data.ltype.map(item => `<option value=${item.id}>${item.loca_name}</option>`)
+      this.value = data.data.ltype[0].id
       let s1 = `<option value="" disabled selected >请选择</option>`
       let str = this.allAlarmAreaList.map(item => {
         return `<option value="${item.area_alarm_id}">${item.area_alarm_name}</option>`
@@ -711,8 +728,58 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   // this.newShuaXinMap()
   let IMEIArr = data.child.map(item => item.IMEI)
 
-  console.log(IMEIArr)
-  this.setMarker(dianArr)
+
+  // this.setMarker(dianArr)
+
+  let styleStr1 = `position:relative;width:2.5vw;height:3vw;
+                    top:-3vw;left:-1.3vw;`
+  let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:3vw;
+                    box-sizing:border-box;border:2px solid red;
+                    border-radius:1.2vw;`
+  let styleStr3 = `position:absolute;width:2.5vw;height:3vw;border:1px solid red;
+                    border-radius:1.2vw; overflow: hidden;`
+  let styleStr4 = `position:absolute;bottom:-1vw;left:0.65vw;
+                    width:0;height:0;border-width:0.5vw;border-style:solid;
+                    border-color:red transparent transparent transparent;
+
+                    `
+  let noimg = require('@/assets/img/head-icon.png')
+  let styleImg = `position:absolute;top:50%;width:2.5vw;transform:translateY(-50%)`
+  let divIconArr = data.child.map((item, index) => {
+    return this.BM.divIcon({
+      html: `<div class="icon_wrap" style="${styleStr1}">
+                <div class="img_wrap" style="${styleStr3}">
+                  <img src="${item.icon ? item.icon : noimg}" style="${styleImg}"/>
+                </div>
+                <div class="round_cover" style="${styleStr2}"><i style="${styleStr4}"></i></div>
+              </div>`
+    })
+  })
+
+
+  let BM = this.BM;
+  let map = this.map;
+  let markerArr = dianArr.map((item, index) => {
+
+    return BM.marker(item, {
+      icon: divIconArr[index],
+      title: data.child[index].policeuser_name
+    }).addTo(map);
+  });
+
+
+  map.fitBounds(dianArr);
+  this.markerArr = markerArr;
+  markerArr.forEach((e, i) => {
+    e.bindPopup(`警员姓名：${data.child[i].policeuser_name} \</br>
+    所属机构：${data.child[i].mechanism.mechanism_name}\</br>
+    枪支类型：${data.child[i].gtype} \</br>
+    枪支编号：${data.child[i].gun_code} \</br>
+    是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"} \</br>
+    定位类型：${data.child[i].ptype} \</br>
+    枪瞄编号：${data.child[i].IMEI} \</br>
+    `);
+  });
 
 
 }
@@ -751,7 +818,8 @@ function getNewPosition() {
   let IMEIstr = this.moveingPersonList.map(e => e.IMEI).join()
   var objs = {
     "IMEI": IMEIstr,
-    "ps": 999
+    "ps": 999,
+    "lid": this.value
   };
   var key = this.$store.state.key;
   var sign = this.$methods.mkSign(objs, key);
@@ -760,7 +828,8 @@ function getNewPosition() {
   params.append('IMEI', objs.IMEI);
   params.append('ps', objs.ps);
   params.append('sign', sign);
-  params.append('token', token)
+  params.append('token', token);
+  params.append('lid', objs.lid)
   this.$axios({
     url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=positions',
     method: 'POST',

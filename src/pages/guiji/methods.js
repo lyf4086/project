@@ -57,7 +57,8 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
   var key = this.$store.state.key
   var objs = {
     "IMEI": IMEIStr,
-    "ps": 9999
+    "ps": 9999,
+    "lid": this.value - 0
   };
   var sign = this.$methods.mkSign(objs, key);
   var token = this.$gscookie.getCookie('gun')
@@ -66,6 +67,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
   params.append('ps', objs.ps);
   params.append('sign', sign);
   params.append('token', token)
+  params.append('lid', objs.lid)
   this.$axios({
     url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=positions',
     method: 'POST',
@@ -73,6 +75,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     data: params
   }).then((data) => {
     let that = this
+    this.hasPerson = true;
     this.isChange = false //避免多次点击
     let a1 = data.data.data.list.map(e => {
       return [e.longitude * 1, e.latitude * 1]
@@ -328,7 +331,7 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
 
         let markerArr = lineArrAndBaoJing.map((e, i) => {
           return new AMap.Marker({
-            content: `<div class="baojing ${e.alarm.alarm_type==1?'liqiang':'litao'}" ><span></span></div>`,
+            content: `<div class="baojing ${e.alarm.alarm_type == 1 ? 'liqiang' : 'litao'}" ><span></span></div>`,
             position: [e.longitude - 0, e.latitude - 0],
             title: e.alarm.alarm_typename,
             created: e.created,
@@ -366,7 +369,7 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
           }
           var title = `报警类型：<span style="font-size:11px;color:#F00;">${tit}报警</span>`,
             content = [];
-          content.push(`<div class="tou_wrap"><img alt="null" src='${item.G.src }'></div>报警时间：${t}<br/>警员姓名：${that.filterMessage.uname}`);
+          content.push(`<div class="tou_wrap"><img alt="null" src='${item.G.src}'></div>报警时间：${t}<br/>警员姓名：${that.filterMessage.uname}`);
           // content.push("电话：010-64733333");
           content.push("<br/>");
           // content.push(`<span class="to_xiangqing" data-d="${tit}">详细信息</span>`);
@@ -440,7 +443,6 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
 }
 
 function creatInfoBox(item, ...res) {
-  console.log(item)
   setTimeout(() => { //如果没有手动关闭，20秒之后自动关闭
     closeInfoWindow()
   }, 15000)
@@ -468,13 +470,13 @@ function creatInfoBox(item, ...res) {
   let map = this.map
   var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title}</span>`,
     content = [];
-  content.push(`<img alt="头像" src='${item.Ge.src }' style="float:left;width:1rem;">`)
+  content.push(`<img alt="头像" src='${item.Ge.src}' style="float:left;width:1rem;">`)
   content.push(`所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`);
   // content.push(`最后定位时间:${item.G.time}`);
   content.push(`最后定位时间:${changeTime()}`);
   content.push(`枪支编号:${item.Ge.positions}`);
   // content.push(`<span class="toxiangqing" >详细信息</span>`);
-  content.push(`是否在线:${item.Ge.heart==1?"在线":"不在线"}`);
+  content.push(`是否在线:${item.Ge.heart == 1 ? "在线" : "不在线"}`);
   content.push(`定位类型:${item.Ge.ptype}`);
   content.push(`枪瞄编号:${item.Ge.IMEI}`);
   var infoWindow = new AMap.InfoWindow({
@@ -611,7 +613,7 @@ function getPersonAndGunStr(id) {
       }
       arr.forEach(e => {
         if (!e.policeuser.img) e.policeuser.img = img;
-        str += `<option value="${e.IMEI}|${e.policeuser.img}"  >枪支编号：${e.gun_code} , 所属警员：${e.policeuser_name ?e.policeuser_name:'暂未绑定人员'},枪瞄编号：${e.IMEI}</option>`
+        str += `<option value="${e.IMEI}|${e.policeuser.img}"  >枪支编号：${e.gun_code} , 所属警员：${e.policeuser_name ? e.policeuser_name : '暂未绑定人员'},枪瞄编号：${e.IMEI}</option>`
       })
       return str
     }
@@ -805,6 +807,8 @@ function setMarker(ev) {
 }
 
 function startSetArea() {
+  if (!this.clickTrue) return;
+  this.clickTrue = false
   let map = this.map;
   this.markerArr.length = 0
   map.on('click', this.setMarker)
@@ -812,7 +816,7 @@ function startSetArea() {
 }
 
 function confirmSetArea() {
-
+  this.clickTrue = true
   let map = this.map
   let that = this
   let arr = this.markerArr.map(e => e.Ge.position)
@@ -855,6 +859,7 @@ function confirmSetArea() {
 
 function resetArea() {
   let map = this.map
+  this.clickTrue = true
   // console.log(this.markerArr)
   map.remove(this.polygon)
   this.polygon = null
@@ -950,8 +955,10 @@ function getAlarmList() { //.....获取报警区域列表
     changeOrigin: true,
     data: params
   }).then((data) => {
-
     if (data.data.code == 200) {
+      this.options = data.data.ltype
+      this.optionsStr = data.data.ltype.map(item => `<option value=${item.id}>${item.loca_name}</option>`)
+      this.value = data.data.ltype[0].id
       this.allAlarmAreaList = data.data.data
 
       let s1 = `<option value="" disabled selected >请选择</option>`
@@ -1003,7 +1010,9 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
 }
 
 function showOneAlarmPolygon(arr, id, state = 0) {
+  clearInterval(this.shezhiyanse)
   let fillColor = state == 1 ? 'rgba(195,13,35,0.4)' : 'rgba(1,221,156,0.4)';
+  console.log('初始的颜色', fillColor)
   let that = this
   let map = this.map
   let polygon = new AMap.Polygon({
@@ -1061,6 +1070,7 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
       gtype: e.gtype,
       time: e.created,
       IMEI: e.IMEI,
+      heart: e.heart,
       ptype: e.ptype,
       positions: e.gun_code,
       offset: new AMap.Pixel(-16, -43)
@@ -1114,14 +1124,15 @@ function delOneAlarmArea(id) { //.....删除一个报警区域
 }
 
 function getNewPosition(id) {
-
   let IMEIstr = this.moveingPersonList.map(e => e.IMEI).join()
 
   var objs = {
     "IMEI": IMEIstr,
     "ps": 99,
-    "area_id": id || ''
+    "area_id": id || '',
+    "lid": this.value
   };
+  // console.log(objs)
   var key = this.$store.state.key;
   var sign = this.$methods.mkSign(objs, key);
   var token = this.$gscookie.getCookie('gun')
@@ -1131,6 +1142,7 @@ function getNewPosition(id) {
   params.append('area_id', objs.area_id);
   params.append('sign', sign);
   params.append('token', token)
+  params.append('lid', objs.lid)
   this.$axios({
     url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=positions',
     method: 'POST',
@@ -1139,6 +1151,7 @@ function getNewPosition(id) {
   }).then((data) => {
     if (data.data.code == 200) {
       // ...匀速运动有问题
+      // console.log(data.data.data.list)
       this.unifromSpeedMoveing(data.data.data.list)
     }
   }).catch((error) => {

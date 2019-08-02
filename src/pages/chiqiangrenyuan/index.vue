@@ -9,7 +9,7 @@
           :highlight-current="true"
           accordion
           node-key="id"
-          current-node-key="316"
+          :current-node-key="currentNodeKey"
           default-expand-all
           @node-click="handleNodeClick"
         ></el-tree>
@@ -79,6 +79,7 @@ export default {
     return {
       mapShow: false,
       active_title: "",
+      currentNodeKey: "",
       selValue: "",
       putValue: "",
       treeListData: [],
@@ -132,6 +133,7 @@ export default {
         });
         return;
       }
+
       this.mapShow = true;
 
       this.mapInit(obj);
@@ -257,6 +259,7 @@ export default {
   created() {
     this.getTreeList();
     this.getDataList();
+    this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");
     if (item.role_id == 3) {
       this.$router.push({

@@ -47,14 +47,17 @@ function overArea(id) { //..区域内是否存在超出区域的报警
         return
       }
       let state = data.data.state
-      console.log('是否超出区域state', state)
-      setTimeout(() => {
-        if (state == 1) {
+      console.log('是否存在报警state为', state)
+      clearInterval(this.shezhiyanse)
+      this.shezhiyanse = setTimeout(() => {
+        if (state === 1) {
+
           this.polygon.setOptions({
             fillColor: 'rgba(195,13,35,0.4)'
           })
 
         } else {
+
           this.polygon.setOptions({
             fillColor: 'rgba(1,221,156,0.4)'
           })

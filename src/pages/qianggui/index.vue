@@ -9,7 +9,7 @@
           :highlight-current="true"
           accordion
           node-key="id"
-          current-node-key="316"
+          :current-node-key="currentNodeKey"
           default-expand-all
           @node-click="handleNodeClick"
         ></el-tree>
@@ -130,6 +130,7 @@ export default {
     return {
       active_title: "",
       activeMechanismId: "",
+      currentNodeKey: "",
       selValue: "",
       putValue: "",
       treeListData: [],
@@ -143,7 +144,8 @@ export default {
       qiangguishow: false,
       xiangqingData: [],
       fromQiangZhi: false,
-      vidio: false
+      vidio: false,
+      loading: null
     };
   },
   methods: {
@@ -176,7 +178,9 @@ export default {
     },
     getDataList(id) {
       //................获取枪柜列表信息函数
-      var objs = {};
+      var objs = {
+        state: 1
+      };
       if (id) {
         objs.id = id;
       }
@@ -189,6 +193,7 @@ export default {
       }
       params.append("sign", sign);
       params.append("token", token);
+      params.append("state", objs.state);
       this.$axios({
         url:
           "http://s.tronl.cn/weixin/project/index.php?m=home&c=GetDeviceList&a=index",
@@ -208,7 +213,10 @@ export default {
     search(MechanismId) {
       let selV = this.selValue;
       let putV = this.putValue;
-      var objs = { mechanism_id: MechanismId };
+      var objs = {
+        mechanism_id: MechanismId,
+        state: 1
+      };
       objs[selV] = putV;
 
       var key = this.$store.state.key;
@@ -217,6 +225,7 @@ export default {
       var params = new URLSearchParams();
       params.append(selV, objs[selV]);
       params.append("mechanism_id", objs.mechanism_id);
+      params.append("state", objs.state);
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
@@ -271,6 +280,12 @@ export default {
       this.getDataList(item.id);
     },
     look(index) {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       // this.qiangguishow=true
       this.xiangqingindex = index;
       // console.log(index.id)
@@ -306,6 +321,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            this.loading.close();
             this.xiangqingData = data.data.data;
             if (!this.xiangqingData.length) {
               this.$message("暂无数据");
@@ -323,6 +339,7 @@ export default {
   created() {
     let item = this.$gscookie.getCookie("message_obj");
     let jigou = this.$gscookie.getCookie("mechanism_id");
+    this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     this.activeMechanismId = jigou;
     if (item.role_id == 3) {
       this.$router.push({

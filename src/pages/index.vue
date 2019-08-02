@@ -19,7 +19,8 @@
             </router-link>
           </div>
           <div class="btns">
-            <span title="同步数据" @click="tongbu" v-show="sync===1"></span>
+            <span title="同步数据" @click="tongbu" v-show="mes.role_id!=3 && sync==1"></span>
+
             <router-link
               title="人员管理"
               v-show="mes.role_id==3||mes.role_id==2?false:true"
@@ -34,7 +35,7 @@
             ></router-link>
             <span title="修改密码" @click="pas"></span>
             <span title="个人信息" @click="mine" class="mine"></span>
-            <span title="推出登录" @click="logout"></span>
+            <span title="退出登录" @click="logout"></span>
           </div>
         </div>
         <div class="title">
@@ -202,29 +203,49 @@ export default {
   },
   methods: {
     tongbu() {
-      this.tb = true;
-      var objs = {};
-      var token = this.$gscookie.getCookie("gun");
-      var key = this.$store.state.key;
-      var sign = this.$methods.mkSign(objs, key);
-      var params = new URLSearchParams();
-      params.append("sign", sign);
-      params.append("token", token);
-      this.$axios({
-        url: "http://s.tronl.cn/weixin/project/index.php?m=home&c=Jd&a=index",
-        method: "POST",
-        changeOrigin: true,
-        data: params
+      let that = this;
+      this.$confirm("此操作将同步系统数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
       })
-        .then(data => {
-          if (data.data.code == 200) {
-            this.tb = false;
-            this.$message("数据同步成功");
-          }
+        .then(() => {
+          this.tb = true;
+          var objs = {};
+          var token = this.$gscookie.getCookie("gun");
+          var key = this.$store.state.key;
+          var sign = this.$methods.mkSign(objs, key);
+          var params = new URLSearchParams();
+          params.append("sign", sign);
+          params.append("token", token);
+          this.$axios({
+            url:
+              "http://s.tronl.cn/weixin/project/index.php?m=home&c=Jd&a=index",
+            method: "POST",
+            changeOrigin: true,
+            data: params
+          })
+            .then(data => {
+              if (data.data.code == 200) {
+                this.tb = false;
+                this.$message({
+                  type: "success",
+                  message: "数据同步成功"
+                });
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
         })
-        .catch(error => {
-          console.log(error);
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消同步"
+          });
         });
+
+      return;
     },
     itemClick(item) {
       if (this.$route.name == "BaoJing") {
@@ -318,9 +339,22 @@ export default {
       this.chuLi(id, "极速处理");
     },
     logout() {
-      if (!confirm("确定要退出登录吗？")) return;
-      this.$gscookie.setCookie("gun", "");
-      this.$router.push("/login");
+      this.$confirm("将要退出登录, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$gscookie.setCookie("gun", "");
+          this.$router.push("/login");
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消退出"
+          });
+        });
+      // if (!confirm("确定要退出登录吗？")) return;
     },
     mine() {
       // this.mineShow=!this.mineShow

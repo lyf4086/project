@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="报警管理" :next="active_title" :message="message"/>
+        <breadNav title="报警管理" :next="active_title" :message="message" />
       </div>
       <div class="search-wrap">
         <!--搜索框-->
@@ -33,7 +33,7 @@
           v-model="putValue"
           @keyup.13="subSearch"
           placeholder="请输入搜素关键字"
-        >
+        />
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
@@ -51,7 +51,7 @@
     <div class="content">
       <!-- <Content/> -->
       <div class="none-data" v-if="!list.length">暂时没有数据......</div>
-      <Item v-for="item,index in list" :item="item" :key="index" @changeOneData="changeOneData"/>
+      <Item v-for="item,index in list" :item="item" :key="index" @changeOneData="changeOneData" />
     </div>
     <div class="check_type">
       <div class="all" @click="dealAll">
@@ -244,7 +244,7 @@ export default {
           this.rootId = data.data.data.list[0].root_id;
           this.activeItem = data.data.data.list[0];
           if (isCreate) {
-            this.getDataList(this.rootId, 1, 8);
+            this.getDataList(this.activeItem.id, 1, 8);
           }
         })
         .catch(error => {
@@ -368,6 +368,7 @@ export default {
       }
       this.serach = true;
       this.message = this.putValue;
+      this.$refs.page.internalCurrentPage = 1;
       this.getDataList(
         this.activeMechanismId,
         1,

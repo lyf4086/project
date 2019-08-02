@@ -178,6 +178,7 @@
   background: #185277;
   color: #fff;
   border-radius: 0.1rem;
+  cursor: pointer;
 }
 .cover .text-wrap i {
   position: absolute;

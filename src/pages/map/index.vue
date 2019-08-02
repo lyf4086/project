@@ -119,6 +119,29 @@
         </select>
       </div>
       <button @click="searchOnePerson" v-show="activeIMEI">查找</button>
+      <div class="sel_item">
+        <select
+          class="last-sel"
+          v-model="value"
+          v-html="optionsStr"
+          v-show="hasPerson"
+          @change="TypeChange"
+        ></select>
+        <!-- <el-select
+          id="sel"
+          v-show="hasPerson"
+          v-model="value"
+          placeholder="请选择"
+          @change="TypeChange"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.id"
+            :label="item.loca_name"
+            :value="item.id"
+          ></el-option>
+        </el-select>-->
+      </div>
     </div>
     <div class="warning">
       <div class="btns">
@@ -210,6 +233,10 @@
         <button @click="submitSetAreaWarning">确认</button>
       </div>
     </div>
+    <!-- 切换航速据模式 -->
+    <!-- <el-select id="sel" v-show="hasPerson" v-model="value" placeholder="请选择" @change="TypeChange">
+      <el-option v-for="item in options" :key="item.id" :label="item.loca_name" :value="item.id"></el-option>
+    </el-select>-->
   </div>
 </template>
 <style scoped>
@@ -281,7 +308,17 @@ export default {
       newXianArr: [],
       shangyigequyu: null,
       fitBoundsArr: [], //记录当前显示的坐标点，用于地图自适应显示
-      delId: ""
+      delId: "",
+      options: [
+        {
+          value: "选项1",
+          label: "黄金糕"
+        }
+      ],
+      value: "",
+      optionsStr: "",
+      hasPerson: false,
+      clickTrue: true
     };
   },
   computed: {
@@ -292,11 +329,38 @@ export default {
   methods: {
     ...meth,
     ...fns,
+    TypeChange() {
+      //切模式
+      console.log(this.value);
+      if (!this.hasPerson) return;
+
+      if (this.value == 3) {
+        this.$message("当前为基站定位，定位数据仅供参考");
+      }
+      //先清除动画一面报错
+      // this.markerArr.forEach(item => {
+      //   item.stopMove();
+      // });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
     del() {
       let id = this.delId;
-      if (confirm("确定要删除该区域吗？")) {
-        this.delOneAlarmArea(id);
-      }
+      let that = this;
+      this.$confirm("此操作将永久删除该区域, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          that.delOneAlarmArea(id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
     mapInit() {
       let that = this;

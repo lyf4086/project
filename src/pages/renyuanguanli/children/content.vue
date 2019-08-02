@@ -19,7 +19,13 @@
         <p class="put-wrap select-wrap">
           <span>{{juese(item.role_id)}}</span>
 
-          <select v-show="item.put2show" ref="put2" v-model="item.role_id" @blur="put2blur(index)">
+          <select
+            v-show="item.put2show"
+            selected="true"
+            ref="put2"
+            v-model="item.role_id"
+            @blur="put2blur(index)"
+          >
             <option value="1">系统管理员</option>
             <option value="2">枪支管理员</option>
             <option value="3">用枪员</option>
@@ -33,10 +39,10 @@
         </p>
         <p>状态：</p>
         <p>
-          <span class="qy" @click="changeradiu1(index)">启用</span>
-          <i @click="changeradiu1(index)" :class="{'active':item.ishow==1}"></i>
-          <span class="jy" @click="changeradiu2(index)">禁用</span>
-          <i @click="changeradiu2(index)" :class="{'active':item.ishow==0}"></i>
+          <span class="qy" @click="leftChange(index)">启用</span>
+          <i @click="leftChange(index)" :class="{'active':item.ishow==1}"></i>
+          <span class="jy" @click="rightChange(index)">禁用</span>
+          <i @click="rightChange(index)" :class="{'active':item.ishow==0}"></i>
         </p>
       </div>
       <div class="headpic">
@@ -45,7 +51,7 @@
       </div>
       <button class="xiangqing" @click="lookxiangqing(item)">查看详情</button>
       <div class="btns">
-        <span @click="changeperson(index)" v-if="sync===0">修改人员</span>
+        <span @click="changeperson(index)" v-if="sync !=1">修改人员</span>
         <span @click="setjuese(index)">设置角色</span>
         <span @click="setmima(item)">设置初始密码</span>
       </div>
@@ -137,7 +143,8 @@ export default {
       activeData: "",
       pwd1: "", //...................设置初始密码
       pwd2: "", //................确认初始密码
-      active_item: ""
+      active_item: "",
+      fc: false
     };
   },
   computed: {},
@@ -213,6 +220,8 @@ export default {
     setjuese(index) {
       this.list[index].put2show = true;
       this.$nextTick(() => {
+        // console.log(this.$refs.put2[index].focus());
+        // return;
         this.$refs.put2[index].focus();
       });
     },
@@ -303,12 +312,6 @@ export default {
       params.append("sex", objs.sex);
       params.append("mechanism_id", objs.mechanism_id);
       params.append("police_number", objs.police_number);
-      // params.append('robcode_endtime', objs.robcode_endtime);
-      // params.append('police_number', objs.police_number);
-      // params.append('police_rank', objs.police_rank);
-      // params.append('role_id', objs.role_id);
-      // params.append('mechanism_id',objs.mechanism_id)
-
       params.append("sign", sign);
       params.append("token", token);
 
@@ -320,7 +323,7 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('修改角色',data)
+          // console.log("修改角色", data);
           // if(data.data.code=='200'){
           //     this.alert=false
           // }
@@ -331,8 +334,29 @@ export default {
 
       //........................................更改角色end
     },
+    leftChange(index) {
+      this.$confirm("将要更改状态, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.changeradiu1(index);
+        })
+        .catch(() => {});
+    },
+    rightChange(index) {
+      this.$confirm("将要更改状态, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.changeradiu2(index);
+        })
+        .catch(() => {});
+    },
     changeradiu1(index) {
-      if (!confirm("确定更改状态吗？")) return;
       this.list[index].ishow = 1;
       var token = this.$gscookie.getCookie("gun");
       var objs = {
@@ -369,7 +393,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('修改。。。。。。。状态',data)
           if (data.data.code == 200) {
             this.$message({
               message: "修改状态成功",
@@ -382,8 +405,6 @@ export default {
         });
     },
     changeradiu2(index) {
-      if (!confirm("确定更改状态吗？")) return;
-
       this.list[index].ishow = 0;
       var token = this.$gscookie.getCookie("gun");
       var objs = {
@@ -398,7 +419,6 @@ export default {
       };
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
-
       var params = new URLSearchParams();
       params.append("uname", objs.uname);
       params.append("role_id", objs.role_id);
@@ -408,10 +428,8 @@ export default {
       params.append("mechanism_id", objs.mechanism_id);
       params.append("police_number", objs.police_number);
       params.append("ishow", objs.ishow);
-
       params.append("sign", sign);
       params.append("token", token);
-
       this.$axios({
         url:
           "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
