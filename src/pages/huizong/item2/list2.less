@@ -1,5 +1,6 @@
-
-@vw:100rem;
+@rem:100rem;
+// @vw:100rem;
+@vw:19.2vw;
 
 .content{
   font-size: 16/@vw;
@@ -76,7 +77,7 @@
 
       display: flex;
       span{
-        width:1466/7/@vw;
+        width:1466/6/@vw;
         line-height: 60/@vw;
         text-align: center;
         box-sizing: border-box;
@@ -101,13 +102,14 @@
         border-bottom:3/@vw solid #00a0e9;
         display: flex;
         span{
-          width:1466/7/@vw;
+          width:1466/6/@vw;
           line-height: 60/@vw;
           text-align: center;
           border-right: 3/@vw solid #00a0e9;
         }
         span:last-child{
-          border:none
+          border:none;
+          cursor: pointer;
         }
       }
       li:last-child{
@@ -131,4 +133,44 @@
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
   border-radius: 0;
   background: rgba(221, 213, 213, 0.6);
+}
+
+.xiangqingwrap{
+  position: fixed;
+  z-index: 999;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background: rgba(0,0,0,0.4);
+  .xiangqing{
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    margin:auto;
+    width:1000/@vw;
+    height:700/@vw;
+    background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
+    background-size: 100% 100%;
+    .content{
+      width:960/@vw;
+      height:600/@vw;
+      margin:60/@vw auto;
+      background: red;
+    }
+    .close{
+      position: absolute;
+      width:120/@vw;
+      height:30/@vw;
+      line-height: 30/@vw;
+      text-align: center;
+      // background: red;
+      cursor: pointer;
+      bottom:5/@vw;
+      right:150/@vw;
+      
+    }
+  }
 }

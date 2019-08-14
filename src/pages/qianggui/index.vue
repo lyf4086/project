@@ -63,6 +63,7 @@
             <button class="close" @click="close">取消</button>
             <div class="content">
               <div class="nodata" v-if="!xiangqingData.length">暂无数据</div>
+
               <div
                 class="small"
                 v-for="(item,index) in xiangqingData"
@@ -160,11 +161,13 @@ export default {
         return "领导";
       }
     },
+
     openVidio() {
       this.vidio = true;
     },
     closeVidio() {
       this.vidio = false;
+      //
     },
     subSearch() {
       if (!this.selValue) {
@@ -293,6 +296,7 @@ export default {
     },
     close() {
       this.qiangguishow = false;
+      this.gunXQ = false;
       this.xiangqingindex = 0;
       if (this.fromQiangZhi) {
         this.fromQiangZhi = false;
@@ -323,6 +327,7 @@ export default {
           if (data.data.code == 200) {
             this.loading.close();
             this.xiangqingData = data.data.data;
+            console.log(data.data.data);
             if (!this.xiangqingData.length) {
               this.$message("暂无数据");
               this.qiangguishow = false;

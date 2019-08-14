@@ -64,13 +64,21 @@
           </div>
         </div>
         <div class="check-person-list" v-show="bianzu_list_show">
+          <div class="check-name">
+            <Tag
+              :list="jigouSelArr"
+              @delOneJiGou="delOneJiGou"
+              @clickOneTab="clickOneTab"
+              :jigouSelIndex="jigouSelIndex"
+            />
+          </div>
           <div class="title">
             <span>选择</span>
             <span>选择机构</span>
             <span>编组人员</span>
             <span>枪支编号</span>
           </div>
-          <div class="person-list-wrap">
+          <!-- <div class="person-list-wrap">
             <div class="person-list" v-for="item,index in noCheckedList" :key="index">
               <span>
                 <input type="checkbox" v-model="item.checked" />
@@ -79,9 +87,37 @@
               <span>{{item.policeuser_name}}</span>
               <span>{{item.gun_code}}</span>
             </div>
+          </div>-->
+          <div class="over-list-wrap">
+            <div class="person-list-wrap" :class="{active:jigouSelIndex==0}">
+              <div class="person-list" v-for="item,index in fillSeilf" :key="index">
+                <span>
+                  <input type="checkbox" v-model="item.checked" />
+                </span>
+                <span :title="item.mechanism_name">{{item.mechanism_name}}</span>
+                <span>{{item.policeuser_name}}</span>
+                <span :title="item.gun_code">{{item.gun_code}}</span>
+              </div>
+            </div>
+            <div
+              class="person-list-wrap"
+              :class="{active:jigouSelIndex==i+1}"
+              v-for="(arr,i) in allMechanismPersonList"
+              :key="i"
+            >
+              <div class="person-list" v-for="item,index in arr" :key="index">
+                <span>
+                  <input type="checkbox" v-model="item.checked" />
+                </span>
+                <span :title="item.mechanism_name">{{item.mechanism_name}}</span>
+                <span>{{item.policeuser_name}}</span>
+                <span :title="item.gun_code">{{item.gun_code}}</span>
+              </div>
+            </div>
           </div>
 
           <div class="button-wrap">
+            <select v-html="allMechanism" v-model="allMechanismValue" @change="MechanismChange"></select>
             <button @click="yijingXuanze">确 定</button>
           </div>
         </div>
@@ -119,7 +155,7 @@
         </select>
       </div>
       <button @click="searchOnePerson" v-show="activeIMEI">查找</button>
-      <div class="sel_item">
+      <div class="sel_item" v-if="false">
         <select
           class="last-sel"
           v-model="value"
@@ -127,20 +163,6 @@
           v-show="hasPerson"
           @change="TypeChange"
         ></select>
-        <!-- <el-select
-          id="sel"
-          v-show="hasPerson"
-          v-model="value"
-          placeholder="请选择"
-          @change="TypeChange"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.id"
-            :label="item.loca_name"
-            :value="item.id"
-          ></el-option>
-        </el-select>-->
       </div>
     </div>
     <div class="warning">
@@ -234,9 +256,30 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
-    <!-- <el-select id="sel" v-show="hasPerson" v-model="value" placeholder="请选择" @change="TypeChange">
-      <el-option v-for="item in options" :key="item.id" :label="item.loca_name" :value="item.id"></el-option>
-    </el-select>-->
+
+    <div class="change-type" v-show="hasPerson">
+      <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
+        <i class="fangxiang"></i>
+      </div>
+      <div class="btn-wrap" v-show="!checkTypeIsShow">
+        <p>请选择定位类型</p>
+        <div class="list">
+          <div class="item item1" @click="changeTypeBtnClick1" :class="{active:checkIndex===1}">
+            <div class="icon"></div>混合
+          </div>
+          <div class="item item2" @click="changeTypeBtnClick2" :class="{active:checkIndex===2}">
+            <div class="icon"></div>北斗
+          </div>
+          <div class="item item3" @click="changeTypeBtnClick3" :class="{active:checkIndex===3}">
+            <div class="icon"></div>基站
+          </div>
+          <div class="item item4" @click="changeTypeBtnClick4" :class="{active:checkIndex===4}">
+            <div class="icon"></div>wifi
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 切换航速据模式 -->
   </div>
 </template>
 <style scoped>
@@ -248,8 +291,10 @@
 <script>
 import * as meth from "./methods.js";
 import * as fns from "./index.js";
+import Tag from "../guiji/tag";
 import { setInterval, setTimeout, clearInterval } from "timers";
 export default {
+  components: { Tag },
   data() {
     return {
       BM: null,
@@ -318,17 +363,103 @@ export default {
       value: "",
       optionsStr: "",
       hasPerson: false,
-      clickTrue: true
+      clickTrue: true,
+      header: {
+        jizhan: require("@/assets/img/jizhan.png"),
+        wifi: require("@/assets/img/wifi.png")
+      },
+      headName: "",
+      checkTypeIsShow: false,
+      checkIndex: 1,
+      allMechanismData: null,
+      allMechanism: null,
+      allMechanismValue: "",
+      jigouSelArr: [],
+      jigouSelIndex: 0,
+      allMechanismPersonList: [],
+      jigouname: ""
     };
   },
   computed: {
     computedList() {
       return this.checkedPersonArr;
+    },
+    fillSeilf() {
+      // console.log(this.noCheckedList);
+      return this.noCheckedList.filter(
+        item => item.IMEI !== this.selectedPerson.IMEI
+      );
     }
   },
   methods: {
     ...meth,
     ...fns,
+    /* 跨机构编组新增*/
+    clickOneTab(n) {
+      this.jigouSelIndex = n;
+    },
+    delOneJiGou(n) {
+      if (n == 0) return;
+
+      this.jigouSelArr.splice(n, 1);
+      this.clickOneTab(0);
+    },
+    MechanismChange() {
+      let val = this.allMechanismValue.split("|");
+      let tar = this.allMechanismData.find(e => e.id == val[0]);
+      let hasN = this.jigouSelArr.find(e => e == tar.mechanism_name);
+      if (!hasN) {
+        let n = this.jigouSelArr.push(tar.mechanism_name);
+        this.jigouSelIndex = n - 1;
+        this.getAllJiGouName(val[0], val[1]);
+      }
+    },
+    /* 跨机构编组新增*/
+    changeTypeHandle() {
+      // 1.混合定位，2.北斗定位，3.基站定位。4，wifi定位
+      this.checkTypeIsShow = !this.checkTypeIsShow;
+    },
+    changeTypeBtnClick1() {
+      this.checkIndex = 1;
+      this.value = 1;
+      this.headName = "";
+      // this.markerArr.forEach(item => {
+      //   item.stopMove();
+      // });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
+    changeTypeBtnClick2() {
+      this.checkIndex = 2;
+      this.value = 2;
+      this.headName = "";
+      // this.markerArr.forEach(item => {
+      //   item.stopMove();
+      // });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
+    changeTypeBtnClick3() {
+      this.$message("当前为基站定位，定位数据仅供参考");
+      this.checkIndex = 3;
+      this.value = 3;
+      this.headName = "jizhan";
+      // this.markerArr.forEach(item => {
+      //   item.stopMove();
+      // });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
+    changeTypeBtnClick4() {
+      this.checkIndex = 4;
+      this.value = 4;
+      this.headName = "wifi";
+      // this.markerArr.forEach(item => {
+      //   item.stopMove();
+      // });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
     TypeChange() {
       //切模式
       console.log(this.value);
@@ -336,6 +467,11 @@ export default {
 
       if (this.value == 3) {
         this.$message("当前为基站定位，定位数据仅供参考");
+        this.headName = "jizhan";
+      } else if (this.value == 4) {
+        this.headName = "wifi";
+      } else {
+        this.headName = "";
       }
       //先清除动画一面报错
       // this.markerArr.forEach(item => {

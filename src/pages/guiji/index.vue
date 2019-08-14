@@ -4,19 +4,21 @@
       <div id="container"></div>
       <div class="left_mes" v-show="filterMessage.uname">
         <div class="main_mes">
-          <i
-            class="view"
-            @click="binaZuBack"
-            v-show="!oneAlarmPersonList.length||oldOrNew=='new'"
-            :class="{'left_view':!checked_person_show}"
-            v-if="!oneAlarmPersonList.length"
-          ></i>
-          <i
-            class="view"
-            v-if="oneAlarmPersonList.length"
-            @click="alarmBoxShowOrHide"
-            :class="{'left_view':!oneAlarmPersonListBox}"
-          ></i>
+          <span>
+            <i
+              class="view"
+              @click="binaZuBack"
+              v-show="!oneAlarmPersonList.length && oldOrNew=='new'"
+              :class="{'left_view':!checked_person_show}"
+              v-if="!oneAlarmPersonList.length"
+            ></i>
+            <i
+              class="view"
+              v-if="oneAlarmPersonList.length"
+              @click="alarmBoxShowOrHide"
+              :class="{'left_view':!oneAlarmPersonListBox}"
+            ></i>
+          </span>
           <div class="img_wrap">
             <img v-if="filterMessage.imgSrc" :src="filterMessage.imgSrc" alt />
             <img v-if="!filterMessage.imgSrc" src="../../assets/img/head-icon.png" />
@@ -69,24 +71,51 @@
           </div>
         </div>
         <div class="check-person-list" v-show="bianzu_list_show">
+          <div class="check-name">
+            <!-- <el-tag size="mini" closable v-for="item,index in jigouSelArr" :key="index">{{item}}</el-tag> -->
+            <Tag
+              :list="jigouSelArr"
+              @delOneJiGou="delOneJiGou"
+              @clickOneTab="clickOneTab"
+              :jigouSelIndex="jigouSelIndex"
+            />
+          </div>
           <div class="title">
             <span>选择</span>
             <span>选择机构</span>
             <span>编组人员</span>
             <span>枪支编号</span>
           </div>
-          <div class="person-list-wrap">
-            <div class="person-list" v-for="item,index in fillSeilf" :key="index">
-              <span>
-                <input type="checkbox" v-model="item.checked" />
-              </span>
-              <span :title="item.mechanism_name">{{item.mechanism_name}}</span>
-              <span>{{item.policeuser_name}}</span>
-              <span :title="item.gun_code">{{item.gun_code}}</span>
+          <div class="over-list-wrap">
+            <div class="person-list-wrap" :class="{active:jigouSelIndex==0}">
+              <div class="person-list" v-for="item,index in fillSeilf" :key="index">
+                <span>
+                  <input type="checkbox" v-model="item.checked" />
+                </span>
+                <span :title="item.mechanism_name">{{item.mechanism_name}}</span>
+                <span>{{item.policeuser_name}}</span>
+                <span :title="item.gun_code">{{item.gun_code}}</span>
+              </div>
+            </div>
+            <div
+              class="person-list-wrap"
+              :class="{active:jigouSelIndex==i+1}"
+              v-for="(arr,i) in allMechanismPersonList"
+              :key="i"
+            >
+              <div class="person-list" v-for="item,index in arr" :key="index">
+                <span>
+                  <input type="checkbox" v-model="item.checked" />
+                </span>
+                <span :title="item.mechanism_name">{{item.mechanism_name}}</span>
+                <span>{{item.policeuser_name}}</span>
+                <span :title="item.gun_code">{{item.gun_code}}</span>
+              </div>
             </div>
           </div>
 
           <div class="button-wrap">
+            <select v-html="allMechanism" v-model="allMechanismValue" @change="MechanismChange"></select>
             <button @click="yijingXuanze">确 定</button>
           </div>
         </div>
@@ -124,7 +153,7 @@
         </select>
       </div>
       <button @click="searchOnePerson" v-show="activeIMEI">查找</button>
-      <div class="sel_item">
+      <div class="sel_item" v-if="false">
         <select
           class="last-sel"
           v-model="value"
@@ -184,7 +213,7 @@
       </div>
 
       <div class="sel_time" v-show="setAreaTime">
-        <input type="submit" class="del" value="X" @click="stopSetArea" />
+        <input type="submit" class="del" value="X" @click="stopSetArea" v-show="false" />
         <h6>请选择起止时间</h6>
         <div class="put_wrap">
           <span>报警类型：</span>
@@ -225,9 +254,29 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
-    <!-- <el-select v-show="hasPerson" v-model="value" placeholder="请选择" @change="TypeChange">
-      <el-option v-for="item in options" :key="item.id" :label="item.loca_name" :value="item.id"></el-option>
-    </el-select>-->
+    <div class="change-type" v-show="hasPerson">
+      <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
+        <i class="fangxiang"></i>
+      </div>
+      <div class="btn-wrap" v-show="!checkTypeIsShow">
+        <p>请选择定位类型</p>
+        <div class="list">
+          <div class="item item1" @click="changeTypeBtnClick1" :class="{active:checkIndex===1}">
+            <div class="icon"></div>混合
+          </div>
+          <div class="item item2" @click="changeTypeBtnClick2" :class="{active:checkIndex===2}">
+            <div class="icon"></div>北斗
+          </div>
+          <div class="item item3" @click="changeTypeBtnClick3" :class="{active:checkIndex===3}">
+            <div class="icon"></div>基站
+          </div>
+          <div class="item item4" @click="changeTypeBtnClick4" :class="{active:checkIndex===4}">
+            <div class="icon"></div>wifi
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 切换航速据模式 -->
   </div>
 </template>
 <style >
@@ -235,15 +284,15 @@
 .delArea {
   padding: 0 6px;
 }
-.el-input__inner {
-}
 </style>
 <script>
 //
 import * as meth from "./methods.js";
 import * as more from "./more.js";
+import Tag from "./tag";
 import { setInterval, setTimeout, clearInterval } from "timers";
 export default {
+  components: { Tag },
   data() {
     return {
       map: "",
@@ -312,7 +361,22 @@ export default {
       value: "",
       optionsStr: "",
       hasPerson: false,
-      clickTrue: true
+      clickTrue: true,
+      header: {
+        jizhan: require("@/assets/img/jizhan.png"),
+        wifi: require("@/assets/img/wifi.png")
+      },
+      headName: "",
+      checkTypeIsShow: false,
+      checkIndex: 1,
+      allMechanismData: null,
+      allMechanism: null,
+      allMechanismValue: "",
+      jigouSelArr: [],
+      jigouSelIndex: 0,
+      allMechanismPersonList: [],
+      jigouname: "",
+      markerArrLinShi: []
     };
   },
   computed: {
@@ -320,6 +384,7 @@ export default {
       return this.checkedPersonArr.slice(1);
     },
     fillSeilf() {
+      // console.log(this.noCheckedList);
       return this.noCheckedList.filter(
         item => item.IMEI !== this.selectedPerson.IMEI
       );
@@ -328,6 +393,72 @@ export default {
   methods: {
     ...meth,
     ...more,
+    clickOneTab(n) {
+      this.jigouSelIndex = n;
+    },
+    delOneJiGou(n) {
+      if (n == 0) return;
+
+      this.jigouSelArr.splice(n, 1);
+      this.clickOneTab(0);
+    },
+    MechanismChange() {
+      let val = this.allMechanismValue.split("|");
+      // this.allMechanismData, this.allMechanismValue
+      let tar = this.allMechanismData.find(e => e.id == val[0]);
+
+      let hasN = this.jigouSelArr.find(e => e == tar.mechanism_name);
+      if (!hasN) {
+        let n = this.jigouSelArr.push(tar.mechanism_name);
+        this.jigouSelIndex = n - 1;
+        this.getAllJiGouName(val[0], val[1]);
+      }
+    },
+    changeTypeHandle() {
+      // 1.混合定位，2.北斗定位，3.基站定位。4，wifi定位
+      this.checkTypeIsShow = !this.checkTypeIsShow;
+    },
+    changeTypeBtnClick1() {
+      this.checkIndex = 1;
+      this.value = 1;
+      this.headName = "";
+      this.markerArr.forEach(item => {
+        item.stopMove();
+      });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
+    changeTypeBtnClick2() {
+      this.checkIndex = 2;
+      this.value = 2;
+      this.headName = "";
+      this.markerArr.forEach(item => {
+        item.stopMove();
+      });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
+    changeTypeBtnClick3() {
+      this.$message("当前为基站定位，定位数据仅供参考");
+      this.checkIndex = 3;
+      this.value = 3;
+      this.headName = "jizhan";
+      this.markerArr.forEach(item => {
+        item.stopMove();
+      });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
+    changeTypeBtnClick4() {
+      this.checkIndex = 4;
+      this.value = 4;
+      this.headName = "wifi";
+      this.markerArr.forEach(item => {
+        item.stopMove();
+      });
+      this.isChange = true;
+      this.searchOnePerson();
+    },
     TypeChange() {
       //切模式
       console.log(this.value);
@@ -335,6 +466,11 @@ export default {
 
       if (this.value == 3) {
         this.$message("当前为基站定位，定位数据仅供参考");
+        this.headName = "jizhan";
+      } else if (this.value == 4) {
+        this.headName = "wifi";
+      } else {
+        this.headName = "";
       }
       //先清除动画一面报错
       this.markerArr.forEach(item => {
@@ -381,9 +517,22 @@ export default {
       });
     },
     toHistory() {
-      this.oldOrNew = "old";
-      this.isChange = true;
-      this.checkTime = true;
+      this.$confirm("此操作将搜索历史轨迹, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.oldOrNew = "old";
+          this.isChange = true;
+          this.checkTime = true;
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
     },
     changeTime(timestamp) {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -408,18 +557,22 @@ export default {
     },
     stopSetArea() {
       this.setAreaTime = false;
+
       this.polygon.hide();
       this.markerArr.length = 0;
       // console.log(this.markerArr)
     },
     showOne() {
       this.hasPerson = false;
-
+      this.bianzu_list_show = false;
       this.markerArr.forEach(item => {
         item.stopMove();
       });
       let v = this.$refs.alarmSelect.value;
       // let id = this.alarmId;
+      this.allMechanismPersonList.length = 0;
+      this.jigouSelArr.length = 1;
+      this.jigouSelIndex = 0;
       this.delId = v;
       if (!v) {
         this.$message({
@@ -470,7 +623,9 @@ export default {
     submitSetAreaWarning() {
       let newArr1 = [...this.checkedPersonArr, this.selectedPerson];
       let gun_ids11 = newArr1.map(e => e.gun_id);
-      // console.log(this.markerArr);
+
+      let ip_ids = newArr1.map(item => item.ip_id);
+
       let pointsArr11 = this.markerArr.map(
         e => `${e.Ge.position.lng}|${e.Ge.position.lat}`
       );
@@ -489,6 +644,7 @@ export default {
       }
       this.shezhiquyu(
         gun_ids11,
+        ip_ids,
         pointsArr11,
         policeuser_id,
         s_t,
@@ -666,11 +822,23 @@ export default {
     toBaoJing() {
       //去报警管理页面
       let p = this.activeIMEI;
-
-      this.$router.push({
-        name: "BaoJing",
-        params: this.selectedPerson
-      });
+      this.$confirm("此操作将去报警页面, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$router.push({
+            name: "BaoJing",
+            params: this.selectedPerson
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
     },
     searchByTime() {
       //.....根据时间搜索历史轨迹
@@ -707,6 +875,12 @@ export default {
           item.stopMove();
         });
       }
+      // 跨区域编组新增
+      this.jigouSelArr.length = 0;
+      this.jigouSelArr.push(this.jigouname);
+      console.log(this.jigouname);
+      // 跨区域编组新增
+      clearInterval(this.areaTimer);
       this.noCheckedList.forEach(e => (e.checked = false));
       this.checkedPersonArr.length = 0;
       //清除循环请求是否超出区域的定时器
@@ -760,9 +934,16 @@ export default {
     },
     yijingXuanze() {
       //.................编组后搜索一组人员
-
+      let fillterPerson = [];
+      this.allMechanismPersonList.forEach(item => {
+        item.forEach(e => {
+          if (e.checked) {
+            fillterPerson.push(e);
+          }
+        });
+      });
+      // 跨机构编组
       let arrCED = this.noCheckedList.filter(e => e.checked);
-
       if (!arrCED.length) {
         this.$message("请选择编组人员");
         return;
@@ -770,25 +951,34 @@ export default {
         for (var i = 0; i < arrCED.length; i++) {
           this.IMEI_img[arrCED[i]["IMEI"]] = arrCED[i]["policeuser"]["img"];
         }
-
-        //console.log(this.IMEI_img);
-        this.checkedPersonArr = arrCED;
+        // 跨机构编组新增
+        fillterPerson.forEach((item, index) => {
+          this.IMEI_img[item["IMEI"]] = item["policeuser"]["img"];
+        });
+        // console.log(this.IMEI_img);
+        // return;
+        // this.checkedPersonArr = arrCED;
+        this.checkedPersonArr = [...arrCED, ...fillterPerson];
         this.bianzu_list_show = false;
         this.checked_person_show = true;
         //.............一组人员定位
         let arrIMEI = arrCED.map(e => e.IMEI);
         arrIMEI.unshift(this.activeIMEI);
-        // console.log(this.checkedPersonArr)
+        let fillterPersonIMEI = fillterPerson.map(e => e.IMEI);
+        let IMEIList = [...fillterPersonIMEI, ...arrIMEI];
+        console.log(IMEIList);
 
         this.shuaXinMap(); //..刷新地图
-
-        this.getIMEI(arrIMEI); //....................................
+        this.getIMEI(IMEIList);
+        // this.getIMEI(arrIMEI); //....................................
       }
     },
     binaZuBack() {
       this.checked_person_show = !this.checked_person_show;
     },
     jigouSelChange(e) {
+      let n = e.target[e.target.selectedIndex];
+      this.jigouname = n.innerText.trim(); //记录当前选中的机构名字
       this.isChange = true;
       this.getPersonAndGunStr(e.target.value);
     },
@@ -841,13 +1031,13 @@ export default {
         zoom: 9
       });
 
-      AMap.plugin(["AMap.ToolBar", "AMap.Scale"], function() {
-        map.addControl(new AMap.ToolBar());
-        map.addControl(new AMap.Scale());
-      });
-
-      let a = document.querySelector(".amap-toolbar");
-      a.style.cssText = "position:absolute;right:0.3rem;top:0.1rem";
+      // AMap.plugin(["AMap.ToolBar", "AMap.Scale"], function() {
+      //   map.addControl(new AMap.ToolBar());
+      //   map.addControl(new AMap.Scale());
+      // });
+      // return;
+      // let a = document.querySelector(".amap-toolbar");
+      // a.style.cssText = "position:absolute;right:0.3rem;top:0.1rem";
       this.map = map;
     },
     guijiHistory(arr) {

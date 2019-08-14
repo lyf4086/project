@@ -1,4 +1,5 @@
 @rem: 100rem;
+@vw:19.2vw;
 
 .guiji {
   .wrap {
@@ -366,6 +367,14 @@
       background: #09496c;
       padding-bottom: 50/@rem;
       position: relative;
+      .check-name{
+        width:380/@rem;
+        height:40/@vw;
+        background: #09496c;
+        
+
+      }
+      
 
       .title {
         width: 100%;
@@ -385,15 +394,26 @@
         }
 
       }
-
-      .person-list-wrap {
+      .over-list-wrap{
+        position: relative;
         max-height: 480/@rem;
         width: 100%;
-        // background: red;
+      }
+      .person-list-wrap {
+        position: absolute;
+        top:0;
+        left:0;
+        // max-height: 480/@rem;
+        // height: 480/@rem;
+        height: 255/@rem;
+        width: 100%;
+        background: #09496c;
         overflow-x: hidden;
         overflow-y: auto;
       }
-
+      .person-list-wrap.active{
+        z-index: 1;
+      }
       .person-list-wrap::-webkit-scrollbar {
         /*滚动条整体样式*/
         width: 4px;
@@ -445,6 +465,7 @@
       .button-wrap {
 
         position: absolute;
+        z-index: 9;
         bottom: 0;
         width: 100%;
         height: 50/@rem;
@@ -996,5 +1017,106 @@ div.info-bottom img {
     height: 100/@rem;
     margin-left: 50%;
     transform: translateX(-50%);
+  }
+}
+
+
+.change-type{
+  position:absolute;
+  width:190/@vw;
+  height:98/@vw;
+  font-size: 16/@vw;
+  color:#fff;
+  top:10/@vw;
+  right:20/@vw;
+  .btn{
+    width:126/@vw;
+    height:19/@vw;
+    background: url(../../assets/img/type-btn.png);
+    background-size: 100% 100%;
+    margin:0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .fangxiang{
+      width:16/@vw;
+      height:16/@vw;
+      background: url(../../assets/img/fangxiang-icon.png);
+      background-size: 100% 100%;
+      transform: rotate(90deg)
+    }
+  }
+  .yc .fangxiang{
+    transform: rotate(-90deg)
+  }
+  .btn-wrap{
+    background: #45a4ca;
+    border-radius: 5/@vw;
+    padding:3/@vw;
+    margin-top: 5/@vw;
+    p{
+      padding:0 5/@vw;
+      font-size: 16/@vw;
+      line-height: 22/@vw;
+
+    }
+    .list{
+      width:180/@vw;
+      height:50/@vw;
+      display: flex;
+      justify-content: space-around;
+      .item{
+        width:38/@vw;
+        height:49/@vw;
+        font-size: 12/@vw;
+        color:#346d9d;
+        text-align: center;
+        cursor: pointer;
+        .icon{
+          width:36/@vw;
+          height:32/@vw;
+          background: url(../../assets/img/hh.png);
+          background-size: 100% 100%;
+          text-align: center;
+          border-radius: 3/@vw;
+        }
+      }
+      .item1 .icon{
+        background: url(../../assets/img/hh.png);
+        background-size: 100% 100%;
+      }
+      .item2 .icon{
+        background: url(../../assets/img/bd.png);
+        background-size: 100% 100%;
+      }
+      .item3 .icon{
+        background: url(../../assets/img/jz.png);
+        background-size: 100% 100%;
+      }
+      .item4 .icon{
+        background: url(../../assets/img/wf.png);
+        background-size: 100% 100%;
+      }
+      .active{
+        background: #3873a4;
+        color:#fff;
+      }
+      .item1.active .icon{
+        background: url(../../assets/img/hh-a.png);
+        background-size: 100% 100%;
+      }
+      .item2.active .icon{
+        background: url(../../assets/img/bd-a.png);
+        background-size: 100% 100%;
+      }
+      .item3.active .icon{
+        background: url(../../assets/img/jz-a.png);
+        background-size: 100% 100%;
+      }
+      .item4.active .icon{
+        background: url(../../assets/img/wf-a.png);
+        background-size: 100% 100%;
+      }
+    }
   }
 }

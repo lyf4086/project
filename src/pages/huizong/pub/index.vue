@@ -169,7 +169,7 @@ export default {
         .then(data => {
           if (data.status == 200) {
             this.item7_data = data.data.data;
-            console.log("item7", this.item7_data);
+            console.log("item7", data);
           }
         })
         .catch(error => {
@@ -250,6 +250,7 @@ export default {
     } else if (par.source == "item8") {
       this.getData_item8(par.gtypes);
     } else if (par.source == "item9") {
+      console.log("item9", par);
     }
   }
 };

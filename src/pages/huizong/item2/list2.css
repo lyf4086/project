@@ -1,5 +1,5 @@
 .content {
-  font-size: 0.16rem;
+  font-size: 0.83333333vw;
   color: #bcbfbe;
 }
 .content .prev {
@@ -8,46 +8,46 @@
   height: 30px;
   background: url(../../../assets/img/mine-message-icon.png) no-repeat center;
   background-size: 100% 100%;
-  bottom: 0.6rem;
+  bottom: 3.125vw;
 }
 .content .two .title {
-  width: 14.66rem;
-  height: 0.66rem;
+  width: 76.35416667vw;
+  height: 3.4375vw;
   margin: 0 auto;
   box-sizing: border-box;
-  border: 0.03rem solid #00a0e9;
+  border: 0.15625vw solid #00a0e9;
   display: flex;
 }
 .content .two .title span {
-  width: 4.88666667rem;
-  line-height: 0.6rem;
+  width: 25.45138889vw;
+  line-height: 3.125vw;
   text-align: center;
   box-sizing: border-box;
-  border-right: 0.03rem solid #00a0e9;
+  border-right: 0.15625vw solid #00a0e9;
 }
 .content .two .title span:last-child {
   border: none;
 }
 .content .two .list {
-  width: 14.66rem;
-  max-height: 6rem;
+  width: 76.35416667vw;
+  max-height: 31.25vw;
   margin: 0 auto;
   box-sizing: border-box;
-  border: 0.03rem solid #00a0e9;
+  border: 0.15625vw solid #00a0e9;
   overflow-y: auto;
 }
 .content .two .list li {
   width: 100%;
-  height: 0.60727273rem;
+  height: 3.16287879vw;
   box-sizing: border-box;
-  border-bottom: 0.03rem solid #00a0e9;
+  border-bottom: 0.15625vw solid #00a0e9;
   display: flex;
 }
 .content .two .list li span {
-  width: 4.88666667rem;
-  line-height: 0.6rem;
+  width: 25.45138889vw;
+  line-height: 3.125vw;
   text-align: center;
-  border-right: 0.03rem solid #00a0e9;
+  border-right: 0.15625vw solid #00a0e9;
 }
 .content .two .list li span:first-child {
   text-decoration: underline;
@@ -60,46 +60,47 @@
   border: none;
 }
 .content .three .title {
-  width: 14.66rem;
-  height: 0.66rem;
+  width: 76.35416667vw;
+  height: 3.4375vw;
   margin: 0 auto;
   box-sizing: border-box;
-  border: 0.03rem solid #00a0e9;
+  border: 0.15625vw solid #00a0e9;
   display: flex;
 }
 .content .three .title span {
-  width: 2.09428571rem;
-  line-height: 0.6rem;
+  width: 12.72569444vw;
+  line-height: 3.125vw;
   text-align: center;
   box-sizing: border-box;
-  border-right: 0.03rem solid #00a0e9;
+  border-right: 0.15625vw solid #00a0e9;
 }
 .content .three .title span:last-child {
   border: none;
 }
 .content .three .list {
-  width: 14.66rem;
-  max-height: 6rem;
+  width: 76.35416667vw;
+  max-height: 31.25vw;
   margin: 0 auto;
   box-sizing: border-box;
-  border: 0.03rem solid #00a0e9;
+  border: 0.15625vw solid #00a0e9;
   overflow-y: auto;
 }
 .content .three .list li {
   width: 100%;
-  height: 0.60727273rem;
+  height: 3.16287879vw;
   box-sizing: border-box;
-  border-bottom: 0.03rem solid #00a0e9;
+  border-bottom: 0.15625vw solid #00a0e9;
   display: flex;
 }
 .content .three .list li span {
-  width: 2.09428571rem;
-  line-height: 0.6rem;
+  width: 12.72569444vw;
+  line-height: 3.125vw;
   text-align: center;
-  border-right: 0.03rem solid #00a0e9;
+  border-right: 0.15625vw solid #00a0e9;
 }
 .content .three .list li span:last-child {
   border: none;
+  cursor: pointer;
 }
 .content .three .list li:last-child {
   border: none;
@@ -121,4 +122,41 @@
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0;
   background: rgba(221, 213, 213, 0.6);
+}
+.xiangqingwrap {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+}
+.xiangqingwrap .xiangqing {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 52.08333333vw;
+  height: 36.45833333vw;
+  background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}
+.xiangqingwrap .xiangqing .content {
+  width: 50vw;
+  height: 31.25vw;
+  margin: 3.125vw auto;
+  background: red;
+}
+.xiangqingwrap .xiangqing .close {
+  position: absolute;
+  width: 6.25vw;
+  height: 1.5625vw;
+  line-height: 1.5625vw;
+  text-align: center;
+  cursor: pointer;
+  bottom: 0.26041667vw;
+  right: 7.8125vw;
 }

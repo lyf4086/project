@@ -342,7 +342,7 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
-      this.$refs.page.internalCurrentPage = 1;
+      this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
       this.activeMechanismId = item.mechanism_id;
       this.message = "";
       this.search = false;
@@ -368,7 +368,7 @@ export default {
       }
       this.serach = true;
       this.message = this.putValue;
-      this.$refs.page.internalCurrentPage = 1;
+      this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
       this.getDataList(
         this.activeMechanismId,
         1,
@@ -393,6 +393,7 @@ export default {
       this.$router.push("/loginput");
       return;
     }
+
     if (obj.one) {
       //....单个人的报警信息跳转过来的
       this.getTreeList(false);
@@ -408,7 +409,7 @@ export default {
     }
     if (obj.mechanism_id) {
       this.search = true;
-
+      console.log(obj);
       this.activeMechanismId = obj.mechanism_id;
       this.state = "";
       this.selValue = "policeuser_name";

@@ -45,6 +45,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
+    console.log(data.data.data.list)
     let that = this
     this.isChange = false //避免多次点击
     this.hasPerson = true;
@@ -72,15 +73,14 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     let styleStr4 = `position:absolute;bottom:-1vw;left:0.65vw;
                     width:0;height:0;border-width:0.5vw;border-style:solid;
                     border-color:red transparent transparent transparent;
-
                     `
     let styleImg = `position:absolute;top:50%;width:2.5vw;transform:translateY(-50%)`
-    let noimg = require('@/assets/img/head-icon.png')
+    let activeImg = require("@/assets/img/head-icon.png")
     let divIconArr = this.checkedPersonArr.map((item, index) => {
       return this.BM.divIcon({
         html: `<div class="icon_wrap" style="${styleStr1}">
                 <div class="img_wrap" style="${styleStr3}">
-                  <img src="${item.policeuser.icon ? item.policeuser.icon : noimg}" style="${styleImg}"/>
+                  <img src="${this.header[this.headName] || item.policeuser.icon || activeImg}" style="${styleImg}"/>
                 </div>
                 <div class="round_cover" style="${styleStr2}"><i style="${styleStr4}"></i></div>
               </div>`
@@ -93,7 +93,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
         title: this.checkedPersonArr[index].policeuser_name
       }).addTo(this.map)
     })
-
+    console.log(this.checkedPersonArr)
     // markerArr.forEach(item => {
     //   console.log(item)
     //   item.bindPopup(`<div>${item.options.title}</div>`)
@@ -490,7 +490,18 @@ function extend(dst) {
 }
 
 function setWarningRange() {
-  this.setWarning = true
+  this.$confirm('此操作将开始设置报警区域, 是否继续?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.setWarning = true
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '已取消设置'
+    });
+  });
 }
 //  function setMarker(ev){
 //   let map=this.map
@@ -888,6 +899,37 @@ function overArea(id) { //..区域内是否存在超出区域的报警
   })
 }
 
+function getAllJiGouName(mechanism_id, ip_id) {
+  var objs = {
+    "mechanism_id": mechanism_id,
+    "ip_id": ip_id
+  };
+  // console.log(objs)
+  var key = this.$store.state.key;
+  var sign = this.$methods.mkSign(objs, key);
+  var token = this.$gscookie.getCookie('gun')
+  var params = new URLSearchParams();
+  params.append('sign', sign);
+  params.append('token', token);
+  params.append('mechanism_id', objs.mechanism_id);
+  params.append('ip_id', objs.ip_id);
+  this.$axios({
+    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=person',
+    method: 'POST',
+    changeOrigin: true,
+    data: params
+  }).then((data) => {
+    if (data.data.code == 200) {
+      console.log(data.data.data.list)
+
+      this.allMechanismPersonList.push(data.data.data.list)
+    }
+  }).catch((error) => {
+    console.log(error)
+  })
+}
+
+
 export {
   GetDistance, //..计算两坐标点之间的距离单位千米
   personMoveing, //..做动画
@@ -910,5 +952,6 @@ export {
   showOneAlarmPolygon,
   getNewPosition,
   setDian,
-  overArea
+  overArea,
+  getAllJiGouName
 }

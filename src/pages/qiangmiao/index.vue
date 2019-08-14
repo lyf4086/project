@@ -36,7 +36,7 @@
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
-    <div class="page-index" v-show="pageTotal&&ishand">
+    <div class="page-index">
       <el-pagination
         :page-size="9"
         :pager-count="9"
@@ -49,7 +49,7 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{active_title}} *** 下的枪瞄信息</p>
     </div>
-    <div class="add-del" v-show="active_fujigou">
+    <div class="add-del" v-show="ishand">
       <button @click="alert=true">新增枪瞄</button>
       <button @click="delQiaoMiao">删除枪瞄</button>
       <button @click="modifyMiao">修改枪瞄</button>
@@ -61,6 +61,8 @@
         @changeOneD="changeOneDataZhuangTai"
         :allGunList="allGunList"
         @updataView="updataView"
+        :activefujigou="active_fujigou"
+        :activeyema="active_yema"
       ></newContent>
       <MapAlert :isShow="mapIsShow" :delthis="delMap" />
     </div>
@@ -132,7 +134,7 @@ export default {
       putValue: "",
       selValue: "",
       pageTotal: null,
-      active_yema: "1",
+      active_yema: 1,
       ishand: false //..........是否点击了树形菜单
     };
   },
@@ -198,6 +200,8 @@ export default {
     },
     handleNodeClick(item) {
       //.............树形菜单点击
+      this.currentPage = 1;
+      this.active_yema = 1;
       if (this.$refs.page) {
         this.$refs.page.internalCurrentPage = 1;
       }
@@ -205,7 +209,7 @@ export default {
       this.getDataList(this.active_fujigou); //.............获取枪瞄数据
       this.active_title = item.mechanism_name;
       this.getAllGunList(this.active_fujigou); //.............获取当前机构下所有枪支
-      this.currentPage = 1;
+
       this.ishand = true;
     },
     add() {
@@ -254,10 +258,10 @@ export default {
           console.log(error);
         });
     },
-    getDataList(jigou_id = 1, p = 1, ps = 9) {
+    getDataList(jigou_id = 1, p = 1) {
       //.............................获取枪瞄列表数据函数
       var key = this.$store.state.key;
-      var objs = { mechanism_id: jigou_id, p: p, ps: ps };
+      var objs = { mechanism_id: jigou_id, p: p, ps: 9 };
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -282,9 +286,8 @@ export default {
           });
           this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
           this.pageTotal = data.data.data.psum * 1;
-          // if(!this.qiangmiaoData.length){//.........如果当前页面删除完了，调到上一页
-          //   this.getDataList(this.active_fujigou,this.active_yema) //........这里改动了把减1去了
-          // }
+          this.$refs.page.internalCurrentPage = p;
+          // console.log(this.pageTotal);
         })
         .catch(error => {
           console.log(error);
@@ -324,7 +327,7 @@ export default {
           console.log(error);
         });
     },
-    getTreeData() {
+    getTreeData(isCreate = true) {
       // ......................该组件默认加载树形菜单数据
       var key = this.$store.state.key;
       var objs = { p: 1, ps: 10 };
@@ -347,9 +350,13 @@ export default {
       })
         .then(data => {
           this.treeData = data.data.data.list;
-          this.handleNodeClick(this.treeData[0]); //....主动促发一次点击事件
+          // this.handleNodeClick(this.treeData[0]); //....主动促发一次点击事件
           this.firstId = this.treeData[0].id;
           this.hasData = true;
+          this.active_fujigou = data.data.data.list[0].id;
+          if (isCreate) {
+            this.currentNodeKey = data.data.data.list[0].id;
+          }
         })
         .catch(error => {
           console.log(error);
@@ -544,6 +551,8 @@ export default {
     } //................获取列表信息函数end
   },
   created() {
+    let { jiGouId, yeMa } = this.$store.state;
+    this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     if (item.role_id == 3) {
@@ -555,7 +564,18 @@ export default {
     if (JSON.stringify(str) == "{}") {
       this.$router.push("/loginput");
     }
-    this.getTreeData();
+    if (jiGouId || yeMa) {
+      this.currentNodeKey = jiGouId;
+      this.activeJiGouId = jiGouId;
+
+      this.currentPage = yeMa - 0;
+      this.getTreeData(false);
+      this.getDataList(jiGouId, yeMa);
+      this.$store.commit("emptyNumber");
+    } else {
+      this.getTreeData();
+      this.getDataList(this.activeJiGouId, 1);
+    }
   },
   mounted() {}
 };

@@ -93,6 +93,18 @@ export default {
       default: function() {
         return [];
       }
+    },
+    activefujigou: {
+      type: String,
+      default: function() {
+        return "";
+      }
+    },
+    activeyema: {
+      type: Number,
+      default: function() {
+        return 1;
+      }
     }
   },
   data() {
@@ -110,17 +122,21 @@ export default {
 
   methods: {
     lookPerson(item) {
-      if (!item.policeuser_id){
+      if (!item.policeuser_id) {
         this.$message({
-          type:'error',
-          message:'暂无'
-        })
-        return
-      };
+          type: "error",
+          message: "暂无"
+        });
+        return;
+      }
       this.$store.commit("setPoliceId", {
-        policeuser_id: item.policeuser_id
+        policeuser_id: item.policeuser_id,
+        yeMa: this.activeyema,
+        jiGouId: this.activefujigou
       });
-      this.$router.push({ name: "PersonMessage" });
+      this.$router.push({
+        name: "PersonMessage"
+      });
     },
     mapClose() {
       this.map = false;
@@ -308,6 +324,9 @@ export default {
         }
       });
     });
+  },
+  updated() {
+    // console.log(this.activefujigou, this.activeyema);
   }
 };
 </script>

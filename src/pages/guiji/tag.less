@@ -1,0 +1,86 @@
+@rem: 100rem;
+@vw:19.2vw;
+
+.wrap11 {
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  background: none;
+  padding-top: 8/@vw;
+}
+.wrap div {
+  float: left;
+}
+.prev{
+    width:24/@vw;
+    height:40/@vw;
+    border-radius: 3/@vw;
+    text-align: center;
+    line-height: 40/@vw;
+    cursor: pointer;
+}
+.next{
+    width:24/@vw;
+    height:40/@vw;
+    border-radius: 3/@vw;
+    text-align: center;
+    line-height: 40/@vw;
+    cursor: pointer;
+}
+.prev:active,.next:active{
+  background: #4691c7
+}
+.scroll {
+  height: 40/@rem;
+  width: 330/@rem;
+  white-space: nowrap;
+//    background: red;
+   overflow-x: auto;
+  overflow-y: hidden;
+   .list{
+    //    width:1500/@rem;
+   }
+}
+.item {
+    // width: 100/@vw;
+    height:32/@vw;
+    line-height: 32/@vw;
+    text-align: center;
+    background: #316c95;
+    padding: 0 10/@vw;
+    margin:0 2/@vw;
+  float: left;
+  border-radius: 3/@vw 3/@vw 0 0;
+//   box-sizing: border-box;
+cursor: pointer;
+}
+.active {
+   background: #fff;
+   color:#000;
+}
+i {
+  padding: 2/@vw;
+  margin:0 3/@vw;
+  cursor: pointer;
+}
+
+.scroll::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px #316c95;
+  background: #316c95;
+}
+
+.scroll::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}

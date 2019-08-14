@@ -9,7 +9,7 @@
     </div>
     <div class="echarts-wrap">
       <div class="title">本单位出勤任务类型</div>
-      <div class="title">本单位昨日枪支借出各类型占比</div>
+      <div class="title">枪支借出各类型占比</div>
       <div id="chart1" @click="toXiangQingChart1">1</div>
       <div id="chart2" @click="toXiangQingChart2">2</div>
     </div>
@@ -32,60 +32,37 @@ export default {
       },
       time: "",
       timer: null,
-      dataRightUp: [
-        "一级用枪",
-        "二级用枪",
-        "三级用枪",
-        "四级用枪",
-        "五级用枪",
-        "六级用枪"
-      ],
-      dataRight: [
-        { value: 335, name: "一级用枪" },
-        { value: 310, name: "二级用枪" },
-        { value: 234, name: "三级用枪" },
-        { value: 135, name: "四级用枪" },
-        { value: 1548, name: "五级用枪" },
-        { value: 1548, name: "六级用枪" }
-      ],
+      dataRightUp: [],
+      dataRight: [],
       chart1Data: {
         legendData: ["报警", "正常", "总量"],
-        xAxisData: ["22", "20", "30", "40", "50", "60", "70"],
+        // xAxisData: ["22", "20", "30", "40", "50", "60", "70"],
         series: [
           {
             name: "报警",
-            type: "bar",
+            type: "bar"
             // color:'#5dceec',
-            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6]
+            // data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6]
           },
           {
             name: "正常",
-            type: "bar",
+            type: "bar"
             // color:'#ed8a39',
-            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 135.6]
+            // data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 135.6]
           },
           {
             name: "总量",
             type: "line",
             // color:'#5dcae9',
-            yAxisIndex: 1,
-            data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3]
+            yAxisIndex: 1
+            // data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3]
           }
         ]
       }
     };
   },
   methods: {
-    toXiangQingChart1(ev) {
-      // console.log(ev)
-      // this.$router.push({
-      //   name:'Pub',
-      //   params:{
-      //     source:"item7",
-      //     time:this.time
-      //   }
-      // })
-    },
+    toXiangQingChart1(ev) {},
     toXiangQingChart2() {
       // console.log('toXiangQingChart2')
     },
@@ -152,8 +129,8 @@ export default {
             type: "value",
             name: "",
             min: 0,
-            max: 300,
-            interval: 50,
+            max: 5,
+            interval: 5,
             axisLabel: {
               formatter: " "
             }
@@ -162,7 +139,7 @@ export default {
             type: "value",
             name: "",
             min: 0,
-            max: 10,
+            max: 5,
             interval: 5,
             axisLabel: {
               formatter: ""

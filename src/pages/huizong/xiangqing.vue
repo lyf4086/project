@@ -121,9 +121,11 @@ export default {
             type:"warning",
             message:"请选择时间"
           })
+        }else{
+          this.getData(`${start},${end}`)
         }
 
-        this.getData(`${start},${end}`)
+        
       }
   },
   created(){

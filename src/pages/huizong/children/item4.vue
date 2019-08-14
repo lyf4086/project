@@ -4,10 +4,10 @@
       <span>时间</span>
       <span>机构名称</span>
       <span>数量</span>
-      <span>高身占比</span>
+      <span>占比</span>
       <span>总和</span>
     </div>
-    <div class="list">
+    <div class="list12">
       <div class="item" v-for="item,index in dataList" :key="index" v-if="dataList.length">
         <span>{{item.datetime}}</span>
         <span>{{item.mechanism_name}}</span>
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     move() {
-      var $uList = $(".wrap .list");
+      var $uList = $(".wrap .list12");
       var timer = null;
       //触摸清空定时器
       $uList
@@ -47,7 +47,7 @@ export default {
       //滚动动画
       function scrollList(obj) {
         //获得当前<li>的高度
-        var scrollHeight = $(".list .item:first").height();
+        var scrollHeight = $(".list12 .item:first").height();
         //滚动出一个<li>的高度
         $uList.stop().animate(
           {
@@ -84,6 +84,7 @@ export default {
         .then(data => {
           if (data.status == 200) {
             this.dataList = data.data.data;
+            // console.log(data.data.data);
           }
         })
         .catch(error => {

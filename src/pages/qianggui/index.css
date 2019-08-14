@@ -331,6 +331,24 @@
   display: flex;
   flex-wrap: wrap;
 }
+.xiangqing-wrap .xiangqing .content .gun-xq {
+  position: absolute;
+  z-index: 99;
+  width: 70%;
+  height: 70%;
+  background: red;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.xiangqing-wrap .xiangqing .content .gun-xq .guan {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
 .xiangqing-wrap .xiangqing .content .small {
   width: 2.6rem;
   height: 2.3rem;

@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="itemleft">
-      <p>本机构及子机构枪柜数量</p>
+      <p>各机构枪柜数量</p>
       <div id="char-left"></div>
     </div>
     <div class="itemcenter">
@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       citys: [],
+      numbers: [],
       objArr: [],
       dataList3: []
     };
@@ -129,8 +130,8 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ["入套", "离套", "电量", "位置"],
-            // data:this.citys,
+            data: this.citys,
+            // data: ["11", "22", "33", "44", "55"],
             axisPointer: {
               type: "shadow"
             }
@@ -141,7 +142,7 @@ export default {
             type: "value",
             name: "",
             min: 0,
-            max: 300,
+            max: 30,
             interval: 50,
             axisLabel: {
               formatter: " "
@@ -158,35 +159,15 @@ export default {
             }
           }
         ],
-        series: this.objArr
-        // series: [
-        //   {
-        //     name: "入套",
-        //     type: "bar",
-        //     color: "#5dceec",
-        //     data: [99.0, 4.9, 7.0, 23.2]
-        //   },
-        //   {
-        //     name: "离套",
-        //     type: "bar",
-        //     color: "#ed8a39",
-        //     data: [66.6, 55.9, 99.0, 26.4]
-        //   },
-        //   {
-        //     name: "电量",
-        //     type: "bar",
-        //     color: "#666",
-        //     yAxisIndex: 1,
-        //     data: [2.0, 2.2, 3.3, 3.5]
-        //   },
-        //   {
-        //     name: "位置",
-        //     type: "bar",
-        //     color: "#999",
-        //     yAxisIndex: 1,
-        //     data: [2.0, 4.2, 4.3, 4.5]
-        //   }
-        // ]
+        // series: this.objArr
+        series: [
+          {
+            name: "数量",
+            type: "bar",
+            color: "#5dceec",
+            data: this.numbers
+          }
+        ]
       };
       Echart1.setOption(option);
       Echart1.on("click", function(ev) {
@@ -292,20 +273,9 @@ export default {
         data: params
       })
         .then(data => {
-          this.citys = data.data.da;
-          let o = data.data.data;
-          let a = [];
-          for (let key in o) {
-            a.push({
-              name: key,
-              type: "bar",
-              color: "#999",
-              yAxisIndex: 1,
-              data: o[key]
-            });
-          }
-          this.objArr = a;
-          console.log(this.objArr);
+          this.citys = data.data.mname;
+          // console.log(this.citys);
+          this.numbers = data.data.number;
           this.char1();
         })
         .catch(error => {

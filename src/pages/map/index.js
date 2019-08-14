@@ -1,5 +1,7 @@
 //第一个选择框事件
 function jigouSelChange(e) {
+  let n = e.target[e.target.selectedIndex];
+  this.jigouname = n.innerText.trim(); //记录当前选中的机构名字
   this.isChange = true
   this.getPersonAndGunStr(e.target.value)
 
@@ -27,6 +29,19 @@ function getPersonAndGunStr(id) {
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
+      /**新增获取其他机构人员 */
+      if (data.data.arr) {
+        this.allMechanismData = data.data.arr
+        let strArr = data.data.arr.map(item => {
+          return `<option value="${item.id}|${item.ip_id}" >${item.mechanism_name}</option>`
+        })
+        strArr.unshift(`<option value="" disabled selected >请选择</option>`)
+        this.allMechanism = strArr.join()
+      } else {
+        console.log('无跨机构数据')
+      }
+      /**新增获取其他机构人员 */
+      this.allPersonIEMIStr = data.data.IMEIs
       let allPersonList = data.data.data.list.map(e => {
         return {
           ...e,
@@ -37,7 +52,15 @@ function getPersonAndGunStr(id) {
       this.activeIMEI = data.data.data.list.length ? data.data.data.list[0].IMEI : ''
       this.gunAndJingyuanOptionStr = `<option value="" disabled selected >请选择人员和枪支</option>` + optionStr(data.data.data.list)
       this.noCheckedList = allPersonList
-
+      // if (!data.data.data.list.length) {
+      //   this.gunAndJingyuanOptionStr = ''
+      //   this.activeIMEI = ''
+      //   this.$message({
+      //     type: "warning",
+      //     message: '该机构下暂无人员数据'
+      //   })
+      //   return
+      // }
     }
 
     function optionStr(arr) {
@@ -99,9 +122,22 @@ function toOnePersonData() {
 }
 
 function toHistory() {
-  this.oldOrNew = 'old'
-  this.isChange = true
-  this.checkTime = true
+  this.$confirm("此操作将搜索历史轨迹, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
+  })
+    .then(() => {
+      this.oldOrNew = "old";
+      this.isChange = true;
+      this.checkTime = true;
+    })
+    .catch(() => {
+      this.$message({
+        type: "info",
+        message: "已取消"
+      });
+    });
 
 }
 
@@ -128,6 +164,7 @@ function stopSetArea() {
 }
 
 function showOne() {
+  this.bianzu_list_show = false;
   let v = this.$refs.alarmSelect.value
   this.hasPerson = false;
   if (!v) {
@@ -144,6 +181,12 @@ function showOne() {
   this.areaTimer = setInterval(() => {
     this.overArea(v);
   }, 10000);
+  // 跨区域编组新增
+  this.allMechanismPersonList.length = 0;
+  this.jigouSelArr.length = 1;
+  this.jigouSelIndex = 0;
+  // 跨区域编组新增
+
 
   this.delId = v
   this.getOneAlarmArea(v)
@@ -329,11 +372,24 @@ function changeGuiJiType(e) {
 
 function toBaoJing() { //去报警管理页面
   let p = this.activeIMEI
-
-  this.$router.push({
-    name: 'BaoJing',
-    params: this.selectedPerson
+  this.$confirm("此操作将去报警页面, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
   })
+    .then(() => {
+      this.$router.push({
+        name: "BaoJing",
+        params: this.selectedPerson
+      });
+    })
+    .catch(() => {
+      this.$message({
+        type: "info",
+        message: "已取消"
+      });
+    });
+
 }
 
 function searchByTime() { //.....根据时间搜索历史轨迹
@@ -364,6 +420,12 @@ function searchOnePerson() { //.........搜索人员后弹出该人员信息
     this.map.fitBounds(this.fitBoundsArr)
     return
   }
+  // 跨区域编组新增
+  this.jigouSelArr.length = 0;
+  this.jigouSelArr.push(this.jigouname);
+  console.log(this.jigouname);
+  // 跨区域编组新增
+  clearInterval(this.areaTimer);
   this.noCheckedList.forEach(e => e.checked = false)
   this.checkedPersonArr.length = 0
 
@@ -405,7 +467,16 @@ function bianZuList() { //....选择编组人员列表
 }
 
 function yijingXuanze() { //.................编组后搜索一组人员
-
+  /**新增跨机构编组 */
+  let fillterPerson = [];
+  this.allMechanismPersonList.forEach(item => {
+    item.forEach(e => {
+      if (e.checked) {
+        fillterPerson.push(e);
+      }
+    });
+  });
+  /**新增跨机构编组 */
   let arrCED = this.noCheckedList.filter(e => e.checked)
 
   if (!arrCED.length) {
@@ -416,18 +487,28 @@ function yijingXuanze() { //.................编组后搜索一组人员
     for (var i = 0; i < arrCED.length; i++) {
       this.IMEI_img[arrCED[i]['IMEI']] = arrCED[i]['policeuser']['img'];
     }
-
-    this.checkedPersonArr = arrCED
+    // 跨机构编组新增
+    fillterPerson.forEach((item, index) => {
+      this.IMEI_img[item["IMEI"]] = item["policeuser"]["img"];
+    });
+    // 跨机构编组新增
+    // this.checkedPersonArr = arrCED
+    this.checkedPersonArr = [...arrCED, ...fillterPerson];
     this.bianzu_list_show = false
     this.checked_person_show = true
 
     let arrIMEI = arrCED.map(e => e.IMEI)
 
     arrIMEI.unshift(this.activeIMEI)
+    let fillterPersonIMEI = fillterPerson.map(e => e.IMEI);
+    let IMEIList = [...fillterPersonIMEI, ...arrIMEI];
 
     this.newShuaXinMap()
 
-    this.getIMEI(arrIMEI) //....................................
+
+
+
+    this.getIMEI(IMEIList) //....................................
   }
 
 }
