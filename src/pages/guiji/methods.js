@@ -1154,10 +1154,7 @@ function getNewPosition(id) {
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
-
       // ...匀速运动有问题
-      // console.log(data.data.data.list)
-      console.log(this.setWarning, this.clickTrue)
       this.unifromSpeedMoveing(data.data.data.list)
     }
   }).catch((error) => {

@@ -1,0 +1,81 @@
+
+@vw:19.2vw;
+@w:200/@vw;
+@bw:10/@vw;
+.wrap{
+    position: relative;
+    width:100%;
+    height:100%;
+    .left{
+        position: absolute;
+        top:0;
+        left:0;
+        width:50%;
+        height:100%;
+        overflow: hidden;
+        // display: none;
+        .down{
+            position: absolute;
+            box-sizing: border-box;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            border-width: @bw 0 @bw @bw;
+            border-style: solid;
+            border-color: rgba(223, 219, 219,0.3);
+            border-radius: @w 0 0 @w;
+            transform-origin: right center;
+        }
+        
+        .up{           
+            position: absolute;
+            box-sizing: border-box;
+            top:0;
+            left:100%;
+            width:100%;
+            height:100%;
+            border-width: @bw @bw @bw 0;
+            border-style: solid;
+            border-color: black;
+            border-radius: 0 @w @w 0;
+            transform-origin: left center;
+           
+        }
+    }
+    .right{
+        position: absolute;
+        top:0;
+        right:0;
+        width:50%;
+        height:100%;
+        overflow: hidden;
+        .down{
+            position: absolute;
+            box-sizing: border-box;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            border-width: @bw @bw @bw 0;
+            border-style: solid;
+            border-radius:0 @w @w 0;
+            border-color: rgba(223, 219, 219,0.3);
+
+        }
+        .up{
+            position: absolute;
+            box-sizing: border-box;
+            top:0;
+            left:-100%;
+            width:100%;
+            height:100%;
+            border-width: @bw 0 @bw @bw;
+            border-style: solid;
+            border-radius:@w 0 0 @w;
+            border-color: black;
+            transform-origin: right center;
+         
+        }
+    }
+}

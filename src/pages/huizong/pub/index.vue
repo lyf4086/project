@@ -54,16 +54,16 @@
     <div class="item9" v-if="index=='item9'">
       <div class="title">
         <span>枪支类型</span>
-        <span>所属警员</span>
+        <span>所属枪柜</span>
         <span>枪支编号</span>
         <span>枪锁位</span>
       </div>
       <ul class="list">
-        <li v-for="e in 20">
-          <span>枪支类型</span>
-          <span>所属警员</span>
-          <span>枪支编号</span>
-          <span>枪锁位</span>
+        <li v-for="item,index in item9Data" :key="index">
+          <span>{{item.type}}</span>
+          <span>{{item.vdevSN }}</span>
+          <span>{{item.gun_code}}</span>
+          <span>{{item.gposition}}</span>
         </li>
       </ul>
     </div>
@@ -107,7 +107,8 @@ export default {
       time: "",
       gun_history_data: [],
       item7_data: [],
-      item8_data: []
+      item8_data: [],
+      item9Data: []
     };
   },
   methods: {
@@ -193,9 +194,32 @@ export default {
         data: params
       })
         .then(data => {
-          console.log("item8", data);
           if (data.status == 200) {
             this.item8_data = data.data.data;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getData_item9() {
+      let objs = {};
+      var token = this.$gscookie.getCookie("gun");
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
+      var params = new URLSearchParams();
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=device_lit",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.status == 200) {
+            this.item9Data = data.data.data;
           }
         })
         .catch(error => {
@@ -245,12 +269,13 @@ export default {
     } else if (par.source == "gunHistory") {
       this.getDataGunHistory(par.obj.id);
     } else if (par.source == "item7") {
-      console.log("item7", par.time);
+      // console.log("item7", par.time);
       this.getData_item7(par.time);
     } else if (par.source == "item8") {
       this.getData_item8(par.gtypes);
     } else if (par.source == "item9") {
-      console.log("item9", par);
+      // console.log("item9", par);
+      this.getData_item9();
     }
   }
 };

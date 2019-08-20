@@ -2,7 +2,7 @@
   <div class="shangchuan">
     <div class="top-bar">
       <span>
-        <input type="checkbox" v-model="allCheck">
+        <input type="checkbox" v-model="allCheck" />
       </span>
       <span>警员姓名</span>
       <span>警员编号</span>
@@ -16,7 +16,7 @@
     <ul class="list" v-if="dataArr.length">
       <li class="item" v-for="(item,index) in dataArr" :key="item.id">
         <span>
-          <input type="checkbox" v-model="item.checked">
+          <input type="checkbox" v-model="item.checked" />
         </span>
         <span>{{item.policeName}}</span>
         <span>{{item.policeNum}}</span>
@@ -48,6 +48,7 @@
 </style>
 <script>
 export default {
+  components: {},
   props: {
     dataArr: {
       type: Array,

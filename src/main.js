@@ -38,6 +38,9 @@ Vue.use(gscookie)
 // Vue.use(md5)
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
+import 'echarts-gl';
+
+import 'echarts/theme/macarons.js'
 
 Vue.config.productionTip = false
 

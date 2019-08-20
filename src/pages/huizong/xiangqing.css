@@ -1,7 +1,7 @@
 .main {
   width: 100%;
   height: 100%;
-  font-size: 0.9375vw;
+  font-size: 1.04166667vw;
   color: #d6d7d2;
   position: relative;
 }
@@ -49,7 +49,7 @@
 .main .center .chart {
   width: 100%;
   height: 17.1875vw;
-  background: #4b626d;
+  background: rgba(218, 214, 214, 0.2);
 }
 .main .center .chart div {
   height: 100%;
@@ -57,21 +57,22 @@
 .main .center .grid {
   width: 100%;
   box-sizing: border-box;
-  border: 0.15625vw solid #00a0e9;
+  border: 0.05208333vw solid #00a0e9;
   border-bottom: none;
 }
 .main .center .grid .title {
   box-sizing: border-box;
   height: 2.60416667vw;
   width: 100%;
-  border-bottom: 0.15625vw solid #00a0e9;
+  border-bottom: 0.05208333vw solid #00a0e9;
   display: flex;
+  font-size: 1.04166667vw;
 }
 .main .center .grid .title span {
   flex: 1;
   line-height: 2.60416667vw;
   text-align: center;
-  border-right: 0.15625vw solid #00a0e9;
+  border-right: 0.05208333vw solid #00a0e9;
 }
 .main .center .grid .title span:last-child {
   border: none;
@@ -84,14 +85,15 @@
   box-sizing: border-box;
   height: 2.60416667vw;
   width: 100%;
-  border-bottom: 0.15625vw solid #00a0e9;
+  border-bottom: 0.05208333vw solid #00a0e9;
   display: flex;
+  font-size: 0.83333333vw;
 }
 .main .center .grid .wrap .item span {
   flex: 1;
   line-height: 2.60416667vw;
   text-align: center;
-  border-right: 0.15625vw solid #00a0e9;
+  border-right: 0.05208333vw solid #00a0e9;
 }
 .main .center .grid .wrap .item span:last-child {
   border: none;

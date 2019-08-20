@@ -31,171 +31,184 @@ let Pub = () => import('../pages/huizong/pub');
 let Next = () => import('../pages/huizong/pub/next.vue');
 let IndexG = () => import('../pages');
 
+let NewXiangQing = () => import('../pages/huizong/xiangqingnew')
+let RightBottomXQ1 = () => import('../pages/huizong/right-bottom1-xq')
+
 let router = new Router({
   // mode:'history',
   linkActiveClass: 'active',
   routes: [{
-      path: '/indexg',
-      component: IndexG,
-      children: [{
-          path: 'huizong',
-          name: 'HuiZong',
-          component: HuiZong
+    path: '/indexg',
+    component: IndexG,
+    children: [{
+      path: 'huizong',
+      name: 'HuiZong',
+      component: HuiZong
 
-        },
-        {
-          path: 'jigouguanli',
-          name: 'JiGouGuanLi',
-          component: JiGouGuanLi
-        },
-        {
-          path: 'guiji',
-          name: 'GuiJi',
-          component: GuiJi,
-          meta: {
-            keepAlive: true
-          }
-        },
-        {
-          path: 'map',
-          name: 'Map',
-          component: BigMap,
-          meta: {
-            keepAlive: true
-          }
-        },
-        {
-          path: 'qiangmiao',
-          name: 'QiangMiao',
-          component: QiangMiao
-
-        },
-        {
-          path: 'qiangzhiguanli',
-          name: 'QiangZhi',
-          component: QiangZhi
-        },
-        {
-          path: 'baojingguanli',
-          name: 'BaoJing',
-          component: BaoJing
-        },
-        {
-          path: 'danyaozaiku',
-          name: 'ZaiKu',
-          component: ZaiKu
-
-        },
-        {
-          path: 'danyaoxiaohao',
-          name: 'XiaoHao',
-          component: XiaoHao
-
-        },
-        {
-          path: 'qianggui',
-          name: 'QiangGui',
-          component: QiangGui
-
-        },
-        {
-          path: 'chiqiangrenyuan',
-          name: 'ChiQiang',
-          component: ChiQiang
-
-        },
-        {
-          path: 'qiangku',
-          name: 'QiangKu',
-          component: QiangKu
-
-        },
-        {
-          path: 'vidio',
-          name: 'Vidio',
-          component: Vidio
-
-        },
-        {
-          path: 'renyuan',
-          name: 'RenYuan',
-          component: RenYuan
-
-        },
-        {
-          path: 'personmessage',
-          name: 'PersonMessage',
-          component: PersonMessage
-        },
-        {
-          path: 'gunmessage',
-          name: 'GunMessage',
-          component: GunMessage
-        },
-        {
-          path: 'xiangqing',
-          name: 'XiangQing',
-          component: XiangQing,
-          meta: {
-            keepAlive: true
-          }
-        },
-        {
-          path: 'item2',
-          name: 'Item2',
-          component: Item2,
-          meta: {
-            keepAlive: true
-          }
-        },
-        {
-          path: 'pub',
-          name: 'Pub',
-          component: Pub
-
-        },
-        {
-          path: 'next',
-          name: 'Next',
-          component: Next
-        },
-        {
-          path: 'list2',
-          name: 'List2',
-          component: List2,
-          meta: {
-            keepAlive: true
-          }
-        },
-        {
-          path: 'list',
-          name: 'List',
-          component: List
-          // meta:{
-          //   keepAlive:true
-          // }
-        }
-      ]
-    },
-
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
     },
     {
-      path: '/loginput',
-      name: 'LoginPut',
-      component: LoginPut
+      path: 'jigouguanli',
+      name: 'JiGouGuanLi',
+      component: JiGouGuanLi
     },
     {
-      path: '/',
-      redirect: '/login'
+      path: 'guiji',
+      name: 'GuiJi',
+      component: GuiJi,
+      meta: {
+        keepAlive: true
+      }
     },
     {
-      path: '*',
-      redirect: '/login'
+      path: 'map',
+      name: 'Map',
+      component: BigMap,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: 'qiangmiao',
+      name: 'QiangMiao',
+      component: QiangMiao
+
+    },
+    {
+      path: 'qiangzhiguanli',
+      name: 'QiangZhi',
+      component: QiangZhi
+    },
+    {
+      path: 'baojingguanli',
+      name: 'BaoJing',
+      component: BaoJing
+    },
+    {
+      path: 'danyaozaiku',
+      name: 'ZaiKu',
+      component: ZaiKu
+
+    },
+    {
+      path: 'danyaoxiaohao',
+      name: 'XiaoHao',
+      component: XiaoHao
+
+    },
+    {
+      path: 'qianggui',
+      name: 'QiangGui',
+      component: QiangGui
+
+    },
+    {
+      path: 'chiqiangrenyuan',
+      name: 'ChiQiang',
+      component: ChiQiang
+
+    },
+    {
+      path: 'qiangku',
+      name: 'QiangKu',
+      component: QiangKu
+
+    },
+    {
+      path: 'vidio',
+      name: 'Vidio',
+      component: Vidio
+
+    },
+    {
+      path: 'renyuan',
+      name: 'RenYuan',
+      component: RenYuan
+
+    },
+    {
+      path: 'personmessage',
+      name: 'PersonMessage',
+      component: PersonMessage
+    },
+    {
+      path: 'gunmessage',
+      name: 'GunMessage',
+      component: GunMessage
+    },
+    {
+      path: 'xiangqing',
+      name: 'XiangQing',
+      component: XiangQing,
+      // meta: {
+      //   keepAlive: true
+      // }
+    },
+    {
+      path: 'xiangqingnew',
+      name: 'NewXiangQing',
+      component: NewXiangQing
+    },
+    {
+      path: 'right-bottom1-xq',
+      name: 'RightBottomXQ1',
+      component: RightBottomXQ1
+    },
+    {
+      path: 'item2',
+      name: 'Item2',
+      component: Item2
+      // meta: {
+      //   keepAlive: true
+      // }
+    },
+    {
+      path: 'pub',
+      name: 'Pub',
+      component: Pub
+
+    },
+    {
+      path: 'next',
+      name: 'Next',
+      component: Next
+    },
+    {
+      path: 'list2',
+      name: 'List2',
+      component: List2,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: 'list',
+      name: 'List',
+      component: List
+      // meta:{
+      //   keepAlive:true
+      // }
     }
+    ]
+  },
+
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/loginput',
+    name: 'LoginPut',
+    component: LoginPut
+  },
+  {
+    path: '/',
+    redirect: '/login'
+  },
+  {
+    path: '*',
+    redirect: '/login'
+  }
   ]
 })
 

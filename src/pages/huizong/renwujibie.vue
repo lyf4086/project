@@ -21,6 +21,7 @@ import { setInterval, clearInterval, setTimeout, clearTimeout } from "timers";
 export default {
   data() {
     return {
+      max: 0,
       timermove: null,
       iconList: [],
       num: [87878, 57546, 4344, 35232],
@@ -129,7 +130,7 @@ export default {
             type: "value",
             name: "",
             min: 0,
-            max: 5,
+            max: that.max,
             interval: 5,
             axisLabel: {
               formatter: " "
@@ -139,7 +140,7 @@ export default {
             type: "value",
             name: "",
             min: 0,
-            max: 5,
+            max: that.max,
             interval: 5,
             axisLabel: {
               formatter: ""
@@ -161,7 +162,10 @@ export default {
     },
     chart2() {
       let that = this;
-      let Echart2 = this.$echarts.init(document.getElementById("chart2"));
+      let Echart2 = this.$echarts.init(
+        document.getElementById("chart2"),
+        "macarons"
+      );
       let option2 = {
         tooltip: {
           trigger: "item",
@@ -265,6 +269,7 @@ export default {
       })
         .then(data => {
           let obj = {};
+          this.max = data.data.max;
           obj.legendData = data.data.legend.data;
           obj.xAxisData = data.data.time;
           obj.series = data.data.data.map(item => {

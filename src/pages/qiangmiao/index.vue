@@ -286,8 +286,6 @@ export default {
           });
           this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
           this.pageTotal = data.data.data.psum * 1;
-          this.$refs.page.internalCurrentPage = p;
-          // console.log(this.pageTotal);
         })
         .catch(error => {
           console.log(error);

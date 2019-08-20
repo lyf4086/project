@@ -274,7 +274,7 @@ export default {
       })
         .then(data => {
           this.citys = data.data.mname;
-          // console.log(this.citys);
+          console.log(data);
           this.numbers = data.data.number;
           this.char1();
         })
