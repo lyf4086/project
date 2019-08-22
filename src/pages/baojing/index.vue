@@ -75,6 +75,8 @@
     </div>
     <div class="cover" v-show="rewriteAll">
       <div class="rewrite">
+        <span>处理标题：</span>
+        <input type="text" class="put" v-model="txt" />
         <span>处理意见：</span>
         <textarea class="text" v-model="textArea" placeholder="请输入您的处理意见"></textarea>
         <button @click="subRewrite">确定</button>
@@ -117,7 +119,9 @@ export default {
       list: [],
       rewriteAll: false,
       textArea: "",
-      currentPage: 3
+      txt: "",
+      currentPage: 3,
+      policeuser_id: ""
     };
   },
   methods: {
@@ -201,15 +205,15 @@ export default {
     },
     subRewrite() {
       this.message = "";
-      if (this.textArea.trim() == "") {
-        this.$message("请输入您的处理意见");
+      if (this.txt.trim() == "" || this.textArea.trim() == "") {
+        this.$message("请输入您的标题和处理意见");
         return;
       }
       this.rewriteAll = false;
 
       let ids = this.list.filter(e => e.checked).map(e => e.alarm_info_id);
 
-      this.chuLi(ids, this.textArea);
+      this.chuLi(ids, this.txt, this.textArea);
 
       this.textArea = "";
     },
@@ -306,18 +310,25 @@ export default {
           console.log(error);
         });
     },
-    chuLi(ids, desc = "") {
+    chuLi(ids, desc, content = "") {
       // ......................该组件默认加载树形菜单数据
 
       var key = this.$store.state.key;
-      var objs = { alarm_info_ids: ids.join(","), desc: desc };
+      var objs = {
+        alarm_info_ids: ids.join(","),
+        desc: desc,
+        content: content,
+        policeuser_id: this.policeuser_id
+      };
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
       params.append("alarm_info_ids", objs.alarm_info_ids);
       params.append("desc", objs.desc);
+      params.append("content", objs.content);
       params.append("sign", sign);
       params.append("token", token);
+      params.append("policeuser_id", objs.policeuser_id);
       this.$axios({
         url:
           "http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=alarm_processing",
@@ -384,6 +395,8 @@ export default {
     let obj = this.$route.params;
     let str = this.$gscookie.getCookie("gun");
     let item = this.$gscookie.getCookie("message_obj");
+    // console.log(item);
+    this.policeuser_id = item.id;
     if (item.role_id == 3) {
       this.$router.push({
         name: "GuiJi"
@@ -409,7 +422,7 @@ export default {
     }
     if (obj.mechanism_id) {
       this.search = true;
-      console.log(obj);
+
       this.activeMechanismId = obj.mechanism_id;
       this.state = "";
       this.selValue = "policeuser_name";

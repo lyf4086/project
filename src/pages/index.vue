@@ -39,8 +39,8 @@
           </div>
         </div>
         <div class="title">
-          <p>全国枪支</p>&nbsp;
-          <p>使用情况汇总</p>
+          <p>{{this.$store.state.str1}}</p>&nbsp;
+          <p>{{this.$store.state.str2}}</p>
         </div>
         <div class="mine-message" :style="{'right':mineShow ?0:'-3rem'}">
           <div class="line1"></div>

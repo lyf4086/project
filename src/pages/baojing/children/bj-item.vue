@@ -8,7 +8,9 @@
       <div class="name">
         <p>
           {{item.policeuser.policeuser_name}}
-          <i :title="item.policeuser.police_number">{{item.policeuser.police_number}}</i>
+          <i
+            :title="item.policeuser.police_number"
+          >{{item.policeuser.police_number}}</i>
         </p>
         <p class="time">{{changeTime(item.created)}}</p>
       </div>
@@ -20,8 +22,8 @@
           <span>{{item.type}}</span>
         </div>
         <div class="list">
-          <span>所属机构：</span>
-          <span>{{item.mechanism_name}}</span>
+          <span>处理人：</span>
+          <span>{{item.uname || "暂无"}}</span>
         </div>
         <div class="list">
           <span>枪支编号：</span>
@@ -47,9 +49,10 @@
           </span>
         </div>
       </div>
+
       <div
         class="sel"
-        v-show="!item.desc"
+        v-show="!item.desc && item.types!='08'"
         :class="{selected:item.checked}"
         @click="changeOne(item.index)"
       ></div>

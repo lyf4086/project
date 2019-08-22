@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 let HuiZong = () => import('../pages/huizong/indexrest');
-// let HuiZong = () =>import('../pages/huizong');
+// let HuiZong = () =>import('../pages/huizong');//弃用
 let GuiJi = () => import('../pages/guiji');
 let QiangMiao = () => import('../pages/qiangmiao');
 let JiGouGuanLi = () => import('../pages/jigouguanli');
@@ -16,23 +16,28 @@ let QiangGui = () => import('../pages/qianggui');
 let ChiQiang = () => import('../pages/chiqiangrenyuan');
 let QiangKu = () => import('../pages/qiangku');
 let Vidio = () => import('../pages/vidio');
-// let Login =() =>import('../pages/login');
 import Login from '../pages/login'
 let LoginPut = () => import('../pages/login/index2');
 let RenYuan = () => import('../pages/renyuanguanli');
 let PersonMessage = () => import('../pages/personmessage');
 let GunMessage = () => import('../pages/gunmessage');
 let BigMap = () => import('../pages/map/index.vue');
-let XiangQing = () => import('../pages/huizong/xiangqing');
+//弃用，由NewXiangQing代替
+// let XiangQing = () => import('../pages/huizong/xiangqing');
 let List = () => import('../pages/huizong/list');
-let Item2 = () => import('../pages/huizong/item2/index.vue');
+//弃用item2
+// let Item2 = () => import('../pages/huizong/item2/index.vue');
 let List2 = () => import('../pages/huizong/item2/list2');
 let Pub = () => import('../pages/huizong/pub');
 let Next = () => import('../pages/huizong/pub/next.vue');
 let IndexG = () => import('../pages');
-
+//代替原来的XiangQing
 let NewXiangQing = () => import('../pages/huizong/xiangqingnew')
 let RightBottomXQ1 = () => import('../pages/huizong/right-bottom1-xq')
+//代替原先的Item2
+let item1right = () => import('../pages/huizong/item1right')
+
+let XiangQingList = () => import('../pages/huizong/xiangqingnew-list')
 
 let router = new Router({
   // mode:'history',
@@ -135,31 +140,42 @@ let router = new Router({
       name: 'GunMessage',
       component: GunMessage
     },
-    {
-      path: 'xiangqing',
-      name: 'XiangQing',
-      component: XiangQing,
-      // meta: {
-      //   keepAlive: true
-      // }
-    },
+    // {
+    //   path: 'xiangqing',
+    //   name: 'XiangQing',
+    //   component: XiangQing,
+    //   // meta: {
+    //   //   keepAlive: true
+    //   // }
+    // },
     {
       path: 'xiangqingnew',
       name: 'NewXiangQing',
       component: NewXiangQing
     },
     {
+      path: 'xiangqingnew-list',
+      name: 'XiangQingList',
+      component: XiangQingList
+    },
+    {
       path: 'right-bottom1-xq',
       name: 'RightBottomXQ1',
       component: RightBottomXQ1
     },
+    // {
+    //   //弃用
+    //   path: 'item2',
+    //   name: 'Item2',
+    //   component: Item2
+    //   // meta: {
+    //   //   keepAlive: true
+    //   // }
+    // },
     {
-      path: 'item2',
-      name: 'Item2',
-      component: Item2
-      // meta: {
-      //   keepAlive: true
-      // }
+      path: 'item1right',
+      name: 'Item1Right',
+      component: item1right
     },
     {
       path: 'pub',

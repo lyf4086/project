@@ -1,109 +1,15 @@
+
 @vw:19.2vw;
-div{
-    box-sizing: border-box;
-}
 .wrap{
-    width:100%;
     height:100%;
-    font-size: 14/@vw;
-    color:#fff;
-    max-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    // display: flex;
-    // flex-wrap: wrap;
-    .left{
-        width:50%;
-        height:50%;
-       position: relative;
-       z-index: 1;
-        .title{
-            color:#fff;
-            box-sizing: border-box;
-            height:50/@vw;
-            width:100%;
-            border: 1/@vw solid #00a0e9;
-            display: flex;
-            font-size: 20/@vw;
-            span{
-            flex:1;
-            line-height: 50/@vw;
-            text-align: center;
-            border-right: 1/@vw solid #00a0e9;
-            }
-            span:last-child{
-            border:none;
-            }
-        
-        }
-        .list{
-            border-left: 1/@vw solid #00a0e9;
-            border-right: 1/@vw solid #00a0e9;
-            color: aliceblue;
-            max-height: 302/@vw;
-            overflow-y: auto;
-            overflow-x: hidden;
-            .item{
-                box-sizing: border-box;
-                height:50/@vw;
-                width:100.1%;
-                border-bottom: 1/@vw solid #00a0e9;
-                display: flex;
-                font-size: 16/@vw;
-                span{
-                flex:1;
-                line-height: 50/@vw;
-                text-align: center;
-                border-right: 1/@vw solid #00a0e9;
-                }
-                span:last-child{
-                border:none;
-                }
-            }
-        }
-    }
-    .right{
-        width:50%;
-        height:50%;
-        background: rgba(255,255,255,0.1);
-
-        #chart-right{
-           
-            height:100%;
-        }
-    }
-    .bottom{
-        width:100%;
-        height:50%;
-        background: rgba(255,255,255,0.2);
-         #chart{
-             color:#fff;
-            height:100%;
-        }
-    }
 }
-
-.list::-webkit-scrollbar {/*滚动条整体样式*/
-  width: 1px;     /*高宽分别对应横竖滚动条的尺寸*/
-  height: 4px;
-}
-.list::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-  border-radius: 5px;
-  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
-  background: rgba(34, 3, 117, 0.8);
-}
-.list::-webkit-scrollbar-track {/*滚动条里面轨道*/
-  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-  border-radius: 0;
-  background: rgba(221, 213, 213, 0.6);
-}
-
-
-// .....................................................
 #sel{
     box-sizing: border-box;
     color:#fff;
     width:100%;
+    font-size: 14/@vw;
     padding-top: 20/@vw;
     // padding-bottom: 50/@vw;
     // height:100px;
@@ -281,106 +187,178 @@ div{
        }
        
     }
+    .fenxi{
+        position: absolute;
+        right:20/@vw;
+        top:20/@vw;
+        width:40/@vw;
+        height:30/@vw;
+        background: #ccc;
+        cursor: pointer;
+    }
 }
 
-
-#second{
-    width: 100%;
-    height:410/@vw;
-    margin-top: 30/@vw;
-    display: flex;
-    justify-content: space-between;
-    &>div{
-        width:820/@vw;
-        height:400/@vw;
-        background: url(../../assets/img/xq-bg.png) no-repeat;
-        background-size: 100% 100%;
-        .n{
-            width:300/@vw;
-            height:53/@vw;
-            margin:10/@vw auto 0;
-            line-height: 53/@vw;
+.list{
+    font-size: 14/@vw;
+    width:100%;
+    height: 440/@vw;
+    margin-top: 26/@vw;
+    color:#fff;
+    .title{
+        box-sizing: border-box;
+        width:100%;
+        height:56/@vw;
+        color:#11abf0;
+        display: flex;
+        font-size: 16/@vw;
+        background: rgba(44, 86, 120, .5);
+        span{
+            width:16%;
+            height:100%;
+            line-height: 56/@vw;
             text-align: center;
-            font-size: 20/@vw;
-            color:#fff;
-
-        }
-        .c{
-            width:760/@vw;
-            height:330/@vw;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-    }
-    .left{
-
-        .tit{
-            height:46/@vw;
-            line-height: 46/@vw;
-            width:666/@vw;
-            margin: 15/@vw auto 0;
-            border-bottom: 1/@vw solid #3a6785;
-            display: flex;
-            span{
-                width: 25%;
-                text-align: center;
+            font-size: 16/@vw;
+            i{
+                display: inline-block;
+                width:26/@vw;
+                height: 26/@vw;
+                margin-right: 8/@vw;
+                vertical-align: middle;
+                transform: translateY(-2px)
             }
         }
-        .awrap{
-            height:260/@vw;
-            width:666/@vw;           
-            margin: 0 auto;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            position: relative;
+        span:nth-child(1){
+            i{
+                background: url(../../assets/img/list-icon7.png) no-repeat;
+                background-size: 100% 100%;
+            }
         }
-        .list-new{
-            position: absolute;
-            top:0;
-            left:0;
-            .item{
-                height:46/@vw;
-                line-height: 46/@vw;
-                width:666/@vw;
-                border-bottom: 1/@vw solid #3a6785;
-                display: flex;
-                span{
-                    width: 25%;
-                    text-align: center;
-                }
-                span:last-child{
-                    cursor: pointer;
-                }
+        span:nth-child(2){
+            i{
+                background: url(../../assets/img/list-icon2.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+        span:nth-child(3){
+            i{
+                background: url(../../assets/img/list-icon4.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+        span:nth-child(4){
+            i{
+                background: url(../../assets/img/list-icon3.png) no-repeat;
+                background-size: 100% 60%;
+                background-position-y: 5/@vw;
+            }
+        }
+        span:nth-child(5){
+            i{
+                background: url(../../assets/img/list-icon1.png) no-repeat;
+                background-size: 100% 100%;
+            }
+            i:nth-last-child(1){
+                background: url(../../assets/img/list-icon6.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+        span:nth-child(6){
+            i{
+                background: url(../../assets/img/list-icon5.png) no-repeat;
+                background-size: 100% 100%;
             }
         }
         
     }
-    .right{
-
-        #echart-new1{
-            width: 100%;
-            height:100%;
+    .scroll{
+        height:410/@vw;
+        width:100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .item{
+            width:100%;
+            height:56/@vw;
+            display: flex;
+            // border:1/@vw solid #3391c7;
+            border-top: none;
+            span{
+                width:16%;
+                height:100%;
+                line-height: 56/@vw;
+                text-align: center;
+                font-size: 14/@vw;
+            }
+        }
+        .item:nth-child(even){
+            background: rgba(44, 86, 120, .5)
+        }
+        .item:nth-child(odd){
+            background: rgba(19, 43, 62, .5)
         }
     }
-}
-
-#three{
-    width:100%;
-    height:800/@vw;
-    margin-top: 20/@vw;
-    
-    #echart-new2{
-        width:100%;
-        height:100%;
-        // background: pink;
+    .scroll::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 3px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+    }
+    .scroll::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+    background: #0f429d;
+    }
+    .scroll::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: #207aaf;
     }
 }
+
+
+// .cover{
+//     position: fixed;
+//     top:0;
+//     left:0;
+//     width:100vw;
+//     height:100vh;
+//     background: rgba(0,0,0,0.2);
+//     z-index: 99;
+//     .alert{
+//         width:1600/@vw;
+//         height:800/@vw;
+//         background: rgba(0,0,0,0.6);
+//         position: absolute;
+//         top:0;
+//         right:0;
+//         bottom: 0;
+//         left:0;
+//         margin:auto;
+//         button{
+//             position: absolute;
+//             top:0;
+//             right:0;
+//         }
+//         #duibi{
+//             width:1600/@vw;
+//             height:800/@vw;
+//             // background: rgb(179, 175, 175);
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 .wrap::-webkit-scrollbar {/*滚动条整体样式*/
-  width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/
+  width: 1px;     /*高宽分别对应横竖滚动条的尺寸*/
   height: 4px;
 }
 .wrap::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
@@ -392,38 +370,4 @@ div{
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
   border-radius: 0;
   background: rgba(221, 213, 213, 0.6);
-}
-
-.cover{
-    position: fixed;
-    top:0;
-    left:0;
-    width:100vw;
-    height:100vh;
-    background: rgba(0,0,0,0.2);
-    z-index: 99;
-    .alert{
-        width:1600/@vw;
-        height:800/@vw;
-        background: rgba(0,0,0,0.6);
-        position: absolute;
-        top:0;
-        right:0;
-        bottom: 0;
-        left:0;
-        margin:auto;
-        button{
-            position: absolute;
-            top:0;
-            right:0;
-        }
-        #fenxi-echart{
-            width:1600/@vw;
-            height:400/@vw;
-            background: #132d44;
-        }
-        .biaoge{
-
-        }
-    }
 }

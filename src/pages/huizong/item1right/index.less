@@ -1,0 +1,138 @@
+
+@vw:19.2vw;
+div{
+    box-sizing: border-box;
+}
+.wrap{
+    width:100%;
+    height:100%;
+    font-size: 14/@vw;
+    #echart{
+        width:100%;
+        height:100%;
+
+    }
+}
+
+
+#sel{
+    box-sizing: border-box;
+    color:#fff;
+    width:100%;
+    padding-top: 20/@vw;
+    // padding-bottom: 50/@vw;
+    // height:100px;
+    border:2/@vw solid #3391c7;
+    position: relative;
+    .jiao{
+        position: absolute;       
+        width:20/@vw;
+        height:20/@vw;
+        border:none;
+        background: url(../../../assets/img/jiao.png)no-repeat;
+        background-size: cover;
+    }
+    .jiao:nth-of-type(1){
+        top:-4/@vw;
+        left:-3/@vw;
+        
+    }
+    .jiao:nth-of-type(2){
+        top:-4/@vw;
+        right:-3/@vw;
+        transform: rotate(90deg)
+    }
+    .jiao:nth-of-type(3){
+        bottom:-3/@vw;
+        right:-3/@vw;
+        transform: rotate(180deg)
+    }
+    .jiao:nth-of-type(4){
+        bottom:-3/@vw;
+        left:-3/@vw;
+        transform: rotate(270deg)
+    }
+    .items{
+        position: relative;
+    }
+    .title{
+        width:230/@vw;
+        height:34/@vw;
+        line-height: 34/@vw;
+        color:#fff;
+        font-size: 14/@vw;
+        background: url(../../../assets/img/xq-title.png)no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        align-items: center;
+        margin-left: 16/@vw;
+        span{
+            width:20/@vw;
+            height:20/@vw;
+            margin:0 20/@vw;
+            background: url(../../../assets/img/xq-icon2.png) no-repeat;
+            background-size: cover;
+        }
+    }
+    
+    .items:nth-child(6) span{
+        background: url(../../../assets/img/xq-baojin.png) no-repeat;
+        background-size: cover;
+    }
+    .items:nth-child(7) span{
+        background: url(../../../assets/img/xq-icon1.png) no-repeat;
+        background-size: cover;
+    }
+    .sel-wrap{
+        height:54/@vw;
+        padding-left: 40/@vw;
+        display: flex;
+        align-items: center;
+        color:rgba(255, 255, 255,0.5);
+        input{
+            box-sizing: border-box;
+            width:160/@vw;
+            height:20/@vw;
+            border:1/@vw solid #a9b3bb;
+            border-radius: 3/@vw;
+            background: none;
+            line-height: 20/@vw;
+            color:rgb(207, 200, 200);
+            margin:0 22/@vw;
+            font-size: 14/@vw;
+        }
+        .sub{
+            width:58/@vw;
+            height:19/@vw;
+            color:#132d44;
+            text-align: center;
+            line-height: 19/@vw;
+            background: url(../../../assets/img/xq-chaxun.png) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+    
+}
+
+.content{
+    width:100%;
+    height:590/@vw;
+    margin-top: 20/@vw;
+    display: flex;
+    &>div{
+        width:50%;
+        height:100%;
+        &>div{
+           
+            width:100%;
+            height:100%;
+        }
+    }
+    .left{
+        //  background: #333;
+        height:80%;
+    }
+    .right{
+        // background: #999;
+    }
+}

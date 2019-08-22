@@ -281,10 +281,23 @@ export default {
     },
     deleteBind(item) {
       //...............解绑
-      if (!confirm("确认要解除绑定吗？请三思")) return;
+      let that = this;
+      this.$confirm("确认要解除绑定吗？请三思?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          that.unbind(item.gun_id, item.gunaiming_id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消解绑"
+          });
+        });
+      // if (!confirm("确认要解除绑定吗？请三思")) return;
       // console.log(item)
-
-      this.unbind(item.gun_id, item.gunaiming_id);
     },
     bindclose() {
       this.bindalert = false;

@@ -1,0 +1,122 @@
+div {
+  box-sizing: border-box;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  font-size: 0.72916667vw;
+}
+.wrap #echart {
+  width: 100%;
+  height: 100%;
+}
+#sel {
+  box-sizing: border-box;
+  color: #fff;
+  width: 100%;
+  padding-top: 1.04166667vw;
+  border: 0.10416667vw solid #3391c7;
+  position: relative;
+}
+#sel .jiao {
+  position: absolute;
+  width: 1.04166667vw;
+  height: 1.04166667vw;
+  border: none;
+  background: url(../../../assets/img/jiao.png) no-repeat;
+  background-size: cover;
+}
+#sel .jiao:nth-of-type(1) {
+  top: -0.20833333vw;
+  left: -0.15625vw;
+}
+#sel .jiao:nth-of-type(2) {
+  top: -0.20833333vw;
+  right: -0.15625vw;
+  transform: rotate(90deg);
+}
+#sel .jiao:nth-of-type(3) {
+  bottom: -0.15625vw;
+  right: -0.15625vw;
+  transform: rotate(180deg);
+}
+#sel .jiao:nth-of-type(4) {
+  bottom: -0.15625vw;
+  left: -0.15625vw;
+  transform: rotate(270deg);
+}
+#sel .items {
+  position: relative;
+}
+#sel .title {
+  width: 11.97916667vw;
+  height: 1.77083333vw;
+  line-height: 1.77083333vw;
+  color: #fff;
+  font-size: 0.72916667vw;
+  background: url(../../../assets/img/xq-title.png) no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 0.83333333vw;
+}
+#sel .title span {
+  width: 1.04166667vw;
+  height: 1.04166667vw;
+  margin: 0 1.04166667vw;
+  background: url(../../../assets/img/xq-icon2.png) no-repeat;
+  background-size: cover;
+}
+#sel .items:nth-child(6) span {
+  background: url(../../../assets/img/xq-baojin.png) no-repeat;
+  background-size: cover;
+}
+#sel .items:nth-child(7) span {
+  background: url(../../../assets/img/xq-icon1.png) no-repeat;
+  background-size: cover;
+}
+#sel .sel-wrap {
+  height: 2.8125vw;
+  padding-left: 2.08333333vw;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+#sel .sel-wrap input {
+  box-sizing: border-box;
+  width: 8.33333333vw;
+  height: 1.04166667vw;
+  border: 0.05208333vw solid #a9b3bb;
+  border-radius: 0.15625vw;
+  background: none;
+  line-height: 1.04166667vw;
+  color: #cfc8c8;
+  margin: 0 1.14583333vw;
+  font-size: 0.72916667vw;
+}
+#sel .sel-wrap .sub {
+  width: 3.02083333vw;
+  height: 0.98958333vw;
+  color: #132d44;
+  text-align: center;
+  line-height: 0.98958333vw;
+  background: url(../../../assets/img/xq-chaxun.png) no-repeat;
+  background-size: 100% 100%;
+}
+.content {
+  width: 100%;
+  height: 30.72916667vw;
+  margin-top: 1.04166667vw;
+  display: flex;
+}
+.content > div {
+  width: 50%;
+  height: 100%;
+}
+.content > div > div {
+  width: 100%;
+  height: 100%;
+}
+.content .left {
+  height: 80%;
+}

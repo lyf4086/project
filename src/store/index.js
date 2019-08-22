@@ -11,10 +11,20 @@ let store = new Vuex.Store({
     role_id: '',
     policeuser_id: '',
     yeMa: '',
-    jiGouId: ''
+    jiGouId: '',
+    str1: '全国枪支',
+    str2: '使用情况汇总'
 
   },
   mutations: {
+    setStr(state, payload) {
+      state.str1 = payload.str1;
+      state.str2 = payload.str2
+    },
+    huanyuanStr(state, payload) {
+      state.str1 = '全国枪支';
+      state.str2 = '使用情况汇总';
+    },
     setPoliceId(state, payload) { //设置数据
       state.policeuser_id = payload.policeuser_id;
       state.yeMa = payload.yeMa;
@@ -40,8 +50,8 @@ store.watch((mutstions, store) => {
 }, () => {
 
 }, {
-  deep: true
-})
+    deep: true
+  })
 
 
 export default store

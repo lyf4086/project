@@ -57,10 +57,11 @@
       <div class="sub-wrap">
         <div class="sub" @click="subCheckDate">确定</div>
       </div>
+      <div class="fenxi" @click="fenxi">数据分析</div>
     </div>
     <div id="second">
       <div class="left">
-        <div class="n">报警类型</div>
+        <div class="n">报警列表</div>
         <div class="c">
           <div class="tit">
             <span>机构名称</span>
@@ -74,14 +75,14 @@
                 <span>{{item.mname}}</span>
                 <span>{{item.datetime}}</span>
                 <span>{{item.number}}</span>
-                <span>查看详情</span>
+                <span @click="toMore(item.number,item.datetime,item)">查看详情</span>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="right">
-        <div class="n">报警分析</div>
+        <div class="n">报警统计</div>
         <div class="c">
           <div id="echart-new1"></div>
         </div>
@@ -112,15 +113,38 @@
     <div class="bottom" v-if="false">
       <div id="chart"></div>
     </div>-->
+     <div class="cover" v-show="showFenXi">
+      <div class="alert">
+        <!-- <div id="duibi"></div> -->
+        <el-steps :active="active"  finish-status="success" v-show="false">
+          <el-step title="步骤 1"></el-step>
+          <el-step title="步骤 2"></el-step>
+          <el-step title="步骤 3"></el-step>
+        </el-steps>
+        <button @click="close">关闭</button>
+        <div class="selwrap">
+          
+        </div>
+        <div id="fenxi-echart" v-show="false">fenxi-echart</div>
+        <div class="biaoge">biaoge</div>
+        <div class="sub" @click="subDuiBi">开始对比</div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 <style scoped>
 @import url("./xiangqingnew.css");
 </style>
 <script>
+import GunDongList from "@/components/gundonglist";
 export default {
+  components: { GunDongList },
   data() {
     return {
+      active:3,
+      showFenXi:false,
+      bigsmall: true,
       echar1_names: [],
       echar_date: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       echar_num: [820, 932, 901, 934, 1290, 1330, 1320],
@@ -134,20 +158,280 @@ export default {
       timeEnd: "",
       warningType: [
         { id: "03", name: "入套报警", checked: true },
-        { id: "09", name: "离套报警", checked: true },
         { id: "07", name: "区域报警", checked: true },
-        { id: "08", name: "逾期报警", checked: true }
+        { id: "08", name: "逾期报警", checked: true },
+        { id: "09", name: "离套报警", checked: true }
       ],
       jigoulist: [],
       series: {
-        "03": [0, 2, 0, 4, 0, 0, 0],
-        "07": [0, 5, 0, 0, 0, 6, 0],
-        "08": [0, 0, 0, 8, 0, 0, 0],
-        "09": [9, 0, 0, 7, 0, 3, 0]
+        "03": [],
+        "07": [],
+        "08": [],
+        "09": []
       }
     };
   },
   methods: {
+    subDuiBi(){
+      this.getDuiBi(32,1,'03,09,07,08','2019-08-16,2019-08-22')
+      
+    },
+    close() {
+      this.showFenXi = false;
+    },
+    fenxi() {
+      this.showFenXi = true;
+      // this.initEchart();
+      this.duiBiEchart()
+    },
+    upDown() {
+      this.bigsmall = !this.bigsmall;
+    },
+    toMore(n, s, item) {
+      let str = this.warningType
+        .filter(e => e.checked)
+        .map(e => e.id)
+        .join();
+
+      if (n == 0) {
+        this.$message("暂无数据");
+        return;
+      }
+      this.$router.push({
+        name: "XiangQingList",
+        params: {
+          ...item,
+          types: str,
+          timeStart: this.timeStart,
+          timeEnd: this.timeEnd
+        }
+      });
+
+      // this.$router.push({
+      //   name: "List",
+      //   params: { datetime: s }
+      // });
+    },
+    duiBiEchart(){
+      let that = this;
+      let box = document.getElementById("fenxi-echart");
+      let Echart = this.$echarts.init(box);
+      let option = {
+    //   backgroundColor:'#062D87',
+        title : {
+                  text: '未来一周气温变化',
+                  textStyle:{
+                      color:"#ccc"
+                  }
+              },
+              tooltip : {
+                  trigger: 'axis'
+              },
+              legend: {
+                  data:['最高温度','最低温度'],
+                textStyle:{
+                color:"#fff"
+                }
+              },
+              grid: {
+                  top: 'middle',
+                  left: '3%',
+                  right: '4%',
+                  bottom: '3%',
+                  height: '80%',
+                  containLabel: true
+              },
+              toolbox: {
+                  show : true,
+                  feature : {
+                      mark : {show: true},
+                      dataView : {show: true, readOnly: false},
+                      magicType : {show: true, type: ['line', 'bar']},
+                      restore : {show: true},
+                      saveAsImage : {show: true}
+                  }
+              },
+              calculable : true,
+              xAxis : [
+                  {
+                      type : 'category',
+                      boundaryGap : false,
+                      data : ['2019-7-1','2019-7-2','2019-7-3','2019-7-4','2019-7-5','2019-7-6','2019-7-7'],
+                    axisTick: {
+                      show: true //隐藏X轴刻度
+                  },
+                  axisLabel: {
+                      show: true,
+                      textStyle: {
+                          color: "#ebf8ac" //X轴文字颜色
+                      }
+                  },
+                  }
+              ],
+              yAxis : [
+                  {
+                      type : 'value',
+                      name:"℃'",
+                      nameTextStyle: {
+                          color: "#ebf8ac"
+                        },           
+                        axisLabel : {
+                          formatter: '{value}℃'
+                      },
+                    axisLabel: {
+                          show: true,
+                          textStyle: {
+                              color: "#ebf8ac"
+                          }
+                      },
+                      splitLine: {
+                      lineStyle: {
+                          type: 'dashed',
+                          color: '#DDD'
+                      }
+                  },
+                  }
+              ],
+              series : [
+                  {
+                      name:'最高温度',
+                      type:'line',
+                      min:10,
+                      max:40,
+                      data:[32, 34, 39, 35, 38, 36, 34],
+                      markPoint : {
+                          data : [
+                              {name : '周最高', value : 39, xAxis: 2, yAxis: 39}
+                          ]
+                      },
+                    lineStyle: {
+                          normal: {
+                              width: 5,
+                              color: {
+                                  type: 'linear',
+
+                                  colorStops: [{
+                                          offset: 0,
+                                          color: '#AAF487' // 0% 处的颜色
+                                      },
+                                      {
+                                          offset: 0.4,
+                                          color: '#47D8BE' // 100% 处的颜色
+                                      }, {
+                                          offset: 1,
+                                          color: '#47D8BE' // 100% 处的颜色
+                                      }
+                                  ],
+                                  globalCoord: false // 缺省为 false
+                              },
+                              shadowColor: 'rgba(71,216,190, 0.5)',
+                              shadowBlur: 10,
+                              shadowOffsetY: 7
+                          }
+                      },
+                      itemStyle: {
+                          normal: {
+                              color: '#AAF487',
+                              borderWidth: 10,
+                              /*shadowColor: 'rgba(72,216,191, 0.3)',
+                              shadowBlur: 100,*/
+                              borderColor: "#AAF487"
+                          }
+                      },
+                      smooth: true,
+                      markLine : {
+                          data : [
+                              {type : 'average', name: '平均值'}
+                          ]
+                      }
+                  },
+              {
+                  name:'最低温度',
+                  type:'line',
+                  min:10,
+                  max:40,
+                  data:[25, 22, 26, 28, 27, 26, 23],
+                  markPoint : {
+                      data : [
+                          {name : '周最低', value : 22, xAxis: 1, yAxis: 22}
+                      ]
+                  },
+                  lineStyle: {
+                      normal: {
+                          width: 5,
+                          color: {
+                              type: 'linear',
+
+                              colorStops: [{
+                                      offset: 0,
+                                      color: '#F6D06F' // 0% 处的颜色
+                                  },
+                                  {
+                                      offset: 0.4,
+                                      color: '#F9A589' // 100% 处的颜色
+                                  }, {
+                                      offset: 1,
+                                      color: '#F9A589' // 100% 处的颜色
+                                  }
+                              ],
+                              globalCoord: false // 缺省为 false
+                          },
+                          shadowColor: 'rgba(249,165,137, 0.5)',
+                          shadowBlur: 10,
+                          shadowOffsetY: 7
+                      }
+                  },
+                  itemStyle: {
+                      normal: {
+                          color: '#F6D06F',
+                          borderWidth: 10,
+                          /*shadowColor: 'rgba(72,216,191, 0.3)',
+                          shadowBlur: 100,*/
+                          borderColor: "#F6D06F"
+                      }
+                  },
+                  smooth: true,
+                  markLine : {
+                      data : [
+                          {type : 'average', name : '平均值'}
+                      ]
+                  }
+              }
+          ]
+        };
+        Echart.setOption(option)
+    },
+    getDuiBi(mid,ip_id,tid,time){
+      let objs = { 
+        mid,
+        ip_id,
+        tid,
+        time
+       };      
+      var token = this.$gscookie.getCookie("gun");
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
+      var params = new URLSearchParams();
+      params.append("sign", sign);
+      params.append("token", token);
+     params.append("mid", objs.mid);
+     params.append("ip_id", objs.ip_id)
+     params.append("tid", objs.tid)
+      params.append("time", objs.time)
+      this.$axios({
+        url:
+          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=alarm_anal",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+      .then((data)=>{
+          console.log(data)
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    },
     typeChange(index) {
       let { checked } = this.warningType[index];
       this.warningType[index].checked = !checked;
@@ -159,14 +443,19 @@ export default {
     subCheckDate() {
       let { timeStart, timeEnd } = this;
       let types = "",
-        names = "";
+        names = "",
+        ip_id = "";
       let arr1 = this.warningType.filter(e => e.checked);
       let arr2 = this.jigoulist.filter(e => e.checked);
+
       types = arr1.map(e => e.id).join();
       names = arr2.map(e => e.id).join();
-      console.log(timeStart, timeEnd, types, names);
+      ip_id = arr2.map(e => e.ip_id).join();
+      // console.log(timeStart, timeEnd, types, names);
       let s = [timeStart, timeEnd].join();
-      this.getData(s, types, names);
+      console.log(s, types, names, ip_id)
+      return
+      this.getData(s, types, names, ip_id);
     },
     move() {
       var $uList = $("#list-new");
@@ -224,7 +513,7 @@ export default {
           top: "5%",
           textStyle: {
             color: "#fff",
-            fontSize: 24
+            fontSize: 14
           }
         },
         xAxis: {
@@ -277,7 +566,7 @@ export default {
         },
         series: [
           {
-            name: "--",
+            name: "数量",
             type: "bar",
             barWidth: 30,
             // data: [30, 49, 16, 60, 26], //数据
@@ -308,6 +597,50 @@ export default {
       let box = document.getElementById("echart-new2");
       let EchartNew = this.$echarts.init(box);
 
+      let one = {
+        name: "入套报警",
+        type: "line",
+        stack: "总量",
+        symbol: "circle",
+        symbolSize: 8,
+        itemStyle: {
+          normal: {
+            color: "#0092f6",
+            lineStyle: {
+              color: "#0092f6",
+              width: 1
+            },
+            areaStyle: {
+              //color: '#94C9EC'
+              color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
+                {
+                  offset: 0,
+                  color: "rgba(7,44,90,0.3)"
+                },
+                {
+                  offset: 1,
+                  color: "rgba(0,146,246,0.9)"
+                }
+              ])
+            }
+          }
+        },
+        markPoint: {
+          itemStyle: {
+            normal: {
+              color: "red"
+            }
+          }
+        },
+        data: []
+      };
+
+      let ser = [];
+      that.rightData1.forEach((item, index) => {
+        one.name = item;
+        one.data = that.series[index];
+        ser.push({ ...one });
+      });
       var fontColor = "#30eee9";
       let option = {
         title: {
@@ -342,7 +675,6 @@ export default {
           textStyle: {
             color: "#1bb4f6"
           },
-          // data: ["入套报警", "离套报警"]
           data: that.rightData1
         },
         xAxis: [
@@ -367,20 +699,7 @@ export default {
                 color: "#3a6785"
               }
             },
-            data: [
-              "1月",
-              "2月",
-              "3月",
-              "4月",
-              "5月",
-              "6月",
-              "7月",
-              "8月",
-              "9月",
-              "10月",
-              "11月",
-              "12月"
-            ]
+            data: that.echar_date
           }
         ],
         yAxis: [
@@ -388,7 +707,7 @@ export default {
             type: "value",
             name: "数量",
             min: 0,
-            max: 100,
+            // max: 100,
             axisLabel: {
               formatter: "{value}",
               textStyle: {
@@ -412,9 +731,9 @@ export default {
           },
           {
             type: "value",
-            name: "占比",
+            // name: "占比",
             min: 0,
-            max: 100,
+            // max: 100,
             axisLabel: {
               formatter: "{value} %",
               textStyle: {
@@ -437,151 +756,18 @@ export default {
             }
           }
         ],
-        series: [
-          {
-            name: "入套报警",
-            type: "line",
-            stack: "总量",
-            symbol: "circle",
-            symbolSize: 8,
-            itemStyle: {
-              normal: {
-                color: "#0092f6",
-                lineStyle: {
-                  color: "#0092f6",
-                  width: 1
-                },
-                areaStyle: {
-                  //color: '#94C9EC'
-                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                    {
-                      offset: 0,
-                      color: "rgba(7,44,90,0.3)"
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(0,146,246,0.9)"
-                    }
-                  ])
-                }
-              }
-            },
-            markPoint: {
-              itemStyle: {
-                normal: {
-                  color: "red"
-                }
-              }
-            },
-            // data: [120, 132, 101, 134, 90, 230, 210, 182, 191, 234, 260, 280]
-            data: that.series["03"]
-          },
-          {
-            name: "离套报警",
-            type: "line",
-            stack: "总量",
-            symbol: "circle",
-            symbolSize: 8,
-
-            itemStyle: {
-              normal: {
-                color: "#00d4c7",
-                lineStyle: {
-                  color: "#00d4c7",
-                  width: 1
-                },
-                areaStyle: {
-                  //color: '#94C9EC'
-                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                    {
-                      offset: 0,
-                      color: "rgba(7,44,90,0.3)"
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(0,212,199,0.9)"
-                    }
-                  ])
-                }
-              }
-            },
-            // data: [220, 182, 191, 210, 230, 270, 270, 201, 154, 140, 240, 250]
-            data: that.series["07"]
-          },
-          {
-            name: "区域报警",
-            type: "line",
-            stack: "总量",
-            symbol: "circle",
-            symbolSize: 8,
-
-            itemStyle: {
-              normal: {
-                color: "#00d4c7",
-                lineStyle: {
-                  color: "#00d4c7",
-                  width: 1
-                },
-                areaStyle: {
-                  //color: '#94C9EC'
-                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                    {
-                      offset: 0,
-                      color: "rgba(7,44,90,0.3)"
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(0,212,199,0.9)"
-                    }
-                  ])
-                }
-              }
-            },
-            // data: [220, 182, 191, 210, 230, 270, 270, 201, 154, 140, 240, 250]
-            data: that.series["08"]
-          },
-          {
-            name: "逾期报警",
-            type: "line",
-            stack: "总量",
-            symbol: "circle",
-            symbolSize: 8,
-
-            itemStyle: {
-              normal: {
-                color: "#00d4c7",
-                lineStyle: {
-                  color: "#00d4c7",
-                  width: 1
-                },
-                areaStyle: {
-                  //color: '#94C9EC'
-                  color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                    {
-                      offset: 0,
-                      color: "rgba(7,44,90,0.3)"
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(0,212,199,0.9)"
-                    }
-                  ])
-                }
-              }
-            },
-            // data: [220, 182, 191, 210, 230, 270, 270, 201, 154, 140, 240, 250]
-            data: that.series["09"]
-          }
-        ]
+        series: []
       };
-      EchartNew.setOption(option);
+
+      option.series = ser;
+      EchartNew.setOption(option, true);
     },
-    getData(timeStr, typeId = "", jigouId = "") {
+    getData(timeStr, typeId = "", jigouId = "", ip_id) {
       let objs = { time: timeStr };
       if (!!typeId) {
-        objs = { time: timeStr, tid: typeId, mid: jigouId };
+        objs = { time: timeStr, tid: typeId, mid: jigouId, ip_id: ip_id };
       }
-      console.log(objs);
+
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
@@ -592,6 +778,7 @@ export default {
       if (!!typeId) {
         params.append("tid", objs.tid);
         params.append("mid", objs.mid);
+        params.append("ip_id", objs.ip_id);
       }
       this.$axios({
         url:
@@ -602,18 +789,49 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            this.jigoulist = data.data.data.mec.map(item => {
-              return {
-                ...item,
-                checked: true
-              };
-            });
+            let obj = this.$gscookie.getCookie("message_obj");
+            // console.log(item);
+            if (!this.jigoulist.length) {
+              this.jigoulist = data.data.data.mec.map((item, index) => {
+                if (index === 0) {
+                  return {
+                    ...item,
+                    checked: true
+                  };
+                } else {
+                  return {
+                    ...item,
+                    checked: false
+                  };
+                }
+                // if (obj.mechanism_id === item.id) {
+                //   return {
+                //     ...item,
+                //     checked: true
+                //   };
+                // } else {
+                //   return {
+                //     ...item,
+                //     checked: false
+                //   };
+                // }
+              });
+              let warningType = data.data.data.types.map(e => {
+                return {
+                  ...e,
+                  checked: true
+                };
+              });
+              this.warningType = warningType;
+            }
+
             this.echar_date = data.data.data.days;
             this.echar_num = data.data.data.value;
             this.echar1_names = data.data.data.mname;
             this.list = data.data.data.series;
             this.selected = data.data.data.selected;
             this.dataList = data.data.list;
+
             let o = {};
             data.data.data.mname.forEach((e, i) => {
               if (i == 0) {
@@ -624,13 +842,12 @@ export default {
             });
             this.selected = o;
             this.rightData1 = data.data.data.type;
+
             this.rightData2 = data.data.data.cou;
 
             this.chartNew1();
-            this.series["03"] = data.data.data.series["03"];
-            this.series["07"] = data.data.data.series["07"];
-            this.series["08"] = data.data.data.series["08"];
-            this.series["09"] = data.data.data.series["09"];
+
+            this.series = data.data.data.series;
             this.chartNew2();
           }
         })
@@ -645,6 +862,7 @@ export default {
       this.$router.push("/loginput");
     }
     let item = this.$gscookie.getCookie("message_obj");
+
     if (item.role_id == 3) {
       this.$router.push({
         name: "HuiZong"
@@ -653,12 +871,28 @@ export default {
     let obj = this.$route.params;
     this.obj = obj;
     // console.log(obj);
+    if (JSON.stringify(obj) == "{}") {
+      this.$router.push("/loginput");
+      return;
+    }
     this.timeStart = obj[0];
     this.timeEnd = obj[1];
-    this.getData(obj.join());
+    let types = "";
+    let arr1 = this.warningType.filter(e => e.checked);
+    types = arr1.map(e => e.id).join();
+    // console.log("333", item);
+    // return;
+    this.getData(obj.join(), types);
   },
   mounted() {
     this.move();
+    this.$store.commit('setStr',{
+      str1:'报警类型',
+      str2:'趋势分析'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
   }
 };
 </script>

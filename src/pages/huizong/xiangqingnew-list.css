@@ -1,103 +1,13 @@
-div {
-  box-sizing: border-box;
-}
 .wrap {
-  width: 100%;
   height: 100%;
-  font-size: 0.72916667vw;
-  color: #fff;
-  max-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-}
-.wrap .left {
-  width: 50%;
-  height: 50%;
-  position: relative;
-  z-index: 1;
-}
-.wrap .left .title {
-  color: #fff;
-  box-sizing: border-box;
-  height: 2.60416667vw;
-  width: 100%;
-  border: 0.05208333vw solid #00a0e9;
-  display: flex;
-  font-size: 1.04166667vw;
-}
-.wrap .left .title span {
-  flex: 1;
-  line-height: 2.60416667vw;
-  text-align: center;
-  border-right: 0.05208333vw solid #00a0e9;
-}
-.wrap .left .title span:last-child {
-  border: none;
-}
-.wrap .left .list {
-  border-left: 0.05208333vw solid #00a0e9;
-  border-right: 0.05208333vw solid #00a0e9;
-  color: aliceblue;
-  max-height: 15.72916667vw;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.wrap .left .list .item {
-  box-sizing: border-box;
-  height: 2.60416667vw;
-  width: 100.1%;
-  border-bottom: 0.05208333vw solid #00a0e9;
-  display: flex;
-  font-size: 0.83333333vw;
-}
-.wrap .left .list .item span {
-  flex: 1;
-  line-height: 2.60416667vw;
-  text-align: center;
-  border-right: 0.05208333vw solid #00a0e9;
-}
-.wrap .left .list .item span:last-child {
-  border: none;
-}
-.wrap .right {
-  width: 50%;
-  height: 50%;
-  background: rgba(255, 255, 255, 0.1);
-}
-.wrap .right #chart-right {
-  height: 100%;
-}
-.wrap .bottom {
-  width: 100%;
-  height: 50%;
-  background: rgba(255, 255, 255, 0.2);
-}
-.wrap .bottom #chart {
-  color: #fff;
-  height: 100%;
-}
-.list::-webkit-scrollbar {
-  /*滚动条整体样式*/
-  width: 1px;
-  /*高宽分别对应横竖滚动条的尺寸*/
-  height: 4px;
-}
-.list::-webkit-scrollbar-thumb {
-  /*滚动条里面小方块*/
-  border-radius: 5px;
-  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
-  background: rgba(34, 3, 117, 0.8);
-}
-.list::-webkit-scrollbar-track {
-  /*滚动条里面轨道*/
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  border-radius: 0;
-  background: rgba(221, 213, 213, 0.6);
 }
 #sel {
   box-sizing: border-box;
   color: #fff;
   width: 100%;
+  font-size: 0.72916667vw;
   padding-top: 1.04166667vw;
   border: 0.10416667vw solid #3391c7;
   position: relative;
@@ -267,89 +177,121 @@ div {
   background: url(../../assets/img/xq-sub.png) no-repeat;
   background-size: 100% 100%;
 }
-#second {
-  width: 100%;
-  height: 21.35416667vw;
-  margin-top: 1.5625vw;
-  display: flex;
-  justify-content: space-between;
-}
-#second > div {
-  width: 42.70833333vw;
-  height: 20.83333333vw;
-  background: url(../../assets/img/xq-bg.png) no-repeat;
-  background-size: 100% 100%;
-}
-#second > div .n {
-  width: 15.625vw;
-  height: 2.76041667vw;
-  margin: 0.52083333vw auto 0;
-  line-height: 2.76041667vw;
-  text-align: center;
-  font-size: 1.04166667vw;
-  color: #fff;
-}
-#second > div .c {
-  width: 39.58333333vw;
-  height: 17.1875vw;
-  margin: 0 auto;
-  overflow: hidden;
-}
-#second .left .tit {
-  height: 2.39583333vw;
-  line-height: 2.39583333vw;
-  width: 34.6875vw;
-  margin: 0.78125vw auto 0;
-  border-bottom: 0.05208333vw solid #3a6785;
-  display: flex;
-}
-#second .left .tit span {
-  width: 25%;
-  text-align: center;
-}
-#second .left .awrap {
-  height: 13.54166667vw;
-  width: 34.6875vw;
-  margin: 0 auto;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  position: relative;
-}
-#second .left .list-new {
+#sel .fenxi {
   position: absolute;
-  top: 0;
-  left: 0;
-}
-#second .left .list-new .item {
-  height: 2.39583333vw;
-  line-height: 2.39583333vw;
-  width: 34.6875vw;
-  border-bottom: 0.05208333vw solid #3a6785;
-  display: flex;
-}
-#second .left .list-new .item span {
-  width: 25%;
-  text-align: center;
-}
-#second .left .list-new .item span:last-child {
+  right: 1.04166667vw;
+  top: 1.04166667vw;
+  width: 2.08333333vw;
+  height: 1.5625vw;
+  background: #ccc;
   cursor: pointer;
 }
-#second .right #echart-new1 {
+.list {
+  font-size: 0.72916667vw;
   width: 100%;
-  height: 100%;
+  height: 22.91666667vw;
+  margin-top: 1.35416667vw;
+  color: #fff;
 }
-#three {
+.list .title {
+  box-sizing: border-box;
   width: 100%;
-  height: 41.66666667vw;
-  margin-top: 1.04166667vw;
+  height: 2.91666667vw;
+  color: #11abf0;
+  display: flex;
+  font-size: 0.83333333vw;
+  background: rgba(44, 86, 120, 0.5);
 }
-#three #echart-new2 {
-  width: 100%;
+.list .title span {
+  width: 16%;
   height: 100%;
+  line-height: 2.91666667vw;
+  text-align: center;
+  font-size: 0.83333333vw;
+}
+.list .title span i {
+  display: inline-block;
+  width: 1.35416667vw;
+  height: 1.35416667vw;
+  margin-right: 0.41666667vw;
+  vertical-align: middle;
+  transform: translateY(-2px);
+}
+.list .title span:nth-child(1) i {
+  background: url(../../assets/img/list-icon7.png) no-repeat;
+  background-size: 100% 100%;
+}
+.list .title span:nth-child(2) i {
+  background: url(../../assets/img/list-icon2.png) no-repeat;
+  background-size: 100% 100%;
+}
+.list .title span:nth-child(3) i {
+  background: url(../../assets/img/list-icon4.png) no-repeat;
+  background-size: 100% 100%;
+}
+.list .title span:nth-child(4) i {
+  background: url(../../assets/img/list-icon3.png) no-repeat;
+  background-size: 100% 60%;
+  background-position-y: 0.26041667vw;
+}
+.list .title span:nth-child(5) i {
+  background: url(../../assets/img/list-icon1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.list .title span:nth-child(5) i:nth-last-child(1) {
+  background: url(../../assets/img/list-icon6.png) no-repeat;
+  background-size: 100% 100%;
+}
+.list .title span:nth-child(6) i {
+  background: url(../../assets/img/list-icon5.png) no-repeat;
+  background-size: 100% 100%;
+}
+.list .scroll {
+  height: 21.35416667vw;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.list .scroll .item {
+  width: 100%;
+  height: 2.91666667vw;
+  display: flex;
+  border-top: none;
+}
+.list .scroll .item span {
+  width: 16%;
+  height: 100%;
+  line-height: 2.91666667vw;
+  text-align: center;
+  font-size: 0.72916667vw;
+}
+.list .scroll .item:nth-child(even) {
+  background: rgba(44, 86, 120, 0.5);
+}
+.list .scroll .item:nth-child(odd) {
+  background: rgba(19, 43, 62, 0.5);
+}
+.list .scroll::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 3px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.list .scroll::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: #0f429d;
+}
+.list .scroll::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: #207aaf;
 }
 .wrap::-webkit-scrollbar {
   /*滚动条整体样式*/
-  width: 2px;
+  width: 1px;
   /*高宽分别对应横竖滚动条的尺寸*/
   height: 4px;
 }
@@ -364,34 +306,4 @@ div {
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0;
   background: rgba(221, 213, 213, 0.6);
-}
-.cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 99;
-}
-.cover .alert {
-  width: 83.33333333vw;
-  height: 41.66666667vw;
-  background: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-}
-.cover .alert button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.cover .alert #fenxi-echart {
-  width: 83.33333333vw;
-  height: 20.83333333vw;
-  background: #132d44;
 }

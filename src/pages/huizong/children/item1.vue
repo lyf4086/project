@@ -55,9 +55,9 @@ export default {
         //   selected: this.selected
         // },
         toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
+          // feature: {
+          //   saveAsImage: {}
+          // }
         },
         grid: {
           left: "0%",
@@ -190,7 +190,7 @@ export default {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
       this.$router.push({
-        name: "Item2",
+        name: "Item1Right",
         params: this.timeObj
       });
     }

@@ -223,13 +223,24 @@
   top: 0.5rem;
   left: 0.3rem;
 }
+.cover .rewrite span:nth-child(3) {
+  top: 0.8rem;
+}
+.cover .rewrite .put {
+  position: absolute;
+  top: 0.5rem;
+  left: 1.4rem;
+  width: 3.1rem;
+  text-indent: 0.1rem;
+  background: #1d4466;
+}
 .cover .rewrite .text {
   position: absolute;
   resize: none;
   width: 2.8rem;
-  height: 1.5rem;
+  height: 1.2rem;
   padding-right: 0.3rem;
-  top: 0.5rem;
+  top: 0.8rem;
   left: 1.4rem;
   text-indent: 0.18rem;
   background: #1d4466 url(../../assets/img/bj-rewrite.png) no-repeat 2.86rem 0.06rem;
