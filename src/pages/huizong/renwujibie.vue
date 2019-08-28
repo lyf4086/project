@@ -256,7 +256,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=moth_alarm",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=moth_alarm",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -283,7 +284,9 @@ export default {
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
-        url: "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=task",
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=task",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -322,7 +325,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=lend_gun",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=lend_gun",
         method: "POST",
         changeOrigin: true,
         data: params

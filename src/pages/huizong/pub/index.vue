@@ -137,7 +137,8 @@ export default {
       params.append("type", objs.type);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=moth_alarm_lit",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=moth_alarm_lit",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -162,7 +163,8 @@ export default {
       params.append("datetime", objs.datetime);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=task_lit",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=task_lit",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -188,7 +190,8 @@ export default {
       params.append("gtypes", objs.gtypes);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=gun_lit",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=gun_lit",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -212,7 +215,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=device_lit",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=device_lit",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -237,7 +241,8 @@ export default {
       params.append("gun_id", objs.gun_id);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=gun_history",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=gun_history",
         method: "POST",
         changeOrigin: true,
         data: params

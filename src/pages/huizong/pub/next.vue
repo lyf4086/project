@@ -24,55 +24,58 @@
 </style>
 <script>
 export default {
-  data(){
+  data() {
     return {
-      index:'',
-      item4_data:[]
-    }
+      index: "",
+      item4_data: []
+    };
   },
-  methods:{
-    prev(){
-      this.$router.go(-2)
+  methods: {
+    prev() {
+      this.$router.go(-2);
     },
-     getData_item4(time,types,mechanism_id){
-
-       let objs={"time":time,"types":types,"mechanism_id":mechanism_id}
-      var token=this.$gscookie.getCookie('gun');
-      var key =  this.$store.state.key;
-      var sign =  this.$methods.mkSign(objs,key);
+    getData_item4(time, types, mechanism_id) {
+      let objs = { time: time, types: types, mechanism_id: mechanism_id };
+      var token = this.$gscookie.getCookie("gun");
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
       var params = new URLSearchParams();
-      params.append('sign',sign);
-      params.append('token',token)
-      params.append('time',objs.time)
-      params.append('types',objs.types)
-      params.append('mechanism_id',objs.mechanism_id)
+      params.append("sign", sign);
+      params.append("token", token);
+      params.append("time", objs.time);
+      params.append("types", objs.types);
+      params.append("mechanism_id", objs.mechanism_id);
       this.$axios({
-          url:'http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=alarm_infos',
-          method:'POST',
-          changeOrigin:true,
-          data:params
-      }).then((data)=>{
-        if(data.status==200){
-          this.item4_data=data.data.data
-        }
-      }).catch((error)=>{
-          console.log(error)
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=alarm_infos",
+        method: "POST",
+        changeOrigin: true,
+        data: params
       })
+        .then(data => {
+          if (data.status == 200) {
+            this.item4_data = data.data.data;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
-  created (){
-    let item =this.$gscookie.getCookie("message_obj")
-      if(item.role_id==3){
-        this.$router.push({
-          name:'HuiZong'
-        })
-      }
-    let obj=this.$route.params
-    console.log('next',obj)
-    if(obj.source=='item4'){
-      this.index=obj.source
-      this.getData_item4(obj.time,obj.obj.type,obj.obj.id)
+  created() {
+    let item = this.$gscookie.getCookie("message_obj");
+    if (item.role_id == 3) {
+      this.$router.push({
+        name: "HuiZong"
+      });
+    }
+    let obj = this.$route.params;
+    console.log("next", obj);
+    if (obj.source == "item4") {
+      this.index = obj.source;
+      this.getData_item4(obj.time, obj.obj.type, obj.obj.id);
     }
   }
-}
+};
 </script>

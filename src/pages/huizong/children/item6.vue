@@ -273,7 +273,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=gun_device",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=gun_device",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -300,7 +301,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=days_alarm",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=days_alarm",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -322,7 +324,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=early",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=early",
         method: "POST",
         changeOrigin: true,
         data: params

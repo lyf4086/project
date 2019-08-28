@@ -122,7 +122,8 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -164,7 +165,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=GetDeviceList&a=index",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=GetDeviceList&a=index",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -200,7 +202,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          " http://s.tronl.cn/weixin/project/index.php?m=home&c=GetDeviceList&a=index",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=GetDeviceList&a=index",
         method: "POST",
         changeOrigin: true,
         data: params

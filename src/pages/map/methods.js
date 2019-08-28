@@ -40,7 +40,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
   params.append('token', token);
   params.append('lid', objs.lid);
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=positions',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=positions',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -140,7 +140,7 @@ function getJiGouStr() {
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -192,7 +192,7 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=position',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=position',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -609,7 +609,7 @@ function shezhiquyu(gun_ids, pointsArr, policeuser_id, stime, etime, text, IMEIS
   params.append('token', token)
 
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=rewrite',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=alarm&a=rewrite',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -650,7 +650,7 @@ function getAlarmList() { //.....获取报警区域列表
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=area_alarms',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=alarm&a=area_alarms',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -686,7 +686,7 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=area_alarm',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=alarm&a=area_alarm',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -807,7 +807,7 @@ function delOneAlarmArea(id) { //.....删除一个报警区域
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=del',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=alarm&a=del',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -842,7 +842,7 @@ function getNewPosition() {
   params.append('token', token);
   params.append('lid', objs.lid)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=positions',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=positions',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -877,7 +877,7 @@ function overArea(id) { //..区域内是否存在超出区域的报警
   params.append('token', token);
   params.append('area_id', objs.area_id);
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=Alarm&a=area_sta',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=Alarm&a=area_sta',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -914,7 +914,7 @@ function getAllJiGouName(mechanism_id, ip_id) {
   params.append('mechanism_id', objs.mechanism_id);
   params.append('ip_id', objs.ip_id);
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=person',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=person',
     method: 'POST',
     changeOrigin: true,
     data: params

@@ -96,7 +96,8 @@ export default {
       params.append("t_mechanism_id", objs.t_mechanism_id);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=gun_history",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Index&a=gun_history",
         method: "POST",
         changeOrigin: true,
         data: params

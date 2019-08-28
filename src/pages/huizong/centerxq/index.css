@@ -1,0 +1,183 @@
+.wrap {
+  width: 100%;
+  height: 99%;
+  font-size: 0.9375vw;
+  color: #fff;
+  position: relative;
+}
+.wrap .left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25vw;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+.wrap .left .up {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 57.5%;
+  background: url(../../../assets/img/g-left1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .left .up .title {
+  height: 14%;
+  width: 100%;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  text-indent: 2.39583333vw;
+}
+.wrap .left .up #left_top {
+  width: 92%;
+  height: 85%;
+}
+.wrap .left .down {
+  position: relative;
+  display: flex;
+  width: 92.8%;
+  height: 41%;
+  background: url(../../../assets/img/g-left2.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .left .down .title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22%;
+  width: 100%;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  text-indent: 2.39583333vw;
+}
+.wrap .left .down #left_bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80%;
+}
+.wrap .center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40.10416667vw;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+.wrap .center .up {
+  display: flex;
+  width: 100%;
+  height: 57.5%;
+  background: rgba(1, 1, 1, 0.2);
+}
+.wrap .center .up #center_up {
+  width: 100%;
+  height: 100%;
+}
+.wrap .center .down {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 41%;
+  background: url(../../../assets/img/g-center.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .center .down .title {
+  width: 100%;
+  height: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
+}
+.wrap .center .down #center_down {
+  width: 100%;
+  height: 87%;
+  background: rgba(1, 1, 1, 0.2);
+}
+.wrap .right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 25vw;
+  height: 100%;
+  background: url(../../../assets/img/g-right.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .right .title {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  align-items: center;
+  text-indent: 4.47916667vw;
+  color: #fff;
+}
+.wrap .right #right_up {
+  width: 92%;
+  margin-left: 8%;
+  height: 46%;
+  box-sizing: border-box;
+  padding: 0% 0;
+}
+.wrap .right .titlewrap {
+  margin-left: 9%;
+  width: 88.9%;
+  height: 6%;
+  background: rgba(41, 95, 194, 0.3);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.wrap .right .titlewrap span {
+  color: #c47746;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.wrap .right .content {
+  margin-left: 9%;
+  width: 88.9%;
+  max-height: 37%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.wrap .right .content .list .item {
+  width: 100%;
+  height: 2.1875vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  box-sizing: border-box;
+  background: rgba(45, 88, 174, 0.25);
+  margin-top: 0.05208333vw;
+}
+.wrap .right .content .list .item span {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.wrap .right .content::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 1px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.wrap .right .content::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.wrap .right .content::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}

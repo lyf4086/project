@@ -112,7 +112,7 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Bulletlist&a=consumes",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Bulletlist&a=consumes",
         method: "POST",
         changeOrigin: true,
         data: params

@@ -7,7 +7,7 @@ function hasWarning() { //..区域内是否存在报警
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=isalarm',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=alarm&a=isalarm',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -35,7 +35,7 @@ function overArea(id) { //..区域内是否存在超出区域的报警
   params.append('token', token);
   params.append('area_id', objs.area_id);
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=Alarm&a=area_sta',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=Alarm&a=area_sta',
     method: 'POST',
     changeOrigin: true,
     data: params
@@ -84,7 +84,7 @@ function getOnePersonDate(item, policeuser_id, IMEI) {
   params.append('policeuser_id', objs.policeuser_id);
   params.append('IMEI', objs.IMEI);
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=dingwei',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=dingwei',
     method: 'POST',
     changeOrigin: true,
     data: params

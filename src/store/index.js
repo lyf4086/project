@@ -13,7 +13,8 @@ let store = new Vuex.Store({
     yeMa: '',
     jiGouId: '',
     str1: '全国枪支',
-    str2: '使用情况汇总'
+    str2: '使用情况汇总',
+    baseURL: "http://s.tronl.cn"
 
   },
   mutations: {

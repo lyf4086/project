@@ -787,7 +787,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=basic",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Index&a=basic",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -860,7 +861,8 @@ export default {
       params.append("ip_id", objs.ip_id);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=moth_ainfo",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Index&a=moth_ainfo",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -906,7 +908,8 @@ export default {
       params.append("ntime", objs.ntime);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=moth_info",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Index&a=moth_info",
         method: "POST",
         changeOrigin: true,
         data: params

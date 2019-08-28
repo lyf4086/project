@@ -86,7 +86,7 @@
 
             <el-upload
               class="avatar-uploader"
-              action="http://s.tronl.cn/weixin/project/index.php?m=home&c=Policeuser&a=upload"
+              action=baseURL+"/weixin/project/index.php?m=home&c=Policeuser&a=upload"
               :show-file-list="false"
               :data="userId"
               :on-success="handleAvatarSuccess"
@@ -141,6 +141,7 @@ import { setInterval, clearInterval, setTimeout } from "timers";
 export default {
   data() {
     return {
+      baseURL:this.$store.state.baseURL,
       moveTimer: null,
       upPic: false,
       imageUrl: "",
@@ -220,7 +221,7 @@ export default {
           params.append("token", token);
           this.$axios({
             url:
-              "http://s.tronl.cn/weixin/project/index.php?m=home&c=Jd&a=index",
+              this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Jd&a=index",
             method: "POST",
             changeOrigin: true,
             data: params
@@ -381,7 +382,7 @@ export default {
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
-        url: "http://s.tronl.cn/weixin/project/index.php?m=home&c=role&a=menu",
+        url: this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=role&a=menu",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -436,7 +437,7 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -464,7 +465,7 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=last_alarms",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=alarm&a=last_alarms",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -539,7 +540,7 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=alarm&a=alarm_processing",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=alarm&a=alarm_processing",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -575,7 +576,7 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Alarm&a=gun_return",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Alarm&a=gun_return",
         method: "POST",
         changeOrigin: true,
         data: params

@@ -450,7 +450,7 @@ export default {
       params.append("time", objs.time)
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=alarm_anal",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=Home&c=Index&a=alarm_anal",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -506,45 +506,8 @@ export default {
       this.getData(s, types, names, ip_id);
     },
     move() {
-      var $uList = $("#list-new");
-      var timer = null;
-      //触摸清空定时器
-      $uList
-        .hover(
-          function() {
-            clearInterval(timer);
-          },
-          function() {
-            //离开启动定时器
-            timer = setInterval(function() {
-              scrollList($uList);
-            }, 2000);
-          }
-        )
-        .trigger("mouseleave"); //自动触发触摸事件
-      //滚动动画
-      function scrollList(obj) {
-        //获得当前<li>的高度
-        var scrollHeight = $("#list-new .item:first").height();
-        //滚动出一个<li>的高度
-        $uList.stop().animate(
-          {
-            marginTop: -scrollHeight
-          },
-          700,
-          function() {
-            //动画结束后，将当前<ul>marginTop置为初始值0状态，再将第一个<li>拼接到末尾。
-            $uList
-              .css({
-                marginTop: 0
-              })
-              .find(".item:first")
-              .appendTo($uList);
-          }
-        );
-      }
+      this.$methods.listMove("#list-new",3000)      
     },
-
     chartNew1() {
       let that = this;
       let box = document.getElementById("echart-new1");
@@ -851,7 +814,7 @@ export default {
       }
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=alarm_info",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Index&a=alarm_info",
         method: "POST",
         changeOrigin: true,
         data: params

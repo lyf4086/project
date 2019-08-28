@@ -216,7 +216,8 @@ export default {
       params.append("time", objs.time);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=alarm_type_lit",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=alarm_type_lit",
         method: "POST",
         changeOrigin: true,
         data: params

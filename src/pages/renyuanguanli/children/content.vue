@@ -268,7 +268,8 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -317,7 +318,8 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -387,7 +389,8 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -432,7 +435,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -498,7 +502,8 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
         method: "POST",
         changeOrigin: true,
         data: params

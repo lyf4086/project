@@ -45,7 +45,7 @@ let Item6XQ = () => import('../pages/huizong/item6xq/index.vue')
 let Item7XQ = () => import('../pages/huizong/item7xq/index.vue')
 let Item8XQ = () => import('../pages/huizong/item8xq/index.vue')
 let Item9XQ = () => import('../pages/huizong/item9xq/index.vue')
-
+let CenterXQ = () => import('../pages/huizong/centerxq/index.vue')
 
 
 let router = new Router({
@@ -215,6 +215,11 @@ let router = new Router({
       path: 'item9xq',
       name: 'Item9XQ',
       component: Item9XQ
+    },
+    {
+      path: 'centerxq',
+      name: 'CenterXQ',
+      component: CenterXQ
     },
     {
       path: 'pub',

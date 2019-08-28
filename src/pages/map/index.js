@@ -23,7 +23,7 @@ function getPersonAndGunStr(id) {
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=position&a=guns',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=guns',
     method: 'POST',
     changeOrigin: true,
     data: params

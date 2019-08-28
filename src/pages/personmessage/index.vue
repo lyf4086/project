@@ -37,8 +37,8 @@
         </div>
       </div>
       <div class="img_wrap">
-        <img src="../../assets/img/head-icon.png" alt v-if="!message.icon">
-        <img v-else="message.icon" :src="message.icon" alt>
+        <img src="../../assets/img/head-icon.png" alt v-if="!message.icon" />
+        <img v-else="message.icon" :src="message.icon" alt />
       </div>
     </div>
     <!-- <div class="imgwrap" v-if="false">
@@ -158,7 +158,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Policeuser&a=info",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Policeuser&a=info",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -187,7 +188,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Gun&a=gun_info",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Gun&a=gun_info",
         method: "POST",
         changeOrigin: true,
         data: params

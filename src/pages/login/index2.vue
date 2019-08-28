@@ -52,7 +52,8 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=login&a=loginpro",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=login&a=loginpro",
         method: "POST",
         changeOrigin: true,
         data: params

@@ -175,7 +175,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=last_week",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=last_week",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -201,7 +202,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=out_work",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=out_work",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -224,7 +226,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=out_device",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Index&a=out_device",
         method: "POST",
         changeOrigin: true,
         data: params

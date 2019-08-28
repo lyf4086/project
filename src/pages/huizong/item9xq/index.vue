@@ -256,7 +256,8 @@ export default {
       params.append("token", token);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=basic",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Index&a=basic",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -300,7 +301,8 @@ export default {
 
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=device_lit",
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Index&a=device_lit",
         method: "POST",
         changeOrigin: true,
         data: params

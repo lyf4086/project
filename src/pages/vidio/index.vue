@@ -130,7 +130,7 @@ import Content from './children/content'
                 params.append('token',token)
 
                 this.$axios({
-                    url:'http://s.tronl.cn/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree',
+                    url:this.$store.state.baseURL+'/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree',
                     method:'POST',
                     changeOrigin:true,
                     data:params
@@ -160,7 +160,7 @@ import Content from './children/content'
                 params.append('sign',sign);
                 params.append('token',token)
                 this.$axios({
-                    url:'http://s.tronl.cn/weixin/project/index.php?m=home&c=Video&a=index',
+                    url:this.$store.state.baseURL+'/weixin/project/index.php?m=home&c=Video&a=index',
                     method:'POST',
                     changeOrigin:true,
                     data:params
@@ -192,7 +192,7 @@ import Content from './children/content'
                 params.append('sign',sign);
                 params.append('token',token)
                 this.$axios({
-                    url:' http://s.tronl.cn/weixin/project/index.php?m=home&c=Video&a=dele',
+                    url:this.$store.state.baseURL+'/weixin/project/index.php?m=home&c=Video&a=dele',
                     method:'POST',
                     changeOrigin:true,
                     data:params
@@ -224,7 +224,7 @@ import Content from './children/content'
                 params.append('sign',sign);
                 params.append('token',token)
                 this.$axios({
-                    url:'http://s.tronl.cn/weixin/project/index.php?m=home&c=Video&a=index',
+                    url:this.$store.state.baseURL+'/weixin/project/index.php?m=home&c=Video&a=index',
                     method:'POST',
                     changeOrigin:true,
                     data:params
