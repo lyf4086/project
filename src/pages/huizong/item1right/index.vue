@@ -16,15 +16,17 @@
           <input type="date" v-model="timeStart" />
           至
           <input type="date" v-model="timeEnd" />
-          <div class="sub">查询</div>
+          <div class="sub" @click="sub">查询</div>
         </div>
       </div>
     </div>
     <div class="content">
       <div class="left">
+        <div class="title">报警占比</div>
         <div id="chart1"></div>
       </div>
       <div class="right">
+        <div class="title">数量统计</div>
         <div id="chart2"></div>
       </div>
     </div>
@@ -38,16 +40,34 @@ export default {
   data() {
     return {
       timeStart: "",
-      timeEnd: ""
+      timeEnd: "",
+      data1: [],
+      data2: [],
+      names: [],
+      data3: [],
+      data4: []
     };
   },
   methods: {
+    sub() {
+      let str = this.timeStart + "," + this.timeEnd;
+      this.getData(str);
+    },
     initEchart() {
       let that = this;
       let box = document.getElementById("chart1");
       let Echart = this.$echarts.init(box);
       // app.title = "嵌套环形图";
-
+      var colors = [
+        "#9b92fe",
+        "#7ba5c6",
+        "#1f62ea",
+        "#1990e9",
+        "#49ddfc",
+        "#6bdafe",
+        "#39f381",
+        "#e9e37c"
+      ];
       let option = {
         tooltip: {
           trigger: "item",
@@ -55,99 +75,43 @@ export default {
         },
         legend: {
           orient: "vertical",
-          x: "left",
-          y: "bottom",
-          data: [
-            // "直达",
-            // "营销广告"
-            // "搜索引擎",
-            // "邮件营销",
-            // "联盟广告",
-            // "视频广告"
-            // "百度",
-            // "谷歌",
-            // "必应",
-            // "其他"
-          ]
+          left: "1%",
+          textStyle: {
+            color: "#fff"
+          },
+          data: this.names
         },
         series: [
           {
             name: "访问来源",
             type: "pie",
             selectedMode: "single",
-            radius: [0, "30%"],
-
+            radius: [0, "45%"],
             label: {
-              normal: {
-                position: "inner"
-              }
+              show: false
             },
             labelLine: {
               normal: {
                 show: false
               }
             },
-            data: [
-              { value: 335, name: "直达", selected: true },
-              { value: 679, name: "营销广告" },
-              { value: 1548, name: "搜索引擎" },
-              { value: 666, name: "必应" }
-            ]
+            color: colors,
+            data: this.data1
           },
           {
-            name: "访问来源",
+            name: "名称及数量占比",
             type: "pie",
-            radius: ["40%", "55%"],
-            label: {
+            radius: ["64%", "85%"],
+            color: colors,
+            labelLine: {
               normal: {
-                formatter: "{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ",
-                backgroundColor: "#eee",
-                borderColor: "#aaa",
-                borderWidth: 1,
-                borderRadius: 4,
-                // shadowBlur: 3,
-                // shadowOffsetX: 2,
-                // shadowOffsetY: 2,
-                // shadowColor: "#999",
-                // padding: [0, 7],
-                rich: {
-                  a: {
-                    color: "#666",
-                    lineHeight: 22,
-                    align: "center"
-                  },
-                  // abg: {
-                  //   backgroundColor: "#333",
-                  //   width: "100%",
-                  //   align: "right",
-                  //   height: 22,
-                  //   borderRadius: [4, 4, 0, 0]
-                  // },
-                  hr: {
-                    borderColor: "#ccc",
-                    width: "100%",
-                    borderWidth: 0.5,
-                    height: 0
-                  },
-                  b: {
-                    fontSize: 16,
-                    lineHeight: 33
-                  },
-                  per: {
-                    color: "#eee",
-                    backgroundColor: "#334455",
-                    padding: [2, 4],
-                    borderRadius: 2
-                  }
-                }
+                show: false
               }
             },
-            data: [
-              { value: 335, name: "哈哈哈哈", selected: true },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" }
-            ]
+            label: {
+              show: false
+            },
+            data: this.data2
           }
         ]
       };
@@ -164,14 +128,8 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: [
-              "2019-01",
-              "2019-02",
-              "2019-03",
-              "2019-04",
-              "2019-05",
-              "2019-06"
-            ],
+            data: that.data3,
+
             axisLine: {
               lineStyle: {
                 color: "#fff"
@@ -205,12 +163,13 @@ export default {
         ],
         series: [
           {
-            name: "课时",
+            name: "数量",
             type: "line",
-            data: [23, 60, 20, 36, 23, 85],
+            data: that.data4,
+            // [23, 60, 20, 36, 23, 85],
             lineStyle: {
               normal: {
-                width: 8,
+                width: 5,
                 color: {
                   type: "linear",
 
@@ -245,12 +204,49 @@ export default {
         ]
       };
       Echart.setOption(option);
+    },
+    getData(timeStr) {
+      let objs = { time: timeStr };
+      var token = this.$gscookie.getCookie("gun");
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
+      var params = new URLSearchParams();
+      params.append("sign", sign);
+      params.append("token", token);
+      params.append("time", objs.time);
+      this.$axios({
+        url:
+          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=alarm_type_lit",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.status == 200) {
+            this.data1 = data.data.data;
+            this.data2 = data.data.datas;
+            let arr1 = data.data.data.map(e => e.name);
+            let arr2 = data.data.datas.map(e => e.name);
+            this.names = [...arr1, ...arr2];
+            this.initEchart();
+            this.data3 = data.data.tname;
+            this.data4 = data.data.tcou;
+            this.initEchartRight();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
-  created() {},
+  created() {
+    let par = this.$route.params;
+    this.timeStart = par[0];
+    this.timeEnd = par[1];
+    let str = par[0] + "," + par[1];
+    this.getData(str);
+  },
   mounted() {
-    this.initEchart();
-    this.initEchartRight();
     this.$store.commit("setStr", {
       str1: "报警占比",
       str2: "数据分析"

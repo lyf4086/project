@@ -1,0 +1,196 @@
+div,
+span,
+i {
+  box-sizing: border-box;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.wrap #container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+.wrap .topbtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8.75vw;
+  height: 2.08333333vw;
+  background: url(../../../assets/img/item5-btn.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .topbtn i {
+  position: absolute;
+  bottom: 0.46875vw;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0.83333333vw;
+  height: 0.83333333vw;
+  transform: rotate(-90deg);
+  background: url(../../../assets/img/fangxiang-icon.png) no-repeat;
+  background-size: 100% 100%;
+  transition: 0.3s;
+}
+.wrap .topbtn .active {
+  transform: rotate(-270deg);
+}
+.wrap #message {
+  position: absolute;
+  right: 0;
+  top: 2.08333333vw;
+  width: 56.66666667vw;
+  border: 0.10416667vw solid #35a4f7;
+  font-size: 0.72916667vw;
+  color: #fff;
+}
+.wrap #message .title {
+  width: 100%;
+  height: 3.02083333vw;
+  display: flex;
+  color: #4bcbee;
+  background: rgba(44, 86, 120, 0.8);
+  border-bottom: 0.05208333vw solid #bebbbb;
+}
+.wrap #message .title span {
+  width: 9.44444444vw;
+  height: 3.02083333vw;
+  line-height: 3.02083333vw;
+  text-align: center;
+}
+.wrap #message .title span i {
+  display: inline-block;
+  width: 1.14583333vw;
+  height: 1.14583333vw;
+  transform: translate(-0.52083333vw, 0.26041667vw);
+}
+.wrap #message .title span:nth-child(1) i {
+  background: url(../../../assets/img/item5-2.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap #message .title span:nth-child(2) i {
+  background: url(../../../assets/img/item5-3.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap #message .title span:nth-child(3) i {
+  background: url(../../../assets/img/item5-6.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap #message .title span:nth-child(4) i {
+  background: url(../../../assets/img/item5-4.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap #message .title span:nth-child(5) i {
+  background: url(../../../assets/img/item5-1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap #message .title span:nth-child(6) i {
+  background: url(../../../assets/img/item5-5.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap #message .list {
+  width: 100%;
+  max-height: 21.875vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.wrap #message .list .item {
+  width: 100%;
+  height: 3.02083333vw;
+  font-size: 0.72916667vw;
+  border-bottom: 0.05208333vw solid #bebbbb;
+  display: flex;
+}
+.wrap #message .list .item span {
+  width: 9.44444444vw;
+  text-align: center;
+  line-height: 3.02083333vw;
+}
+.wrap #message .list .item span:nth-last-child(1) {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+  justify-content: space-around;
+}
+.wrap #message .list .item span:nth-last-child(1) p {
+  width: 90%;
+  height: 100%;
+  word-break: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wrap #message .list .item span:nth-last-child(2) {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+  justify-content: space-around;
+}
+.wrap #message .list .item span:nth-last-child(2) p {
+  width: 90%;
+  height: 100%;
+  word-break: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wrap #message .list .item:nth-child(even) {
+  background: rgba(44, 86, 120, 0.7);
+}
+.wrap #message .list .item:nth-child(odd) {
+  background: rgba(19, 43, 62, 0.7);
+}
+.wrap #message .list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 2px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.wrap #message .list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.wrap #message .list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.wrap #message.hidden {
+  display: none;
+}
+.marker-route11 {
+  position: relative;
+  width: 0.5rem;
+  height: 0.6rem;
+}
+.marker-route11 .cover11 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: url(../../../assets/img/tou.png) no-repeat;
+  background-size: 100% 100%;
+}
+.marker-route11 .img_wrap11 {
+  width: 0.46rem;
+  height: 0.5rem;
+  margin-top: 0.03rem;
+  margin-left: 0.01rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.marker-route11 .img_wrap11 img {
+  position: absolute;
+  top: 0.10416667vw;
+  left: 0;
+  width: 100%;
+}

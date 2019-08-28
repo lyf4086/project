@@ -1,94 +1,25 @@
 div {
   box-sizing: border-box;
-}
-.wrap {
-  width: 100%;
-  height: 100%;
-  font-size: 0.72916667vw;
-  color: #fff;
-  max-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-.wrap .left {
-  width: 50%;
-  height: 50%;
-  position: relative;
-  z-index: 1;
-}
-.wrap .left .title {
-  color: #fff;
-  box-sizing: border-box;
-  height: 2.60416667vw;
-  width: 100%;
-  border: 0.05208333vw solid #00a0e9;
-  display: flex;
-  font-size: 1.04166667vw;
-}
-.wrap .left .title span {
-  flex: 1;
-  line-height: 2.60416667vw;
-  text-align: center;
-  border-right: 0.05208333vw solid #00a0e9;
-}
-.wrap .left .title span:last-child {
-  border: none;
-}
-.wrap .left .list {
-  border-left: 0.05208333vw solid #00a0e9;
-  border-right: 0.05208333vw solid #00a0e9;
-  color: aliceblue;
-  max-height: 15.72916667vw;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.wrap .left .list .item {
-  box-sizing: border-box;
-  height: 2.60416667vw;
-  width: 100.1%;
-  border-bottom: 0.05208333vw solid #00a0e9;
-  display: flex;
   font-size: 0.83333333vw;
 }
-.wrap .left .list .item span {
-  flex: 1;
-  line-height: 2.60416667vw;
-  text-align: center;
-  border-right: 0.05208333vw solid #00a0e9;
-}
-.wrap .left .list .item span:last-child {
-  border: none;
-}
-.wrap .right {
-  width: 50%;
-  height: 50%;
-  background: rgba(255, 255, 255, 0.1);
-}
-.wrap .right #chart-right {
+.wrap {
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-.wrap .bottom {
-  width: 100%;
-  height: 50%;
-  background: rgba(255, 255, 255, 0.2);
-}
-.wrap .bottom #chart {
-  color: #fff;
-  height: 100%;
-}
-.list::-webkit-scrollbar {
+.wrap::-webkit-scrollbar {
   /*滚动条整体样式*/
-  width: 1px;
+  width: 2px;
   /*高宽分别对应横竖滚动条的尺寸*/
   height: 4px;
 }
-.list::-webkit-scrollbar-thumb {
+.wrap::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
   border-radius: 5px;
   -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
   background: rgba(34, 3, 117, 0.8);
 }
-.list::-webkit-scrollbar-track {
+.wrap::-webkit-scrollbar-track {
   /*滚动条里面轨道*/
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0;
@@ -112,7 +43,7 @@ div {
   color: #fff;
   text-align: center;
   line-height: 2.34375vw;
-  background: url(../../assets/img/duibi.png) no-repeat;
+  background: url(../../../assets/img/duibi.png) no-repeat;
   background-size: 100% 100%;
   cursor: pointer;
 }
@@ -121,7 +52,7 @@ div {
   width: 1.04166667vw;
   height: 1.04166667vw;
   border: none;
-  background: url(../../assets/img/jiao.png) no-repeat;
+  background: url(../../../assets/img/jiao.png) no-repeat;
   background-size: cover;
 }
 #sel .jiao:nth-of-type(1) {
@@ -152,7 +83,7 @@ div {
   line-height: 1.77083333vw;
   color: #fff;
   font-size: 0.72916667vw;
-  background: url(../../assets/img/xq-title.png) no-repeat;
+  background: url(../../../assets/img/xq-title.png) no-repeat;
   background-size: 100% 100%;
   display: flex;
   align-items: center;
@@ -162,15 +93,15 @@ div {
   width: 1.04166667vw;
   height: 1.04166667vw;
   margin: 0 1.04166667vw;
-  background: url(../../assets/img/xq-icon2.png) no-repeat;
+  background: url(../../../assets/img/xq-icon2.png) no-repeat;
   background-size: cover;
 }
 #sel .items:nth-child(6) span {
-  background: url(../../assets/img/xq-baojin.png) no-repeat;
+  background: url(../../../assets/img/xq-baojin.png) no-repeat;
   background-size: cover;
 }
 #sel .items:nth-child(7) span {
-  background: url(../../assets/img/xq-icon1.png) no-repeat;
+  background: url(../../../assets/img/xq-icon1.png) no-repeat;
   background-size: cover;
 }
 #sel .sel-wrap {
@@ -197,7 +128,7 @@ div {
   color: #132d44;
   text-align: center;
   line-height: 0.98958333vw;
-  background: url(../../assets/img/xq-chaxun.png) no-repeat;
+  background: url(../../../assets/img/xq-chaxun.png) no-repeat;
   background-size: 100% 100%;
 }
 #sel .type-wrap {
@@ -219,14 +150,14 @@ div {
   width: 0.83333333vw;
   height: 0.83333333vw;
   margin-right: 0.78125vw;
-  background: url(../../assets/img/xq-select.png) no-repeat;
+  background: url(../../../assets/img/xq-select.png) no-repeat;
   background-size: 100% 100%;
 }
 #sel .type-wrap .selected {
   color: #fff;
 }
 #sel .type-wrap .selected i {
-  background: url(../../assets/img/xq-sellected.png) no-repeat;
+  background: url(../../../assets/img/xq-sellected.png) no-repeat;
   background-size: 100% 100%;
 }
 #sel .jg-wrap {
@@ -254,14 +185,14 @@ div {
   height: 0.83333333vw;
   transform: translateY(1px);
   margin-right: 0.78125vw;
-  background: url(../../assets/img/xq-select.png) no-repeat;
+  background: url(../../../assets/img/xq-select.png) no-repeat;
   background-size: 100% 100%;
 }
 #sel .jg-wrap .selected {
   color: #fff;
 }
 #sel .jg-wrap .selected i {
-  background: url(../../assets/img/xq-sellected.png) no-repeat;
+  background: url(../../../assets/img/xq-sellected.png) no-repeat;
   background-size: 100% 100%;
 }
 #sel .sub-wrap {
@@ -278,7 +209,7 @@ div {
   text-align: center;
   line-height: 1.5625vw;
   right: 1.04166667vw;
-  background: url(../../assets/img/xq-sub.png) no-repeat;
+  background: url(../../../assets/img/xq-sub.png) no-repeat;
   background-size: 100% 100%;
 }
 #second {
@@ -291,7 +222,7 @@ div {
 #second > div {
   width: 42.70833333vw;
   height: 20.83333333vw;
-  background: url(../../assets/img/xq-bg.png) no-repeat;
+  background: url(../../../assets/img/xq-bg.png) no-repeat;
   background-size: 100% 100%;
 }
 #second > div .n {
@@ -308,6 +239,11 @@ div {
   height: 17.1875vw;
   margin: 0 auto;
   overflow: hidden;
+  color: #fff;
+}
+#second > div .c > div {
+  width: 100%;
+  height: 100%;
 }
 #second .left .tit {
   height: 2.39583333vw;
@@ -321,63 +257,9 @@ div {
   width: 25%;
   text-align: center;
 }
-#second .left .awrap {
-  height: 13.54166667vw;
-  width: 34.6875vw;
-  margin: 0 auto;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  position: relative;
-}
-#second .left .list-new {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-#second .left .list-new .item {
-  height: 2.39583333vw;
-  line-height: 2.39583333vw;
-  width: 34.6875vw;
-  border-bottom: 0.05208333vw solid #3a6785;
-  display: flex;
-}
-#second .left .list-new .item span {
-  width: 25%;
-  text-align: center;
-}
-#second .left .list-new .item span:last-child {
-  cursor: pointer;
-}
 #second .right #echart-new1 {
   width: 100%;
   height: 100%;
-}
-#three {
-  width: 100%;
-  height: 41.66666667vw;
-  margin-top: 1.04166667vw;
-}
-#three #echart-new2 {
-  width: 100%;
-  height: 100%;
-}
-.wrap::-webkit-scrollbar {
-  /*滚动条整体样式*/
-  width: 2px;
-  /*高宽分别对应横竖滚动条的尺寸*/
-  height: 4px;
-}
-.wrap::-webkit-scrollbar-thumb {
-  /*滚动条里面小方块*/
-  border-radius: 5px;
-  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
-  background: rgba(34, 3, 117, 0.8);
-}
-.wrap::-webkit-scrollbar-track {
-  /*滚动条里面轨道*/
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  border-radius: 0;
-  background: rgba(221, 213, 213, 0.6);
 }
 .cover {
   position: fixed;
@@ -391,7 +273,7 @@ div {
 .cover .alert {
   width: 51.04166667vw;
   height: 34.375vw;
-  background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+  background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
   position: absolute;
   top: 0;
@@ -420,7 +302,7 @@ div {
   top: 6.25vw;
   width: 31.35416667vw;
   height: 3.22916667vw;
-  background: url(../../assets/img/buzou1.png) no-repeat;
+  background: url(../../../assets/img/buzou1.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert .title {
@@ -433,7 +315,7 @@ div {
   padding-left: 5vw;
   font-size: 0.9375vw;
   color: #fff;
-  background: url(../../assets/img/xq-title.png) no-repeat;
+  background: url(../../../assets/img/xq-title.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert .title i {
@@ -443,7 +325,7 @@ div {
   box-sizing: border-box;
   width: 1.66666667vw;
   height: 1.5625vw;
-  background: url(../../assets/img/xq-icon1.png) no-repeat;
+  background: url(../../../assets/img/xq-icon1.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert .selwrap {
@@ -474,7 +356,7 @@ div {
   color: #000;
   text-align: center;
   line-height: 1.5625vw;
-  background: url(../../assets/img/xq-chaxun.png) no-repeat;
+  background: url(../../../assets/img/xq-chaxun.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert .next {
@@ -494,7 +376,7 @@ div {
 .cover .alert5 {
   width: 51.04166667vw;
   height: 34.375vw;
-  background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+  background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
   position: absolute;
   top: 0;
@@ -523,7 +405,7 @@ div {
   top: 6.25vw;
   width: 31.35416667vw;
   height: 3.22916667vw;
-  background: url(../../assets/img/buzou2.png) no-repeat;
+  background: url(../../../assets/img/buzou2.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert2 .title {
@@ -536,7 +418,7 @@ div {
   padding-left: 5vw;
   font-size: 0.9375vw;
   color: #fff;
-  background: url(../../assets/img/xq-title.png) no-repeat;
+  background: url(../../../assets/img/xq-title.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert2 .title i {
@@ -546,7 +428,7 @@ div {
   box-sizing: border-box;
   width: 1.66666667vw;
   height: 1.5625vw;
-  background: url(../../assets/img/guiji-icon7.png) no-repeat;
+  background: url(../../../assets/img/guiji-icon7.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert2 .typewrap {
@@ -570,14 +452,14 @@ div {
   width: 1.35416667vw;
   height: 1.35416667vw;
   margin-right: 1.45833333vw;
-  background: url(../../assets/img/xq-select.png) no-repeat;
+  background: url(../../../assets/img/xq-select.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert2 .typewrap .selected {
   color: #fff;
 }
 .cover .alert2 .typewrap .selected i {
-  background: url(../../assets/img/xq-sellected.png) no-repeat;
+  background: url(../../../assets/img/xq-sellected.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert2 .next {
@@ -611,20 +493,54 @@ div {
   top: 6.25vw;
   width: 31.35416667vw;
   height: 3.22916667vw;
-  background: url(../../assets/img/buzou3.png) no-repeat;
+  background: url(../../../assets/img/buzou3.png) no-repeat;
   background-size: 100% 100%;
 }
-.cover .alert3 .title {
+.cover .alert3 .titlenew {
   position: absolute;
   left: 8.22916667vw;
-  top: 13.02083333vw;
+  top: 25.52083333vw;
   width: 18.75vw;
   height: 2.91666667vw;
   line-height: 2.91666667vw;
   padding-left: 5vw;
   font-size: 0.9375vw;
   color: #fff;
-  background: url(../../assets/img/xq-title.png) no-repeat;
+  background: url(../../../assets/img/xq-title.png) no-repeat;
+  background-size: 100% 100%;
+}
+.cover .alert3 .selwrap {
+  position: absolute;
+  left: 10.41666667vw;
+  top: 29.6875vw;
+  width: 15.625vw;
+  height: 2.08333333vw;
+  font-size: 0.9375vw;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cover .alert3 .selwrap input {
+  box-sizing: border-box;
+  width: 8.95833333vw;
+  height: 1.875vw;
+  border: 0.05208333vw solid #939ba3;
+  border-radius: 0.15625vw;
+  background: none;
+  color: #fff;
+}
+.cover .alert3 .title {
+  position: absolute;
+  left: 8.22916667vw;
+  top: 10.9375vw;
+  width: 18.75vw;
+  height: 2.91666667vw;
+  line-height: 2.91666667vw;
+  padding-left: 5vw;
+  font-size: 0.9375vw;
+  color: #fff;
+  background: url(../../../assets/img/xq-title.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert3 .title i {
@@ -634,15 +550,15 @@ div {
   box-sizing: border-box;
   width: 1.66666667vw;
   height: 1.5625vw;
-  background: url(../../assets/img/xq-icon1.png) no-repeat;
+  background: url(../../../assets/img/xq-icon1.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert3 .typewrap {
   position: absolute;
   left: 9.79166667vw;
-  top: 17.70833333vw;
+  top: 14.0625vw;
   width: 40.625vw;
-  height: 14.58333333vw;
+  height: 10.41666667vw;
   overflow-x: hidden;
   overflow-y: auto;
   display: flex;
@@ -661,14 +577,14 @@ div {
   width: 1.35416667vw;
   height: 1.35416667vw;
   margin-right: 1.45833333vw;
-  background: url(../../assets/img/xq-select.png) no-repeat;
+  background: url(../../../assets/img/xq-select.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert3 .typewrap .selected {
   color: #fff;
 }
 .cover .alert3 .typewrap .selected i {
-  background: url(../../assets/img/xq-sellected.png) no-repeat;
+  background: url(../../../assets/img/xq-sellected.png) no-repeat;
   background-size: 100% 100%;
 }
 .cover .alert3 .typewrap::-webkit-scrollbar {

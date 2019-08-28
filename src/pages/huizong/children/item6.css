@@ -114,6 +114,7 @@
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(to right, transparent, transparent, rgba(255, 255, 255, 0.3), transparent, transparent);
 }
 .itemright .yuqi .liebiao {
   position: absolute;

@@ -36,7 +36,7 @@ export default {
   methods: {
     char1(arrdate, arrnum) {
       let box1 = document.getElementById("char1");
-      let Echart = this.$echarts.init(box1, "macarons");
+      let Echart = this.$echarts.init(box1);
       let option = {
         title: {
           //   text: "堆叠区域图"

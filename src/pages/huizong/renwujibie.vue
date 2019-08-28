@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="num-icon" id="num-icon">
-      <div class="item" v-for="item,index in iconList" :key="index" @click="toList(item.types)">
+      <div class="item" v-for="item,index in iconList" :key="index" @click="toList(item)">
         <p>{{item.name}}</p>
         <div class="num">{{item.number}}</div>
         <p>环比{{item.ratio}}%</p>
@@ -21,6 +21,7 @@ import { setInterval, clearInterval, setTimeout, clearTimeout } from "timers";
 export default {
   data() {
     return {
+      leftT: "",
       max: 0,
       timermove: null,
       iconList: [],
@@ -41,43 +42,55 @@ export default {
         series: [
           {
             name: "报警",
-            type: "bar"
-            // color:'#5dceec',
+            type: "bar",
+            color: "#5dceec"
             // data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6]
           },
           {
             name: "正常",
-            type: "bar"
-            // color:'#ed8a39',
+            type: "bar",
+            color: "#ed8a39"
             // data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 135.6]
-          },
-          {
-            name: "总量",
-            type: "line",
-            // color:'#5dcae9',
-            yAxisIndex: 1
-            // data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3]
           }
+          // {
+          //   name: "总量",
+          //   type: "line",
+          //   // color: "#5dcae9",
+          //   yAxisIndex: 1
+          //   // data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3]
+          // }
         ]
       }
     };
   },
   methods: {
-    toXiangQingChart1(ev) {},
+    toXiangQingChart1(ev) {
+      this.$router.push({
+        name: "Item7XQ",
+        params: { tt: this.leftT, mid: this.mid, ip_id: this.ipId }
+      });
+    },
     toXiangQingChart2() {
-      // console.log('toXiangQingChart2')
+      this.$router.push({
+        name: "Item8XQ",
+        params: { tt: this.leftT, mid: this.mid, ip_id: this.ipId }
+      });
     },
     toList(type) {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
       this.$router.push({
-        name: "Pub",
-        params: {
-          source: "item4",
-          time: this.time,
-          type: type
-        }
+        name: "Item4Top",
+        params: { ...type }
       });
+      // this.$router.push({
+      //   name: "Pub",
+      //   params: {
+      //     source: "item4",
+      //     time: this.time,
+      //     type: type
+      //   }
+      // });
     },
     makeStr(str) {
       if (str == "area") {
@@ -131,9 +144,13 @@ export default {
             name: "",
             min: 0,
             max: that.max,
-            interval: 5,
+            interval: 3,
             axisLabel: {
-              formatter: " "
+              formatter: " ",
+              textStyle: {
+                color: "#fff",
+                fontSize: 12
+              }
             }
           },
           {
@@ -151,13 +168,17 @@ export default {
       };
       Echart1.setOption(option);
       Echart1.on("click", function(ev) {
-        that.$router.push({
-          name: "Pub",
-          params: {
-            source: "item7",
-            time: ev.name
-          }
-        });
+        // that.$router.push({
+        //   name: "Item7XQ",
+        //   params: {}
+        // });
+        // that.$router.push({
+        //   name: "Pub",
+        //   params: {
+        //     source: "item7",
+        //     time: ev.name
+        //   }
+        // });
       });
     },
     chart2() {
@@ -268,6 +289,10 @@ export default {
         data: params
       })
         .then(data => {
+          // console.log("333", data);
+          this.leftT = data.data.tt;
+          this.mid = data.data.mid;
+          this.ipId = data.data.ip_id;
           let obj = {};
           this.max = data.data.max;
           obj.legendData = data.data.legend.data;

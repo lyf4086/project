@@ -42,7 +42,6 @@
 .jiao {
   border: 0.01rem solid #4d8ab9;
   position: relative;
-  background: rgba(255, 255, 255, 0.05);
 }
 .jiao i {
   position: absolute;

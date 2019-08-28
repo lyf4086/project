@@ -58,7 +58,9 @@ export default {
       citys: [],
       numbers: [],
       objArr: [],
-      dataList3: []
+      dataList3: [],
+      mid: "",
+      ip_id: ""
     };
   },
   methods: {
@@ -145,11 +147,16 @@ export default {
             max: 30,
             interval: 50,
             axisLabel: {
-              formatter: " "
+              formatter: " ",
+              textStyle: {
+                color: "#fff",
+                fontSize: 12
+              }
             }
           },
           {
             type: "value",
+
             name: "",
             min: 0,
             max: 10,
@@ -174,11 +181,10 @@ export default {
         let roleId = that.$store.state.role_id;
         if (roleId == 3) return;
         that.$router.push({
-          name: "Pub",
+          name: "Item9XQ",
           params: {
-            source: "item9",
-            time: "",
-            orgId: ev.name
+            mid: that.mid,
+            ip_id: that.ip_id
           }
         });
       });
@@ -274,7 +280,9 @@ export default {
       })
         .then(data => {
           this.citys = data.data.mname;
-          console.log(data);
+          console.log(data.data.mid);
+          this.mid = data.data.mid;
+          this.ip_id = data.data.ip_id;
           this.numbers = data.data.number;
           this.char1();
         })

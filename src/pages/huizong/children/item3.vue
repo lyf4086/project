@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" @click="toXiangQing">
     <div class="left" v-if="personList">
       <div class="item" v-for="(item,index) in personList" :key="index">
         <div class="tou">
@@ -38,6 +38,11 @@ export default {
     };
   },
   methods: {
+    toXiangQing() {
+      this.$router.push({
+        name: "Item5XQ"
+      });
+    },
     goPersonMessage(item) {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;

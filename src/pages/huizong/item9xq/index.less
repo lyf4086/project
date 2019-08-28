@@ -6,14 +6,25 @@ div{
 .wrap{
     width:100%;
     height:100%;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-size: 14/@vw;
-    #echart{
-        width:100%;
-        height:100%;
-
-    }
+   
 }
-
+.wrap::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.wrap::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.wrap::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
 
 #sel{
     box-sizing: border-box;
@@ -121,12 +132,15 @@ div{
     margin-top: 60/@vw;
     display: flex;
     justify-content: space-between;
+    font-size: 16/@vw;
+    color:#fff;
     &>div{
         width:49%;
         height:100%;
         &>div{
             width:90%;
             height:80%;
+            
         }
     }
     .left{
@@ -180,3 +194,134 @@ div{
         }
     }
 }
+
+ .tit{
+    height:46/@vw;
+    line-height: 46/@vw;
+    width:666/@vw;
+    margin: 15/@vw auto 0;
+    border-bottom: 1/@vw solid #3a6785;
+    display: grid;
+   grid-template-columns:3fr 2fr 2fr 2fr 1fr;
+    span{
+        // width: 14%;
+        text-align: center;
+    }
+}
+.awrap{
+    height:260/@vw;
+    width:666/@vw;           
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+}
+.list-new{
+    position: absolute;
+    top:0;
+    left:0;
+    .item{
+        height:46/@vw;
+        line-height: 46/@vw;
+        width:666/@vw;
+        border-bottom: 1/@vw solid #3a6785;
+        display: grid;
+        grid-template-columns:3fr 2fr 2fr 2fr 1fr;
+        span{
+            // width: 14%;
+            text-align: center;
+        }
+        // span:last-child{
+        //     cursor: pointer;
+        // }
+    }
+}
+
+ .type-wrap{
+        height:54/@vw;
+        padding-left: 40/@vw;
+        display: flex;
+        align-items: center;
+        .item{
+            width:136/@vw;
+            height:16/@vw;
+            line-height: 16/@vw;
+            display: flex;
+            font-size: 12/@vw;
+            color:rgba(255, 255, 255,0.5);
+            cursor: pointer;
+            i{
+                width:16/@vw;
+                height:16/@vw;
+                margin-right: 15/@vw;
+                background: url(../../../assets/img/xq-select.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+        .selected{
+            color:#fff;
+            i{
+                background: url(../../../assets/img/xq-sellected.png) no-repeat;
+                 background-size: 100% 100%;
+            }
+        }
+        
+    }
+    .jg-wrap{
+         padding-left: 40/@vw;
+         padding-top: 16/@vw;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        .item{
+            // width:270/@vw;
+            width:200/@vw;
+            height:18/@vw;
+            line-height: 18/@vw;
+            font-size: 14/@vw;
+            margin-bottom: 16/@vw;
+            color:rgba(255, 255, 255,0.5);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            i{
+                display: inline-block;
+                width:16/@vw;
+                height:16/@vw;
+                // margin-top: 2/@vw;
+                transform: translateY(1px);
+                margin-right: 15/@vw;
+                background: url(../../../assets/img/xq-select.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+        .selected{
+            color:#fff;
+            i{
+                background: url(../../../assets/img/xq-sellected.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+    }
+
+
+     .sub-wrap{
+        width:100%;
+        height:50/@vw;
+        position: relative;
+    
+       .sub{
+           position: absolute;
+           cursor: pointer;
+         width:130/@vw;
+        height:30/@vw;
+        color: #132d44;
+        text-align: center;
+        line-height: 30/@vw;
+        right:20/@vw;
+        background: url(../../../assets/img/xq-sub.png)no-repeat;
+        background-size: 100% 100%;
+       }
+       
+    }

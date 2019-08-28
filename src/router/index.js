@@ -39,6 +39,15 @@ let item1right = () => import('../pages/huizong/item1right')
 
 let XiangQingList = () => import('../pages/huizong/xiangqingnew-list')
 
+let Item4Top = () => import('../pages/huizong/item4top')
+let Item5XQ = () => import('../pages/huizong/item5xq/index.vue')
+let Item6XQ = () => import('../pages/huizong/item6xq/index.vue')
+let Item7XQ = () => import('../pages/huizong/item7xq/index.vue')
+let Item8XQ = () => import('../pages/huizong/item8xq/index.vue')
+let Item9XQ = () => import('../pages/huizong/item9xq/index.vue')
+
+
+
 let router = new Router({
   // mode:'history',
   linkActiveClass: 'active',
@@ -176,6 +185,36 @@ let router = new Router({
       path: 'item1right',
       name: 'Item1Right',
       component: item1right
+    },
+    {
+      path: 'item4top',
+      name: 'Item4Top',
+      component: Item4Top
+    },
+    {
+      path: 'item5xq',
+      name: 'Item5XQ',
+      component: Item5XQ
+    },
+    {
+      path: 'item6xq',
+      name: 'Item6XQ',
+      component: Item6XQ
+    },
+    {
+      path: 'item7xq',
+      name: 'Item7XQ',
+      component: Item7XQ
+    },
+    {
+      path: 'item8xq',
+      name: 'Item8XQ',
+      component: Item8XQ
+    },
+    {
+      path: 'item9xq',
+      name: 'Item9XQ',
+      component: Item9XQ
     },
     {
       path: 'pub',

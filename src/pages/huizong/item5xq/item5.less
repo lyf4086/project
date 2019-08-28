@@ -1,0 +1,230 @@
+@vw:19.2vw;
+@rem:100rem;
+div,span,i{
+    box-sizing: border-box;
+}
+.wrap{
+    width:100%;
+    height:100%;
+    position: relative;
+    #container{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background: rgba(0,0,0,0.2);
+    }
+    .topbtn{
+        position: absolute;
+        top:0;
+        right: 0;
+        width:168/@vw;
+        height:40/@vw;
+        background: url(../../../assets/img/item5-btn.png) no-repeat;
+        background-size: 100% 100%;
+        i{
+            position: absolute;
+            bottom:9/@vw;
+            left:0;
+            right:0;
+            margin: auto;
+            width:16/@vw;
+            height:16/@vw;
+            transform: rotate(-90deg);
+            background: url(../../../assets/img/fangxiang-icon.png)no-repeat;
+            background-size: 100% 100%;
+            transition: 0.3s;
+        }
+        .active{
+            transform: rotate(-270deg);
+        }
+    }
+    #message{
+        position: absolute;
+        right:0;
+        top:40/@vw;
+        width:1088/@vw;
+        border:2/@vw solid #35a4f7;
+        font-size: 14/@vw;
+        color:#fff;
+        .title{
+            width:100%;
+            height:58/@vw;
+            display: flex;
+            color:#4bcbee;
+            background: rgba(44,86,120,.8);
+            border-bottom: 1/@vw solid rgb(190, 187, 187);
+            span{
+                width:1088/6/@vw;
+                height:58/@vw;
+                line-height: 58/@vw;
+                text-align: center;
+                i{
+                    display: inline-block;
+                    width:22/@vw;
+                    height:22/@vw;
+                    transform: translate(-10/@vw,5/@vw);
+                }
+            }
+            span:nth-child(1){
+                i{
+                    background: url(../../../assets/img/item5-2.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+            span:nth-child(2){
+                i{
+                    background: url(../../../assets/img/item5-3.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+            span:nth-child(3){
+                i{
+                    background: url(../../../assets/img/item5-6.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+            span:nth-child(4){
+                i{
+                    background: url(../../../assets/img/item5-4.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+            span:nth-child(5){
+                i{
+                    background: url(../../../assets/img/item5-1.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+            span:nth-child(6){
+                i{
+                    background: url(../../../assets/img/item5-5.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+        }
+        .list{
+            width:100%;
+            max-height:420/@vw;
+            overflow-x: hidden;
+            overflow-y: auto;
+            .item{
+                width: 100%;
+                height:58/@vw;
+                font-size: 14/@vw;
+                border-bottom: 1/@vw solid rgb(190, 187, 187);
+                display: flex;
+                
+                span{
+                    width:1088/6/@vw;
+                    text-align: center;
+                    line-height: 58/@vw;
+                }
+                span:nth-last-child(1){
+                    
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    display: flex;
+                    justify-content: space-around;
+                    p{
+                        width:90%;
+                        height:100%;
+                        word-break: normal;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+                span:nth-last-child(2){
+                    
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    display: flex;
+                    justify-content: space-around;
+                    p{
+                        width:90%;
+                        height:100%;
+                        word-break: normal;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+            .item:nth-child(even){
+                background: rgba(44,86,120,.7);
+            }
+            .item:nth-child(odd){
+                
+                background: rgba(19,43,62,.7)
+            }
+        }
+        .list::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/
+            height: 4px;
+        }
+        .list::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+            background: rgba(34, 3, 117, 0.8);
+        }
+        .list::-webkit-scrollbar-track {/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            border-radius: 0;
+            background: rgba(221, 213, 213, 0.6);
+        }
+
+    }
+     #message.hidden{
+         display: none;
+     }
+}
+
+
+
+.marker-route11 {
+    position: relative;
+    // width:70/@rem;
+    // height:90/@rem;
+    width: 50/@rem;
+    height: 60/@rem;
+    // border:1px solid red;
+
+  }
+
+  .marker-route11 .cover11 {
+      position: absolute;
+      top:0;
+      left:0;
+      z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: url(../../../assets/img/tou.png) no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .marker-route11 .img_wrap11 {
+    // width:68/@rem;
+    // height:76/@rem;
+    width: 46/@rem;
+    height: 50/@rem;
+    margin-top: 3/@rem;
+    margin-left: 1/@rem;
+    border-radius: 50%;
+    // background: red;
+    overflow: hidden;
+
+    img {
+        position: absolute;
+        top:2/@vw;
+        left:0;
+      width: 100%;
+    }
+  }
+
+//   .markerwrap{
+//     //   width:100/@vw;
+//     //   height:100/@vw;
+//     width:50px;
+//     height:50px;
+//       background: red;
+//   }

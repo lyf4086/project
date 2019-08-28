@@ -1,105 +1,27 @@
 @vw:19.2vw;
 div{
-    box-sizing: border-box;
+   box-sizing: border-box;
+   font-size: 16/@vw;
 }
 .wrap{
-    width:100%;
     height:100%;
-    font-size: 14/@vw;
-    color:#fff;
-    max-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    // display: flex;
-    // flex-wrap: wrap;
-    .left{
-        width:50%;
-        height:50%;
-       position: relative;
-       z-index: 1;
-        .title{
-            color:#fff;
-            box-sizing: border-box;
-            height:50/@vw;
-            width:100%;
-            border: 1/@vw solid #00a0e9;
-            display: flex;
-            font-size: 20/@vw;
-            span{
-            flex:1;
-            line-height: 50/@vw;
-            text-align: center;
-            border-right: 1/@vw solid #00a0e9;
-            }
-            span:last-child{
-            border:none;
-            }
-        
-        }
-        .list{
-            border-left: 1/@vw solid #00a0e9;
-            border-right: 1/@vw solid #00a0e9;
-            color: aliceblue;
-            max-height: 302/@vw;
-            overflow-y: auto;
-            overflow-x: hidden;
-            .item{
-                box-sizing: border-box;
-                height:50/@vw;
-                width:100.1%;
-                border-bottom: 1/@vw solid #00a0e9;
-                display: flex;
-                font-size: 16/@vw;
-                span{
-                flex:1;
-                line-height: 50/@vw;
-                text-align: center;
-                border-right: 1/@vw solid #00a0e9;
-                }
-                span:last-child{
-                border:none;
-                }
-            }
-        }
-    }
-    .right{
-        width:50%;
-        height:50%;
-        background: rgba(255,255,255,0.1);
-
-        #chart-right{
-           
-            height:100%;
-        }
-    }
-    .bottom{
-        width:100%;
-        height:50%;
-        background: rgba(255,255,255,0.2);
-         #chart{
-             color:#fff;
-            height:100%;
-        }
-    }
 }
-
-.list::-webkit-scrollbar {/*滚动条整体样式*/
-  width: 1px;     /*高宽分别对应横竖滚动条的尺寸*/
+.wrap::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/
   height: 4px;
 }
-.list::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+.wrap::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
   border-radius: 5px;
   -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
   background: rgba(34, 3, 117, 0.8);
 }
-.list::-webkit-scrollbar-track {/*滚动条里面轨道*/
+.wrap::-webkit-scrollbar-track {/*滚动条里面轨道*/
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
   border-radius: 0;
   background: rgba(221, 213, 213, 0.6);
 }
-
-
-// .....................................................
 #sel{
     box-sizing: border-box;
     color:#fff;
@@ -119,7 +41,7 @@ div{
         color:#fff;
         text-align: center;
         line-height: 45/@vw;
-        background: url(../../assets/img/duibi.png) no-repeat;
+        background: url(../../../assets/img/duibi.png) no-repeat;
         background-size: 100% 100%;
         cursor: pointer;
     }
@@ -128,7 +50,7 @@ div{
         width:20/@vw;
         height:20/@vw;
         border:none;
-        background: url(../../assets/img/jiao.png)no-repeat;
+        background: url(../../../assets/img/jiao.png)no-repeat;
         background-size: cover;
     }
     .jiao:nth-of-type(1){
@@ -160,7 +82,7 @@ div{
         line-height: 34/@vw;
         color:#fff;
         font-size: 14/@vw;
-        background: url(../../assets/img/xq-title.png)no-repeat;
+        background: url(../../../assets/img/xq-title.png)no-repeat;
         background-size: 100% 100%;
         display: flex;
         align-items: center;
@@ -169,17 +91,17 @@ div{
             width:20/@vw;
             height:20/@vw;
             margin:0 20/@vw;
-            background: url(../../assets/img/xq-icon2.png) no-repeat;
+            background: url(../../../assets/img/xq-icon2.png) no-repeat;
             background-size: cover;
         }
     }
     
     .items:nth-child(6) span{
-        background: url(../../assets/img/xq-baojin.png) no-repeat;
+        background: url(../../../assets/img/xq-baojin.png) no-repeat;
         background-size: cover;
     }
     .items:nth-child(7) span{
-        background: url(../../assets/img/xq-icon1.png) no-repeat;
+        background: url(../../../assets/img/xq-icon1.png) no-repeat;
         background-size: cover;
     }
     .sel-wrap{
@@ -205,7 +127,7 @@ div{
             color:#132d44;
             text-align: center;
             line-height: 19/@vw;
-            background: url(../../assets/img/xq-chaxun.png) no-repeat;
+            background: url(../../../assets/img/xq-chaxun.png) no-repeat;
             background-size: 100% 100%;
         }
     }
@@ -226,14 +148,14 @@ div{
                 width:16/@vw;
                 height:16/@vw;
                 margin-right: 15/@vw;
-                background: url(../../assets/img/xq-select.png) no-repeat;
+                background: url(../../../assets/img/xq-select.png) no-repeat;
                 background-size: 100% 100%;
             }
         }
         .selected{
             color:#fff;
             i{
-                background: url(../../assets/img/xq-sellected.png) no-repeat;
+                background: url(../../../assets/img/xq-sellected.png) no-repeat;
                  background-size: 100% 100%;
             }
         }
@@ -264,14 +186,14 @@ div{
                 // margin-top: 2/@vw;
                 transform: translateY(1px);
                 margin-right: 15/@vw;
-                background: url(../../assets/img/xq-select.png) no-repeat;
+                background: url(../../../assets/img/xq-select.png) no-repeat;
                 background-size: 100% 100%;
             }
         }
         .selected{
             color:#fff;
             i{
-                background: url(../../assets/img/xq-sellected.png) no-repeat;
+                background: url(../../../assets/img/xq-sellected.png) no-repeat;
                 background-size: 100% 100%;
             }
         }
@@ -290,7 +212,7 @@ div{
         text-align: center;
         line-height: 30/@vw;
         right:20/@vw;
-        background: url(../../assets/img/xq-sub.png)no-repeat;
+        background: url(../../../assets/img/xq-sub.png)no-repeat;
         background-size: 100% 100%;
        }
        
@@ -307,7 +229,7 @@ div{
     &>div{
         width:820/@vw;
         height:400/@vw;
-        background: url(../../assets/img/xq-bg.png) no-repeat;
+        background: url(../../../assets/img/xq-bg.png) no-repeat;
         background-size: 100% 100%;
         .n{
             width:300/@vw;
@@ -324,6 +246,11 @@ div{
             height:330/@vw;
             margin: 0 auto;
             overflow: hidden;
+            color:#fff;
+            &>div{
+                width:100%;
+                height:100%;
+            }
         }
     }
     .left{
@@ -340,33 +267,6 @@ div{
                 text-align: center;
             }
         }
-        .awrap{
-            height:260/@vw;
-            width:666/@vw;           
-            margin: 0 auto;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            position: relative;
-        }
-        .list-new{
-            position: absolute;
-            top:0;
-            left:0;
-            .item{
-                height:46/@vw;
-                line-height: 46/@vw;
-                width:666/@vw;
-                border-bottom: 1/@vw solid #3a6785;
-                display: flex;
-                span{
-                    width: 25%;
-                    text-align: center;
-                }
-                span:last-child{
-                    cursor: pointer;
-                }
-            }
-        }
         
     }
     .right{
@@ -376,36 +276,6 @@ div{
             height:100%;
         }
     }
-}
-
-#three{
-    width:100%;
-    height:800/@vw;
-    margin-top: 20/@vw;
-    
-    #echart-new2{
-        width:100%;
-        height:100%;
-        // background: pink;
-    }
-}
-
-
-
-
-.wrap::-webkit-scrollbar {/*滚动条整体样式*/
-  width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/
-  height: 4px;
-}
-.wrap::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-  border-radius: 5px;
-  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
-  background: rgba(34, 3, 117, 0.8);
-}
-.wrap::-webkit-scrollbar-track {/*滚动条里面轨道*/
-  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-  border-radius: 0;
-  background: rgba(221, 213, 213, 0.6);
 }
 
 .cover{
@@ -420,7 +290,7 @@ div{
     .alert{
         width:980/@vw;
         height:660/@vw;
-        background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+        background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
         background-size: 100% 100%;
         position: absolute;
         top:0;
@@ -451,7 +321,7 @@ div{
             top:120/@vw;
             width:602/@vw;
             height:62/@vw;
-            background: url(../../assets/img/buzou1.png) no-repeat;
+            background: url(../../../assets/img/buzou1.png) no-repeat;
             background-size: 100% 100%;
         }
         .title{
@@ -464,7 +334,7 @@ div{
              padding-left: 96/@vw;
              font-size: 18/@vw;
                 color:#fff;
-            background: url(../../assets/img/xq-title.png) no-repeat;
+            background: url(../../../assets/img/xq-title.png) no-repeat;
             background-size: 100% 100%;
             i{
                 position: absolute;
@@ -476,7 +346,7 @@ div{
                 height:30/@vw;
                 
                 
-                background: url(../../assets/img/xq-icon1.png) no-repeat;
+                background: url(../../../assets/img/xq-icon1.png) no-repeat;
                 background-size: 100% 100%;
             }
         }
@@ -508,7 +378,7 @@ div{
             color:#000;
             text-align: center;
             line-height: 30/@vw;
-            background: url(../../assets/img/xq-chaxun.png) no-repeat;
+            background: url(../../../assets/img/xq-chaxun.png) no-repeat;
             background-size: 100% 100%;
         }
         .next{
@@ -526,7 +396,7 @@ div{
     .alert2,.alert3,.alert4,.alert5{
         width:980/@vw;
         height:660/@vw;
-        background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+        background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
         background-size: 100% 100%;
         position: absolute;
         top:0;
@@ -556,7 +426,7 @@ div{
             top:120/@vw;
             width:602/@vw;
             height:62/@vw;
-            background: url(../../assets/img/buzou2.png) no-repeat;
+            background: url(../../../assets/img/buzou2.png) no-repeat;
             background-size: 100% 100%;
         }
         .title{
@@ -569,7 +439,7 @@ div{
              padding-left: 96/@vw;
              font-size: 18/@vw;
             color:#fff;
-            background: url(../../assets/img/xq-title.png) no-repeat;
+            background: url(../../../assets/img/xq-title.png) no-repeat;
             background-size: 100% 100%;
             i{
                 position: absolute;
@@ -578,7 +448,7 @@ div{
                 box-sizing: border-box;              
                 width:32/@vw;
                 height:30/@vw;                
-                background: url(../../assets/img/guiji-icon7.png) no-repeat;
+                background: url(../../../assets/img/guiji-icon7.png) no-repeat;
                 background-size: 100% 100%;
             }
         }
@@ -601,14 +471,14 @@ div{
                     width:26/@vw;
                     height:26/@vw;
                     margin-right: 28/@vw;
-                    background: url(../../assets/img/xq-select.png) no-repeat;
+                    background: url(../../../assets/img/xq-select.png) no-repeat;
                     background-size: 100% 100%;
                 }
             }
             .selected{
                 color:#fff;
                 i{
-                    background: url(../../assets/img/xq-sellected.png) no-repeat;
+                    background: url(../../../assets/img/xq-sellected.png) no-repeat;
                     background-size: 100% 100%;
                 }
             }
@@ -646,20 +516,54 @@ div{
             top:120/@vw;
             width:602/@vw;
             height:62/@vw;
-            background: url(../../assets/img/buzou3.png) no-repeat;
+            background: url(../../../assets/img/buzou3.png) no-repeat;
             background-size: 100% 100%;
+        }
+        .titlenew{
+                position: absolute;
+            left:158/@vw;
+            top:490/@vw;
+            width:360/@vw;
+            height:56/@vw;
+            line-height: 56/@vw;
+            padding-left: 96/@vw;
+            font-size: 18/@vw;
+                color:#fff;
+            background: url(../../../assets/img/xq-title.png) no-repeat;
+            background-size: 100% 100%;
+        }
+        .selwrap{
+            position: absolute;
+            left:200/@vw;
+            top:570/@vw;
+            width:300/@vw;
+            height:40/@vw;
+            font-size: 18/@vw;
+            color:#fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            input{
+                box-sizing: border-box;
+                width:172/@vw;
+                height:36/@vw;
+                border:1/@vw solid #939ba3;
+                border-radius: 3/@vw;
+                background: none;
+                color:#fff;
+            }
         }
         .title{
             position: absolute;
             left:158/@vw;
-            top:250/@vw;
+            top:210/@vw;
             width:360/@vw;
             height:56/@vw;
             line-height: 56/@vw;
              padding-left: 96/@vw;
              font-size: 18/@vw;
                 color:#fff;
-            background: url(../../assets/img/xq-title.png) no-repeat;
+            background: url(../../../assets/img/xq-title.png) no-repeat;
             background-size: 100% 100%;
             i{
                 position: absolute;
@@ -671,16 +575,16 @@ div{
                 height:30/@vw;
                 
                 
-                background: url(../../assets/img/xq-icon1.png) no-repeat;
+                background: url(../../../assets/img/xq-icon1.png) no-repeat;
                 background-size: 100% 100%;
             }
         }
         .typewrap{
             position: absolute;
             left:188/@vw;
-            top:340/@vw;
+            top:270/@vw;
             width:780/@vw;
-            height:280/@vw;
+            height:200/@vw;
             overflow-x: hidden;
             overflow-y: auto;
             display: flex;
@@ -697,17 +601,18 @@ div{
                     width:26/@vw;
                     height:26/@vw;
                     margin-right: 28/@vw;
-                    background: url(../../assets/img/xq-select.png) no-repeat;
+                    background: url(../../../assets/img/xq-select.png) no-repeat;
                     background-size: 100% 100%;
                 }
             }
             .selected{
                 color:#fff;
                 i{
-                    background: url(../../assets/img/xq-sellected.png) no-repeat;
+                    background: url(../../../assets/img/xq-sellected.png) no-repeat;
                     background-size: 100% 100%;
                 }
             }
+           
         }
          .typewrap::-webkit-scrollbar {/*滚动条整体样式*/
             width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/

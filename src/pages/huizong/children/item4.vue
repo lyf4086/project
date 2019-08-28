@@ -1,19 +1,25 @@
 <template>
   <div class="wrap">
     <div class="header">
-      <span>时间</span>
       <span>机构名称</span>
-      <span>数量</span>
-      <span>占比</span>
-      <span>总和</span>
+      <span>姓名</span>
+      <span>枪支编号</span>
+      <span>枪支类型</span>
+      <span>借出时间</span>
     </div>
     <div class="list12">
-      <div class="item" v-for="item,index in dataList" :key="index" v-if="dataList.length">
-        <span>{{item.datetime}}</span>
+      <div
+        class="item"
+        @click="toxiangqing(item.tt)"
+        v-for="item,index in dataList"
+        :key="index"
+        v-if="dataList.length"
+      >
         <span>{{item.mechanism_name}}</span>
-        <span>{{item.number}}</span>
-        <span>{{item.ratio}}%</span>
-        <span>{{item.sum}}</span>
+        <span>{{item.policeName}}</span>
+        <span>{{item.gun_code}}</span>
+        <span>{{item.gunType}}</span>
+        <span>{{item.optime}}</span>
       </div>
     </div>
   </div>
@@ -23,10 +29,23 @@
 export default {
   data() {
     return {
-      dataList: []
+      dataList: [],
+      ip_id: "",
+      tt: "",
+      mid: ""
     };
   },
   methods: {
+    toxiangqing(tt) {
+      this.$router.push({
+        name: "Item6XQ",
+        params: {
+          ip_id: this.ip_id,
+          tt: this.tt,
+          mid: this.mid
+        }
+      });
+    },
     move() {
       var $uList = $(".wrap .list12");
       var timer = null;
@@ -66,17 +85,18 @@ export default {
         );
       }
     },
-    getData() {
-      let objs = {};
+    getData(t_mechanism_id) {
+      let objs = { t_mechanism_id };
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
       var params = new URLSearchParams();
       params.append("sign", sign);
       params.append("token", token);
+      params.append("t_mechanism_id", objs.t_mechanism_id);
       this.$axios({
         url:
-          "http://s.tronl.cn/weixin/project/index.php?m=home&c=Index&a=child_alarm",
+          "http://s.tronl.cn/weixin/project/index.php?m=Home&c=Index&a=gun_history",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -84,7 +104,9 @@ export default {
         .then(data => {
           if (data.status == 200) {
             this.dataList = data.data.data;
-            // console.log(data.data.data);
+            this.ip_id = data.data.ip_id;
+            this.tt = data.data.tt;
+            this.mid = data.data.mid;
           }
         })
         .catch(error => {
@@ -93,7 +115,8 @@ export default {
     }
   },
   mounted() {
-    this.getData();
+    let mes = this.$gscookie.getCookie("message_obj");
+    this.getData(mes.mechanism_id);
     this.move();
   }
 };

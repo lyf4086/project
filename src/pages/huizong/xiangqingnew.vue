@@ -57,7 +57,7 @@
       <div class="sub-wrap">
         <div class="sub" @click="subCheckDate">确定</div>
       </div>
-      <div class="fenxi" @click="fenxi">数据分析</div>
+      <div class="fenxiduibi" @click="fenxi">对比分析</div>
     </div>
     <div id="second">
       <div class="left">
@@ -114,20 +114,57 @@
       <div id="chart"></div>
     </div>-->
      <div class="cover" v-show="showFenXi">
-      <div class="alert">
+      <div class="alert"  v-show="steap===1">
+        <button @click="close">X</button>
         <!-- <div id="duibi"></div> -->
-        <el-steps :active="active"  finish-status="success" v-show="false">
-          <el-step title="步骤 1"></el-step>
-          <el-step title="步骤 2"></el-step>
-          <el-step title="步骤 3"></el-step>
-        </el-steps>
-        <button @click="close">关闭</button>
-        <div class="selwrap">
-          
+        <div class="buzou"></div>
+        <div class="title">
+          <i></i>查询时间
         </div>
-        <div id="fenxi-echart" v-show="false">fenxi-echart</div>
-        <div class="biaoge">biaoge</div>
-        <div class="sub" @click="subDuiBi">开始对比</div>
+        <div class="selwrap">
+          查询时间 <input type="date" v-model="dbtimestart">
+          至
+          <input type="date" v-model="dbtimeend">
+          <!-- <div class="sub" >查询</div> -->
+        </div>
+        <div class="next" @click="next1">下一步</div>
+      </div>
+      <div class="alert2"  v-show="steap===2">
+        <button  @click="close">X</button>
+        <!-- <div id="duibi"></div> -->
+        <div class="buzou"></div>
+        <div class="title">
+          <i></i>报警类型
+        </div>
+        <div class="typewrap">
+          <div class="item " @click="dbchecktype(index)" :class="{selected:item.checked}" v-for="item,index in dbwarningtype" :key="index">
+            <i></i>{{item.name}}
+          </div>
+        </div>
+        <div class="next" @click="next2">下一步</div>
+      </div>
+      <div class="alert3"  v-show="steap===3" >
+         <button  @click="close">X</button>
+        <!-- <div id="duibi"></div> -->
+        <div class="buzou"></div>
+        <div class="title">
+          <i></i>机构名称
+        </div>
+        <div class="typewrap">
+          <div class="item " @click="dbjigoucheck(index)" :class="{selected:item.checked}" v-for="item,index in dbjigoulist" :key="index">
+            <i></i>{{item.mechanism_name}}
+          </div>
+        </div>
+        <div class="next" @click="next3">下一步</div>
+      </div>
+      <div class="alert4" v-show="steap===4">
+        <button @click="close">X</button>
+        <div id="dbchart"></div>
+        <p>分析结果</p>
+        <div class="text">
+          {{dbtext}}
+        </div>
+        <div class="next"  @click="next4">关闭</div>
       </div>
     </div>
   </div>
@@ -137,12 +174,29 @@
 @import url("./xiangqingnew.css");
 </style>
 <script>
-import GunDongList from "@/components/gundonglist";
+// import GunDongList from "@/components/gundonglist";
+import { setInterval, clearInterval } from 'timers';
 export default {
-  components: { GunDongList },
+  // components: { GunDongList },
   data() {
     return {
-      active:3,
+      steap:1,
+      dbtimestart:'',
+      dbtimeend:'',
+      dbwarningtype:[
+        { id: "03", name: "入套报警", checked: false },
+        { id: "07", name: "区域报警", checked: false },
+        { id: "08", name: "逾期报警", checked: false },
+        { id: "09", name: "离套报警", checked: false }
+      ],
+      selectedType:'',
+      dbjigoulist:[],
+      dbselectedjigou:'',
+      dbtext:'',
+      dbnames:['111','222'],
+      dbx:['06:00', '07:00', '23:55'],
+      dblist:[],
+      // active:3,
       showFenXi:false,
       bigsmall: true,
       echar1_names: [],
@@ -172,17 +226,81 @@ export default {
     };
   },
   methods: {
+    dbchecktype(n){
+      this.dbwarningtype.forEach((e,i)=>{
+        if(i===n){
+          e.checked=true
+        }else{
+          e.checked=false
+        }
+      })
+    },
+    dbjigoucheck(index){
+      this.dbjigoulist[index].checked=!this.dbjigoulist[index].checked
+    },
+    next1(){
+      if(this.dbtimestart && this.dbtimeend){
+        this.steap=2;
+      }else{
+        this.$message({
+          type:'warning',
+          message:'请选择起止时间'
+        })
+        
+      }
+      
+    },
+    next2(){
+      let obj=this.dbwarningtype.find(e=>e.checked)
+      if(obj){
+        this.selectedType=obj.id//选择的报警类型
+        this.steap=3
+      }else{
+        this.$message({
+          type:'warning',
+          message:'请选择类型'
+        })
+      }
+      
+    },
+    next3(){
+      let ls=this.dbjigoulist.filter(e=>e.checked)
+      if(ls.length>0){
+        this.steap=4;
+        let ip_id=ls[0].ip_id
+        let jigoustr=ls.map(e=>e.id).join()
+        let strT=this.dbtimestart+','+this.dbtimeend;//时间区间字符串
+        // console.log(this.dbtimestart,this.dbtimeend,this.selectedType,this.dbselectedjigou)
+        this.getDuiBi(jigoustr,ip_id,this.selectedType,strT)
+      }else{
+        this.$message({
+          type:'warning',
+          message:'请选择机构'
+        })
+      }
+      
+    },
+    next4(){
+      this.dbtimestart='',
+      this.dbtimeend='',
+      this.dbwarningtype.forEach(e=>e.checked=false)
+      this.dbjigoulist.forEach(e=>e.checked=false)
+      this.steap=1;
+      this.showFenXi=false
+    },
     subDuiBi(){
       this.getDuiBi(32,1,'03,09,07,08','2019-08-16,2019-08-22')
       
     },
     close() {
+      this.steap=1;
       this.showFenXi = false;
+      this.next4()
     },
     fenxi() {
       this.showFenXi = true;
       // this.initEchart();
-      this.duiBiEchart()
+      // this.duiBiEchart()
     },
     upDown() {
       this.bigsmall = !this.bigsmall;
@@ -214,191 +332,103 @@ export default {
     },
     duiBiEchart(){
       let that = this;
-      let box = document.getElementById("fenxi-echart");
-      let Echart = this.$echarts.init(box);
-      let option = {
-    //   backgroundColor:'#062D87',
-        title : {
-                  text: '未来一周气温变化',
-                  textStyle:{
-                      color:"#ccc"
-                  }
-              },
-              tooltip : {
-                  trigger: 'axis'
-              },
-              legend: {
-                  data:['最高温度','最低温度'],
-                textStyle:{
-                color:"#fff"
+      let box = document.getElementById("dbchart");
+      let Echart = this.$echarts.init(box,true);
+      let one={
+                name: '111',
+                data: [0.3, 0.9, 0.7, 0.9, 0.8, 0.3],
+                type: 'line',
+                smooth: true, //折线是否平滑
+                areaStyle: {
+                    opacity: 0
+                },
+                itemStyle: {
+                    normal: {
+                        color: "#197CD8", //小圆点的颜色
+                        lineStyle: {
+                            color: "#197CD8" //折线的颜色
+                        }
+                    }
                 }
-              },
-              grid: {
-                  top: 'middle',
-                  left: '3%',
-                  right: '4%',
-                  bottom: '3%',
-                  height: '80%',
-                  containLabel: true
-              },
-              toolbox: {
-                  show : true,
-                  feature : {
-                      mark : {show: true},
-                      dataView : {show: true, readOnly: false},
-                      magicType : {show: true, type: ['line', 'bar']},
-                      restore : {show: true},
-                      saveAsImage : {show: true}
-                  }
-              },
-              calculable : true,
-              xAxis : [
-                  {
-                      type : 'category',
-                      boundaryGap : false,
-                      data : ['2019-7-1','2019-7-2','2019-7-3','2019-7-4','2019-7-5','2019-7-6','2019-7-7'],
-                    axisTick: {
-                      show: true //隐藏X轴刻度
-                  },
-                  axisLabel: {
-                      show: true,
-                      textStyle: {
-                          color: "#ebf8ac" //X轴文字颜色
-                      }
-                  },
-                  }
-              ],
-              yAxis : [
-                  {
-                      type : 'value',
-                      name:"℃'",
-                      nameTextStyle: {
-                          color: "#ebf8ac"
-                        },           
-                        axisLabel : {
-                          formatter: '{value}℃'
-                      },
-                    axisLabel: {
-                          show: true,
-                          textStyle: {
-                              color: "#ebf8ac"
-                          }
-                      },
-                      splitLine: {
-                      lineStyle: {
-                          type: 'dashed',
-                          color: '#DDD'
-                      }
-                  },
-                  }
-              ],
-              series : [
-                  {
-                      name:'最高温度',
-                      type:'line',
-                      min:10,
-                      max:40,
-                      data:[32, 34, 39, 35, 38, 36, 34],
-                      markPoint : {
-                          data : [
-                              {name : '周最高', value : 39, xAxis: 2, yAxis: 39}
-                          ]
-                      },
-                    lineStyle: {
-                          normal: {
-                              width: 5,
-                              color: {
-                                  type: 'linear',
+            }
+      let dbseries=this.dblist.map((e,i)=>{
+        return {
+          ...one,
+          name:this.dbnames[i],
+          data:e
+        }
+      })
+      let option = {
+        postion:'200',
+        // backgroundColor: '#598193', //画布背景
+        title: {
+            text: '',
+            x: "center",
+            y: "-5",
+            textStyle: {
+                fontSize: 16,
+                color: '#fff'
+            }
+        },
+        legend: {
+            icon: 'line',
+            top: 20,
+            textStyle: {
+            color: "#fff",
+            data:this.dbnames
+            // ['原方案','建议方案'] 
+        },
 
-                                  colorStops: [{
-                                          offset: 0,
-                                          color: '#AAF487' // 0% 处的颜色
-                                      },
-                                      {
-                                          offset: 0.4,
-                                          color: '#47D8BE' // 100% 处的颜色
-                                      }, {
-                                          offset: 1,
-                                          color: '#47D8BE' // 100% 处的颜色
-                                      }
-                                  ],
-                                  globalCoord: false // 缺省为 false
-                              },
-                              shadowColor: 'rgba(71,216,190, 0.5)',
-                              shadowBlur: 10,
-                              shadowOffsetY: 7
-                          }
-                      },
-                      itemStyle: {
-                          normal: {
-                              color: '#AAF487',
-                              borderWidth: 10,
-                              /*shadowColor: 'rgba(72,216,191, 0.3)',
-                              shadowBlur: 100,*/
-                              borderColor: "#AAF487"
-                          }
-                      },
-                      smooth: true,
-                      markLine : {
-                          data : [
-                              {type : 'average', name: '平均值'}
-                          ]
-                      }
-                  },
-              {
-                  name:'最低温度',
-                  type:'line',
-                  min:10,
-                  max:40,
-                  data:[25, 22, 26, 28, 27, 26, 23],
-                  markPoint : {
-                      data : [
-                          {name : '周最低', value : 22, xAxis: 1, yAxis: 22}
-                      ]
-                  },
-                  lineStyle: {
-                      normal: {
-                          width: 5,
-                          color: {
-                              type: 'linear',
-
-                              colorStops: [{
-                                      offset: 0,
-                                      color: '#F6D06F' // 0% 处的颜色
-                                  },
-                                  {
-                                      offset: 0.4,
-                                      color: '#F9A589' // 100% 处的颜色
-                                  }, {
-                                      offset: 1,
-                                      color: '#F9A589' // 100% 处的颜色
-                                  }
-                              ],
-                              globalCoord: false // 缺省为 false
-                          },
-                          shadowColor: 'rgba(249,165,137, 0.5)',
-                          shadowBlur: 10,
-                          shadowOffsetY: 7
-                      }
-                  },
-                  itemStyle: {
-                      normal: {
-                          color: '#F6D06F',
-                          borderWidth: 10,
-                          /*shadowColor: 'rgba(72,216,191, 0.3)',
-                          shadowBlur: 100,*/
-                          borderColor: "#F6D06F"
-                      }
-                  },
-                  smooth: true,
-                  markLine : {
-                      data : [
-                          {type : 'average', name : '平均值'}
-                      ]
-                  }
-              }
-          ]
-        };
+        itemWidth: 10,  // 设置宽度
+        itemHeight: 10, // 设置高度
+        },
+        tooltip: {
+            trigger: 'axis',
+        },
+        xAxis: { //x轴
+            type: 'category',
+            boundaryGap: false, //坐标轴两边留白策略
+            data: this.dbx,
+            // ['06:00', '07:00', '23:55'],
+            axisLabel: {
+                interval: 0,
+                rotate: -40,
+                textStyle: {
+                    fontSize: 12,
+                    color: '#fff'
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+        },
+        yAxis: { //y轴
+            min: 0,
+            type: 'value',
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    type: 'dashed'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    fontSize: 12,
+                    color: '#fff'
+                },
+            },
+            axisLine: {
+                "show": false,
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+        },
+        series: dbseries
+        
+      };
         Echart.setOption(option)
     },
     getDuiBi(mid,ip_id,tid,time){
@@ -426,7 +456,25 @@ export default {
         data: params
       })
       .then((data)=>{
-          console.log(data)
+          if(data.status==200){
+            // console.log(data.data)
+            this.dbnames=data.data.mname
+            this.dbx=data.data.days
+            this.dblist=data.data.data
+            // this.dbtext=data.data.content;
+            let length=data.data.content.length;
+            let n=0
+            this.dbtext=''
+            let timer=setInterval(()=>{
+              if(n<length){
+                this.dbtext+=data.data.content[n]
+                n++
+              }else{
+                clearInterval(timer)
+              }
+            },100)
+            this.duiBiEchart()
+          }
       })
       .catch((error)=>{
         console.log(error)
@@ -451,10 +499,10 @@ export default {
       types = arr1.map(e => e.id).join();
       names = arr2.map(e => e.id).join();
       ip_id = arr2.map(e => e.ip_id).join();
+      
       // console.log(timeStart, timeEnd, types, names);
       let s = [timeStart, timeEnd].join();
-      console.log(s, types, names, ip_id)
-      return
+     
       this.getData(s, types, names, ip_id);
     },
     move() {
@@ -596,7 +644,14 @@ export default {
       let that = this;
       let box = document.getElementById("echart-new2");
       let EchartNew = this.$echarts.init(box);
-
+      function rgb() {
+        //rgb颜色随机
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+        var rgb = "rgba(" + r + "," + g + "," + b + ",0.4)";
+        return rgb;
+      }
       let one = {
         name: "入套报警",
         type: "line",
@@ -611,17 +666,19 @@ export default {
               width: 1
             },
             areaStyle: {
-              //color: '#94C9EC'
-              color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
-                {
-                  offset: 0,
-                  color: "rgba(7,44,90,0.3)"
-                },
-                {
-                  offset: 1,
-                  color: "rgba(0,146,246,0.9)"
-                }
-              ])
+              color: '#94C9EC'
+              // 
+              // color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [
+              //   {
+              //     offset: 0,
+              //     color:rgb
+              //     //  "rgba(7,44,90,0.3)"
+              //   },
+              //   {
+              //     offset: 1,
+              //     color: "rgba(0,146,246,0.9)"
+              //   }
+              // ])
             }
           }
         },
@@ -637,9 +694,21 @@ export default {
 
       let ser = [];
       that.rightData1.forEach((item, index) => {
-        one.name = item;
-        one.data = that.series[index];
-        ser.push({ ...one });
+        let col = rgb();
+        let obj = {
+          ...one,
+          name: item,
+          itemStyle: { normal: { color: col ,areaStyle:{color:col}} },
+          data: that.series[index]
+        };
+        ser.push(obj);
+
+
+        // let col = rgb();
+        // one.name = item;
+        // one.data = that.series[index];
+        // one.itemStyle.normal.color=col
+        // ser.push({ ...one });
       });
       var fontColor = "#30eee9";
       let option = {
@@ -804,6 +873,7 @@ export default {
                     checked: false
                   };
                 }
+               
                 // if (obj.mechanism_id === item.id) {
                 //   return {
                 //     ...item,
@@ -816,6 +886,12 @@ export default {
                 //   };
                 // }
               });
+               this.dbjigoulist=data.data.data.mec.map((item, index) => {
+                  return {
+                    ...item,
+                    checked: false
+                  };
+               })
               let warningType = data.data.data.types.map(e => {
                 return {
                   ...e,

@@ -21,7 +21,7 @@
     top:0;
     left:0;
     display: grid;
-    grid-template-columns: 3fr 4fr 2fr 3fr 2fr;
+    grid-template-columns:3fr 1.5fr 2fr 2fr 4fr;
     grid-template-rows: 1fr;
 
     span{
@@ -40,7 +40,7 @@
         font-size: 16/@rem;
         border-bottom:1/@rem solid rgba(255,255,255,0.6);
         display: grid;
-        grid-template-columns: 3fr 4fr 2fr 3fr 2fr;
+        grid-template-columns: 3fr 1.5fr  2fr 2fr 4fr;
         grid-template-rows: 1fr;
         font-size: 12/@rem;
         color:#f5f6f8;
@@ -51,6 +51,16 @@
         }
         span:hover{
             background: linear-gradient(to bottom,rgba(93,206,237,0.4),rgba(93,206,237,0.1))
+        }
+        span:nth-last-child(1){
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        span:nth-child(2){
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
