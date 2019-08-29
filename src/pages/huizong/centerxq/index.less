@@ -29,11 +29,11 @@
                 color:#fff;
                 align-items: center;
                 text-indent: 46/@vw;
+                font-size: 18/@vw;
             }
             #left_top{
                 width:92%;
                 height:85%;
-                // background: rgba(1, 1, 1, .2);
             }
         }
         .down{
@@ -51,6 +51,7 @@
                 width:100%;
                 display: flex;
                 color:#fff;
+                font-size: 18/@vw;
                 align-items: center;
                 text-indent: 46/@vw;
             }
@@ -75,14 +76,23 @@
         display: flex;
         flex-wrap: wrap;
         align-content: space-between;
+        @keyframes updown {
+            from{
+                transform: translateY(0)
+            }
+            to{
+                transform: translateY(-20px)
+            }
+        }
         .up{
             display: flex;
             width:100%;
             height:57.5%;
-            background: rgba(1, 1, 1, .2);
-            #center_up{
+            img{
                 width:100%;
-                height:100%;
+                margin-left: 3/@vw;
+                margin-top: -30/@vw;
+                animation: updown 2s alternate infinite;
             }
         }
         .down{
@@ -99,11 +109,11 @@
                 align-items: center;
                 justify-content: space-around;
                 color:#fff;
+                font-size: 18/@vw;
             }
             #center_down{
                 width:100%;
                 height:87%;
-                background: rgba(1, 1, 1, .2);
             }
         }
     }
@@ -122,6 +132,7 @@
             align-items: center;
             text-indent: 86/@vw;
             color:#fff;
+            font-size: 18/@vw;
         }
         #right_up{
             width:92%;
@@ -139,6 +150,7 @@
             display: grid;
             grid-template-columns:repeat(3,1fr);
             span{
+                font-size: 16/@vw;
                 color:#c47746;
                 display: flex;
                 align-items: center;
@@ -148,12 +160,17 @@
         .content{
             margin-left:9%; 
             width:88.9%;
-            max-height:37%;
+            height:37%;
             overflow-x: hidden;
             overflow-y: auto;
+            // position: relative;
+            // overflow: hidden;
             .list{
-
-
+                // position: absolute;
+                // top:30px;
+                // left:0;
+                // width: 100%;
+                
                 .item{
 
                     width:100%;
@@ -167,6 +184,7 @@
                     // border-style: solid ;
                     // border-color: "#333";
                     span{
+                        font-size: 14/@vw;
                         display: flex;
                         align-items: center;
                         justify-content: space-around;

@@ -109,6 +109,16 @@ export default {
               "#34778a",
               "#284968"
             ],
+            label: {
+              normal: {
+                show: true,
+                color: "#fff",
+                position: "outter",
+                formatter: function(parms) {
+                  return parms.data.legendname;
+                }
+              }
+            },
             type: "pie",
             radius: "55%",
             center: ["50%", "60%"],

@@ -50,6 +50,7 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  height: 67%;
 }
 .echarts-wrap .title {
   width: 49%;
@@ -64,26 +65,29 @@
 .echarts-wrap #chart1 {
   position: absolute;
   width: 100%;
-  height: 5rem;
+  height: 174%;
   left: -25%;
-  transform: scale(0.5) translateY(-35%);
+  bottom: -50%;
+  transform: scale(0.5);
 }
 .echarts-wrap #chart1:hover {
   transition: .5s;
-  transform: scale(1) translateY(-32%);
+  transform: scale(1) translateY(-22%);
   background: #3185e6;
   z-index: 2;
 }
 .echarts-wrap #chart2 {
   position: absolute;
-  top: -22%;
+  top: -1%;
   width: 100%;
-  height: 5rem;
-  transform: scale(0.5) translateY(-30%) translateX(50%);
+  height: 174%;
+  left: -25%;
+  bottom: -44%;
+  transform: scale(0.5) translateY(-28%) translateX(100%);
 }
 .echarts-wrap #chart2:hover {
   transition: .5s;
-  transform: scale(1) translateY(-32%) translateX(8%);
+  transform: scale(1) translateY(-32%) translateX(25%);
   background: #3185e6;
   z-index: 2;
 }

@@ -12,7 +12,7 @@
     </div>
     <div class="center">
       <div class="up">
-        
+        <img src="../../../assets/img/center.png" alt />
       </div>
       <div class="down">
         <div class="title">枪瞄绑定数量</div>
@@ -62,6 +62,10 @@ export default {
     };
   },
   methods: {
+    moveing() {
+      this.$methods.listMove("movelist");
+      console.log("开始了");
+    },
     chartLeftTop() {
       let that = this;
       let box = document.getElementById("left_top");
@@ -238,7 +242,7 @@ export default {
         },
         series: [
           {
-            name: "威胁值",
+            // name: "威胁值",
             type: "bar",
             barWidth: 30,
             data: that.char2Data, //数据
@@ -263,9 +267,7 @@ export default {
       };
       Echart.setOption(option);
     },
-    chartCenterUp() {
-      
-    },
+    chartCenterUp() {},
     chartCenterBottom() {
       let that = this;
       let box = document.getElementById("center_down");
@@ -414,8 +416,6 @@ export default {
       let that = this;
       let box = document.getElementById("right_up");
       let Echart = this.$echarts.init(box);
-      app.title = "环形图";
-
       let option = {
         tooltip: {
           textStyle: {
@@ -434,7 +434,7 @@ export default {
         },
         series: [
           {
-            name: "2019年万科半年报",
+            name: "枪柜数量",
             type: "pie",
             radius: ["50%", "70%"],
             color: ["#FF8352", "#E271DE", "#00FFFF", "#4AEAB0"],
@@ -517,8 +517,7 @@ export default {
     let mes = this.$gscookie.getCookie("message_obj");
     this.t_mechanism_id = mes.mechanism_id;
     this.getData(mes.mechanism_id);
-
- 
+    this.moveing();
   }
 };
 </script>

@@ -60,7 +60,27 @@ export default {
       objArr: [],
       dataList3: [],
       mid: "",
-      ip_id: ""
+      ip_id: "",
+      chart2Names: ["数据1111", "数据2222"],
+      chart2Data: [],
+      chart2Day: [
+        {
+          name: "道路结冰",
+          max: 88
+        },
+        {
+          name: "暴雪",
+          max: 88
+        },
+        {
+          name: "暴雨",
+          max: 88
+        },
+        {
+          name: "冰雹",
+          max: 88
+        }
+      ]
     };
   },
   methods: {
@@ -190,77 +210,190 @@ export default {
       });
     },
     chart2() {
+      let that = this;
       let box2 = document.getElementById("char-center");
-      let Echart2 = this.$echarts.init(box2);
+      let Echart2 = this.$echarts.init(box2, true);
+      // console.log(this.chart2Names, this.chart2Data, this.chart2Day);
+      let ser = [
+        {
+          name: "入套报警",
+          type: "radar",
+          symbol: "circle",
+          symbolSize: 10,
+          areaStyle: {
+            normal: {
+              color: "rgba(245, 166, 35, 0.4)"
+            }
+          },
+
+          itemStyle: {
+            color: "rgba(245, 166, 35, 1)",
+            borderColor: "rgba(245, 166, 35, 0.3)",
+            borderWidth: 10
+          },
+          lineStyle: {
+            normal: {
+              type: "dashed",
+
+              color: "rgba(245, 166, 35, 1)",
+              width: 2
+            }
+          },
+          data: [that.chart2Data[0]]
+        },
+        {
+          name: "离套报警",
+          type: "radar",
+          symbol: "circle",
+          symbolSize: 10,
+          itemStyle: {
+            normal: {
+              color: "rgba(19, 173, 255, 1)",
+              borderColor: "rgba(19, 173, 255, 0.4)",
+              borderWidth: 10
+            }
+          },
+          areaStyle: {
+            normal: {
+              color: "rgba(19, 173, 255, 0.5)"
+            }
+          },
+          lineStyle: {
+            normal: {
+              color: "rgba(19, 173, 255, 1)",
+              width: 2,
+              type: "dashed"
+            }
+          },
+          data: [that.chart2Data[1]]
+        },
+        {
+          name: "区域报警",
+          type: "radar",
+          symbol: "circle",
+          symbolSize: 10,
+          itemStyle: {
+            normal: {
+              color: "rgba(192, 173, 255, 1)",
+              borderColor: "rgba(192, 173, 255, 0.4)",
+              borderWidth: 10
+            }
+          },
+          areaStyle: {
+            normal: {
+              color: "rgba(192, 173, 255, 0.5)"
+            }
+          },
+          lineStyle: {
+            normal: {
+              color: "rgba(192, 173, 255, 1)",
+              width: 2,
+              type: "dashed"
+            }
+          },
+          data: [that.chart2Data[2]]
+        },
+        {
+          name: "逾期报警",
+          type: "radar",
+          symbol: "circle",
+          symbolSize: 10,
+          itemStyle: {
+            normal: {
+              color: "rgba(19, 233, 255, 1)",
+              borderColor: "rgba(19, 233, 255, 0.4)",
+              borderWidth: 10
+            }
+          },
+          areaStyle: {
+            normal: {
+              color: "rgba(19, 233, 255, 0.5)"
+            }
+          },
+          lineStyle: {
+            normal: {
+              color: "rgba(19, 233, 255, 1)",
+              width: 2,
+              type: "dashed"
+            }
+          },
+          data: [that.chart2Data[3]]
+        }
+      ];
       let option = {
+        // backgroundColor:'black',
+        normal: {
+          top: 200,
+          left: 300,
+          width: 500,
+          height: 400,
+          zIndex: 6,
+          backgroundColor: ""
+        },
+        color: ["rgba(245, 166, 35, 1)", "rgba(19, 173, 255, 1)"],
         title: {
-          text: "各类型报警数据",
-          subtext: "汇总",
-          top: 10,
-          left: 10
+          show: true,
+          // text: "数据展示图",
+          left: "40%",
+          top: "1%",
+          textStyle: {
+            fontSize: 18,
+            color: "#fff",
+            fontStyle: "normal",
+            fontWeight: "normal"
+          }
         },
         tooltip: {
-          trigger: "item",
-          backgroundColor: "rgba(0,0,250,0.2)"
+          show: false,
+          trigger: "item"
         },
         legend: {
-          type: "scroll",
-          bottom: 10,
-          data: (function() {
-            var list = [];
-            for (var i = 1; i <= 28; i++) {
-              list.push(i + 2000 + "");
-            }
-            return list;
-          })()
-        },
-        visualMap: {
-          top: "middle",
-          right: 10,
-          color: ["red", "yellow"],
-          calculable: true
+          show: true,
+          icon: "circle",
+          left: "0%",
+          top: "90%",
+          orient: "horizontal",
+          textStyle: {
+            fontSize: 14,
+            color: "#fff"
+          },
+          data: ["入套报警", "离套报警", "区域报警", "逾期报警"]
         },
         radar: {
-          indicator: [
-            { text: "离套", max: 400 },
-            { text: "入套", max: 400 },
-            { text: "电量", max: 600 },
-            { text: "位置", max: 300 },
-            { text: "未知", max: 500 }
-          ]
+          center: ["50%", "50%"],
+          radius: "70%",
+          startAngle: 90,
+          splitNumber: 4,
+          shape: "circle",
+          splitArea: {
+            areaStyle: {
+              color: ["transparent"]
+            }
+          },
+          axisLabel: {
+            show: false,
+            fontSize: 18,
+            color: "#fff",
+            fontStyle: "normal",
+            fontWeight: "normal"
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: "#fff" //
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: "#fff" //
+            }
+          },
+          indicator: that.chart2Day
         },
-        series: (function() {
-          var series = [];
-          for (var i = 1; i <= 28; i++) {
-            series.push({
-              name: "报警类型",
-              type: "radar",
-              symbol: "none",
-              lineStyle: {
-                width: 1
-              },
-              emphasis: {
-                areaStyle: {
-                  color: "rgba(0,250,0,0.3)"
-                }
-              },
-              data: [
-                {
-                  value: [
-                    (40 - i) * 10,
-                    (38 - i) * 4 + 60,
-                    i * 5 + 10,
-                    i * 9,
-                    (i * i) / 2
-                  ],
-                  name: i + 2000 + ""
-                }
-              ]
-            });
-          }
-          return series;
-        })()
+        series: ser
       };
+
       Echart2.setOption(option);
     },
     getDataOne() {
@@ -308,7 +441,15 @@ export default {
         data: params
       })
         .then(data => {
-          console.log(data);
+          // console.log(data);
+          this.chart2Names = data.data.tname;
+          this.chart2Day = data.data.date.map(item => {
+            return {
+              name: item
+            };
+          });
+          this.chart2Data = data.data.cou;
+          this.chart2();
         })
         .catch(error => {
           console.log(error);
@@ -343,7 +484,7 @@ export default {
   },
   mounted() {
     this.char1();
-    this.chart2();
+    // this.chart2();
     this.getDataOne();
     this.getDataTwo();
     this.getDataThree();

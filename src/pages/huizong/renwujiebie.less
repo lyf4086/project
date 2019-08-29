@@ -58,6 +58,7 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    height:67%;
     .title{
         width:49%;
         height:36/@rem;
@@ -71,25 +72,32 @@
     #chart1{
         position: absolute;
         width:100%;
-        height:500/@rem;
+        // height:500/@rem;
+        height:174%;
         left:-25%;
-        transform: scale(0.5) translateY(-35%);
+        bottom:-50%;
+        // background: pink;
+        transform: scale(0.5) ;
+        // translateY(-35%)
         &:hover{
           transition: .5s;
-          transform: scale(1) translateY(-32%);
+          transform: scale(1) translateY(-22%);
           background: rgb(49, 133, 230);
           z-index: 2;
         }
     }
     #chart2{
         position: absolute;
-        top:-22%;
+        top:-1%;
         width:100%;
-        height:500/@rem;
-        transform: scale(0.5) translateY(-30%) translateX(50%);
+        // height:500/@rem;
+         height:174%;
+        left:-25%;
+        bottom:-44%;
+        transform: scale(0.5) translateY(-28%) translateX(100%);
         &:hover{
           transition: .5s;
-          transform: scale(1) translateY(-32%) translateX(8%);
+          transform: scale(1) translateY(-32%) translateX(25%);
           background: rgb(49, 133, 230);
           z-index: 2;
         }

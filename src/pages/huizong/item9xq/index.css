@@ -196,6 +196,7 @@ div {
   grid-template-columns: 3fr 2fr 2fr 2fr 1fr;
 }
 .tit span {
+  font-size: 0.9375vw;
   text-align: center;
 }
 .awrap {
@@ -220,6 +221,7 @@ div {
   grid-template-columns: 3fr 2fr 2fr 2fr 1fr;
 }
 .list-new .item span {
+  font-size: 0.72916667vw;
   text-align: center;
 }
 .type-wrap {

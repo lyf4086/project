@@ -318,6 +318,7 @@ div {
   display: flex;
 }
 #second .left .tit span {
+  font-size: 0.9375vw;
   width: 25%;
   text-align: center;
 }
@@ -342,6 +343,7 @@ div {
   display: flex;
 }
 #second .left .list-new .item span {
+  font-size: 0.72916667vw;
   width: 25%;
   text-align: center;
 }
