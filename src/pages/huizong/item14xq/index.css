@@ -1,0 +1,185 @@
+div {
+  box-sizing: border-box;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-size: 0.72916667vw;
+}
+.wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 2px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(34, 8, 83, 0.5);
+  background: rgba(55, 29, 126, 0.8);
+}
+.wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+#sel {
+  box-sizing: border-box;
+  color: #fff;
+  width: 100%;
+  padding-top: 1.04166667vw;
+  border: 0.10416667vw solid #3391c7;
+  position: relative;
+}
+#sel .jiao {
+  position: absolute;
+  width: 1.04166667vw;
+  height: 1.04166667vw;
+  border: none;
+  background: url(../../../assets/img/jiao.png) no-repeat;
+  background-size: cover;
+}
+#sel .jiao:nth-of-type(1) {
+  top: -0.20833333vw;
+  left: -0.15625vw;
+}
+#sel .jiao:nth-of-type(2) {
+  top: -0.20833333vw;
+  right: -0.15625vw;
+  transform: rotate(90deg);
+}
+#sel .jiao:nth-of-type(3) {
+  bottom: -0.15625vw;
+  right: -0.15625vw;
+  transform: rotate(180deg);
+}
+#sel .jiao:nth-of-type(4) {
+  bottom: -0.15625vw;
+  left: -0.15625vw;
+  transform: rotate(270deg);
+}
+#sel .items {
+  position: relative;
+}
+#sel .title1 {
+  width: 11.97916667vw;
+  height: 1.77083333vw;
+  line-height: 1.77083333vw;
+  color: #fff;
+  font-size: 0.72916667vw;
+  background: url(../../../assets/img/xq-title.png) no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 0.83333333vw;
+}
+#sel .title1 span {
+  width: 1.04166667vw;
+  height: 1.04166667vw;
+  margin: 0 1.04166667vw;
+  background: url(../../../assets/img/xq-icon2.png) no-repeat;
+  background-size: cover;
+}
+#sel .items:nth-child(6) span {
+  background: url(../../../assets/img/xq-baojin.png) no-repeat;
+  background-size: cover;
+}
+#sel .items:nth-child(7) span {
+  background: url(../../../assets/img/xq-icon1.png) no-repeat;
+  background-size: cover;
+}
+#sel .sel-wrap {
+  height: 2.8125vw;
+  padding-left: 2.08333333vw;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+#sel .sel-wrap input {
+  box-sizing: border-box;
+  width: 8.33333333vw;
+  height: 1.04166667vw;
+  border: 0.05208333vw solid #a9b3bb;
+  border-radius: 0.15625vw;
+  background: none;
+  line-height: 1.04166667vw;
+  color: #cfc8c8;
+  margin: 0 1.14583333vw;
+  font-size: 0.72916667vw;
+}
+#sel .sel-wrap .sub {
+  width: 3.02083333vw;
+  height: 0.98958333vw;
+  color: #132d44;
+  text-align: center;
+  line-height: 0.98958333vw;
+  cursor: pointer;
+  background: url(../../../assets/img/xq-chaxun.png) no-repeat;
+  background-size: 100% 100%;
+}
+.jg-wrap {
+  padding-left: 2.08333333vw;
+  padding-top: 0.83333333vw;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.jg-wrap .item {
+  width: 10.41666667vw;
+  height: 0.9375vw;
+  line-height: 0.9375vw;
+  font-size: 0.72916667vw;
+  margin-bottom: 0.83333333vw;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.jg-wrap .item i {
+  display: inline-block;
+  width: 0.83333333vw;
+  height: 0.83333333vw;
+  transform: translateY(1px);
+  margin-right: 0.78125vw;
+  background: url(../../../assets/img/xq-select.png) no-repeat;
+  background-size: 100% 100%;
+}
+.jg-wrap .selected {
+  color: #fff;
+}
+.jg-wrap .selected i {
+  background: url(../../../assets/img/xq-sellected.png) no-repeat;
+  background-size: 100% 100%;
+}
+.sub-wrap {
+  width: 100%;
+  height: 2.60416667vw;
+  position: relative;
+}
+.sub-wrap .sub {
+  position: absolute;
+  cursor: pointer;
+  width: 6.77083333vw;
+  height: 1.5625vw;
+  color: #132d44;
+  text-align: center;
+  line-height: 1.5625vw;
+  right: 1.04166667vw;
+  background: url(../../../assets/img/xq-sub.png) no-repeat;
+  background-size: 100% 100%;
+}
+#content {
+  margin-top: 1.04166667vw;
+  height: 58%;
+  border: 0.10416667vw solid #35a4f7;
+  font-size: 0.72916667vw;
+  color: #fff;
+}
+#content #chart {
+  width: 100%;
+  height: 100%;
+}

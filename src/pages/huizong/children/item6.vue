@@ -128,74 +128,179 @@ export default {
       // let Echar1=this.$echarts.init(box1)
       let that = this;
       let Echart1 = this.$echarts.init(document.getElementById("char-left"));
+      // let option = {
+      //   tooltip: {
+      //     trigger: "axis",
+      //     axisPointer: {
+      //       type: "cross",
+      //       crossStyle: {
+      //         color: "#999"
+      //       }
+      //     }
+      //   },
+      //   toolbox: {
+      //     feature: {
+      //       dataView: { show: false, readOnly: false },
+      //       magicType: { show: false, type: ["line", "bar"] },
+      //       restore: { show: false },
+      //       saveAsImage: { show: false }
+      //     }
+      //   },
+      //   legend: {
+      //     data: ["报警", "正常", "总量"]
+      //   },
+      //   xAxis: [
+      //     {
+      //       type: "category",
+      //       data: this.citys,
+      //       // data: ["11", "22", "33", "44", "55"],
+      //       axisPointer: {
+      //         type: "shadow"
+      //       }
+      //     }
+      //   ],
+      //   yAxis: [
+      //     {
+      //       type: "value",
+      //       name: "",
+      //       min: 0,
+      //       max: 30,
+      //       interval: 50,
+      //       axisLabel: {
+      //         formatter: " ",
+      //         textStyle: {
+      //           color: "#fff",
+      //           fontSize: 12
+      //         }
+      //       }
+      //     },
+      //     {
+      //       type: "value",
+
+      //       name: "",
+      //       min: 0,
+      //       max: 10,
+      //       interval: 5,
+      //       axisLabel: {
+      //         formatter: ""
+      //       }
+      //     }
+      //   ],
+      //   // series: this.objArr
+      //   series: [
+      //     {
+      //       name: "数量",
+      //       type: "bar",
+      //       color: "#5dceec",
+      //       data: this.numbers
+      //     }
+      //   ]
+      // };
       let option = {
+        grid: {
+          show: "true",
+          borderWidth: "0",
+          height: "79%",
+          width: "74%",
+          x: "24%",
+          y: "8%"
+        },
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "cross",
-            crossStyle: {
-              color: "#999"
-            }
-          }
+            type: "shadow"
+          },
+          formatter: "{b0}: {c0}"
+          /*formatter: function(params) {
+            var result = '';
+            params.forEach(function (item) {
+                result += item.marker + " " + item.seriesName + " : " + item.value +"</br>";
+            });
+            return result;
+        }*/
         },
-        toolbox: {
-          feature: {
-            dataView: { show: false, readOnly: false },
-            magicType: { show: false, type: ["line", "bar"] },
-            restore: { show: false },
-            saveAsImage: { show: false }
-          }
+        // backgroundColor: "#121B2C", //背景色
+        xAxis: {
+          show: false, //是否显示x轴
+          type: "value"
         },
-        legend: {
-          data: ["报警", "正常", "总量"]
-        },
-        xAxis: [
-          {
-            type: "category",
-            data: this.citys,
-            // data: ["11", "22", "33", "44", "55"],
-            axisPointer: {
-              type: "shadow"
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: "value",
-            name: "",
-            min: 0,
-            max: 30,
-            interval: 50,
-            axisLabel: {
-              formatter: " ",
-              textStyle: {
+        yAxis: {
+          type: "category",
+          inverse: true, //让y轴数据逆向
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: "#666" //y轴字体颜色
+            },
+            formatter: function(value, index) {
+              return [
+                "{lg|" + (index + 1) + "}" + "{title|" + value + "} "
+              ].join("\n");
+            },
+            //定义富文本标签
+            rich: {
+              lg: {
+                fontWeight: "bold",
+                fontSize: 12, //字体默认12
                 color: "#fff",
-                fontSize: 12
+                padding: [0, 5, 0, 0]
+              },
+              title: {
+                color: "#fff",
+                fontWeight: "lighter"
+                // borderWidth: 1,
+                // borderColor: '#08c'
+                // textareaBorderColor: '#08c',
               }
             }
           },
-          {
-            type: "value",
-
-            name: "",
-            min: 0,
-            max: 10,
-            interval: 5,
-            axisLabel: {
-              formatter: ""
-            }
-          }
-        ],
-        // series: this.objArr
+          splitLine: { show: false }, //横向的线
+          axisTick: { show: false }, //y轴的端点
+          axisLine: { show: false }, //y轴的线
+          data: that.citys
+        },
         series: [
           {
-            name: "数量",
+            name: "数据内框",
             type: "bar",
-            color: "#5dceec",
-            data: this.numbers
+            itemStyle: {
+              normal: {
+                barBorderRadius: 30,
+                color: "#00b5eb"
+              }
+            },
+            /*label: {
+                normal: {
+                    show: true,
+                    position: 'right',
+                    color: 'red',
+                    fontSize: 14,
+                    formatter: 
+                    function(param) {
+                        // return 'xx';
+                    },
+                }
+            },*/
+            barWidth: 20,
+            data: that.numbers
+          },
+          {
+            name: "外框",
+            type: "bar",
+            itemStyle: {
+              normal: {
+                barBorderRadius: 20,
+                color: "rgba(255, 255, 255, 0.14)" //rgba设置透明度0.14
+              }
+            },
+            barGap: "-100%",
+            z: 0,
+            barWidth: 20,
+            data: [100, 100, 100, 100, 100]
           }
         ]
       };
+
       Echart1.setOption(option);
       Echart1.on("click", function(ev) {
         let roleId = that.$store.state.role_id;
@@ -351,7 +456,7 @@ export default {
           show: true,
           icon: "circle",
           left: "0%",
-          top: "90%",
+          top: "93%",
           orient: "horizontal",
           textStyle: {
             fontSize: 14,
@@ -414,7 +519,7 @@ export default {
       })
         .then(data => {
           this.citys = data.data.mname;
-          console.log(data.data.mid);
+          console.log(data);
           this.mid = data.data.mid;
           this.ip_id = data.data.ip_id;
           this.numbers = data.data.number;

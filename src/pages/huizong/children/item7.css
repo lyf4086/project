@@ -81,7 +81,7 @@
   grid-gap: 1%;
   font-size: 0.12rem;
   background: linear-gradient(to bottom, #5589b1, #2c5074);
-  margin-top: 3px;
+  margin-top: 0.03rem;
 }
 #echar2 .item h3 {
   text-align: left;
