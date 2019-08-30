@@ -199,10 +199,15 @@ export default {
   },
   mounted() {
     this.initMap();
+    this.$store.commit("setStr", {
+      str1: "全国枪支",
+      str2: "出勤详情"
+    });
   },
   beforeDestroy() {
     clearInterval(this.timer);
     this.timer = null;
+    this.$store.commit("huanyuanStr");
   }
 };
 </script>

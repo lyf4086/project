@@ -518,6 +518,13 @@ export default {
     this.t_mechanism_id = mes.mechanism_id;
     this.getData(mes.mechanism_id);
     this.moveing();
+    this.$store.commit("setStr", {
+      str1: "数据汇总",
+      str2: "可视化"
+    });
+  },
+  destroyed() {
+    this.$store.commit("huanyuanStr");
   }
 };
 </script>

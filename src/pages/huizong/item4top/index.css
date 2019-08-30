@@ -96,6 +96,9 @@ div {
   background: url(../../../assets/img/xq-icon2.png) no-repeat;
   background-size: cover;
 }
+#sel .items .title {
+  font-size: 0.9375vw;
+}
 #sel .items:nth-child(6) span {
   background: url(../../../assets/img/xq-baojin.png) no-repeat;
   background-size: cover;

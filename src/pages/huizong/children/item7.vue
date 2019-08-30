@@ -132,8 +132,8 @@ export default {
             itemStyle: {
               //图形样式
               normal: {
-                borderColor: "rgb(35,68,97)",
-                borderWidth: 10
+                // borderColor: "rgb(35,68,97)",
+                borderWidth: 1
               }
             },
             label: {

@@ -83,6 +83,9 @@ div {
   background: url(../../../assets/img/xq-icon2.png) no-repeat;
   background-size: cover;
 }
+#sel .items .title {
+  font-size: 0.9375vw;
+}
 #sel .items:nth-child(6) span {
   background: url(../../../assets/img/xq-baojin.png) no-repeat;
   background-size: cover;
@@ -191,6 +194,7 @@ div {
   height: 3.02083333vw;
   line-height: 3.02083333vw;
   text-align: center;
+  font-size: 0.9375vw;
 }
 #content .title span i {
   display: inline-block;
@@ -239,6 +243,7 @@ div {
 #content .list .item span {
   text-align: center;
   line-height: 3.02083333vw;
+  font-size: 0.72916667vw;
 }
 #content .list .item span:nth-last-child(1) {
   white-space: nowrap;

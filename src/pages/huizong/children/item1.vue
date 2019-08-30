@@ -60,21 +60,31 @@ export default {
           // }
         },
         grid: {
-          left: "0%",
-          right: "4%",
-          bottom: "0%",
+          left: "4%",
+          right: "10%",
+          bottom: "2%",
           containLabel: true
         },
         xAxis: [
           {
             type: "category",
             boundaryGap: false,
-            data: this.echar1_date
+            data: this.echar1_date,
+            axisLine: {
+              lineStyle: {
+                color: "#fff"
+              }
+            }
           }
         ],
         yAxis: [
           {
-            type: "value"
+            type: "value",
+            axisLine: {
+              lineStyle: {
+                color: "#fff"
+              }
+            }
           }
         ],
         series: this.list

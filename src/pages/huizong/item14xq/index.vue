@@ -91,21 +91,21 @@ export default {
         legend: {
           data: [
             {
-              name: "待处理",
+              name: "入库量",
               icon: "circle",
               textStyle: {
                 color: "#fff"
               }
             },
             {
-              name: "已处理",
+              name: "出库量",
               icon: "circle",
               textStyle: {
                 color: "#fff"
               }
             },
             {
-              name: "完成率",
+              name: "剩余归还量",
               icon: "circle",
               textStyle: {
                 color: "#fff"
@@ -140,7 +140,7 @@ export default {
               color: "#7d838b"
             },
             min: 0,
-            max: 50,
+            // max: 50,
             interval: 10,
             axisLabel: {
               show: true,
@@ -177,7 +177,7 @@ export default {
         },
         series: [
           {
-            name: "待处理",
+            name: "入库量",
             type: "bar",
             data: that.data1,
             barWidth: "auto",
@@ -209,7 +209,7 @@ export default {
             }
           },
           {
-            name: "已处理",
+            name: "出库量",
             type: "bar",
             data: that.data2,
             barWidth: "auto",
@@ -242,7 +242,7 @@ export default {
             barGap: "0"
           },
           {
-            name: "完成率",
+            name: "剩余归还量",
             type: "line",
             yAxisIndex: 1,
             data: that.lineData,
@@ -370,6 +370,15 @@ export default {
     this.timeEnd = timearr[1];
     this.getTypes();
     this.getData(par.mid, par.mid, par.ip_id, par.tt);
+  },
+  mounted() {
+    this.$store.commit("setStr", {
+      str1: "出库入库",
+      str2: "数据详情"
+    });
+  },
+  destroyed() {
+    this.$store.commit("huanyuanStr");
   }
 };
 </script>

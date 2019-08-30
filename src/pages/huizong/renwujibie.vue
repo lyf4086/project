@@ -126,7 +126,10 @@ export default {
         },
         legend: {
           // data:['报警','正常','总量','哈哈']
-          data: this.chart1Data.legendData
+          data: this.chart1Data.legendData,
+          textStyle: {
+            color: "#fff"
+          }
         },
         xAxis: [
           {
@@ -199,7 +202,7 @@ export default {
         },
         series: [
           {
-            name: "访问来源",
+            name: "型号及数量",
             type: "pie",
             radius: ["50%", "70%"],
             avoidLabelOverlap: false,

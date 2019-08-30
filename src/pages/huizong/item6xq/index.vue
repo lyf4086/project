@@ -200,6 +200,15 @@ export default {
     this.timeEnd = timearr[1];
     this.getTypes();
     this.getData(par.mid, par.mid, par.ip_id, par.tt);
+  },
+  mounted() {
+    this.$store.commit("setStr", {
+      str1: "全国枪支",
+      str2: "历史记录"
+    });
+  },
+  destroyed() {
+    this.$store.commit("huanyuanStr");
   }
 };
 </script>
