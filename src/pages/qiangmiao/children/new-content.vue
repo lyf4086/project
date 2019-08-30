@@ -7,7 +7,7 @@
           <p>{{item.IMEI}}</p>
         </div>
         <div class="item" title="枪瞄状态">{{item.heart==1 ? "在线":"不在线"}}</div>
-        <div class="item" title="电量" @click="tanchuang2(item.electricity)">{{item.electricity}}%</div>
+        <div class="item" title="电量" @click="tanchuang2(item)">{{item.electricity}}%</div>
         <div class="item" title="充电状态">{{item.ischarging}}</div>
         <div class="item" title="所属警员" @click="lookPerson(item)">{{item.policeuser_name || '暂无'}}</div>
         <div class="item" title="所属机构">
@@ -44,12 +44,19 @@
       </div>
       <div class="alert2" v-show="tan2">
         <p v-show="false">我是电量的弹窗</p>
-        <div class="fensug">
-          <div class="wavenum">
-            <b id="denfenjs">{{active_dianliang}}%</b>
-          </div>
-          <div class="waven">
-            <div class="wave" style="height: 60%;">&nbsp;</div>
+        <div id="dianchi"></div>
+        <div class="message">剩余电量：{{active_dianliang}}%</div>
+        <div id="chart2"></div>
+        <div class="title">
+          <span>时间</span>
+          <span>电量</span>
+        </div>
+        <div class="listwrap">
+          <div class="list" id="dianlianglist">
+            <div class="item" v-for="item,index in dianlianglist" :key="index">
+              <span>{{item.created}}</span>
+              <span>{{item.elec}}</span>
+            </div>
           </div>
         </div>
         <button class="close" @click="close2">取消</button>
@@ -116,11 +123,269 @@ export default {
       xuanZhongGunId: "",
       active_qiangmiao: "", //.............当前激活的枪瞄id
       OneMessage: null,
-      active_dianliang: ""
+      active_dianliang: "",
+      dianlianglist: [],
+      dianliangData1: ["2014", "2015", "2016", "2017", "2018", "2019"],
+      dianliangData2: [150, 200, 259, 360, 378, 450, 450]
     };
   },
 
   methods: {
+    dianchi(n) {
+      let that = this;
+      let box = document.getElementById("dianchi");
+      let Echart = this.$echarts.init(box, true);
+      var data = n; //数值大小
+      var max = 100; //满刻度大小
+      let option = {
+        // title: {
+        //     text: '-AQI-',
+        //     top:'38%',
+        //     left:'center',
+        //     textStyle:{
+        //         color: '#fff',
+        //         fontSize: 18
+        //     }
+        // },
+        // backgroundColor: 'orange',
+
+        color: ["rgb(0,0,200)", "rgba(255,255,255,.2)"],
+        series: [
+          {
+            type: "pie",
+            center: ["40%", "50%"],
+            radius: ["78%", "70%"],
+            hoverAnimation: false,
+            data: [
+              {
+                name: "",
+                value: data,
+                label: {
+                  show: true,
+                  position: "center",
+                  color: "#fff",
+                  fontSize: 38,
+                  fontWeight: "bold",
+                  formatter: function(o) {
+                    return data;
+                  }
+                }
+              },
+              {
+                //画剩余的刻度圆环
+                name: "",
+                value: max - data,
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                }
+              }
+            ]
+          },
+          {
+            type: "pie",
+            center: ["99%", "99%"],
+            radius: ["47%", "69%"],
+            hoverAnimation: false,
+            data: [
+              {
+                name: "",
+                value: data,
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                },
+                itemStyle: {
+                  color: "rgba(0,0,0,0)"
+                }
+              },
+              {
+                //画中间的图标
+                name: "",
+                value: 0,
+                label: {
+                  position: "inside",
+                  backgroundColor: {},
+                  padding: 10
+                }
+              },
+              {
+                name: "",
+                value: max - data,
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                },
+                itemStyle: {
+                  color: "rgba(0,0,0,0)"
+                }
+              }
+            ]
+          }
+        ]
+      };
+      Echart.setOption(option);
+    },
+    chart2() {
+      let that = this;
+      let box = document.getElementById("chart2");
+      let Echart = this.$echarts.init(box, true);
+      let option = {
+        // backgroundColor: "#0E204A",
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            lineStyle: {
+              color: {
+                type: "linear",
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "rgba(255,255,255,0)" // 0% 处的颜色
+                  },
+                  {
+                    offset: 0.5,
+                    color: "rgba(255,255,255,1)" // 100% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(255,255,255,0)" // 100% 处的颜色
+                  }
+                ],
+                global: false // 缺省为 false
+              }
+            }
+          }
+        },
+        grid: {
+          top: "18%",
+          left: "1%",
+          right: "1%",
+          bottom: "25%"
+          // containLabel: true
+        },
+        xAxis: [
+          {
+            type: "category",
+            boundaryGap: true,
+            axisLine: {
+              //坐标轴轴线相关设置。数学上的x轴
+              show: true,
+              lineStyle: {
+                color: "rgba(255,255,255,0.4)"
+              }
+            },
+            axisLabel: {
+              //坐标轴刻度标签的相关设置
+              textStyle: {
+                color: "#d1e6eb",
+                margin: 15
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            data: that.dianliangData1
+          }
+        ],
+        yAxis: [
+          {
+            type: "value",
+            min: 0,
+            // max: 140,
+            splitNumber: 4,
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: "rgba(255,255,255,0.1)"
+              }
+            },
+            axisLine: {
+              show: false
+            },
+            axisLabel: {
+              show: false,
+              margin: 20,
+              textStyle: {
+                color: "#d1e6eb"
+              }
+            },
+            axisTick: {
+              show: false
+            }
+          }
+        ],
+        series: [
+          {
+            name: "注册总量",
+            type: "line",
+            // smooth: true, //是否平滑曲线显示
+            // 			symbol:'circle',  // 默认是空心圆（中间是白色的），改成实心圆
+            showAllSymbol: true,
+            // symbol: 'image://./static/images/guang-circle.png',
+            symbolSize: 8,
+            lineStyle: {
+              normal: {
+                color: "#53fdfe" // 线条颜色
+              },
+              borderColor: "#f0f"
+            },
+            label: {
+              show: true,
+              position: "top",
+              textStyle: {
+                color: "#fff"
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: "rgba(255,255,255,1)"
+              }
+            },
+            tooltip: {
+              show: false
+            },
+            areaStyle: {
+              //区域填充样式
+              normal: {
+                //线性渐变，前4个参数分别是x0,y0,x2,y2(范围0~1);相当于图形包围盒中的百分比。如果最后一个参数是‘true’，则该四个值是绝对像素位置。
+                color: new this.$echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+                      color: "rgba(0,150,239,0.3)"
+                    },
+                    {
+                      offset: 1,
+                      color: "rgba(0,253,252,0)"
+                    }
+                  ],
+                  false
+                ),
+                shadowColor: "rgba(53,142,215, 0.9)", //阴影颜色
+                shadowBlur: 20 //shadowBlur设图形阴影的模糊大小。配合shadowColor,shadowOffsetX/Y, 设置图形的阴影效果。
+              }
+            },
+            data: that.dianliangData2
+          }
+        ]
+      };
+      Echart.setOption(option);
+    },
     lookPerson(item) {
       if (!item.policeuser_id) {
         this.$message({
@@ -171,11 +436,18 @@ export default {
       this.tan3 = false;
       this.OneMessage = this.data[n];
     },
-    tanchuang2(n) {
-      this.active_dianliang = n;
+    tanchuang2(item) {
+      this.active_dianliang = item.electricity;
       this.tan1 = false;
       this.tan2 = true;
       this.tan3 = false;
+      this.dianchi(item.electricity);
+
+      this.getDianliang(item.IMEI);
+
+      setTimeout(() => {
+        this.$methods.listMove("#dianlianglist", 3000);
+      }, 300);
     },
     tanchuang3(item) {
       //.......绑定枪瞄弹窗
@@ -246,6 +518,35 @@ export default {
           });
         });
     },
+    getDianliang(IMEI) {
+      var key = this.$store.state.key;
+      var objs = { IMEI };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("IMEI", objs.IMEI);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Gunaiming&a=elec",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          console.log(data);
+          this.dianliangData1 = data.data.data.map(e => e.created);
+          this.dianliangData2 = data.data.data.map(e => e.elec);
+          this.dianlianglist = data.data.datas;
+          this.chart2();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
     bind(gun_id, miao_id) {
       //....................绑定枪支和枪瞄
       var key = this.$store.state.key;

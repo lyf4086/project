@@ -274,6 +274,8 @@
 }
 .alert2 {
   position: absolute;
+  box-sizing: border-box;
+  padding-top: 0.5rem;
   width: 50%;
   height: 80%;
   top: 0;
@@ -283,6 +285,64 @@
   margin: auto;
   background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
+}
+.alert2 #dianchi {
+  width: 4rem;
+  height: 4rem;
+  margin: 0.5rem 0 0 0.2rem;
+}
+.alert2 .message {
+  width: 4rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.3rem;
+}
+.alert2 #chart2 {
+  position: absolute;
+  right: 0;
+  top: 0.6rem;
+  width: 6rem;
+  height: 5rem;
+}
+.alert2 .title {
+  position: absolute;
+  right: 0.2rem;
+  top: 5rem;
+  width: 5.8rem;
+  height: 0.3rem;
+  background: rgba(3, 38, 68, 0.2);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.alert2 .title span {
+  text-align: center;
+  line-height: 0.3rem;
+}
+.alert2 .listwrap {
+  position: absolute;
+  right: 0.2rem;
+  top: 5.3rem;
+  width: 5.8rem;
+  height: 1.6rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.alert2 .listwrap .list {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.alert2 .listwrap .list .item {
+  width: 5.8rem;
+  height: 0.3rem;
+  background: rgba(3, 38, 68, 0.07);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.alert2 .listwrap .list .item span {
+  text-align: center;
+  line-height: 0.3rem;
 }
 .alert3 {
   position: absolute;
@@ -487,56 +547,4 @@
   border-top: 2px #fff solid;
   margin: 3px auto;
   line-height: 35px;
-}
-.waven {
-  width: 168px;
-  height: 168px;
-  webkit-border-radius: 25em;
-  -moz-border-radius: 25em;
-  border-radius: 25em;
-  background: #5576ac;
-  overflow: hidden;
-  position: relative;
-}
-.wave {
-  width: 408px;
-  height: 80%;
-  position: absolute;
-  left: 0px;
-  bottom: 0;
-  background: url(http://www.17sucai.com/preview/5730/2018-09-20/images/images/wave.png) no-repeat;
-  animation: move_wave 1s linear infinite;
-  -webkit-animation: move_wave 1s linear infinite;
-}
-@-webkit-keyframes move_wave {
-  0% {
-    -webkit-transform: translateX(0);
-  }
-  50% {
-    -webkit-transform: translateX(-25%);
-  }
-  100% {
-    -webkit-transform: translateX(-50%);
-  }
-}
-@keyframes move_wave {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-25%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-.none-data {
-  width: 50%;
-  height: 3rem;
-  line-height: 3rem;
-  text-align: center;
-  font-size: 0.2rem;
-  background: rgba(0, 0, 0, 0.2);
-  margin: 1rem auto;
-  border-radius: 0.2rem;
 }

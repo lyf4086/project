@@ -12,7 +12,10 @@
     </div>
     <div class="center">
       <div class="up">
-        <img src="../../../assets/img/center.png" alt />
+        <div class="item1"></div>
+        <div class="item2"></div>
+        <div class="item3"></div>
+        <div class="item4"></div>
       </div>
       <div class="down">
         <div class="title">枪瞄绑定数量</div>

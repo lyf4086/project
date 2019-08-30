@@ -16,9 +16,6 @@
   grid-template-rows: 1fr 1fr;
   grid-column-gap: 3%;
 }
-.up .left .jiao {
-  height: 1.88rem;
-}
 .up .pos-right .title {
   text-indent: 0.3rem;
 }
@@ -78,7 +75,9 @@
   height: 86%;
   width: 100%;
 }
-.right-up div {
+.right-up > div {
+  display: flex;
+  align-items: center;
   height: 86%;
   width: 100%;
 }

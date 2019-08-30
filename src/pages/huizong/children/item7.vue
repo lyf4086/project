@@ -76,9 +76,9 @@ export default {
   },
   methods: {
     chart1XQ() {
-      this.$router.push({
-        name: "RightBottomXQ1"
-      });
+      // this.$router.push({
+      //   name: "RightBottomXQ1"
+      // });
     },
     chart3xq() {
       this.$router.push({
@@ -202,12 +202,12 @@ export default {
         });
       }, 1000);
       myChart.setOption(option);
-      myChart.on("click", function(ev) {
-        console.log(ev);
-        that.$router.push({
-          name: "RightBottomXQ1"
-        });
-      });
+      // myChart.on("click", function(ev) {
+      //   console.log(ev);
+      //   that.$router.push({
+      //     name: "RightBottomXQ1"
+      //   });
+      // });
     },
     char2() {
       let that = this;
@@ -223,6 +223,7 @@ export default {
           }
         },
         legend: {
+          textStyle: { color: "#fff" },
           data: ["入库", "出库"]
         },
         grid: {

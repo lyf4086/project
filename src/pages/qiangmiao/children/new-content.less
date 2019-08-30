@@ -340,6 +340,8 @@
 
 .alert2 {
   position: absolute;
+  box-sizing: border-box;
+  padding-top: 50/@rem;
   width: 50%;
   height: 80%;
   top: 0;
@@ -349,7 +351,81 @@
   margin: auto;
   background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
+  #dianchi{
+    width:400/@rem;
+    height:400/@rem;
+    margin:50/@rem 0 0 20/@rem;;
+  }
+  .message{
+    width: 400/@rem;
+    height:30/@rem;
+    text-align: center;
+    line-height: 30/@rem;
+    font-size: 30/@rem;
+  }
+  #chart2{
+    position: absolute;
+    right:0;
+    top:60/@rem;
+    width:600/@rem;
+    height:500/@rem;
+    // background: pink;
+  }
+  .title{
+    position: absolute;
+    right:20/@rem;
+    top:500/@rem;
+    width: 580/@rem;
+    height:30/@rem;
+    background: rgba(3,38,68,.2);
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    span{
+      text-align: center;
+      line-height: 30/@rem;
+    }
+  }
+  .listwrap{
+    position: absolute;
+    right:20/@rem;
+    top:530/@rem;
+    width: 580/@rem;
+    height:160/@rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    .list{
+      position: absolute;
+      top:0;
+      left:0;
+      .item{
+        width: 580/@rem;
+        height:30/@rem;
+        background: rgba(3,38,68,.07);
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        span{
+          text-align: center;
+          line-height: 30/@rem;
+        }
+      }
+    }
+  }
 }
+
+// .listwrap::-webkit-scrollbar {/*滚动条整体样式*/
+//   width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/
+//   height: 4px;
+// }
+// .listwrap::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+//   border-radius: 5px;
+//   -webkit-box-shadow: inset 0 0 5px rgba(34, 8, 83, 0.5);
+//   background: rgba(55, 29, 126, 0.8);
+// }
+// .listwrap::-webkit-scrollbar-track {/*滚动条里面轨道*/
+//   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+//   border-radius: 0;
+//   background: rgba(221, 213, 213, 0.6);
+// }
 
 .alert3 {
   position: absolute;
@@ -586,67 +662,3 @@
 }
 
 
-
-.waven {
-  width: 168px;
-  height: 168px;
-  webkit-border-radius: 25em;
-  -moz-border-radius: 25em;
-  border-radius: 25em;
-  background: #5576ac;
-  overflow: hidden;
-  position: relative
-}
-
-.wave {
-  width: 408px;
-  height: 80%;
-  position: absolute;
-  left: 0px;
-  bottom: 0;
-  background: url(http://www.17sucai.com/preview/5730/2018-09-20/images/images/wave.png) no-repeat;
-  animation: move_wave 1s linear infinite;
-  -webkit-animation: move_wave 1s linear infinite;
-}
-
-
-
-@-webkit-keyframes move_wave {
-  0% {
-    -webkit-transform: translateX(0)
-  }
-
-  50% {
-    -webkit-transform: translateX(-25%)
-  }
-
-  100% {
-    -webkit-transform: translateX(-50%)
-  }
-}
-
-@keyframes move_wave {
-  0% {
-    transform: translateX(0)
-  }
-
-  50% {
-    transform: translateX(-25%)
-  }
-
-  100% {
-    transform: translateX(-50%)
-  }
-}
-
-
-.none-data {
-  width: 50%;
-  height: 300/@rem;
-  line-height: 300/@rem;
-  text-align: center;
-  font-size: 20/@rem;
-  background: rgba(0, 0, 0, 0.2);
-  margin: 100/@rem auto;
-  border-radius: 20/@rem;
-}

@@ -14,14 +14,15 @@
     grid-template-rows: 1fr;
     
     .left{
+
       display: grid;
       grid-template-columns: 50% 47%;
       grid-template-rows: 1fr 1fr;
       grid-column-gap: 3%;
     
-      .jiao{
-        height:188/@rem;
-      }
+    //   .jiao{
+    //     height:188/@rem;
+    //   }
     }
     .pos-right{
         // background: royalblue
@@ -32,7 +33,7 @@
             width:95%;
             // height:93%;
             height:43vh;
-            float:right
+            float:right;
         }
     }
 }
@@ -93,16 +94,17 @@
 }
 
 .left-up{
-
-
+ 
     div{
         height:86%;
         width:100%
     }
 }
 .right-up{
-
-    div{
+    
+    &>div{
+        display: flex;
+        align-items: center;
         height:86%;
         width:100%;
     }
@@ -112,10 +114,7 @@
     }
 }
 .left-down{
-    // background: pink;
-    .jiao{
-        
-    }
+
 
     div{
         height:86%;
