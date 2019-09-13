@@ -41,12 +41,16 @@ let XiangQingList = () => import('../pages/huizong/xiangqingnew-list')
 
 let Item4Top = () => import('../pages/huizong/item4top')
 let Item5XQ = () => import('../pages/huizong/item5xq/index.vue')
+let Item5XQ_LX = () => import('../pages/huizong/item5xq-lixian/index.vue')
 let Item6XQ = () => import('../pages/huizong/item6xq/index.vue')
 let Item7XQ = () => import('../pages/huizong/item7xq/index.vue')
 let Item8XQ = () => import('../pages/huizong/item8xq/index.vue')
 let Item9XQ = () => import('../pages/huizong/item9xq/index.vue')
+let Item10XQ = () => import('../pages/huizong/item10xq/index.vue')
 let Item14XQ = () => import('../pages/huizong/item14xq/index.vue')
 let CenterXQ = () => import('../pages/huizong/centerxq/index.vue')
+
+let GlobalScreem =()=>import('../pages/globalscreem/index.vue')
 
 
 let router = new Router({
@@ -198,6 +202,11 @@ let router = new Router({
       component: Item5XQ
     },
     {
+      path:"item5xq-lixian",
+      name:"Item5XQ_LX",
+      component:Item5XQ_LX
+    },
+    {
       path: 'item6xq',
       name: 'Item6XQ',
       component: Item6XQ
@@ -216,6 +225,11 @@ let router = new Router({
       path: 'item9xq',
       name: 'Item9XQ',
       component: Item9XQ
+    },
+    {
+      path: 'item10xq',
+      name: 'Item10XQ',
+      component: Item10XQ
     },
     {
       path: 'item14xq',
@@ -256,7 +270,11 @@ let router = new Router({
     }
     ]
   },
-
+  {
+    path:'/globalscreem',
+    name:'GlobalScreem',
+    component:GlobalScreem
+  },
   {
     path: '/login',
     name: 'Login',

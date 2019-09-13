@@ -24,11 +24,11 @@ export default {
       dataList: [],
       list: [],
       echart2_data: [
-        { value: 335, name: "直接访问" },
-        { value: 310, name: "邮件营销" },
-        { value: 234, name: "联盟广告" },
-        { value: 135, name: "视频广告" },
-        { value: 1548, name: "搜索引擎" }
+        // { value: 335, name: "直接访问" },
+        // { value: 310, name: "邮件营销" },
+        // { value: 234, name: "联盟广告" },
+        // { value: 135, name: "视频广告" },
+        // { value: 1548, name: "搜索引擎" }
       ],
       timeObj: null
     };
@@ -163,7 +163,7 @@ export default {
         data: params
       })
         .then(data => {
-          console.log(data.data.data.mname);
+          // console.log(data.data.data.mname);
           this.timeObj = data.data.time;
           this.echar1_date = data.data.data.days;
           this.echar1_num = data.data.data.value;

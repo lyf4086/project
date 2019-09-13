@@ -51,7 +51,12 @@
     <div class="content">
       <!-- <Content/> -->
       <div class="none-data" v-if="!list.length">暂时没有数据......</div>
-      <Item v-for="item,index in list" :item="item" :key="index" @changeOneData="changeOneData" />
+      <Item v-for="(item,index) in list" 
+        :item="item" :key="index" 
+        @changeOneData="changeOneData" 
+        @showNew="showNew"
+        @showAlert="showAlert"
+      />
     </div>
     <div class="check_type">
       <div class="all" @click="dealAll">
@@ -84,6 +89,8 @@
         <p @click="quxiao">X</p>
       </div>
     </div>
+    <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" title="aaa" @closeMap="closeMap"/>
+    <!-- <MapMarker v-if="gaodeshow" :arr="gaodeArr" title="aaa" @closeMap="closeMap"/> -->
   </div>
 </template>
 <style scoped>
@@ -92,9 +99,10 @@
 <script>
 import breadNav from "@/components/breadnav";
 import Item from "./children/bj-item";
-
+import MapMarker from '@/components/map-marker.vue'//此为离线地图弹窗
+import GaoDeMap from '@/components/mapalertgaode.vue'
 export default {
-  components: { breadNav, Item },
+  components: { breadNav, Item ,GaoDeMap,MapMarker},
   data() {
     return {
       currentNodeKey: "",
@@ -121,10 +129,21 @@ export default {
       textArea: "",
       txt: "",
       currentPage: 3,
-      policeuser_id: ""
+      policeuser_id: "",
+      gaodeshow:false,
+      gaodeArr:[39.90923,116.397428]
     };
   },
   methods: {
+    showNew(){
+      this.gaodeshow=true
+    },
+    closeMap(){
+      this.gaodeshow=false
+    },
+    showAlert(){
+      this.gaodeshow=true
+    },
     currentChange(n) {
       //页码点击事件
 
@@ -306,6 +325,7 @@ export default {
             });
             this.beiYongList = this.list;
             this.dataTotal = data.data.data.psum * 1;
+
           }
         })
         .catch(error => {

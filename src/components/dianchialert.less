@@ -1,0 +1,117 @@
+@vw:19.2vw;
+@rem:100rem;
+.wrap{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.5);
+    color:#fff;
+    .alert2 {
+        position: absolute;
+        box-sizing: border-box;
+        padding-top: 50/@rem;
+        width: 50%;
+        // height: 80%;
+        height:760/@vw;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        background: url(../assets/img/qiangguixiangqing.png) no-repeat;
+        background-size: 100% 100%;
+        #dianchi{
+          width:400/@rem;
+          height:400/@rem;
+          margin:50/@rem 0 0 20/@rem;;
+        }
+        .message{
+          width: 400/@rem;
+          height:200/@rem;
+          // background: pink;
+          // text-align: center;
+          padding-left: 50/@vw;
+          line-height: 40/@rem;
+          font-size: 20/@rem;
+        }
+        .t1{
+          position: absolute;
+          width:350/@vw;
+          text-align: left;
+          left:40/@vw;
+          top:90/@rem;
+          font-size: 30/@vw;
+        }
+        .t{
+          position: absolute;
+          width:550/@vw;
+          text-align: left;
+          right:0;
+          top:90/@rem;
+          font-size: 30/@vw;
+        }
+        #chart2{
+          position: absolute;
+          right:0;
+          top:60/@rem;
+          width:600/@rem;
+          height:500/@rem;
+          // background: pink;
+        }
+        .title{
+          position: absolute;
+          right:20/@rem;
+          top:500/@rem;
+          width: 580/@rem;
+          height:30/@rem;
+          background: rgba(3,38,68,.2);
+          display: grid;
+          grid-template-columns: repeat(2,1fr);
+          span{
+              font-size: 16/@vw;
+            text-align: center;
+            line-height: 30/@rem;
+          }
+        }
+        .listwrap{
+          position: absolute;
+          right:20/@rem;
+          top:530/@rem;
+          width: 580/@rem;
+          height:160/@rem;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          .list{
+            position: absolute;
+            top:0;
+            left:0;
+            .item{
+              width: 580/@rem;
+              height:30/@rem;
+              background: rgba(3,38,68,.07);
+              display: grid;
+              grid-template-columns: repeat(2,1fr);
+              span{
+                  font-size: 14/@vw;
+                text-align: center;
+                line-height: 30/@rem;
+              }
+            }
+          }
+        }
+      }
+}
+.alert2 .close {
+    position: absolute;
+    right: 105/@rem;
+    bottom: 6/@rem;
+    width: 170/@rem;
+    height: 30/@rem;
+    font-size: 18/@rem;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+  }

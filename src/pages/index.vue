@@ -8,7 +8,7 @@
         <div class="nav-btns">
           <div class="nav">
             <router-link
-              v-for="item,index in list"
+              v-for="(item,index) in list"
               :to="item.road"
               :key="index"
               class="item"
@@ -86,7 +86,7 @@
 
             <el-upload
               class="avatar-uploader"
-              action=baseURL+"/weixin/project/index.php?m=home&c=Policeuser&a=upload"
+              :action="uploadImgURL"
               :show-file-list="false"
               :data="userId"
               :on-success="handleAvatarSuccess"
@@ -109,7 +109,7 @@
       <div class="item_wrap" ref="listWrap" id="auto_list">
         <transition
           name="slide-fade"
-          v-for="item,index in warningList"
+          v-for="(item,index) in warningList"
           :key="index"
           v-if="item.show"
         >
@@ -142,6 +142,7 @@ export default {
   data() {
     return {
       baseURL:this.$store.state.baseURL,
+      uploadImgURL:this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Policeuser&a=upload",
       moveTimer: null,
       upPic: false,
       imageUrl: "",

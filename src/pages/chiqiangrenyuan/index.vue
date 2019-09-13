@@ -51,7 +51,7 @@
     <div class="content" v-if="dataList">
       <div class="none-data" v-if="!dataList.length">暂时没有数据......</div>
       <onePerson
-        v-for="(item,index) in dataList"
+        v-for="item in dataList"
         :key="item.id"
         :oneDate="item"
         @toNew="toNew"
@@ -62,8 +62,10 @@
       <div class="map_wrap">
         <div id="map-content"></div>
         <button class="del" @click="mapOff">取消</button>
+        <div class="del2" @click="mapOff">X</div>
       </div>
     </div>
+    <MapMarker v-if="lixianMap" :arr="lixianArr" :title="lixianTitle"  @closeMap="closeMap"/>
   </div>
 </template>
 <style scoped>
@@ -72,9 +74,10 @@
 <script>
 import breadNav from "@/components/breadnav";
 import onePerson from "./children/onePerson";
-
+import MapMarker from '@/components/map-marker.vue'
+import GaoDe from '@/components/mapalertgaode.vue'
 export default {
-  components: { breadNav, onePerson },
+  components: { breadNav, onePerson,MapMarker },
   data() {
     return {
       mapShow: false,
@@ -89,10 +92,16 @@ export default {
       defaultProps: {
         children: "child",
         label: "mechanism_name"
-      }
+      },
+      lixianMap:false,
+      lixianArr:[],
+      lixianTitle:''
     };
   },
   methods: {
+    closeMap(){
+      this.lixianMap=false
+    },
     subSearch() {
       if (!this.selValue) {
         this.$message("请选择搜索的条件");
@@ -105,7 +114,8 @@ export default {
       this.search();
     },
     mapInit(obj) {
-      console.log(obj);
+      // console.log(obj);
+      
       let map = new AMap.Map("map-content", {
         center: [obj.longitude, obj.latitude],
         resizeEnable: true,
@@ -133,9 +143,14 @@ export default {
         });
         return;
       }
+     
+
+      // 打开离线地图
+      // this.lixianMap=true
+      // this.lixianArr=[obj.latitude-0,obj.longitude-0]
+      // this.lixianTitle=obj.policeName
 
       this.mapShow = true;
-
       this.mapInit(obj);
     },
     toHistory(obj) {

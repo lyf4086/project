@@ -1,7 +1,8 @@
 <template>
   <div class="main" ref="main">
-    <div class="none-data" v-if="!data.length">暂时没有数据......</div>
-    <div class="item_miao" v-for="(item,index) in data" :key="item.IMEI">
+    <div class="none-data" v-if="!dataList.length">暂时没有数据......</div>
+    <!-- 
+    <div class="item_miao" v-for="item in data" :key="item.IMEI" >
       <div class="content">
         <div class="item" :title="item.IMEI" @click="showOne(item)">
           <p>{{item.IMEI}}</p>
@@ -27,6 +28,37 @@
       </div>
       <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
     </div>
+     -->
+    <div class="one-data"  v-for="item in dataList" :key="item.IMEI" >
+      <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
+      <div class="left">
+        <div class="l1" :title="item.IMEI" @click="showOne(item)">{{item.IMEI}}</div>
+        <div class="l2" title="枪瞄状态">{{item.heart==1 ? "在线":"不在线"}}</div>
+        <div class="l3" title="电量" @click="tanchuang2(item)">{{item.electricity}}%</div>
+        <div class="l4" title="充电状态">{{item.ischarging}}</div>
+      </div>
+      <div class="center">
+        <div class="down"></div>
+        <div class="up"></div>
+        <div class="m"></div>
+      </div>
+      <div class="right">
+        <div class="r1" title="所属警员">{{item.policeuser_name || '暂无'}}</div>
+        <div class="r2" title="所属机构">{{item.mechanism_name}}</div>
+        <div class="r3" title="绑定解绑">
+          <span @click="tanchuang3(item)" v-if="item.gun_id==0">绑定</span>
+          <span
+            v-if="item.gun_id>0"
+            class="jiebang"
+            @click="jiebang(item)"
+            style="color:red;"
+            :title="`所绑枪支编号:${item.gun_code || '暂无'}`"
+          >解绑</span>
+        </div>
+        <div class="r4" title="最后定位时间">{{item.created}}</div>
+      </div>
+      
+    </div>
     <div class="zhezhao" v-show="tan1||tan2||tan3||map">
       <div class="alert1" v-show="tan1" v-if="OneMessage">
         <p>设备号码：{{OneMessage.IMEI}}</p>
@@ -41,21 +73,32 @@
       <div class="map_wrap" v-show="map">
         <div id="map_content"></div>
         <button class="close" @click="mapClose">取消</button>
+        <div class="del" @click="mapClose">X</div>
       </div>
       <div class="alert2" v-show="tan2">
-        <p v-show="false">我是电量的弹窗</p>
+        <div class="del" @click="close2">X</div>
+        <div class="t1">电池信息</div>
         <div id="dianchi"></div>
-        <div class="message">剩余电量：{{active_dianliang}}%</div>
-        <div id="chart2"></div>
+        <div class="message" v-if="showMessage">
+          <p>剩余电量：{{active_dianliang}}%</p>
+          <p>枪瞄编号：{{showMessage.IMEI}}</p>
+          <p>所属警员：{{showMessage.policeuser_name}}</p>
+        </div>
+        <div class="t">电量趋势图</div>
+        <div id="chart2">
+          
+        </div>
         <div class="title">
-          <span>时间</span>
           <span>电量</span>
+          <span>时间</span>
+          
         </div>
         <div class="listwrap">
           <div class="list" id="dianlianglist">
-            <div class="item" v-for="item,index in dianlianglist" :key="index">
-              <span>{{item.created}}</span>
+            <div class="item" v-for="(item,index) in dianlianglist" :key="index">
+              
               <span>{{item.elec}}</span>
+              <span>{{item.created}}</span>
             </div>
           </div>
         </div>
@@ -67,13 +110,7 @@
         <input @input="putChange" class="put1" v-model.trim="xuanZhongGunId" placeholder="输入枪支ID" />
         <div class="list" ref="list">
           <div class="no-data" v-if="allGunList.length==0">该机构下暂时没有枪支信息,请前往添加</div>
-          <div
-            :style="{'opacity':e.opacity}"
-            class="item"
-            :id="key"
-            v-for="e,key in allGunList"
-            @click="gunListClick(e,key)"
-          >
+          <div :style="{'opacity':e.opacity}" class="item" :key="e.id" v-for="(e,key) in allGunList"  @click="gunListClick(e,key)" >
             枪支编号:{{e.gun_code}} ，类型：{{e.gtype || "无"}}
             <!-- <input type="checkbox" v-model="e.checked" /> -->
           </div>
@@ -81,15 +118,19 @@
         <input type="submit" class="btn" @click="submitBt" value="确认绑定" />
       </div>
     </div>
+    <MapMarker v-if="mapShow" :arr="mapLngLat" @closeMap="closeMap"/>
   </div>
 </template>
 <style scoped>
 @import url(./new-content.css);
 </style>
 <script>
+import { clearTimeout } from 'timers';
+import MapMarker from '@/components/map-marker.vue'
 export default {
+  components:{MapMarker},
   props: {
-    data: {
+    dataList: {
       type: Array,
       default: function() {
         return [];
@@ -124,13 +165,21 @@ export default {
       active_qiangmiao: "", //.............当前激活的枪瞄id
       OneMessage: null,
       active_dianliang: "",
+      moveListTimer:null,
       dianlianglist: [],
       dianliangData1: ["2014", "2015", "2016", "2017", "2018", "2019"],
-      dianliangData2: [150, 200, 259, 360, 378, 450, 450]
+      dianliangData2: [150, 200, 259, 360, 378, 450, 450],
+      showMessage:null,
+      mapShow:false,
+      mapLngLat:[],
+       sync: 0 //动静态区分，默认静态，1为动态
     };
   },
 
   methods: {
+    closeMap(){
+      this.mapShow=false
+    },
     dianchi(n) {
       let that = this;
       let box = document.getElementById("dianchi");
@@ -410,10 +459,14 @@ export default {
       if (!item.longitude) {
         this.$message({
           type: "warning",
-          message: "没有定位数据"
+          message: "没有卫星定位数据"
         });
         return;
       }
+      //打开谷歌离线地图
+      // this.mapShow=true
+      // this.mapLngLat=[item.latitude-0,item.longitude-0]
+     
       this.map = true;
       this.mapInit(item);
     },
@@ -437,6 +490,8 @@ export default {
       this.OneMessage = this.data[n];
     },
     tanchuang2(item) {
+      console.log(item)
+      this.showMessage=item;
       this.active_dianliang = item.electricity;
       this.tan1 = false;
       this.tan2 = true;
@@ -444,8 +499,8 @@ export default {
       this.dianchi(item.electricity);
 
       this.getDianliang(item.IMEI);
-
-      setTimeout(() => {
+      clearTimeout(this.moveListTimer)
+      this.moveListTimer=setTimeout(() => {
         this.$methods.listMove("#dianlianglist", 3000);
       }, 300);
     },
@@ -610,11 +665,18 @@ export default {
         });
     } //..........................解绑end
   },
+  created(){
+    this.sync = this.$gscookie.getCookie("sync");
+    console.log(this.sync)
+  },
   mounted() {
     this.$nextTick(() => {
       this.$refs.main.addEventListener("mouseover", ev => {
-        if (ev.target.className == "item_miao") {
-          ev.target.lastElementChild.style.display = "block";
+         return
+        if (ev.target.className == "") {
+         console.log('移入了')
+        //  return
+          ev.target.previousElementSibling.style.display = "block";
           ev.target.onmouseout = function() {
             let b = $(this)[0].querySelector(".check");
             b.onmouseover = function() {

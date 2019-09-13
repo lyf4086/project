@@ -12,7 +12,7 @@
           <!-- <span>出勤数量</span> -->
           <span>出勤数量</span>
         </h6>
-        <div class="item" v-for="item,index in arr" :key="index">
+        <div class="item" v-for="(item,index) in arr" :key="index">
           <h3>{{item.mechanism_name}}</h3>
           <!-- <h3>{{e.c}}</h3> -->
           <h3>{{item.number}}</h3>
@@ -233,12 +233,22 @@ export default {
         },
         xAxis: [
           {
-            type: "value"
+            type: "value",
+             axisLine: {
+              lineStyle: {
+                color: "#fff"
+              }
+            }
           }
         ],
         yAxis: [
           {
             type: "category",
+            axisLine: {
+              lineStyle: {
+                color: "#fff"
+              }
+            },
             axisTick: { show: false },
             data: this.rightData.time
           }

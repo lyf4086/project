@@ -265,6 +265,14 @@
   text-align: center;
   font-size: 0.72916667vw;
 }
+.list .scroll .item span:nth-child(1) {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.list .scroll .item span:nth-child(4) {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .list .scroll .item:nth-child(even) {
   background: rgba(44, 86, 120, 0.5);
 }

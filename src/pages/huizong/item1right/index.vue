@@ -83,7 +83,7 @@ export default {
         },
         series: [
           {
-            name: "访问来源",
+            name: "报警类型",
             type: "pie",
             selectedMode: "single",
             radius: [0, "45%"],
@@ -99,7 +99,7 @@ export default {
             data: this.data1
           },
           {
-            name: "名称及数量占比",
+            name: "机构名称",
             type: "pie",
             radius: ["64%", "85%"],
             color: colors,

@@ -60,6 +60,7 @@
         </div>
         <div class="xiangqing-wrap" v-show="qiangguishow || vidio">
           <div class="xiangqing" v-show="qiangguishow">
+            <div class="del" @click="close">X</div>
             <button class="close" @click="close">取消</button>
             <div class="content">
               <div class="nodata" v-if="!xiangqingData.length">暂无数据</div>

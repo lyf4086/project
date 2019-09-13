@@ -44,6 +44,7 @@ export default {
       });
     },
     goPersonMessage(item) {
+      return
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
       this.$gscookie.setCookie("personMessage", {

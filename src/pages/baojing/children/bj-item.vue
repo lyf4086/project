@@ -17,6 +17,8 @@
     </div>
     <div class="content">
       <div class="tex_wrap">
+        <button class="btn1" @click="showNew">最新位置</button>
+        <button class="btn2" @click="showAlert">报警位置</button>
         <div class="list">
           <span>报警类型：</span>
           <span>{{item.type}}</span>
@@ -63,6 +65,7 @@
 @import url(./bj-item.css);
 </style>
 <script>
+
 export default {
   props: {
     item: {
@@ -73,7 +76,9 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      showmap:false
+    };
   },
   computed: {
     chuli() {
@@ -84,6 +89,13 @@ export default {
     }
   },
   methods: {
+    showNew(){
+      this.$emit('showNew')
+    },
+    showAlert(){
+      this.$emit('showAlert')
+    },
+    
     changeOne(index) {
       this.$emit("changeOneData", index);
     },
@@ -113,6 +125,9 @@ export default {
       var s = date.getSeconds();
       return Y + M + D + h + m + s;
     }
+  },
+  mounted(){
+    this.showmap=true
   }
 };
 </script>

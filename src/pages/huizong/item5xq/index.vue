@@ -1,8 +1,8 @@
 <template>
   <div class="wrap">
     <div id="container"></div>
-    <div class="topbtn">
-      <i @click="updown" :class="{active:!isshow}"></i>
+    <div class="topbtn" @click="updown">
+      <i  :class="{active:!isshow}"></i>
     </div>
     <div id="message" :class="{hidden:isshow}">
       <div class="title">
@@ -27,7 +27,7 @@
       </div>
       <div class="list">
         <div id="listwrap">
-          <div class="item" v-for="item,index in dataList" :key="index">
+          <div class="item" v-for="(item,index) in dataList" :key="index">
             <span>{{item.mechanism_name || ""}}</span>
             <span>{{item.policeName || ""}}</span>
             <span>{{item.gun_code || ""}}</span>

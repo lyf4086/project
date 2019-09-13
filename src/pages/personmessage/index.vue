@@ -232,6 +232,7 @@ export default {
       });
     }
     let policeuser_id = this.$store.state.policeuser_id;
+console.log('policeuser_id',policeuser_id)
     this.getData(policeuser_id);
   }
 };

@@ -27,7 +27,7 @@
           <div
             class="item"
             :class="{selected:item.checked}"
-            v-for="item,index in mec"
+            v-for="(item,index) in mec"
             :key="index"
             @click="jigouSelect(index)"
           >
@@ -62,9 +62,9 @@
         </span>
       </div>
       <div class="list">
-        <div class="item" v-for="item,index in dataList" :key="index">
+        <div class="item" v-for="(item,index) in dataList" :key="index">
           <span>{{item.mechanism_name}}</span>
-          <span>{{item.policeName}}</span>
+          <span @click="toPerson(item)">{{item.policeName}}</span>
           <span>{{item.gun_code}}</span>
           <span>{{item.taskType}}</span>
           <span>{{item.optime}}</span>
@@ -92,6 +92,15 @@ export default {
     };
   },
   methods: {
+    toPerson(item){
+     
+      this.$store.commit('setPoliceId',{
+        policeuser_id:item.policeid
+      })
+     this.$router.push({
+       name:"PersonMessage"
+     })
+    },
     subSearch() {
       let start = this.timeStart;
       let end = this.timeEnd;
@@ -132,7 +141,7 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            // console.log(data);
+            // console.log(111);
             this.mec = data.data.mec.map((item, index) => {
               if (index == 0) {
                 return {
@@ -194,6 +203,12 @@ export default {
   },
   created() {
     let par = this.$route.params;
+    if(!par.mid){
+      this.$router.push({
+        name:"HuiZong"
+      })
+      return
+    }
     let timearr = par.tt.split(",");
     this.mid = par.mid;
     this.timeStart = timearr[0];

@@ -28,7 +28,7 @@
           <div
             class="item"
             :class="{selected:item.checked}"
-            v-for="item,index in mec"
+            v-for="(item,index) in mec"
             :key="index"
             @click="jigouSelect(index)"
           >
@@ -54,8 +54,8 @@
           </div>
           <div class="awrap">
             <div class="list-new" id="list-new">
-              <div class="item" v-for="item,index in dataList" :key="index">
-                <span>{{item.policeName}}</span>
+              <div class="item" v-for="(item,index) in dataList" :key="index">
+                <span @click="toPerson(item)">{{item.policeName}}</span>
                 <span>{{item.gun_code}}</span>
                 <span>{{item.gunType}}</span>
 
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="title">数量统计</div>
+        <div class="title">各类型借出统计</div>
         <div id="chart2"></div>
       </div>
     </div>
@@ -92,6 +92,16 @@ export default {
     };
   },
   methods: {
+    toPerson(item){
+      // console.log(item.policeid)
+      // return
+      this.$store.commit('setPoliceId',{
+        policeuser_id:item.policeid
+      })
+     this.$router.push({
+       name:"PersonMessage"
+     })
+    },
     subSearch() {
       let start = this.timeStart;
       let end = this.timeEnd;
@@ -283,7 +293,7 @@ export default {
         ip_id,
         time
       };
-      console.log(objs);
+      // console.log(objs);
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
@@ -304,7 +314,7 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            console.log(data.data.data);
+            // console.log(data.data.data);
             this.dataList = data.data.data;
             this.cou = data.data.cou;
             this.date = data.data.gname;
@@ -317,8 +327,15 @@ export default {
     }
   },
   created() {
-    this.getTypes();
+    
     let par = this.$route.params;
+    if(!par.mid){
+      this.$router.push({
+        name:"HuiZong"
+      })
+      return
+    }
+    this.getTypes();
     let mes = this.$gscookie.getCookie("message_obj");
     this.ip_id = par.ip_id;
     this.t_mechanism_id = mes.mechanism_id;
@@ -335,7 +352,7 @@ export default {
     this.move();
     this.$store.commit("setStr", {
       str1: "枪支借出",
-      str2: "数据占比"
+      str2: "数据统计"
     });
     this.initEchart();
   },

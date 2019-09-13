@@ -7,11 +7,11 @@
       <span>枪支类型</span>
       <span>借出时间</span>
     </div>
-    <div class="list12">
+    <div class="list12"  >
       <div
         class="item"
         @click="toxiangqing(item.tt)"
-        v-for="item,index in dataList"
+        v-for="(item,index) in dataList"
         :key="index"
         v-if="dataList.length"
       >
@@ -48,7 +48,7 @@ export default {
     },
     move() {
       var $uList = $(".wrap .list12");
-      var timer = null;
+      let timer = null;
       //触摸清空定时器
       $uList
         .hover(

@@ -469,7 +469,7 @@ export default {
       })
         .then(data => {
           this.treeData = data.data.data.list;
-          console.log(data.data.data.list);
+          // console.log(data.data.data.list);
           this.active_title = data.data.data.list[0].mechanism_name;
           this.active_jigou = data.data.data.list[0];
           this.hasData = true;

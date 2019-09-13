@@ -1,7 +1,7 @@
 <template>
   <div class="renyuan" ref="renyuan">
     <div class="none-data" v-if="!list.length">暂无时没有数据......</div>
-    <div class="item" v-for="item,index in list" :key="index" :class="{'dou':isRemoving}">
+    <div class="item" v-for="(item,index) in list" :key="index" :class="{'dou':isRemoving}">
       <div class="text">
         <p>用户名：</p>
         <p class="put-wrap">

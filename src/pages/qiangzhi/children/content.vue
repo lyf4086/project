@@ -4,7 +4,7 @@
     <div class="item_list" v-if="data.length">
       <div
         class="item_gun"
-        v-for="item,index in data"
+        v-for="(item,index) in data"
         :key="item.gun_id"
         ref="item"
         :class="{'dou':isRemoving}"
@@ -69,6 +69,7 @@
         <button class="close" @click="close3">X</button>
       </div>
       <div class="alert alert4" v-if="tan4">
+        <div class="del" @click="close4">X</div>
         <button class="close" @click="close4">取消</button>
         <div class="contentwrap">
           <div class="top"></div>
@@ -89,7 +90,7 @@
             <span>用途类型</span>
           </div>
           <div class="list_wrap">
-            <div class="list" v-for="item,index in xiangqingList" :key="index">
+            <div class="list" v-for="(item,index) in xiangqingList" :key="index">
               <span>{{index+1}}</span>
               <span>{{item.usrename}}</span>
               <span>{{item.policeNum}}</span>

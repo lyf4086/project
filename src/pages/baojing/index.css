@@ -73,6 +73,8 @@
   bottom: -4.6vh;
   background: url(../../assets/img/fenye.png) no-repeat;
   background-size: 100% 100%;
+  display: flex;
+  align-items: center;
 }
 .add-del {
   width: 2.6rem;

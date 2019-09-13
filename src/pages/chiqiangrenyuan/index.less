@@ -136,6 +136,8 @@
   bottom: -4.6vh;
   background: url(../../assets/img/fenye.png) no-repeat;
   background-size: 100% 100%;
+  display: flex;
+  align-items: center;
 }
 
 .add-del {
@@ -186,7 +188,7 @@
 
   flex-wrap: wrap;
   // align-content: flex-start;
- align-content: center;
+ align-content: center
 
 }
 
@@ -261,7 +263,20 @@
     // border-radius: 50%;
     cursor: pointer;
   }
-
+  .del2{
+    position: absolute;
+    right:30/@rem;
+    top:14/@rem;
+    width:30/@rem;
+    height:30/@rem;
+    text-align: center;
+    line-height: 30/@rem;
+    font-size: 20/@rem;
+    color:#fff;
+    border:1/@rem solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
   .check-time {
     position: absolute;
     z-index: 99999;

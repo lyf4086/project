@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+<div class="wrap">
     <div id="sel">
       <i class="jiao"></i>
       <i class="jiao"></i>
@@ -27,7 +27,7 @@
           <div
             class="item"
             :class="{'selected':item.checked}"
-            v-for="item,index in warningType"
+            v-for="(item,index) in warningType"
             :key="index"
             @click="typeChange(index)"
           >
@@ -45,7 +45,7 @@
           <div
             class="item"
             :class="{selected:item.checked}"
-            v-for="item,index in jigoulist"
+            v-for="(item,index) in jigoulist"
             :key="index"
             @click="jigouSelect(index)"
           >
@@ -61,7 +61,7 @@
     </div>
     <div id="second">
       <div class="left">
-        <div class="n">报警列表</div>
+        <div class="n" >报警列表</div>
         <div class="c">
           <div class="tit">
             <span>机构名称</span>
@@ -71,7 +71,7 @@
           </div>
           <div class="awrap">
             <div class="list-new" id="list-new">
-              <div class="item" v-for="item,index in dataList">
+              <div class="item" v-for="(item,index) in dataList" :key="index">
                 <span>{{item.mname}}</span>
                 <span>{{item.datetime}}</span>
                 <span>{{item.number}}</span>
@@ -167,8 +167,8 @@
         <div class="next"  @click="next4">关闭</div>
       </div>
     </div>
-  </div>
-  </div>
+  <!-- </div> -->
+</div>
 </template>
 <style scoped>
 @import url("./xiangqingnew.css");
@@ -177,7 +177,6 @@
 // import GunDongList from "@/components/gundonglist";
 import { setInterval, clearInterval } from 'timers';
 export default {
-  // components: { GunDongList },
   data() {
     return {
       steap:1,
@@ -222,10 +221,12 @@ export default {
         "07": [],
         "08": [],
         "09": []
-      }
+      },
+     
     };
   },
   methods: {
+    
     dbchecktype(n){
       this.dbwarningtype.forEach((e,i)=>{
         if(i===n){

@@ -225,6 +225,10 @@ div {
 .list-new .item span {
   text-align: center;
 }
+.list-new .item span:nth-child(1) {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .type-wrap {
   height: 2.8125vw;
   padding-left: 2.08333333vw;

@@ -1,0 +1,67 @@
+.wrap {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+}
+.map_wrap {
+  position: absolute;
+  width: 50%;
+  height: 80%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: url(../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}
+.map_wrap .del {
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.2rem;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.map_wrap .close {
+  position: absolute;
+  right: 1.05rem;
+  bottom: 0.06rem;
+  width: 1.7rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.map_wrap .no {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 60%;
+  height: 10%;
+  text-align: center;
+}
+.map_wrap #map {
+  position: absolute;
+  top: 4%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 98%;
+  height: 84%;
+}

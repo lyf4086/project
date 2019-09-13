@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="num-icon" id="num-icon">
-      <div class="item" v-for="item,index in iconList" :key="index" @click="toList(item)">
+      <div class="item" v-for="(item,index) in iconList" :key="index" @click="toList(item)">
         <p>{{item.name}}</p>
         <div class="num">{{item.number}}</div>
         <p>环比{{item.ratio}}%</p>
@@ -25,7 +25,7 @@ export default {
       max: 0,
       timermove: null,
       iconList: [],
-      num: [87878, 57546, 4344, 35232],
+      num: [0, 0, 0, 0],
       numData: {
         area: 111,
         elec: 222,
@@ -197,6 +197,9 @@ export default {
         },
         legend: {
           x: "left",
+          textStyle:{
+            fontSize:"16"
+          },
           // data:['一级用枪','二级用枪','三级用枪','四级用枪','五级用枪','六级用枪']
           data: this.dataRightUp
         },

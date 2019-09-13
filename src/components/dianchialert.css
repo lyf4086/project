@@ -1,0 +1,111 @@
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+.wrap .alert2 {
+  position: absolute;
+  box-sizing: border-box;
+  padding-top: 0.5rem;
+  width: 50%;
+  height: 39.58333333vw;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: url(../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .alert2 #dianchi {
+  width: 4rem;
+  height: 4rem;
+  margin: 0.5rem 0 0 0.2rem;
+}
+.wrap .alert2 .message {
+  width: 4rem;
+  height: 2rem;
+  padding-left: 2.60416667vw;
+  line-height: 0.4rem;
+  font-size: 0.2rem;
+}
+.wrap .alert2 .t1 {
+  position: absolute;
+  width: 18.22916667vw;
+  text-align: left;
+  left: 2.08333333vw;
+  top: 0.9rem;
+  font-size: 1.5625vw;
+}
+.wrap .alert2 .t {
+  position: absolute;
+  width: 28.64583333vw;
+  text-align: left;
+  right: 0;
+  top: 0.9rem;
+  font-size: 1.5625vw;
+}
+.wrap .alert2 #chart2 {
+  position: absolute;
+  right: 0;
+  top: 0.6rem;
+  width: 6rem;
+  height: 5rem;
+}
+.wrap .alert2 .title {
+  position: absolute;
+  right: 0.2rem;
+  top: 5rem;
+  width: 5.8rem;
+  height: 0.3rem;
+  background: rgba(3, 38, 68, 0.2);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.wrap .alert2 .title span {
+  font-size: 0.83333333vw;
+  text-align: center;
+  line-height: 0.3rem;
+}
+.wrap .alert2 .listwrap {
+  position: absolute;
+  right: 0.2rem;
+  top: 5.3rem;
+  width: 5.8rem;
+  height: 1.6rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.wrap .alert2 .listwrap .list {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.wrap .alert2 .listwrap .list .item {
+  width: 5.8rem;
+  height: 0.3rem;
+  background: rgba(3, 38, 68, 0.07);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.wrap .alert2 .listwrap .list .item span {
+  font-size: 0.72916667vw;
+  text-align: center;
+  line-height: 0.3rem;
+}
+.alert2 .close {
+  position: absolute;
+  right: 1.05rem;
+  bottom: 0.06rem;
+  width: 1.7rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}

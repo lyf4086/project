@@ -27,7 +27,7 @@
           <div
             class="item"
             :class="{'selected':item.checked}"
-            v-for="item,index in warnTypes"
+            v-for="(item,index) in warnTypes"
             :key="index"
             @click="typeChange(index)"
           >
@@ -65,24 +65,35 @@
         <!-- <span>历史轨迹</span> -->
       </div>
       <div class="scroll">
-        <div class="item" v-for="item,index in dataList" :key="index">
-          <span>{{item.policeuser_name}}</span>
+        <div class="item" v-for="(item,index) in dataList" :key="index">
+          <span @click="toPerson(item)">{{item.policeuser_name}}</span>
           <span>{{item.gun_code}}</span>
           <span>{{item.mechanism_name}}</span>
-          <span>{{item.elec}}%</span>
+          <span @click="openAlert(item)">{{item.elec}}%</span>
           <span>{{item.datetime}}</span>
           <span>{{item.type_name}}</span>
           <!-- <span>历史轨迹</span> -->
         </div>
       </div>
     </div>
+    <DianChiAlert 
+      v-if="dianchishow" 
+      @closeAlert="closeAlert"
+      :dianChiNumber="num"
+      :dianliangData1="data1"
+      :dianliangData2="data2"
+      :dianlianglist="dianlianglist"
+     
+    />
   </div>
 </template>
 <style scoped>
 @import url(./xiangqingnew-list.css);
 </style>
 <script>
+import DianChiAlert from '@/components/dianchialert.vue'
 export default {
+  components: { DianChiAlert },
   data() {
     return {
       par: null,
@@ -91,10 +102,37 @@ export default {
       warnTypes: [],
       dataList: [],
       showFenXi: false,
-      b: true
+      b: true,
+      dianchishow:false,
+      num:0,
+      data1:["2014", "2015", "2016"],
+      data2:[150, 270, 259],
+      dianlianglist:[]
     };
   },
   methods: {
+    toPerson(item){
+      this.$store.commit('setPoliceId',{
+        policeuser_id:item.policeuser_id
+      })
+     this.$router.push({
+       name:"PersonMessage"
+     })
+    },
+    openAlert(item){
+      // if(item.elec==0){
+      //   this.$message({
+      //     type:"warning",
+      //     message:"电量过低，请速速充电"
+      //   })
+      //   return
+      // }
+      
+      this.getDianliang(item.IMEI)
+    },
+    closeAlert(){
+      this.dianchishow=false
+    },
     paixu() {
       if (this.b) {
         let list = this.dataList.sort((m, n) => m.dateStr - n.dateStr);
@@ -142,6 +180,35 @@ export default {
               };
             });
           }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+     getDianliang(IMEI) {
+      var key = this.$store.state.key;
+      var objs = { IMEI };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("IMEI", objs.IMEI);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Gunaiming&a=elec",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          // console.log(data);
+          this.num=data.data.elec
+          this.data1 = data.data.data.map(e => e.created);
+          this.data2 = data.data.data.map(e => e.elec);
+          this.dianlianglist = data.data.datas;
+          this.dianchishow=true
         })
         .catch(error => {
           console.log(error);
@@ -204,10 +271,17 @@ export default {
       this.$router.push({
         name: "HuiZong"
       });
+      return
+    }
+    
+    this.par = this.$route.params;
+    if(!this.$route.params.mechanism_id){
+      this.$router.push({
+        name:"HuiZong"
+      })
+      return
     }
     this.getTypes();
-    this.par = this.$route.params;
-    // console.log(this.par);
     let {
       mechanism_id,
       ip_id,

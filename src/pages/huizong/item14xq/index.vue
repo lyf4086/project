@@ -27,7 +27,7 @@
           <div
             class="item"
             :class="{selected:item.checked}"
-            v-for="item,index in mec"
+            v-for="(item,index) in mec"
             :key="index"
             @click="jigouSelect(index)"
           >
@@ -60,7 +60,7 @@ export default {
       timeStart: "",
       timeEnd: "",
       dataList: [],
-      names: ["1街", "2街", "3街", "4街", "5街", "6街"]
+      names: []
     };
   },
   methods: {
@@ -112,7 +112,7 @@ export default {
               }
             }
           ],
-          top: "10%",
+          top: "2%",
           textStyle: {
             color: "#fff"
           }

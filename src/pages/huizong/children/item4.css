@@ -50,7 +50,7 @@
   border-right: 0.01rem solid rgba(255, 255, 255, 0.6);
 }
 .list12 .item span:hover {
-  background: linear-gradient(to bottom, rgba(93, 206, 237, 0.4), rgba(93, 206, 237, 0.1));
+  background: linear-gradient(to bottom, #c47733, rgba(196, 119, 51, 0.6), rgba(196, 119, 51, 0));
 }
 .list12 .item span:nth-last-child(1) {
   white-space: nowrap;

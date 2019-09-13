@@ -9,16 +9,23 @@
       <div id="char-center"></div>
     </div>
     <div class="itemright">
+      <div class="cover"></div>
       <p>逾期报警</p>
-      <div class="diandian">
-        <div class="item">
-          <span></span>
-        </div>
-        <div class="item">
-          <span></span>
-        </div>
-        <div class="item">
-          <span></span>
+      <div class="dianwrap">
+        <div class="line"></div>
+        <div class="diandian" id="diandian">
+          <div class="item">
+            <span></span>
+          </div>
+          <div class="item">
+            <span></span>
+          </div>
+          <div class="item">
+            <span></span>
+          </div>
+          <div class="item">
+            <span></span>
+          </div>
         </div>
       </div>
       <!-- <div id="char-right" >
@@ -36,7 +43,7 @@
       </div>-->
       <div class="yuqi" id="wrap">
         <ul class="liebiao">
-          <li class="one" v-for="item,index in dataList3" :key="index">
+          <li class="one" v-for="(item,index) in dataList3" :key="index">
             <div>
               <span>{{item.policeName}}</span>
               <span>{{item.type}}</span>
@@ -84,6 +91,9 @@ export default {
     };
   },
   methods: {
+    moveDian(){
+      this.$methods.listMove('#diandian')
+    },
     moveing() {
       var $uList = $("#wrap .liebiao");
       var timer = null;
@@ -594,6 +604,7 @@ export default {
     this.getDataTwo();
     this.getDataThree();
     this.moveing();
+    this.moveDian()
   }
 };
 </script>

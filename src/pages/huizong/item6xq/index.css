@@ -245,31 +245,9 @@ div {
   line-height: 3.02083333vw;
   font-size: 0.72916667vw;
 }
-#content .list .item span:nth-last-child(1) {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  display: flex;
-  justify-content: space-around;
-}
-#content .list .item span:nth-last-child(1) p {
-  width: 90%;
-  height: 100%;
-  word-break: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#content .list .item span:nth-last-child(2) {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  display: flex;
-  justify-content: space-around;
-}
-#content .list .item span:nth-last-child(2) p {
-  width: 90%;
-  height: 100%;
-  word-break: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
+#content .list .item span:nth-child(2) {
+  cursor: pointer;
+  text-decoration: underline;
 }
 #content .list .item:nth-child(even) {
   background: rgba(44, 86, 120, 0.7);

@@ -108,6 +108,19 @@
   background: url(../../../assets/img/item-bottom.png) no-repeat;
   background-size: 100% 100%;
 }
+.item-main .content .tex_wrap button {
+  position: absolute;
+}
+.item-main .content .tex_wrap .btn1 {
+  right: 0.1rem;
+  top: 0.55rem;
+  cursor: pointer;
+}
+.item-main .content .tex_wrap .btn2 {
+  right: 0.1rem;
+  top: 0.85rem;
+  cursor: pointer;
+}
 .item-main .content .tex_wrap .list {
   width: 2.2rem;
   height: 0.26rem;

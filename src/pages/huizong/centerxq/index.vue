@@ -296,7 +296,7 @@ export default {
         },
         yAxis: [
           {
-            name: "%",
+            name: "",
             nameTextStyle: {
               color: xAxisTextColor,
               fontSize: a
@@ -523,7 +523,7 @@ export default {
     this.moveing();
     this.$store.commit("setStr", {
       str1: "数据汇总",
-      str2: "可视化"
+      str2: "概况"
     });
   },
   destroyed() {

@@ -14,7 +14,8 @@ let store = new Vuex.Store({
     jiGouId: '',
     str1: '全国枪支',
     str2: '使用情况汇总',
-    baseURL: "http://s.tronl.cn"
+    baseURL: "http://s.tronl.cn",
+    lixianStr:"http://192.168.1.107:9000"
 
   },
   mutations: {
@@ -28,8 +29,8 @@ let store = new Vuex.Store({
     },
     setPoliceId(state, payload) { //设置数据
       state.policeuser_id = payload.policeuser_id;
-      state.yeMa = payload.yeMa;
-      state.jiGouId = payload.jiGouId
+      state.yeMa = payload.yeMa||'';
+      state.jiGouId = payload.jiGouId||''
     },
     emptyNumber(state, payload) { //...还原数据
       state.yeMa = '';

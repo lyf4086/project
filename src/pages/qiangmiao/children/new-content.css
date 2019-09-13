@@ -2,14 +2,8 @@
   0% {
     transform: rotate(0deg);
   }
-  40% {
-    transform: rotate(-90deg);
-  }
-  70% {
-    transform: rotate(0deg);
-  }
   100% {
-    transform: rotate(90deg);
+    transform: rotate(-360deg);
   }
 }
 @keyframes roundright {
@@ -20,13 +14,25 @@
     transform: rotate(360deg);
   }
 }
+.none-data {
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 0.2rem;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 1rem auto;
+  border-radius: 0.2rem;
+}
 .main {
+  box-sizing: border-box;
+  padding: 0 2.2%;
   width: 100%;
   height: 100%;
   font-size: 0.83333333vw;
   display: flex;
   flex-wrap: wrap;
-  align-content: stretch;
+  align-content: flex-start;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -276,8 +282,8 @@
   position: absolute;
   box-sizing: border-box;
   padding-top: 0.5rem;
-  width: 50%;
-  height: 80%;
+  width: 53%;
+  height: 39.58333333vw;
   top: 0;
   left: 0;
   bottom: 0;
@@ -286,6 +292,20 @@
   background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
 }
+.alert2 .del {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.2rem;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
 .alert2 #dianchi {
   width: 4rem;
   height: 4rem;
@@ -293,10 +313,26 @@
 }
 .alert2 .message {
   width: 4rem;
-  height: 0.3rem;
-  text-align: center;
-  line-height: 0.3rem;
-  font-size: 0.3rem;
+  height: 2rem;
+  padding-left: 2.60416667vw;
+  line-height: 0.4rem;
+  font-size: 0.2rem;
+}
+.alert2 .t1 {
+  position: absolute;
+  width: 18.22916667vw;
+  text-align: left;
+  left: 2.08333333vw;
+  top: 0.9rem;
+  font-size: 1.5625vw;
+}
+.alert2 .t {
+  position: absolute;
+  width: 28.64583333vw;
+  text-align: left;
+  right: 0;
+  top: 0.9rem;
+  font-size: 1.5625vw;
 }
 .alert2 #chart2 {
   position: absolute;
@@ -441,6 +477,20 @@
   background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
 }
+.map_wrap .del {
+  position: absolute;
+  right: 0.2rem;
+  top: 0.13rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.2rem;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
 .map_wrap .close {
   position: absolute;
   right: 1.05rem;
@@ -547,4 +597,162 @@
   border-top: 2px #fff solid;
   margin: 3px auto;
   line-height: 35px;
+}
+.one-data {
+  width: 21.5625vw;
+  height: 11.14583333vw;
+  background: url(../../../assets/img/miao-bg.png) no-repeat;
+  background-size: 100% 100%;
+  margin-bottom: 1.6%;
+  margin-right: 3%;
+  margin-left: 1.8%;
+  position: relative;
+  font-size: 0.72916667vw;
+  color: #fff;
+}
+.one-data .check {
+  position: absolute;
+  top: 0.04rem;
+  left: 0.04rem;
+  width: 0.15rem;
+  height: 0.15rem;
+  z-index: 9;
+  cursor: pointer;
+}
+.one-data .left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 0.36458333vw 0 0.44791667vw 0.625vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.one-data .left .l1,
+.one-data .left .l2,
+.one-data .left .l3,
+.one-data .left .l4 {
+  width: 7.29166667vw;
+  height: 1.5625vw;
+  line-height: 1.5625vw;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding-left: 0.26041667vw;
+}
+.one-data .left .l1,
+.one-data .left .l3 {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.one-data .left .l2,
+.one-data .left .l3 {
+  width: 6.04166667vw;
+}
+.one-data .center {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 7.29166667vw;
+  height: 7.29166667vw;
+}
+.one-data .center .down {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: url(../../../assets/img/miao-r1.png) no-repeat;
+  background-size: 100% 100%;
+  animation: roundright 2s linear infinite;
+}
+.one-data .center .up {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 83%;
+  height: 83%;
+  margin: auto;
+  background: url(../../../assets/img/miao-r2.png) no-repeat;
+  background-size: 100% 100%;
+  animation: roundleft 3s linear infinite;
+}
+.one-data .center .m {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 2.60416667vw;
+  height: 2.60416667vw;
+  background: url(../../../assets/img/miao-r3.png) no-repeat;
+  background-size: 100%;
+  background-position-y: 0.26041667vw;
+}
+.one-data .right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  z-index: 0.1;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 0.88541667vw 0.625vw 0.05208333vw 0;
+}
+.one-data .right .r1,
+.one-data .right .r2,
+.one-data .right .r3,
+.one-data .right .r4 {
+  width: 7.29166667vw;
+  height: 1.5625vw;
+  line-height: 1.5625vw;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  padding-right: 0.15625vw;
+  padding-left: 0.10416667vw;
+}
+.one-data .right .r3 {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.one-data .right .r2,
+.one-data .right .r3 {
+  width: 6.14583333vw;
+}
+.one-data:nth-of-type(3) {
+  margin-right: 0;
+}
+.one-data:nth-of-type(6) {
+  margin-right: 0;
+}
+.one-data:nth-of-type(9) {
+  margin-right: 0;
+}
+.one-data:nth-child(7) {
+  margin-bottom: 0;
+}
+.one-data:nth-child(8) {
+  margin-bottom: 0;
+}
+.one-data:nth-child(9) {
+  margin-bottom: 0;
 }

@@ -964,6 +964,14 @@ export default {
     this.t_mechanism_id = item.mechanism_id;
     this.getTypes();
   },
-  mounted() {}
+  mounted() {
+    this.$store.commit("setStr", {
+      str1: "报警分析",
+      str2: "增长率"
+    });
+  },
+   destroyed() {
+    this.$store.commit("huanyuanStr");
+  }
 };
 </script>

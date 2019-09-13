@@ -57,7 +57,7 @@
     <div class="content">
       <newContent
         @hehe="openMap"
-        :data="qiangmiaoData"
+        :dataList="qiangmiaoData"
         @changeOneD="changeOneDataZhuangTai"
         :allGunList="allGunList"
         @updataView="updataView"
@@ -105,7 +105,7 @@ import MapAlert from "@/components/map-alert";
 import breadNav from "@/components/breadnav";
 import newContent from "./children/new-content";
 export default {
-  components: { MapAlert, breadNav, newContent },
+  components: {MapAlert, breadNav, newContent },
   data() {
     return {
       hasData: false,
@@ -135,7 +135,8 @@ export default {
       selValue: "",
       pageTotal: null,
       active_yema: 1,
-      ishand: false //..........是否点击了树形菜单
+      ishand: false, //..........是否点击了树形菜单
+      
     };
   },
   methods: {
@@ -190,6 +191,7 @@ export default {
         .then(data => {
           if (data.data.code == 200 && data.data.data.length != 0) {
             this.qiangmiaoData = data.data.data.list;
+            
           }
           this.selValue = "";
           this.putValue = "";
@@ -289,6 +291,7 @@ export default {
           });
           this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
           this.pageTotal = data.data.data.psum * 1;
+          // console.log(this.qiangmiaoData)
         })
         .catch(error => {
           console.log(error);
@@ -559,6 +562,7 @@ export default {
     } //................获取列表信息函数end
   },
   created() {
+    
     let { jiGouId, yeMa } = this.$store.state;
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");

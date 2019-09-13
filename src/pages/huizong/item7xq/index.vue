@@ -28,7 +28,7 @@
           <div
             class="item"
             :class="{selected:item.checked}"
-            v-for="item,index in mec"
+            v-for="(item,index) in mec"
             :key="index"
             @click="jigouSelect(index)"
           >
@@ -56,8 +56,8 @@
           </div>
           <div class="awrap">
             <div class="list-new" id="list-new">
-              <div class="item" v-for="item,index in dataList" :key="index">
-                <span>{{item.policeName}}</span>
+              <div class="item" v-for="(item,index) in dataList" :key="index">
+                <span @click="toPerson(item)">{{item.policeName}}</span>
                 <span>{{item.policeNum}}</span>
 
                 <span>{{item.gunType}}</span>
@@ -96,6 +96,15 @@ export default {
     };
   },
   methods: {
+    toPerson(item){
+    
+      this.$store.commit('setPoliceId',{
+        policeuser_id:item.policeid
+      })
+     this.$router.push({
+       name:"PersonMessage"
+     })
+    },
     subSearch() {
       let start = this.timeStart;
       let end = this.timeEnd;
@@ -320,8 +329,15 @@ export default {
     }
   },
   created() {
-    this.getTypes();
+    
     let par = this.$route.params;
+    if(!par.mid){
+      this.$router.push({
+        name:"HuiZong"
+      })
+      return
+    }
+    this.getTypes();
     let mes = this.$gscookie.getCookie("message_obj");
     this.ip_id = par.ip_id;
     this.t_mechanism_id = mes.mechanism_id;

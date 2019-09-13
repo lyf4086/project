@@ -73,6 +73,8 @@
   bottom: -0.47rem;
   background: url(../../assets/img/fenye.png) no-repeat;
   background-size: 100% 100%;
+  display: flex;
+  align-items: center;
 }
 .add-del {
   width: 2.6rem;
@@ -309,6 +311,20 @@
   margin: auto;
   background: url(../../assets/img/qiangguixiangqing.png) no-repeat center;
   background-size: 100% 100%;
+}
+.xiangqing-wrap .xiangqing .del {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.2rem;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
 }
 .xiangqing-wrap .xiangqing .close {
   position: absolute;
