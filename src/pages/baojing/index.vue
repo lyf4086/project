@@ -131,17 +131,20 @@ export default {
       currentPage: 3,
       policeuser_id: "",
       gaodeshow:false,
-      gaodeArr:[39.90923,116.397428]
+      gaodeArr:[116.397428,39.90923]
     };
   },
   methods: {
-    showNew(){
+    showNew(arr){
+      this.gaodeArr=[arr[0]-0,arr[1]-0]
       this.gaodeshow=true
     },
     closeMap(){
       this.gaodeshow=false
     },
-    showAlert(){
+    showAlert(arr){
+      console.log(arr)
+      this.gaodeArr=[arr[0]-0,arr[1]-0]
       this.gaodeshow=true
     },
     currentChange(n) {
@@ -334,7 +337,6 @@ export default {
     },
     chuLi(ids, desc, content = "") {
       // ......................该组件默认加载树形菜单数据
-
       var key = this.$store.state.key;
       var objs = {
         alarm_info_ids: ids.join(","),

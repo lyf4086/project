@@ -5,7 +5,7 @@
       <div ref="scroll">
         <div
           class="item"
-          v-for="item,index in list"
+          v-for="(item,index) in list"
           :key="index"
           :class="{active:jigouSelIndex==index}"
           @click="tabOne(index)"

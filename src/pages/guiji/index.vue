@@ -1,7 +1,7 @@
 <template>
   <div class="guiji">
-    <div class="wrap">
-      <div id="container"></div>
+    <div class="wrap111">
+      <div id="container"></div>      
       <div class="left_mes" v-show="filterMessage.uname">
         <div class="main_mes">
           <span>
@@ -254,7 +254,7 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
-    <div class="change-type" v-show="hasPerson">
+    <div class="change-type" v-show="hasPerson &&oldOrNew!=='old'">
       <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
         <i class="fangxiang"></i>
       </div>
@@ -277,6 +277,25 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
+    <div class="isjiupian" v-show="oldOrNew=='old'">
+      <!-- <button @click="jiupianhou" :class="{active:jiupian}">可能轨迹</button>
+      <button @click="weijiupian" :class="{active:!jiupian}">混合定位</button> -->
+      <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
+        <i class="fangxiang"></i>
+      </div>
+      <div class="list" v-show="!checkTypeIsShow">
+        <p>请选择轨迹模式</p>
+        <div class="i" :class="{active:jiupian}" @click="jiupianhou">
+          <span></span>
+          <p>可能轨迹</p>
+        </div>
+        <div class="i" :class="{active:!jiupian}" @click="weijiupian">
+          <span></span>
+          <p>混合定位</p>
+        </div>
+      </div>
+      
+    </div>
   </div>
 </template>
 <style >
@@ -289,6 +308,7 @@
 //
 import * as meth from "./methods.js";
 import * as more from "./more.js";
+import * as buJiupian from "./bujiupian.js"
 import Tag from "./tag";
 import { setInterval, setTimeout, clearInterval } from "timers";
 export default {
@@ -314,8 +334,8 @@ export default {
       pointMark: [[1, 1]], //[116.49, 39.9]
       oldOrNew: "",
       checkTime: false,
-      startTime: "", //查询历史轨迹开始时间
-      endTime: "", //查询历史轨迹结束时间
+      startTime: "2019-09-04T11:11", //查询历史轨迹开始时间
+      endTime: "2019-09-11T11:11", //查询历史轨迹结束时间
       areaName: "",
       filterMessage: {
         uname: "",
@@ -376,7 +396,8 @@ export default {
       jigouSelIndex: 0,
       allMechanismPersonList: [],
       jigouname: "",
-      markerArrLinShi: []
+      markerArrLinShi: [],
+      jiupian:true
     };
   },
   computed: {
@@ -393,6 +414,16 @@ export default {
   methods: {
     ...meth,
     ...more,
+    ...buJiupian,
+    jiupianhou(){
+      this.jiupian=true
+      this.searchByTime()
+    },
+    weijiupian(){
+      console.log('weijiupian')
+      this.jiupian=false
+      this.searchByTime()
+    },
     clickOneTab(n) {
       this.jigouSelIndex = n;
     },
@@ -404,13 +435,14 @@ export default {
     },
     MechanismChange() {
       let val = this.allMechanismValue.split("|");
-      // this.allMechanismData, this.allMechanismValue
+
       let tar = this.allMechanismData.find(e => e.id == val[0]);
 
       let hasN = this.jigouSelArr.find(e => e == tar.mechanism_name);
       if (!hasN) {
         let n = this.jigouSelArr.push(tar.mechanism_name);
         this.jigouSelIndex = n - 1;
+console.log(val[0], val[1])
         this.getAllJiGouName(val[0], val[1]);
       }
     },
@@ -502,7 +534,6 @@ export default {
       if (this.noCheckedList.filter(e => e.checked).length < 1) {
         this.shuaXinMap();
         this.getIMEI([this.activeIMEI]);
-
         this.checkedPersonArr.length = 0;
         return;
       }
@@ -852,11 +883,17 @@ export default {
         return;
       }
       this.shuaXinMap();
-      // console.log(this.activeIMEI)
-      this.searchHistory(this.activeIMEI, t1, t2); //通过起止时间搜索历史轨迹
-      this.startTime = this.endTime = "";
+      if(this.jiupian){
+        this.searchHistory(this.activeIMEI, t1, t2); //通过起止时间搜索历史轨迹
+      }else{
+        this.getBujiupian(this.activeIMEI, t1, t2)//不纠偏的历史轨迹
+      }
+    
+
+      // this.startTime = this.endTime = "";
     },
     searchOnePerson() {
+      this.jiupian=true//默认是纠偏后的
       // clearInterval(this.moveTimer);
       //.........搜索人员后弹出该人员信息
       this.oneAlarmMessage = {};
@@ -1079,7 +1116,7 @@ export default {
           renderOptions: {
             //轨迹线的样式
             pathLineStyle: {
-              strokeStyle: "red",
+              strokeStyle: "#0091ea",
               lineWidth: 6,
               dirArrowStyle: true
             }
@@ -1140,6 +1177,7 @@ export default {
      *
      *
      */
+    
     //调用报警方法，
     this.timer2 = setInterval(() => {
       this.hasWarning();

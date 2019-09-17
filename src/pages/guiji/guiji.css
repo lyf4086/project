@@ -2,7 +2,7 @@
   height: 100%;
   position: relative;
 }
-.guiji .wrap {
+.guiji .wrap111 {
   width: 100%;
   height: 92%;
   box-sizing: border-box;
@@ -900,5 +900,129 @@ div.info-bottom img {
 }
 .change-type .btn-wrap .list .item4.active .icon {
   background: url(../../assets/img/wf-a.png);
+  background-size: 100% 100%;
+}
+.isjiupian {
+  position: absolute;
+  width: 9.89583333vw;
+  height: 6.14583333vw;
+  font-size: 0.83333333vw;
+  color: #fff;
+  top: 0.52083333vw;
+  right: 1.04166667vw;
+}
+.isjiupian .list {
+  width: 100%;
+  height: 4.84375vw;
+  background: #0198dd;
+  border-radius: 0.26041667vw;
+  margin-top: 0.3125vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.isjiupian .list > p {
+  width: 100%;
+  line-height: 0.9375vw;
+  text-align: center;
+  font-size: 0.625vw;
+}
+.isjiupian .list .i {
+  width: 4.16666667vw;
+  height: 3.64583333vw;
+  border-radius: 0.26041667vw;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.isjiupian .list .i span {
+  width: 1.875vw;
+  height: 1.875vw;
+  margin: 0.26041667vw auto;
+}
+.isjiupian .list .i p {
+  width: 100%;
+  text-align: center;
+}
+.isjiupian .list .i:nth-child(2) span {
+  background: url(../../assets/img/jiupian-a.png) no-repeat;
+  background-size: 100% 100%;
+}
+.isjiupian .list .i:nth-child(3) span {
+  background: url(../../assets/img/bujiupian-a.png) no-repeat;
+  background-size: 100% 100%;
+}
+.isjiupian .list .i:nth-child(2).active {
+  color: #fff;
+  background: #3873a4;
+}
+.isjiupian .list .i:nth-child(2).active span {
+  background: url(../../assets/img/jiupian.png) no-repeat;
+  background-size: 100% 100%;
+}
+.isjiupian .list .i:nth-child(3).active {
+  color: #fff;
+  background: #3873a4;
+}
+.isjiupian .list .i:nth-child(3).active span {
+  background: url(../../assets/img/bujiupian.png) no-repeat;
+  background-size: 100% 100%;
+}
+.isjiupian .btn {
+  width: 6.5625vw;
+  height: 0.98958333vw;
+  background: url(../../assets/img/type-btn.png);
+  background-size: 100% 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.isjiupian .btn .fangxiang {
+  width: 0.83333333vw;
+  height: 0.83333333vw;
+  background: url(../../assets/img/fangxiang-icon.png);
+  background-size: 100% 100%;
+  transform: rotate(90deg);
+}
+.isjiupian .yc .fangxiang {
+  transform: rotate(-90deg);
+}
+.isjiupian .active {
+  background: blue;
+}
+.jiupian {
+  position: relative;
+  width: 2.08333333vw;
+  height: 2.34375vw;
+}
+.jiupian .j-icon {
+  position: absolute;
+  left: 0.10416667vw;
+  top: 0.10416667vw;
+  width: 1.875vw;
+  height: 1.875vw;
+}
+.jiupian .wx {
+  background: url(../../assets/img/wx.png) no-repeat;
+  background-size: 100% 100%;
+}
+.jiupian .jz {
+  background: url(../../assets/img/jz.png) no-repeat;
+  background-size: 100% 100%;
+}
+.jiupian .wf {
+  background: url(../../assets/img/wf.png) no-repeat;
+  background-size: 100% 100%;
+}
+.jiupian .j-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../../assets/img/tou.png) no-repeat;
   background-size: 100% 100%;
 }

@@ -32,7 +32,7 @@
     <div class="one-data"  v-for="item in dataList" :key="item.IMEI" >
       <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
       <div class="left">
-        <div class="l1" :title="item.IMEI" @click="showOne(item)">{{item.IMEI}}</div>
+        <div class="l1" :title="`枪瞄编号：${item.IMEI}`" @click="showOne(item)">{{item.IMEI}}</div>
         <div class="l2" title="枪瞄状态">{{item.heart==1 ? "在线":"不在线"}}</div>
         <div class="l3" title="电量" @click="tanchuang2(item)">{{item.electricity}}%</div>
         <div class="l4" title="充电状态">{{item.ischarging}}</div>
@@ -40,11 +40,13 @@
       <div class="center">
         <div class="down"></div>
         <div class="up"></div>
-        <div class="m"></div>
+        <div class="m">
+          <img :src="`${imgs[item.img]}`" >
+        </div>
       </div>
       <div class="right">
         <div class="r1" title="所属警员">{{item.policeuser_name || '暂无'}}</div>
-        <div class="r2" title="所属机构">{{item.mechanism_name}}</div>
+        <div class="r2" title="枪瞄类型">{{item.gtypes_name}}</div>
         <div class="r3" title="绑定解绑">
           <span @click="tanchuang3(item)" v-if="item.gun_id==0">绑定</span>
           <span
@@ -172,7 +174,11 @@ export default {
       showMessage:null,
       mapShow:false,
       mapLngLat:[],
-       sync: 0 //动静态区分，默认静态，1为动态
+       sync: 0 ,//动静态区分，默认静态，1为动态
+       imgs:{
+         qm:require("@/assets/img/qm-item-bg.png"),
+         qm92:require("@/assets/img/qm92.png")
+       }
     };
   },
 

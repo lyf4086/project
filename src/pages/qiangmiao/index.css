@@ -163,10 +163,23 @@
   width: 100%;
   text-align: center;
   color: #fff;
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
   font-size: 0.24rem;
   line-height: 0.4rem;
   line-height: 0.38rem;
+}
+.cover .text-wrap .text-content {
+  font-size: 0.16rem;
+  width: 70%;
+  margin: 0.2rem auto 0.5rem;
+}
+.cover .text-wrap .text-content input {
+  width: 3rem;
+  height: 0.4rem;
+  box-sizing: border-box;
+  border-radius: 0.05rem;
+  padding-left: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 .cover .text-wrap .submit {
   margin: 0.2rem auto;
@@ -193,6 +206,7 @@
   color: red;
   border-radius: 50%;
   text-align: center;
+  cursor: pointer;
 }
 .xiugai {
   position: absolute;

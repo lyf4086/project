@@ -17,8 +17,6 @@
     </div>
     <div class="content">
       <div class="tex_wrap">
-        <button class="btn1" @click="showNew">最新位置</button>
-        <button class="btn2" @click="showAlert">报警位置</button>
         <div class="list">
           <span>报警类型：</span>
           <span>{{item.type}}</span>
@@ -35,11 +33,11 @@
           <span>枪支类型：</span>
           <span>{{item.gun.gtype}}</span>
         </div>
-        <div class="list">
+        <div class="list" v-if="false">
           <span>描述：</span>
           <span>电量剩余{{item.ele}}%</span>
         </div>
-        <div class="list">
+        <div class="list" v-if="false">
           <span>处理意见：</span>
           <span class="yijian" :title="item.desc">{{!!item.desc ? item.desc :'无'}}</span>
         </div>
@@ -50,6 +48,11 @@
             {{text}}
           </span>
         </div>
+        <div class="list btnwrap">
+          <button class="btn1" @click="showNew([item.nlongitude,item.nlatitude])">最新位置</button>
+          <button class="btn2" @click="showAlert([item.lon,item.lat])">报警位置</button>
+          <button class="btn3" @click="showMore(item)">详情</button>
+        </div>
       </div>
 
       <div
@@ -58,6 +61,23 @@
         :class="{selected:item.checked}"
         @click="changeOne(item.index)"
       ></div>
+    </div>
+    <div class="cover" v-if="xiangqing">
+      <div class="alert" v-if="message.IMEI">
+         <button class="close" @click="closeXiangqing">取消</button>
+        <div class="del"  @click="closeXiangqing">X</div>
+        <div class="txt">
+          <p>枪瞄IMEI：{{message.IMEI}}</p>
+          <p> 处理标题：{{message.desc}}</p>
+          <p>枪支类型：{{message.gtype}}</p>
+          <p>枪支编号：{{message.gun_code}}</p>
+          <p>手机号码：{{message.mobile}}</p>
+          <p>持枪人警号：{{message.police_number}}</p>
+          <p>持枪人姓名：{{message.policeuser_name}}</p>
+          <p>报警类型：{{message.type}}</p>
+          <p>处理意见：{{item.content}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,7 +97,9 @@ export default {
   },
   data() {
     return {
-      showmap:false
+      showmap:false,
+      xiangqing:false,
+      message:null
     };
   },
   computed: {
@@ -89,11 +111,27 @@ export default {
     }
   },
   methods: {
-    showNew(){
-      this.$emit('showNew')
+    closeXiangqing(){
+      this.xiangqing=false;
     },
-    showAlert(){
-      this.$emit('showAlert')
+    showMore(item){
+      // console.log(item.alarm_info_id)
+      this.getXiangqing(item.alarm_info_id)
+      
+    },
+    showNew(arr){     
+      this.$emit('showNew',arr)
+    },
+    showAlert(arr){
+      console.log(arr)
+      if(!arr[0]&&!arr[1]){
+        this.$message({
+          type:'warning',
+          message:'暂无'
+        })
+        return
+      }
+      this.$emit('showAlert',arr)
     },
     
     changeOne(index) {
@@ -124,6 +162,36 @@ export default {
       var m = date.getMinutes() + ":";
       var s = date.getSeconds();
       return Y + M + D + h + m + s;
+    },
+    getXiangqing(id){
+      var key = this.$store.state.key;
+      var objs = {
+        alarm_info_id:id
+      };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+     params.append("alarm_info_id", objs.alarm_info_id);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=alarm&a=info",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+      .then(data => {
+        if (data.status == 200) {
+          this.xiangqing=true;
+          this.message=data.data
+          console.log(this.message)
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
   },
   mounted(){

@@ -246,7 +246,6 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
         let that = this
         let lineArrAndBaoJing = data.data.data.list.filter(e => e.alarm)
         let lineArr = data.data.data.list.map((e) => [e.longitude - 0, e.latitude - 0])
-
         let pathParam = data.data.data.list.map((item, index) => {
           return {
             "x": item.longitude - 0,
@@ -265,7 +264,6 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
         }
 
         graspRoad.driving(pathParam, function (error, result) {
-
           if (!error) {
             var path2 = [];
             var newPath = result.data.points;
@@ -279,7 +277,6 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
               strokeColor: '#0091ea',
               showDir: true
             })
-
             that.map.add(newLine)
             that.map.setFitView()
           } else {
@@ -290,14 +287,9 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
 
         return
 
-
-
         // ...................原方法
         // this.guijiHistory(lineArr)
         // ..................原方法
-
-
-
 
 
         var polyline = new AMap.Polyline({
@@ -455,15 +447,15 @@ function creatInfoBox(item, ...res) {
   let map = this.map
   var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title}</span>`,
     content = [];
-  content.push(`<img alt="头像" src='${item.Ge.src}' style="float:left;width:1rem;">`)
-  content.push(`所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`);
-  // content.push(`最后定位时间:${item.G.time}`);
-  content.push(`最后定位时间:${changeTime()}`);
+  content.push(`<img alt="头像" src='${item.Ge.src}' style="width:1rem;">`)
+  content.push(`所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`); 
+  // content.push(`最后定位时间:${changeTime()}`);
   content.push(`枪支编号:${item.Ge.positions}`);
   // content.push(`<span class="toxiangqing" >详细信息</span>`);
   content.push(`是否在线:${item.Ge.heart == 1 ? "在线" : "不在线"}`);
   content.push(`定位类型:${item.Ge.ptype}`);
   content.push(`枪瞄编号:${item.Ge.IMEI}`);
+  content.push(`最后定位时间:${item.Ge.time}`);
   var infoWindow = new AMap.InfoWindow({
     isCustom: true, //使用自定义窗体
     content: createInfoWindow(title, content.join("<br/>")),
@@ -559,6 +551,8 @@ function getPersonAndGunStr(id) {
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
+       this.startTime=data.data.start+'T'+"01:00"
+      this.endTime =data.data.start+'T'+"23:00"
       if (data.data.arr) {
         this.allMechanismData = data.data.arr
         let strArr = data.data.arr.map(item => {
@@ -921,7 +915,6 @@ function shezhiquyu(gun_ids, ip_ids, pointsArr, policeuser_id, stime, etime, tex
   }).then((data) => {
 
     if (data.data.code == 200) {
-      console.log(data)
       this.activeAreaAlarmId = data.data.data.area_alarm_id
       this.setAreaTime = false
       this.polygon.hide() //...先把原来红色区域删除
@@ -996,7 +989,8 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
-      // this.$message(data.data.data.list.state)
+      console.log(data)
+      // return
       let state = data.data.data.list.state
       let id = this.$refs.alarmSelect.value
       this.shuaXinMap()
@@ -1059,7 +1053,11 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   this.filterMessage.newOrOld = 'old'
   this.filterMessage.imgSrc = data.icon
   let markerArr = data.child.map((e, i) => {
-    let imgurl = e.img ? `<img src="${e.img}" />` : `<img src="${noneImg}" />`
+    let imgurl = e.img ? `<img src="${e.img}" />` : `<img src="${noneImg}" />`;
+    let title=e.policeuser_name||""
+    let src=e.icon||noneImg;
+    let jigou=(e.mechanism)?(e.mechanism.mechanism_name):""
+    let time=e.created||"";
     return new AMap.Marker({
       content: `<div class="marker-route" >
                 <div class="cover" ></div>
@@ -1068,11 +1066,15 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
                 </div>
               </div>`,
       position: [e.position.longitude, e.position.latitude],
-      title: e.policeuser_name,
-      src: e.icon,
-      jigou: e.mechanism.mechanism_name,
+      // title: e.policeuser_name ,
+      title:title,
+      // src: e.icon,
+      src:src,
+      jigou: jigou,
+      // jigou:e.mechanism.mechanism_name,
       gtype: e.gtype,
-      time: e.created,
+      // time: e.created ,
+      time:time,
       IMEI: e.IMEI,
       heart: e.heart,
       ptype: e.ptype,

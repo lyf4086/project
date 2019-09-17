@@ -70,17 +70,20 @@
       <div class="text-wrap" v-show="alert">
         <div class="text-title">新增枪瞄</div>
         <div class="text-content">
-          <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+          <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
             <el-form-item label="IMEI">
               <el-input v-model="formLabelAlign.iemi"></el-input>
             </el-form-item>
-            <!-- <el-form-item label="****">
-                        <el-input v-model="formLabelAlign.region"></el-input>
-                    </el-form-item>
-                    <el-form-item label="*****">
-                        <el-input v-model="formLabelAlign.type"></el-input>
-            </el-form-item>-->
-          </el-form>
+          </el-form> -->
+          IMEI:<input type="number" v-model="formLabelAlign.iemi"><br/>
+          枪瞄类型：<el-select v-model="value" placeholder="请选择">
+                    <el-option
+                      v-for="item in types"
+                      :key="item.id"
+                      :label="item.gtypes"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
         </div>
         <div class="submit" @click="subAddQiangMiao">确认</div>
         <i @click="del">X</i>
@@ -136,7 +139,9 @@ export default {
       pageTotal: null,
       active_yema: 1,
       ishand: false, //..........是否点击了树形菜单
-      
+      options: [],
+      value: '',
+      types:[]
     };
   },
   methods: {
@@ -227,15 +232,15 @@ export default {
     openMap() {
       this.mapIsShow = true;
     },
-    addQiangMiao(imei) {
+    addQiangMiao(imei,gtypes) {
       var key = this.$store.state.key;
-      var objs = { IMEI: imei, mechanism_id: this.active_fujigou }; //mechanism_id是机构id
+      var objs = { IMEI: imei, mechanism_id: this.active_fujigou ,gtypes:gtypes}; //mechanism_id是机构id
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
       params.append("IMEI", objs.IMEI);
       params.append("mechanism_id", objs.mechanism_id);
-
+      params.append("gtypes", objs.gtypes);
       params.append("sign", sign);
       params.append("token", token);
 
@@ -283,6 +288,11 @@ export default {
         data: params
       })
         .then(data => {
+          
+          // if(!this.types){
+            this.types=data.data.data.ggtype
+            // console.log(this.types)
+          // }
           let newArr = data.data.data.list.map(e => {
             return {
               ...e,
@@ -373,7 +383,11 @@ export default {
         this.$message({ message: "枪瞄不能为空", type: "warning" });
         return;
       }
-      this.addQiangMiao(this.formLabelAlign.iemi);
+      if(!this.value){
+         this.$message({ message: "枪瞄类型", type: "warning" });
+        return;
+      }
+      this.addQiangMiao(this.formLabelAlign.iemi,this.value);
       this.alert = false;
       this.formLabelAlign.iemi = ""; //清空iemi
     },

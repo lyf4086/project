@@ -1,5 +1,6 @@
 
 @rem:100rem;
+@vw:19.2vw;
 @keyframes round{
   from{
     transform: rotate(0deg)
@@ -117,19 +118,7 @@
       margin:auto;
       background: url(../../../assets/img/item-bottom.png)no-repeat;
       background-size: 100% 100%;
-      button{
-        position: absolute;
-      }
-      .btn1{
-        right:10/@rem;
-        top:55/@rem;
-        cursor: pointer;
-      }
-      .btn2{
-        right:10/@rem;
-        top:85/@rem;
-        cursor: pointer;
-      }
+      
       .list{
         width:220/@rem;
         height:26/@rem;
@@ -168,7 +157,25 @@
           }
         }
       }
-
+      .btnwrap{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14/@vw;
+        button{
+          box-sizing: border-box;
+          border:2/@rem solid #31548b;
+          padding:2/@vw 6/@vw;
+          border-radius: 2/@vw;
+          background: none;
+          
+          color:#fff;
+          cursor: pointer;
+        }
+        button:hover{
+          color:#a8c0e7;
+        }
+      }
       .yijian{
         display: inline-block;
         max-width: 100%;
@@ -180,45 +187,66 @@
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
 
 
 
 
+}
 
+.cover{
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  .alert{
+    position: absolute;
+    width: 50%;
+    height: 70%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
+    background-size: 100% 100%;
+    .del{
+      position: absolute;
+      right:20/@rem;
+      top:20/@rem;
+      width:30/@rem;
+      height:30/@rem;
+      text-align: center;
+      line-height: 30/@rem;
+      font-size: 20/@rem;
+      color:#fff;
+      border:1/@rem solid #fff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .close {
+      position: absolute;
+      right: 105/@rem;
+      bottom: 6/@rem;
+      width: 170/@rem;
+      height: 30/@rem;
+      font-size: 18/@rem;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+    }
+    .txt{
+      width:80%;
+      height:80%;
+      margin:80/@rem auto;
+      p{
+        line-height: 40/@rem;
+      }
+    }
+  }
 }
