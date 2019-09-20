@@ -19,7 +19,8 @@
             </router-link>
           </div>
           <div class="btns">
-            <span title="同步数据" @click="tongbu" v-show="mes.role_id!=3 && sync==1"></span>
+            <!--  v-show="mes.role_id!=3 && sync==1" -->
+            <span title="同步数据" @click="tongbu" v-show="false"></span>
 
             <router-link
               title="人员管理"

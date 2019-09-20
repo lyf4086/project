@@ -1,4 +1,5 @@
 @rem: 100rem;
+@vw:19.2vw;
 
 .item {
 
@@ -60,19 +61,18 @@
     width: 35%;
     height: 80/@rem;
     font-size: 16/@rem;
-
     span {
       float: left;
       width: 30/@rem;
       height: 30/@rem;
       background: url(../../../assets/img/shenpi.png) no-repeat;
-      margin: 20/@rem 10/@rem 0 10/@rem;
+      margin: 16/@rem 10/@rem 0 10/@rem;
       background-size: 100% 100%;
 
     }
 
     p {
-      line-height: 25/@rem;
+      line-height: 20/@rem;
       color: #fff;
     }
 
@@ -91,13 +91,13 @@
       width: 30/@rem;
       height: 30/@rem;
       background: url(../../../assets/img/shijian.png) no-repeat;
-      margin: 20/@rem 10/@rem 0 10/@rem;
+      margin: 16/@rem 10/@rem 0 10/@rem;
       background-size: 100% 100%;
 
     }
 
     p {
-      line-height: 25/@rem;
+      line-height: 20/@rem;
       color: #fff;
     }
 
@@ -121,6 +121,192 @@
       background: url(../../../assets/img/guiji-icon7.png) no-repeat;
       animation: warning 0.5s linear infinite;
       background-size: 100% 100%;
+    }
+  }
+}
+
+.cover{
+  position: fixed;
+  width:100vw;
+  height:100vh;
+  left:0;
+  top:0;
+  z-index: 6;
+  background: rgba(0, 0, 0, 0.3);
+  .alert{
+    position: absolute;
+    width:1100/@vw;
+    height:600/@vw;
+    top:0;
+    right:0;
+    bottom: 0;
+    left:0;
+    margin:auto;
+    background: url(../../../assets/img/renyuan-a.png) no-repeat;
+    background-size: 100% 100%;
+    .del{
+      position: absolute;
+      top:30/@vw;
+      right:10/@vw;
+      width:40/@vw;
+      height:40/@vw;
+      border-radius: 50%;
+      line-height: 40/@vw;
+      cursor: pointer;
+    }
+    .leftwrap{
+      position: absolute;
+      left:80/@vw;
+      top:86/@vw;
+      width:290/@vw;
+      height:440/@vw;
+      display: flex;
+      .box-l{
+        width:38%;
+        height:100%;
+        // background: rgba(1, 222, 0, 0.2);
+        .imgwrap{
+          position: absolute;
+          left:35/@vw;
+          top:49/@vw;
+          width:40/@vw;
+          height:40/@vw;
+          background: #00b2fc;
+          border-radius: 50%;
+          overflow: hidden;
+          img{
+            width:100%;
+          }
+        }
+        .btnwrap{
+          box-sizing: border-box;
+          position: absolute;
+          top:117/@vw;
+          left:10/@vw;
+          width:30%;
+          height:100/@vw;
+          display: flex;
+          justify-content: space-around;
+          align-content: space-between;
+          flex-wrap: wrap;
+          button{
+            width: 100%;
+            height:22/@vw;
+            line-height: 22/@vw;
+            font-size: 12/@vw;
+            background: none;
+            color:#fff;
+          }
+          button:nth-child(3){
+            color:red;
+          }
+        }
+        .iconwrap1{
+          position: absolute;
+          top:269/@vw;
+          left:10/@vw;
+          width:17%;
+          height:30/@vw;
+          // border: 1px solid red;
+        }
+        .iconwrap2{
+          position: absolute;
+          top:349/@vw;
+          left:10/@vw;
+          width:17%;
+          height:30/@vw;
+          // border: 1px solid red;
+        }
+      }
+      .box-r{
+        width:62%;
+        height:100%;
+        font-size: 14/@vw;
+        color:#fff;
+        &>div{
+          box-sizing: border-box;
+
+        }
+        .text1{
+          height:100/@vw;
+          margin-top: 20/@vw;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: space-around;
+          p{
+            width:100%;
+            display: flex;
+            i:nth-child(1){
+              flex: 1
+            }
+            i:nth-child(2){
+              flex:2.6
+            }
+          }
+        }
+        .text2{
+          height:100/@vw;
+          margin-top: 20/@vw;
+          color:#03cbfe;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: space-around;
+          p{
+            width:100%;
+            display: flex;
+            i:nth-child(1){
+              flex: 1.2
+            }
+            i:nth-child(2){
+              flex:2
+            }
+          }
+        }
+        .text3{
+          height:60/@vw;
+          margin-top: 16/@vw;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: space-around;
+          p{width:100%}
+        }
+        .text4{
+          height:60/@vw;
+          margin-top: 16/@vw;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: space-around;
+          p{width:100%}
+        }
+      }
+    }
+    .mes{
+      position: absolute;
+      width:170/@vw;
+      height:70/@vw;
+      font-size: 12/@vw;
+      color:#fff;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: space-around;
+      box-sizing: border-box;
+      padding: 10/@vw 0;
+      p{
+        width:100%;
+        i:nth-child(2){color:#cc713c}
+      }
+    }
+    .mes1{
+      top:156/@vw;
+      left:480/@vw;
+    }
+    .mes2{
+      top:369/@vw;
+      left:480/@vw;
+    }
+    .mes3{
+      top:170/@vw;
+      left:873/@vw;
     }
   }
 }

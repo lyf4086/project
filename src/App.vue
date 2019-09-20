@@ -11,6 +11,7 @@ export default {
 
 <style>
 @import url(./assets/style/rest.css);
+@import url(./assets/style/iconfont.css);
 #app{
   width:100vw;
   height:100vh;

@@ -228,6 +228,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            console.log(data.data.data)
             this.dataList = data.data.data;
             this.pageTotal = data.data.total - 0;
           }

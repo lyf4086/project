@@ -228,6 +228,90 @@
   width: 50%;
   height: 7.2rem;
 }
+.alert4 .content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 44.79166667vw;
+  height: 23.95833333vw;
+  background: url(../../../assets/img/qiangzhi-alert.png) no-repeat;
+  background-size: 100% 100%;
+}
+.alert4 .content .t {
+  position: absolute;
+  width: 9.375vw;
+  height: 1.5625vw;
+  font-size: 0.9375vw;
+  text-align: center;
+  line-height: 1.5625vw;
+}
+.alert4 .content .t1 {
+  left: 3.64583333vw;
+  top: -1.04166667vw;
+}
+.alert4 .content .t2 {
+  left: 0.3125vw;
+  top: 4.42708333vw;
+}
+.alert4 .content .t3 {
+  left: 0.20833333vw;
+  top: 16.82291667vw;
+}
+.alert4 .content .t4 {
+  left: 3.64583333vw;
+  top: 21.66666667vw;
+}
+.alert4 .content .t5 {
+  right: 2.60416667vw;
+  top: -1.04166667vw;
+}
+.alert4 .content .t6 {
+  right: 0.26041667vw;
+  top: 4.47916667vw;
+}
+.alert4 .content .t7 {
+  right: 0.52083333vw;
+  top: 16.82291667vw;
+}
+.alert4 .content .t8 {
+  right: 4.16666667vw;
+  top: 21.35416667vw;
+  cursor: pointer;
+}
+.alert4 .content .r1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 14.0625vw;
+  height: 14.0625vw;
+  border-radius: 50%;
+  background: url(../../../assets/img/qiangzhi-r2.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round1 6s linear infinite;
+}
+.alert4 .content .r2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 9.375vw;
+  height: 9.375vw;
+  border-radius: 50%;
+  background: url(../../../assets/img/qiangzhi-r1.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round2 2s linear infinite;
+}
+.alert4 .m-list .text {
+  background: #284a77;
+}
 .alert4 .text {
   position: absolute;
   top: 0.8rem;
@@ -433,4 +517,38 @@
   margin-left: 50%;
   margin-top: 0.1rem;
   transform: translateX(-130%);
+}
+.gunwrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 15.625vw;
+  height: 15.625vw;
+  background: pink;
+}
+@keyframes fashe {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-500px);
+  }
+}
+.gunwrap .zidan {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2.60416667vw;
+  height: 0.10416667vw;
+  background: red;
+}
+.gunwrap .zidan .i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

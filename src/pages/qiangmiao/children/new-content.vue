@@ -33,14 +33,14 @@
       <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
       <div class="left">
         <div class="l1" :title="`枪瞄编号：${item.IMEI}`" @click="showOne(item)">{{item.IMEI}}</div>
-        <div class="l2" title="枪瞄状态">{{item.heart==1 ? "在线":"不在线"}}</div>
+        <div class="l2" title="枪瞄状态" :class="{green:item.heart==1}">{{item.heart==1 ? "在线":"不在线"}}</div>
         <div class="l3" title="电量" @click="tanchuang2(item)">{{item.electricity}}%</div>
         <div class="l4" title="充电状态">{{item.ischarging}}</div>
       </div>
       <div class="center">
         <div class="down"></div>
         <div class="up"></div>
-        <div class="m">
+        <div class="m" :class="{buzaixian:item.heart!=1}">
           <img :src="`${imgs[item.img]}`" >
         </div>
       </div>

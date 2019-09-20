@@ -80,7 +80,7 @@ export default {
           // console.log(data)
           if (data.status == 200) {
             this.personList = data.data.data;
-            console.log("personlist", data.data);
+            // console.log("personlist", data.data);
             this.total = data.data.total;
           }
         })

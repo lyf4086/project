@@ -69,6 +69,8 @@
         :activeYeMa="active_yema"
         :activeTreeId="activeTreeId"
         :sync="sync"
+        :roles="roles"
+        @shuaxin="shuaxin"
       />
     </div>
     <div class="alert" v-show="alert">
@@ -158,10 +160,15 @@ export default {
       putValue: "",
       showXiangqing: false,
       currentPage: 0,
-      sync: 0 //动静态区分，默认静态，1为动态
+      sync: 0, //动静态区分，默认静态，1为动态
+      roles:[]
     };
   },
   methods: {
+    shuaxin(){
+      let yema=this.active_yema||1
+      this.clickTree(this.activeItem.mechanism_id,yema );
+    },
     quxiaoshanchu() {
       this.isRemoveimg = false;
     },
@@ -254,6 +261,7 @@ export default {
             this.clickTree(jiGouId, yeMa);
           } else {
             this.activeTreeId = data.data.data.list[0].mechanism_id;
+            this.activeItem=data.data.data.list[0]
             this.clickTree(this.treeListData[0].mechanism_id, 1);
           }
         })
@@ -359,6 +367,7 @@ export default {
         data: params
       })
         .then(data => {
+          this.roles=data.data.roles
           this.itemList = data.data.data.list.map(e => {
             return {
               ...e,

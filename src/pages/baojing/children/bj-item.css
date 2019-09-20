@@ -182,7 +182,7 @@
 .cover .alert {
   position: absolute;
   width: 50%;
-  height: 70%;
+  height: 34.89583333vw;
   top: 0;
   left: 0;
   bottom: 0;
@@ -207,9 +207,20 @@
 }
 .cover .alert .close {
   position: absolute;
-  right: 1.05rem;
-  bottom: 0.06rem;
-  width: 1.7rem;
+  right: 0.95rem;
+  bottom: 0.04rem;
+  width: 0.9rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.cover .alert .chuli {
+  position: absolute;
+  right: 1.85rem;
+  bottom: 0.04rem;
+  width: 0.9rem;
   height: 0.3rem;
   font-size: 0.18rem;
   background: none;
@@ -217,10 +228,91 @@
   cursor: pointer;
 }
 .cover .alert .txt {
+  position: relative;
   width: 80%;
-  height: 80%;
-  margin: 0.8rem auto;
+  height: 70%;
+  margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  color: #129fdf;
+  background: url(../../../assets/img/baojing-bj.png) no-repeat;
+  background-size: 100% 100%;
 }
-.cover .alert .txt p {
-  line-height: 0.4rem;
+.cover .alert .txt .text {
+  width: 5.9375vw;
+  height: 2.60416667vw;
+  line-height: 2.60416667vw;
+  text-align: center;
+  color: #fff;
+  margin-top: 10.5%;
+  margin-right: 2.5%;
+}
+.cover .alert .txt .text:nth-child(5) {
+  margin-right: 0;
+  position: relative;
+  top: -3%;
+}
+.cover .alert .txt .text:nth-child(10) {
+  margin-right: 0;
+}
+.cover .alert .txt .red {
+  color: red;
+}
+.cover .alert .txt .green {
+  color: green;
+}
+.cover .alert .txt .text:nth-child(9) {
+  line-height: 1.04166667vw;
+}
+.cover .alert .txt .text:nth-child(5),
+.cover .alert .txt .text:nth-child(6),
+.cover .alert .txt .text:nth-child(7),
+.cover .alert .txt .text:nth-child(8),
+.cover .alert .txt .text:nth-child(9),
+.cover .alert .txt .text:nth-child(10) {
+  margin-top: 13%;
+}
+.cover .alert .txt .yijian {
+  width: 12.5vw;
+  height: 3.64583333vw;
+  margin: 5vw 0 0 -0.83333333vw;
+  box-sizing: border-box;
+  padding: 0.26041667vw;
+  line-height: 1.04166667vw;
+  color: #fff;
+  overflow: auto;
+}
+.cover .alert .txt .yijian input {
+  width: 80%;
+  height: 60%;
+  background: none;
+  border: 0.05208333vw solid #129fdf;
+  text-indent: 0.78125vw;
+  color: #129fdf;
+}
+.cover .alert .txt .biaoti {
+  width: 12.5vw;
+  height: 3.64583333vw;
+  box-sizing: border-box;
+  padding: 0.26041667vw;
+  margin: 5vw 7.91666667vw 0 0vw;
+  line-height: 1.04166667vw;
+  overflow: auto;
+}
+.cover .alert .txt .biaoti textarea {
+  box-sizing: border-box;
+  padding: 0.20833333vw;
+  border: 1px solid  #129fdf;
+  background: none;
+  margin-top: -0.26041667vw;
+  color: #129fdf;
+  text-indent: 0.83333333vw;
+  resize: none;
+}
+.imei {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

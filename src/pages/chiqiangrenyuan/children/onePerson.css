@@ -57,11 +57,11 @@
   width: 0.3rem;
   height: 0.3rem;
   background: url(../../../assets/img/shenpi.png) no-repeat;
-  margin: 0.2rem 0.1rem 0 0.1rem;
+  margin: 0.16rem 0.1rem 0 0.1rem;
   background-size: 100% 100%;
 }
 .item .mes-l p {
-  line-height: 0.25rem;
+  line-height: 0.2rem;
   color: #fff;
 }
 .item .mes-l p:nth-of-type(1) {
@@ -77,11 +77,11 @@
   width: 0.3rem;
   height: 0.3rem;
   background: url(../../../assets/img/shijian.png) no-repeat;
-  margin: 0.2rem 0.1rem 0 0.1rem;
+  margin: 0.16rem 0.1rem 0 0.1rem;
   background-size: 100% 100%;
 }
 .item .mes-r p {
-  line-height: 0.25rem;
+  line-height: 0.2rem;
   color: #fff;
 }
 .item .mes-r p:nth-of-type(1) {
@@ -99,4 +99,191 @@
   background: url(../../../assets/img/guiji-icon7.png) no-repeat;
   animation: warning 0.5s linear infinite;
   background-size: 100% 100%;
+}
+.cover {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 6;
+  background: rgba(0, 0, 0, 0.3);
+}
+.cover .alert {
+  position: absolute;
+  width: 57.29166667vw;
+  height: 31.25vw;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: url(../../../assets/img/renyuan-a.png) no-repeat;
+  background-size: 100% 100%;
+}
+.cover .alert .del {
+  position: absolute;
+  top: 1.5625vw;
+  right: 0.52083333vw;
+  width: 2.08333333vw;
+  height: 2.08333333vw;
+  border-radius: 50%;
+  line-height: 2.08333333vw;
+  cursor: pointer;
+}
+.cover .alert .leftwrap {
+  position: absolute;
+  left: 4.16666667vw;
+  top: 4.47916667vw;
+  width: 15.10416667vw;
+  height: 22.91666667vw;
+  display: flex;
+}
+.cover .alert .leftwrap .box-l {
+  width: 38%;
+  height: 100%;
+}
+.cover .alert .leftwrap .box-l .imgwrap {
+  position: absolute;
+  left: 1.82291667vw;
+  top: 2.55208333vw;
+  width: 2.08333333vw;
+  height: 2.08333333vw;
+  background: #00b2fc;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.cover .alert .leftwrap .box-l .imgwrap img {
+  width: 100%;
+}
+.cover .alert .leftwrap .box-l .btnwrap {
+  box-sizing: border-box;
+  position: absolute;
+  top: 6.09375vw;
+  left: 0.52083333vw;
+  width: 30%;
+  height: 5.20833333vw;
+  display: flex;
+  justify-content: space-around;
+  align-content: space-between;
+  flex-wrap: wrap;
+}
+.cover .alert .leftwrap .box-l .btnwrap button {
+  width: 100%;
+  height: 1.14583333vw;
+  line-height: 1.14583333vw;
+  font-size: 0.625vw;
+  background: none;
+  color: #fff;
+}
+.cover .alert .leftwrap .box-l .btnwrap button:nth-child(3) {
+  color: red;
+}
+.cover .alert .leftwrap .box-l .iconwrap1 {
+  position: absolute;
+  top: 14.01041667vw;
+  left: 0.52083333vw;
+  width: 17%;
+  height: 1.5625vw;
+}
+.cover .alert .leftwrap .box-l .iconwrap2 {
+  position: absolute;
+  top: 18.17708333vw;
+  left: 0.52083333vw;
+  width: 17%;
+  height: 1.5625vw;
+}
+.cover .alert .leftwrap .box-r {
+  width: 62%;
+  height: 100%;
+  font-size: 0.72916667vw;
+  color: #fff;
+}
+.cover .alert .leftwrap .box-r > div {
+  box-sizing: border-box;
+}
+.cover .alert .leftwrap .box-r .text1 {
+  height: 5.20833333vw;
+  margin-top: 1.04166667vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.cover .alert .leftwrap .box-r .text1 p {
+  width: 100%;
+  display: flex;
+}
+.cover .alert .leftwrap .box-r .text1 p i:nth-child(1) {
+  flex: 1;
+}
+.cover .alert .leftwrap .box-r .text1 p i:nth-child(2) {
+  flex: 2.6;
+}
+.cover .alert .leftwrap .box-r .text2 {
+  height: 5.20833333vw;
+  margin-top: 1.04166667vw;
+  color: #03cbfe;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.cover .alert .leftwrap .box-r .text2 p {
+  width: 100%;
+  display: flex;
+}
+.cover .alert .leftwrap .box-r .text2 p i:nth-child(1) {
+  flex: 1.2;
+}
+.cover .alert .leftwrap .box-r .text2 p i:nth-child(2) {
+  flex: 2;
+}
+.cover .alert .leftwrap .box-r .text3 {
+  height: 3.125vw;
+  margin-top: 0.83333333vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.cover .alert .leftwrap .box-r .text3 p {
+  width: 100%;
+}
+.cover .alert .leftwrap .box-r .text4 {
+  height: 3.125vw;
+  margin-top: 0.83333333vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.cover .alert .leftwrap .box-r .text4 p {
+  width: 100%;
+}
+.cover .alert .mes {
+  position: absolute;
+  width: 8.85416667vw;
+  height: 3.64583333vw;
+  font-size: 0.625vw;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  box-sizing: border-box;
+  padding: 0.52083333vw 0;
+}
+.cover .alert .mes p {
+  width: 100%;
+}
+.cover .alert .mes p i:nth-child(2) {
+  color: #cc713c;
+}
+.cover .alert .mes1 {
+  top: 8.125vw;
+  left: 25vw;
+}
+.cover .alert .mes2 {
+  top: 19.21875vw;
+  left: 25vw;
+}
+.cover .alert .mes3 {
+  top: 8.85416667vw;
+  left: 45.46875vw;
 }

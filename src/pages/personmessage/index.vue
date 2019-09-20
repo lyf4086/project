@@ -1,44 +1,52 @@
 <template>
-  <div class="main" v-if="message">
-    <div class="content">
+  <div class="main">
+    <div id="box"></div>
+    <div class="content" v-if="message">
       <div class="text">
-        <div class="item">
-          <span>姓名：</span>
-          <span>{{message.uname}}</span>
+        <div class="box1">
+          <div class="title">| 基本信息</div>
+          <p>
+            <i class="iconfont icon-ren"></i>
+            姓名：{{message.uname}}
+          </p>
+          <p>
+            <i class="iconfont icon-xingbie"></i>
+            性别：男
+          </p>
+          <p>
+            <i class="iconfont icon-dianhua"></i>
+            手机号：{{message.mobile}}
+          </p>
+          <p>
+            <i class="iconfont icon-ren"></i>
+            角色：{{message.role_name}}
+          </p>
+          <p>
+            <i class="iconfont icon-jingcha"></i>
+            警号：{{message.police_number}}
+          </p>
+          <p>
+            <i class="iconfont icon-danweijuese"> </i>
+            所属机构：{{message.mechanism_name}}
+          </p>
+          <p>
+            <i class="iconfont icon-qiangzhi"></i>
+            是否持枪：{{message.gunstate}}
+          </p>
+          <p>
+            <i class="iconfont icon-yduibianxie"></i>
+            持枪证号：{{message.robcode}}
+          </p>
         </div>
-        <div class="item">
-          <span>角色：</span>
-          <span>{{message.role_name}}</span>
+        <div class="box2">
+          <div class="title">| 数据统计</div>
+          <!-- <div id="chart33"></div> -->
         </div>
-        <div class="item">
-          <span>手机号：</span>
-          <span>{{message.mobile}}</span>
-        </div>
-        <div class="item">
-          <span>警号：</span>
-          <span>{{message.police_number}}</span>
-        </div>
-        <div class="item">
-          <span>所属机构：</span>
-          <span>{{message.mechanism_name}}</span>
-        </div>
-        <div class="item">
-          <span>所属枪支：</span>
-          <span>{{gunList.length}} 把</span>
-        </div>
-        <div class="gun_list">
-          <div class="gun_item" v-for="(item,index) in gunList" :key="index">
-            <strong>所配枪支</strong>
-            <p>枪支类型：{{item.gtype_name}}</p>
-            <p>枪支编号：{{item.gun_code}}</p>
-            <button @click="gunMessage(item)">详情</button>
-            <button @click="history(item)">历史借出记录</button>
-          </div>
-        </div>
+
       </div>
       <div class="img_wrap">
         <img src="../../assets/img/head-icon.png" alt v-if="!message.icon" />
-        <img v-else="message.icon" :src="message.icon" alt />
+        <img v-if="message.icon" :src="message.icon" alt />
       </div>
     </div>
     <!-- <div class="imgwrap" v-if="false">
@@ -87,7 +95,7 @@
           </div>
           <div v-if="!xiangqingList.length" class="no_data">暂无数据</div>
           <div class="list_wrap" v-if="xiangqingList.length">
-            <div class="list" v-for="item,index in xiangqingList" :key="index">
+            <div class="list" v-for="(item,index) in xiangqingList" :key="index">
               <span>{{index+1}}</span>
               <span>{{item.usrename}}</span>
               <span>{{item.aprvname}}</span>
@@ -117,7 +125,11 @@ export default {
       fromQiangZhi: false,
       fromRenYuan: false,
       xiangqing: false,
-      xiangqingList: []
+      xiangqingList: [],
+      names:["用户撞车", "SQL注入检测", "机器人登录",
+                  "账号盗用", "web高频攻击", "端口扫描", "内网连接…",
+                  "邮件外发"],
+      data:[110, 20, 36, 10, 50, 80, 100, 60]
     };
   },
   methods: {
@@ -147,6 +159,70 @@ export default {
         this.$router.go(-1);
       }
     },
+    initChart(){
+      let that=this
+      let box1 = document.getElementById("box");
+      let Echart = this.$echarts.init(box1);
+    
+      let option = {
+          // backgroundColor:'#000',
+          grid: {
+              left: '2%',
+              right: '2%',
+              top: '12%',
+              bottom: '1%',
+              containLabel: true
+          },
+          xAxis: {
+              type: 'value',
+              axisTick: {
+                  show: false
+              },
+              axisLabel: {
+                  show: false
+              },
+              axisLine: {
+                  show: false
+              },
+              splitLine: {
+                  lineStyle:{
+                      type: 'dashed'
+                  }
+              },
+          },
+          yAxis: {
+              axisTick: {
+                  show: false
+              },
+              axisLine: {
+                  lineStyle:{
+                      color: '#00D3BC'
+                  }
+              },
+              axisLabel:{
+                  color:'#ddd'
+              },
+              data: that.names
+          },
+
+          series: {
+              name: '',
+              color:'#00D3BC',
+              type: 'pictorialBar',
+              symbol: 'rect',
+              symbolRepeat: true,
+              symbolClip: true,
+              symbolSize: [8,20],
+              label: {
+                  show: true,
+                  position: 'right'
+              },
+              data: that.data
+          }
+      };
+      
+      Echart.setOption(option);
+    },
     getData(porsonid) {
       var key = this.$store.state.key;
       var objs = { id: porsonid };
@@ -166,8 +242,12 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            console.log(data)
+            this.data=data.data.number
+            this.names=data.data.tname
             this.message = data.data.data;
             this.gunList = data.data.guns;
+            this.initChart()
             if (!this.message.mechanism_name) {
               this.$router.go(-1);
             }
@@ -232,8 +312,12 @@ export default {
       });
     }
     let policeuser_id = this.$store.state.policeuser_id;
-console.log('policeuser_id',policeuser_id)
+    // console.log('policeuser_id',policeuser_id)
     this.getData(policeuser_id);
+  },
+  mounted(){
+    // this.initChart()
   }
+  
 };
 </script>

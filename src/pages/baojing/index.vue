@@ -56,6 +56,7 @@
         @changeOneData="changeOneData" 
         @showNew="showNew"
         @showAlert="showAlert"
+        @chulihuidiao="chulihuidiao"
       />
     </div>
     <div class="check_type">
@@ -135,6 +136,10 @@ export default {
     };
   },
   methods: {
+    chulihuidiao(){
+      let yeMa = this.activeYeMa || 1;
+      this.getDataList(this.activeItem.mechanism_id, yeMa, 8);
+    },
     showNew(arr){
       this.gaodeArr=[arr[0]-0,arr[1]-0]
       this.gaodeshow=true

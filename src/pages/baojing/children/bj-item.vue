@@ -66,16 +66,99 @@
       <div class="alert" v-if="message.IMEI">
          <button class="close" @click="closeXiangqing">取消</button>
         <div class="del"  @click="closeXiangqing">X</div>
+        <button class="chuli" v-show="message.desc=='无'"  @click="kaishichuli">处理</button>
         <div class="txt">
-          <p>枪瞄IMEI：{{message.IMEI}}</p>
-          <p> 处理标题：{{message.desc}}</p>
+          <!-- <p>枪瞄IMEI：{{message.IMEI}}</p>
           <p>枪支类型：{{message.gtype}}</p>
           <p>枪支编号：{{message.gun_code}}</p>
           <p>手机号码：{{message.mobile}}</p>
           <p>持枪人警号：{{message.police_number}}</p>
           <p>持枪人姓名：{{message.policeuser_name}}</p>
           <p>报警类型：{{message.type}}</p>
-          <p>处理意见：{{item.content}}</p>
+          <p> 
+            处理标题：<span v-if="message.desc!='无'">{{message.desc}}</span>
+            <input type="text" v-else="message.desc=='无'" v-model="titleStr" placeholder="请输入内容">
+          </p>
+          <p>
+            处理意见：<span v-if="item.content">{{item.content}}</span>
+            <textarea v-else="!item.content"  cols="20" rows="10" ></textarea>
+          </p> -->
+          <!--
+          <div class="item">
+            <div class="tit "><i class="iconfont icon-jigou"></i>机构名称</div>
+            <div class="con">：{{message.mname}}</div>
+          </div>
+          <div class="item">
+            <div class="tit"><i class="iconfont icon-05"></i>IMEI</div>
+            <div class="con">：{{message.IMEI}}</div>
+          </div>
+          <div class="item">
+            <div class="tit"><i class="iconfont icon-ren"></i>警员姓名</div>
+            <div class="con">：{{message.policeuser_name}}</div>
+          </div>
+          <div class="item">
+            <div class="tit"><i class="iconfont icon-dianhua"></i>手机号</div>
+            <div class="con">：{{message.mobile}}</div>
+          </div>
+           <div class="item">
+            <div class="tit"><i class="iconfont icon-lianjie"></i>警员编号</div>
+            <div class="con">：{{message.police_number}}</div>
+          </div>
+           <div class="item">
+            <div class="tit"><i class="iconfont icon-bianhao"></i>枪支编号</div>
+            <div class="con">：{{message.gun_code}}</div>
+          </div>
+           <div class="item">
+            <div class="tit"><i class="iconfont icon-lifangtilitiduomiantifangkuai"></i>枪支类型</div>
+            <div class="con">：{{message.gtype}}</div>
+          </div>
+           <div class="item">
+            <div class="tit"><i class="iconfont icon-baojingguanli"></i>报警类型</div>
+            <div class="con">：{{message.type}}</div>
+          </div>
+           <div class="item">
+            <div class="tit"><i class="iconfont icon-shijian"></i>报警时间</div>
+            <div class="con">：{{message.created}}</div>
+          </div>
+           <div class="item">
+            <div class="tit"><i class="iconfont icon-daichuli"></i>是否处理</div>
+            <div class="con">：{{message.desc=='无'?"未处理":"已处理"}}</div>
+          </div>
+           <div class="item">
+            <div class="tit"><i class="iconfont icon-biaoti"></i>处理标题</div>
+            <div class="con">：
+              <span v-if="message.desc!='无'">{{message.desc}}</span>
+              <input  v-else="message.desc=='无'" type="text" v-model="titleStr" placeholder="请输入处理标题" />
+            </div>
+          </div>
+           <div class="item teshu">
+            <div class="tit" v-if="message.desc!='极速处理'"><i class="iconfont icon-bianhao"></i>处理意见</div>
+            <div class="con" v-if="message.desc!='极速处理'">：
+              <span v-if="item.content">{{item.content}}</span>
+              <textarea  v-if="message.desc=='无'" v-model="textarea"  placeholder="请输入处理意见"  cols="30" rows="10"></textarea>
+            </div>
+          </div>
+          -->
+          <div class="text">{{message.mname}}</div>
+          <div class="text imei">{{message.IMEI}}</div>
+          <div class="text">{{message.policeuser_name}}</div>
+          <div class="text">{{message.mobile}}</div>
+          <div class="text">{{message.gun_code}}</div>
+          <div class="text">{{message.gtype}}</div>
+          <div class="text">{{message.police_number}}</div>
+          <div class="text">{{message.type}}</div>
+          <div class="text">{{message.created}}</div>
+          <div class="text" :class="`${message.desc=='无'?' red':' green'}`">{{message.desc=='无'?"未处理":"已处理"}}</div>
+          <div class="yijian">
+            <p class="tit" v-if="message.desc=='极速处理' ||message.desc!='无'">{{message.desc}}</p>
+            <input  v-if="message.desc=='无'" type="text" v-model="titleStr" placeholder="请输入处理标题" />
+          </div>
+          <div class="biaoti">
+            <p v-if="item.content">{{message.content}}</p>
+            <textarea  v-if="message.desc=='无'" v-model="textarea"  
+              placeholder="请输入处理意见"  cols="24" rows="2"
+            ></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -99,7 +182,9 @@ export default {
     return {
       showmap:false,
       xiangqing:false,
-      message:null
+      message:null,
+      titleStr:'',
+      textarea:''
     };
   },
   computed: {
@@ -111,6 +196,19 @@ export default {
     }
   },
   methods: {
+    kaishichuli(){
+      if(this.titleStr.trim()&&this.textarea.trim()){
+        let id=[this.message.id];
+        let desc=this.titleStr
+        let content=this.textarea
+        this.chuLi(id, desc, content)
+      }else{
+        this.$message({
+          type:'error',
+          message:'请输入完整'
+        })
+      }
+    },
     closeXiangqing(){
       this.xiangqing=false;
     },
@@ -149,6 +247,49 @@ export default {
       } else if (s == 5) {
         return "92改";
       }
+    },
+    chuLi(ids, desc, content = "") {
+      // ......................该组件默认加载树形菜单数据
+      var key = this.$store.state.key;
+      var objs = {
+        alarm_info_ids: ids.join(","),
+        desc: desc,
+        content: content,
+        policeuser_id: this.policeuser_id
+      };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("alarm_info_ids", objs.alarm_info_ids);
+      params.append("desc", objs.desc);
+      params.append("content", objs.content);
+      params.append("sign", sign);
+      params.append("token", token);
+      params.append("policeuser_id", objs.policeuser_id);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=alarm&a=alarm_processing",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.data.code == 200) {
+            // console.log(data)
+            this.$message({
+              type: "success",
+              message: "处理完成"
+            });
+            this.xiangqing=false
+            this.$emit('chulihuidiao')
+            
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      this.hasData = true;
     },
     changeTime(timestamp) {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000

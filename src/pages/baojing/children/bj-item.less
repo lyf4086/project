@@ -207,7 +207,8 @@
   .alert{
     position: absolute;
     width: 50%;
-    height: 70%;
+    // height: 70%;
+    height:670/@vw;
     top: 0;
     left: 0;
     bottom: 0;
@@ -231,9 +232,20 @@
     }
     .close {
       position: absolute;
-      right: 105/@rem;
-      bottom: 6/@rem;
-      width: 170/@rem;
+      right: 95/@rem;
+      bottom: 4/@rem;
+      width: 90/@rem;
+      height: 30/@rem;
+      font-size: 18/@rem;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+    }
+    .chuli{
+      position: absolute;
+      right: 185/@rem;
+      bottom: 4/@rem;
+      width: 90/@rem;
       height: 30/@rem;
       font-size: 18/@rem;
       background: none;
@@ -241,12 +253,138 @@
       cursor: pointer;
     }
     .txt{
+      position: relative;
       width:80%;
-      height:80%;
-      margin:80/@rem auto;
-      p{
-        line-height: 40/@rem;
+      height:70%;
+      margin:100/@rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-content: flex-start;
+      color:#129fdf;
+      background: url(../../../assets/img/baojing-bj.png) no-repeat;
+      background-size: 100% 100%;
+      // .item{
+      //   width:50%;
+      //   display: flex;
+      //   height:50/@vw;       
+      //   &>div{
+      //     line-height: 50/@vw;
+      //   }
+      //   .tit{
+      //     flex:2;
+      //     i{
+      //       font-size: 20/@vw;
+      //       margin-right: 8/@vw;
+      //     }
+      //   }
+      //   .con{
+      //     flex:6;
+      //     input{
+      //       width:80%;
+      //       height:60%;
+      //       background: none;
+      //       border:1/@vw solid #129fdf;
+      //       text-indent: 15/@vw;
+      //       color:#129fdf;
+      //     }
+      //     textarea{
+      //       box-sizing: border-box;
+      //       padding:8/@vw;
+      //       border:1px solid  #129fdf;
+      //       background: none;
+      //       margin-top: 15/@vw;
+      //       color:#129fdf;
+      //       text-indent: 16/@vw;
+      //     }
+      //   }
+      // }
+      
+      // textarea{
+      //   resize:none
+      // }
+      // p{
+      //   line-height: 40/@rem;
+      // }
+      .text{
+        width:114/@vw;
+        height:50/@vw;
+        line-height: 50/@vw;
+        text-align: center;
+        color:#fff;
+        // background: pink;
+        // margin-top: 80/@vw;
+        margin-top: 10.5%;
+        // margin-right: 26/@vw;
+        margin-right: 2.5%;
       }
+      .text:nth-child(5){
+        margin-right: 0;
+        position: relative;
+        // top:-20/@vw;
+        top:-3%;
+      }
+      .text:nth-child(10){
+        margin-right: 0;
+      }
+      .red{
+        color:red;
+      }
+      .green{
+        color:green;
+      }
+      .text:nth-child(9){
+        line-height: 20/@vw;
+      }
+      .text:nth-child(5),.text:nth-child(6),.text:nth-child(7),.text:nth-child(8),.text:nth-child(9),.text:nth-child(10){
+        // margin-top: 100/@vw;
+        margin-top: 13%
+      }
+      .yijian{
+        width: 240/@vw;
+        height:70/@vw;
+        margin:96/@vw 0 0 -16/@vw;
+        box-sizing: border-box;
+        padding:5/@vw;
+        line-height: 20/@vw;
+        color:#fff;
+        overflow: auto;
+            input{
+              width:80%;
+              height:60%;
+              background: none;
+              border:1/@vw solid #129fdf;
+              text-indent: 15/@vw;
+              color:#129fdf;
+            }
+      }
+      .biaoti{
+        width: 240/@vw;
+        height:70/@vw;
+        box-sizing: border-box;
+        padding:5/@vw;
+        margin:96/@vw 152/@vw 0 0/@vw;
+        line-height: 20/@vw;
+        overflow: auto;
+            textarea{
+              box-sizing: border-box;
+              padding:4/@vw;
+              border:1px solid  #129fdf;
+              background: none;
+              margin-top: -5/@vw;
+              color:#129fdf;
+              text-indent: 16/@vw;
+              resize: none;
+            }
+      }
+
+
     }
   }
+}
+
+.imei{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -17,7 +17,7 @@
         </p>
         <p>角色名：</p>
         <p class="put-wrap select-wrap">
-          <span>{{juese(item.role_id)}}</span>
+          <span>{{item.role_name}}</span>
 
           <select
             v-show="item.put2show"
@@ -26,10 +26,10 @@
             v-model="item.role_id"
             @blur="put2blur(index)"
           >
-            <option value="1">系统管理员</option>
-            <option value="2">枪支管理员</option>
+            <option :value="item.id" v-for="(item,index) in roles" :key="index">{{item.name}}</option>
+            <!-- <option value="2">枪支管理员</option>
             <option value="3">用枪员</option>
-            <option value="4">领导</option>
+            <option value="4">领导</option> -->
           </select>
         </p>
         <p>创建时间：</p>
@@ -134,7 +134,7 @@
 </style>
 <script>
 export default {
-  props: ["list", "isRemoving", "activeYeMa", "activeTreeId", "sync"],
+  props: ["list", "isRemoving", "activeYeMa", "activeTreeId", "sync","roles"],
   data() {
     return {
       changeShow: false,
@@ -160,7 +160,9 @@ export default {
         return "领导";
       }
     },
-
+    // selChange(ev){
+    //   console.log(ev)
+    // },
     lookxiangqing(item) {
       this.$store.commit("setPoliceId", {
         policeuser_id: item.policeuser_id,
@@ -325,10 +327,14 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log("修改角色", data);
-          // if(data.data.code=='200'){
-          //     this.alert=false
-          // }
+
+          if(data.data.code=='200'){
+             this.$emit('shuaxin')
+              this.$message({
+                type:'success',
+                message:'修改角色成功'
+              })
+          }
         })
         .catch(error => {
           console.log(error);
@@ -444,6 +450,7 @@ export default {
         .then(data => {
           // console.log('修改。。。。。。。状态',data)
           if (data.data.code == 200) {
+           
             this.$message({
               message: "修改状态成功",
               type: "success"

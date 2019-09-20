@@ -41,7 +41,7 @@
               @click="bindshow(item)"
             >去绑定枪瞄</p>
           </div>
-          <div class="btn" title="所属警员，点击查看该人员详情">
+          <div class="btn" title="持枪警员，点击查看该人员详情">
             <span v-if="item.policeuser_name" @click="al3(item)">{{item.policeuser_name}}</span>
             <span v-if="!item.policeuser_name">-----</span>
           </div>
@@ -68,6 +68,7 @@
         <p v-show="false">我是所属警员弹窗</p>
         <button class="close" @click="close3">X</button>
       </div>
+      <!--
       <div class="alert alert4" v-if="tan4">
         <div class="del" @click="close4">X</div>
         <button class="close" @click="close4">取消</button>
@@ -83,7 +84,6 @@
             <span></span>
             <span>用枪人</span>
             <span>警员编号</span>
-            <!-- <span>操作人</span> -->
             <span>枪支类型</span>
             <span>借出时间</span>
             <span>归还时间</span>
@@ -94,7 +94,6 @@
               <span>{{index+1}}</span>
               <span>{{item.usrename}}</span>
               <span>{{item.policeNum}}</span>
-              <!-- <span>{{item.opname}}</span> -->
               <span>{{item.gtype}}</span>
               <span>{{item.oprtime}}</span>
               <span>{{item.planTime}}</span>
@@ -103,6 +102,49 @@
           </div>
         </div>
       </div>
+      -->
+ <!--改写后  -->
+      <div class="alert alert4" v-if="tan4">
+         <div class="del" @click="close4">X</div>
+        <button class="close" @click="close4">取消</button>
+        <div class="content">
+          <div class="t t1">机构名称:{{guns.mechanism_name}}</div>
+          <div class="t t2">用枪人:{{guns.policeName}}</div>
+          <div class="t t3">枪支类型:{{guns.gname}}</div>
+          <div class="t t4">枪柜编号:{{guns.guncabinet_code}}</div>
+          <div class="t t5">枪锁位：{{guns.gposition}}</div>
+          <div class="t t6">枪瞄编号：{{guns.IMEI}}</div>
+          <div class="t t7">枪支编号：{{guns.gun_code}}</div>
+          <div class="t t8" @click="showList">历史记录</div>
+          <div class="r1"></div>
+          <div class="r2"></div>
+        </div>
+        <div class="m-list" v-show="listShow">
+          <div class="text" v-if="xiangqingList.length">
+            <div class="title">
+              <span></span>
+              <span>用枪人</span>
+              <span>警员编号</span>
+              <span>枪支类型</span>
+              <span>借出时间</span>
+              <span>归还时间</span>
+              <span>用途类型</span>
+            </div>
+          <div class="list_wrap">
+            <div class="list" v-for="(item,index) in xiangqingList" :key="index">
+              <span>{{index+1}}</span>
+              <span>{{item.usrename}}</span>
+              <span>{{item.policeNum}}</span>
+              <span>{{item.gtype}}</span>
+              <span>{{item.oprtime}}</span>
+              <span>{{item.planTime}}</span>
+              <span>{{item.tasktype}}</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+ <!--改写后  -->
       <div class="bingbox" v-show="bindalert">
         <button class="close" @click="bindclose">X</button>
         <p style="display:none">{{activeJigouId}}</p>
@@ -117,7 +159,7 @@
           <div class="no-data" v-if="allMiaoList.length==0">该机构下暂时没有枪瞄数据</div>
           <div
             class="m-item"
-            v-for="item,index in allMiaoList"
+            v-for="(item,index) in allMiaoList"
             :key="index"
             :style="{'opacity':item.opacity}"
           >
@@ -176,7 +218,9 @@ export default {
       allMiaoList: "",
       activeGunId: "", //.........当前正要绑定的枪支id
       activeMiaoId: "",
-      xiangqingList: []
+      xiangqingList: [],
+      guns:null,
+      listShow:false
     };
   },
   computed: {
@@ -190,6 +234,9 @@ export default {
     }
   },
   methods: {
+    showList(){
+      this.listShow=!this.listShow
+    },
     childClick(id) {
       this.al4(id);
     },
@@ -215,6 +262,7 @@ export default {
     },
     al4(gun_id) {
       this.tan4 = true;
+      console.log(gun_id)
       this.xiangqing(gun_id);
     },
     close1() {
@@ -426,7 +474,8 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.xiangqingList = data.data.history;
-            console.log(this.xiangqingList);
+            this.guns=data.data.guns
+            console.log(data.data.guns);
           }
         })
         .catch(error => {
@@ -452,6 +501,9 @@ export default {
         }
       });
     });
+   
+    
   }
+  
 };
 </script>
