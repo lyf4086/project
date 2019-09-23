@@ -105,12 +105,14 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
       let o = arrN.find(e => e.IMEI == item.IMEI)
       return Object.assign(item, o)
     })
-
+    let warningtype=JSON.parse(sessionStorage.getItem('everBodyWarningType'))
+    console.log(warningtype)
     let activeImg = require("@/assets/img/head-icon.png");//引入默认图片
     let markerArr = bbb.map((e, i) => {
+      // let tar=warningtype.find(item=>item.policeuser_id==e.policeuser_id)
       return new AMap.Marker({
         content: `<div class="marker-route" >
-                    <div class="cover" ></div>
+                    <div class="cover"></div>
                     <div class="img_wrap">
                       <img src="${this.header[this.headName] || e.policeuser.icon || activeImg}" />
                     </div>
@@ -576,7 +578,8 @@ function getPersonAndGunStr(id) {
         this.activeIMEI = ''
         this.$message({
           type: "warning",
-          message: '该机构下暂无人员数据'
+          message: '该机构未建立绑定关系',
+          duration:5000
         })
         return
       }
@@ -971,7 +974,6 @@ function getAlarmList() { //.....获取报警区域列表
 }
 
 function getOneAlarmArea(id) { //.....获取一个报警区域
-
   var objs = {
     "area_alarm_id": id
   };
@@ -989,8 +991,7 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
-      console.log(data)
-      // return
+      // console.log(data)
       let state = data.data.data.list.state
       let id = this.$refs.alarmSelect.value
       this.shuaXinMap()
@@ -1000,6 +1001,12 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
       this.moveingPersonList = this.oneAlarmPersonList
       this.oneAlarmMessage = data.data.data.arr
       this.personMoveing()
+    }else{
+      this.$message({
+        type:"warning",
+        message:data.data.msg,
+        duration:5000
+      })
     }
   }).catch((error) => {
     console.log(error)

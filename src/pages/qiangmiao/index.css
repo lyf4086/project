@@ -31,8 +31,20 @@
   display: flex;
 }
 .top-nav .bread-wrap {
-  width: 60%;
+  width: 50%;
   height: 100%;
+}
+.top-nav .check-type {
+  width: 10%;
+  height: 100%;
+}
+.top-nav .check-type select {
+  height: 100%;
+  width: 80%;
+  font-size: 0.14rem;
+  background: #20364e;
+  color: #fff;
+  border: 1px solid #55affd;
 }
 .top-nav .search-wrap {
   width: 40%;

@@ -691,6 +691,15 @@ export default {
       this.getTreeData();
       this.getDataList(this.activeJiGouId, 1);
     }
-  }
+  },
+   mounted() {
+    this.$store.commit('setStr',{
+      str1:'枪支列表',
+      str2:'情况汇总'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

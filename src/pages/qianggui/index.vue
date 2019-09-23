@@ -370,6 +370,15 @@ export default {
 
       this.getXiangQing(obj.guncabinet_id);
     }
-  }
+  },
+  mounted() {
+    this.$store.commit('setStr',{
+      str1:'各机构',
+      str2:'枪柜列表'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

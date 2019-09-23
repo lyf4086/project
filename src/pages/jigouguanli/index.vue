@@ -549,6 +549,14 @@ export default {
         }
       });
     });
-  }
+    this.$store.commit('setStr',{
+      str1:'各单位',
+      str2:'机构列表'
+    })
+  },
+
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

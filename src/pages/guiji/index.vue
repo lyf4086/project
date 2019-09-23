@@ -178,16 +178,16 @@
     </div>
     <!-- 所有报警区域列表 -->
     <div class="alarm_list">
-      <select name id class="sel" v-html="allAlarmSelectStr" ref="alarmSelect" @change="showOne"></select>
+      <select  class="sel" v-html="allAlarmSelectStr" ref="alarmSelect" @change="showOne"></select>
       <div>
         <strong>报警类型：</strong>
         <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.type}}</p>
-        <p v-else="!oneAlarmMessage.datetime">--|--</p>
+        <p v-if="!oneAlarmMessage.datetime">--|--</p>
       </div>
       <div>
         <strong>创建时间：</strong>
         <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.datetime}}</p>
-        <p v-else="!oneAlarmMessage.datetime">--|--</p>
+        <p v-if="!oneAlarmMessage.datetime">--|--</p>
       </div>
       <div v-if="oneAlarmMessage.datetime">
         <button class="del-area" @click="del">删除该区域</button>
@@ -786,7 +786,7 @@ console.log(val[0], val[1])
           contextMenu.addItem(
             "显示该区域人员",
             function() {
-              console.log("显示该区域人员", ev.target.Ge.area_alarm_id);
+              // console.log("显示该区域人员", ev.target.Ge.area_alarm_id);
               that.getOneAlarmArea(ev.target.Ge.area_alarm_id);
             },
             1
@@ -1173,11 +1173,8 @@ console.log(val[0], val[1])
     this.role_id = this.$gscookie.getCookie("message_obj").role_id;
   },
   mounted() {
-    /**
-     *
-     *
-     */
     
+     
     //调用报警方法，
     this.timer2 = setInterval(() => {
       this.hasWarning();
@@ -1206,7 +1203,10 @@ console.log(val[0], val[1])
   },
   activated() {
     let obj = this.$route.params;
-
+      this.$store.commit('setStr',{
+        str1:'枪支定位',
+        str2:'轨迹追踪'
+      })
     if (obj.area_id) {
       this.$refs.alarmSelect.value = obj.area_id;
       // console.log(obj.area_id)
@@ -1232,6 +1232,10 @@ console.log(val[0], val[1])
       this.activeIMEI = obj.IMEI;
       this.checkTime = true;
     }
+  },
+  
+  deactivated(){
+    this.$store.commit('huanyuanStr')
   }
 };
 </script>

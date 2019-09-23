@@ -523,6 +523,13 @@ export default {
         this.focus();
       }
     };
-  }
+    this.$store.commit('setStr',{
+      str1:'各机构',
+      str2:'人员列表'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

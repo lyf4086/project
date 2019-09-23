@@ -20,6 +20,13 @@
         <!--面包屑导航-->
         <breadNav title="报警管理" :next="active_title" :message="message" />
       </div>
+      <div class="check-type">
+        <select name="" id="" v-html="warningOption" v-model="warningType" @change="changeType">
+          <!-- <option value="1">全部</option>
+          <option value="2">在线</option>
+          <option value="3">离线</option> -->
+        </select>
+      </div>
       <div class="search-wrap">
         <!--搜索框-->
         <select class="sel" v-model="selValue">
@@ -132,13 +139,28 @@ export default {
       currentPage: 3,
       policeuser_id: "",
       gaodeshow:false,
-      gaodeArr:[116.397428,39.90923]
+      gaodeArr:[116.397428,39.90923],
+      warningType:'',
+      warningOption:''      
     };
   },
   methods: {
+    changeType(){
+      console.log(this.warningType)
+      this.getDataList(
+        this.activeMechanismId,
+        1,
+        8,
+        this.selValue,
+        this.putValue,
+        this.state,
+        this.warningType
+      );
+       this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
+    },
     chulihuidiao(){
       let yeMa = this.activeYeMa || 1;
-      this.getDataList(this.activeItem.mechanism_id, yeMa, 8);
+      this.getDataList(this.activeItem.mechanism_id, yeMa, 8,this.warningType);
     },
     showNew(arr){
       this.gaodeArr=[arr[0]-0,arr[1]-0]
@@ -173,7 +195,8 @@ export default {
         8,
         this.selValue,
         this.putValue,
-        this.state
+        this.state,
+        this.warningType
       );
     },
     outIn() {
@@ -215,7 +238,8 @@ export default {
         8,
         this.selValue,
         this.putValue,
-        this.state
+        this.state,
+        this.warningType
       );
     },
     dealed() {
@@ -227,7 +251,8 @@ export default {
         8,
         this.selValue,
         this.putValue,
-        this.state
+        this.state,
+        this.warningType
       );
     },
     subRewrite() {
@@ -247,7 +272,7 @@ export default {
     quanbu() {
       this.message = "";
       this.state = "";
-      this.getDataList(this.activeItem.mechanism_id, 1, 8);
+      this.getDataList(this.activeItem.mechanism_id, 1, 8,this.warningType);
     },
     getTreeList(isCreate = true) {
       // ......................该组件默认加载树形菜单数据
@@ -285,14 +310,14 @@ export default {
       this.hasData = true;
     },
 
-    getDataList(mechanismId, p = 1, ps = 8, selValue, putValue, state) {
+    getDataList(mechanismId, p = 1, ps = 8, selValue, putValue, state,tid="") {
       // ......................获取报警列表
       if (!mechanismId) {
         mechanismId = this.$gscookie.getCookie("mechanism_id");
       }
 
       var key = this.$store.state.key;
-      var objs = { p: p, ps: ps, mechanism_id: mechanismId };
+      var objs = { p: p, ps: ps, mechanism_id: mechanismId ,tid:tid};
       if (selValue) {
         objs[selValue] = putValue;
       }
@@ -304,6 +329,7 @@ export default {
       var params = new URLSearchParams();
       params.append("p", objs.p);
       params.append("ps", objs.ps);
+      params.append("tid", objs.tid);
       params.append("mechanism_id", objs.mechanism_id);
       if (selValue) {
         params.append(selValue, putValue);
@@ -323,7 +349,15 @@ export default {
         data: params
       })
         .then(data => {
+          // console.log(data)
           if (data.data.code == 200) {
+            if(this.warningOption==''){
+              let str='<option value="">全部类型</option>'
+              data.data.data.atype.map(item=>{
+                str+=`<option value="${item.id}">${item.name}</option>`
+              })
+              this.warningOption=str
+            }
             this.list = data.data.data.list.map((e, i) => {
               return {
                 ...e,
@@ -393,6 +427,7 @@ export default {
       this.active_title = item.mechanism_name;
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.getDataList(item.mechanism_id, 1, 8);
+      this.warningType=''
     },
     subSearch() {
       if (!this.selValue) {
@@ -465,6 +500,14 @@ export default {
       this.getTreeList();
     }
   },
-  watch: {}
+  mounted() {
+    this.$store.commit('setStr',{
+      str1:'报警列表',
+      str2:'情况汇总'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

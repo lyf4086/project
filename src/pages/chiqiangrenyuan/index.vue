@@ -290,6 +290,15 @@ export default {
       this.$router.push("/loginput");
       return;
     }
-  }
+  },
+  mounted() {
+    this.$store.commit('setStr',{
+      str1:'持枪人员',
+      str2:'数据列表'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

@@ -20,6 +20,13 @@
         <!--面包屑导航-->
         <breadNav title="机构管理" :next="active_title" />
       </div>
+      <div class="check-type">
+        <select name="" id="" v-model="checkType" @change="typeChange">
+          <option value="1">全部</option>
+          <option value="2">在线</option>
+          <option value="3">离线</option>
+        </select>
+      </div>
       <div class="search-wrap">
         <!--搜索框-->
         <select class="sel" v-model="selValue">
@@ -141,10 +148,16 @@ export default {
       ishand: false, //..........是否点击了树形菜单
       options: [],
       value: '',
-      types:[]
+      types:[],
+      checkType:1
     };
   },
   methods: {
+    typeChange(){
+      // console.log(this.checkType,this.active_fujigou)
+      this.$refs.page.internalCurrentPage = 1;
+      this.getDataList(this.active_fujigou, 1,this.checkType)
+    },
     updataView() {
       this.getDataList(this.active_fujigou, this.active_yema);
       this.getAllGunList(this.active_fujigou);
@@ -154,7 +167,7 @@ export default {
     currentChange(n) {
       //..........页码的点ji
       this.active_yema = n;
-      this.getDataList(this.active_fujigou, n);
+      this.getDataList(this.active_fujigou, n,this.checkType);
     },
     subSearch() {
       if (!this.selValue) {
@@ -209,6 +222,7 @@ export default {
     handleNodeClick(item) {
       //.............树形菜单点击
       this.currentPage = 1;
+      this.checkType=1;
       this.active_yema = 1;
       if (this.$refs.page) {
         this.$refs.page.internalCurrentPage = 1;
@@ -267,16 +281,17 @@ export default {
           console.log(error);
         });
     },
-    getDataList(jigou_id = 1, p = 1) {
+    getDataList(jigou_id = 1, p = 1,heart=1) {
       //.............................获取枪瞄列表数据函数
       var key = this.$store.state.key;
-      var objs = { mechanism_id: jigou_id, p: p, ps: 9 };
+      var objs = { mechanism_id: jigou_id, p: p, ps: 9 ,heart:heart};
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
       params.append("mechanism_id", objs.mechanism_id);
       params.append("p", objs.p);
       params.append("ps", objs.ps);
+      params.append("heart", objs.heart);
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
@@ -603,6 +618,14 @@ export default {
       this.getDataList(this.activeJiGouId, 1);
     }
   },
-  mounted() {}
+  mounted() {
+    this.$store.commit('setStr',{
+      str1:'枪瞄列表',
+      str2:'情况汇总'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

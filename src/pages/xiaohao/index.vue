@@ -231,6 +231,15 @@ export default {
     if (JSON.stringify(str) == "{}") {
       this.$router.push("/loginput");
     }
-  }
+  },
+  mounted() {
+    this.$store.commit('setStr',{
+      str1:'弹药管理',
+      str2:'消耗列表'
+    })
+  },
+  destroyed(){
+    this.$store.commit('huanyuanStr')
+  }
 };
 </script>

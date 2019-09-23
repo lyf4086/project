@@ -51,7 +51,7 @@
           <p class="mine-title">个人信息</p>
           <div class="imgwrap">
             <img :src="mes.icon" v-if="mes.icon" alt="head pic" />
-            <img src="@/assets/img/head-icon.png" v-else="!mes.icon" alt="head pic" />
+            <img src="@/assets/img/head-icon.png" v-if="!mes.icon" alt="head pic" />
           </div>
 
           <p class="mine-name">姓名：{{mes.uname}}</p>
@@ -482,9 +482,18 @@ export default {
               };
             });
             this.warningList = list;
-            // if (list.length > 3) {
-            //   this.listMoving();
-            // }
+            let obj={};
+            let newArr=[]
+            data.data.data.forEach(item=>{
+              obj[item.policeuser_id]=item
+            })
+
+            for(let i in obj){
+              newArr.push(obj[i])
+            }
+            //  console.log(newArr)
+            //存去重后的所有报警人员
+             sessionStorage.setItem('everBodyWarningType',JSON.stringify(newArr))
           }
         })
         .catch(error => {

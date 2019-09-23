@@ -273,11 +273,16 @@ import Content from './children/content'
                 this.$router.push("/loginput")
             }
         },
-        mounted() {
-          // console.log(this.treeListData)
-          // return
-          // this.handleNodeClick()
-        }
+        
+        mounted() {
+          this.$store.commit('setStr',{
+            str1:'音频视频',
+            str2:'数据列表'
+          })
+        },
+        destroyed(){
+          this.$store.commit('huanyuanStr')
+        }
 
     }
 </script>

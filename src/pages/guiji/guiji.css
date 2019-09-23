@@ -28,6 +28,16 @@
   background: url(../../assets/img/tou.png) no-repeat;
   background-size: 100% 100%;
 }
+.guiji .marker-route .cover .warningtype {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0.2rem;
+  height: 0.2rem;
+}
+.guiji .marker-route .cover .litao {
+  background: red;
+}
 .guiji .marker-route .img_wrap {
   width: 0.46rem;
   height: 0.5rem;

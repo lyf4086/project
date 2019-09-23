@@ -125,10 +125,14 @@
   position: absolute;
   top: 1.5625vw;
   right: 0.52083333vw;
-  width: 2.08333333vw;
-  height: 2.08333333vw;
+  width: 1.875vw;
+  height: 1.875vw;
   border-radius: 50%;
-  line-height: 2.08333333vw;
+  line-height: 1.875vw;
+  font-size: 1.04166667vw;
+  background: none;
+  border: 0.05208333vw solid #fff;
+  color: #fff;
   cursor: pointer;
 }
 .cover .alert .leftwrap {
