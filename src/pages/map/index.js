@@ -29,6 +29,8 @@ function getPersonAndGunStr(id) {
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
+      this.startTime=data.data.start+'T'+"01:00"
+      this.endTime =data.data.start+'T'+"23:00"
       /**新增获取其他机构人员 */
       if (data.data.arr) {
         this.allMechanismData = data.data.arr
@@ -405,7 +407,7 @@ function searchByTime() { //.....根据时间搜索历史轨迹
   this.newShuaXinMap()
 
   this.searchHistory(this.activeIMEI, t1, t2) //通过起止时间搜索历史轨迹
-  this.startTime = this.endTime = ''
+  // this.startTime = this.endTime = ''
 }
 
 function searchOnePerson() { //.........搜索人员后弹出该人员信息

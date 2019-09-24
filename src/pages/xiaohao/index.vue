@@ -125,7 +125,6 @@ export default {
       if (jigou_id) {
         params.append("id", objs.id);
       }
-
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({

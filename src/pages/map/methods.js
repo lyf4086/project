@@ -703,6 +703,12 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
       this.moveingPersonList = this.oneAlarmPersonList
       this.oneAlarmMessage = data.data.data.arr
       this.personMoveing()
+    }else{
+      this.$message({
+        type:"warning",
+        message:data.data.msg,
+        duration:5000
+      })
     }
   }).catch((error) => {
     console.log(error)

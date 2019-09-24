@@ -113,7 +113,7 @@
           <div class="t t3">枪支类型:{{guns.gname}}</div>
           <div class="t t4">枪柜编号:{{guns.guncabinet_code}}</div>
           <div class="t t5">枪锁位：{{guns.gposition}}</div>
-          <div class="t t6">枪瞄编号：{{guns.IMEI}}</div>
+          <div class="t t6" title="枪瞄编号">{{guns.IMEI}}</div>
           <div class="t t7">枪支编号：{{guns.gun_code}}</div>
           <div class="t t8" @click="showList">历史记录</div>
           <div class="r1"></div>

@@ -30,7 +30,8 @@ export default {
         // { value: 135, name: "视频广告" },
         // { value: 1548, name: "搜索引擎" }
       ],
-      timeObj: null
+      timeObj: null,
+      mid:''
     };
   },
   methods: {
@@ -163,8 +164,9 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log(data.data.data.mname);
+          console.log(data);
           this.timeObj = data.data.time;
+          this.mid=data.data.mid
           this.echar1_date = data.data.data.days;
           this.echar1_num = data.data.data.value;
           this.list = data.data.data.series;
@@ -205,7 +207,7 @@ export default {
       if (roleId == 3) return;
       this.$router.push({
         name: "NewXiangQing",
-        params: this.timeObj
+        params: {timeObj:this.timeObj,mid:this.mid}
       });
     },
     chart2XiangQing() {

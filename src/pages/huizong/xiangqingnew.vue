@@ -185,7 +185,7 @@ export default {
       dbwarningtype:[
         { id: "03", name: "入套报警", checked: false },
         { id: "07", name: "区域报警", checked: false },
-        { id: "08", name: "逾期报警", checked: false },
+        { id: "001", name: "逾期报警", checked: false },
         { id: "09", name: "离套报警", checked: false }
       ],
       selectedType:'',
@@ -211,15 +211,15 @@ export default {
       timeEnd: "",
       warningType: [
         { id: "03", name: "入套报警", checked: true },
+        { id: "09", name: "离套报警", checked: true },
         { id: "07", name: "区域报警", checked: true },
-        { id: "08", name: "逾期报警", checked: true },
-        { id: "09", name: "离套报警", checked: true }
+        { id: "001", name: "逾期报警", checked: true}  
       ],
       jigoulist: [],
       series: {
         "03": [],
-        "07": [],
-        "08": [],
+        "09": [],
+        "001": [],
         "09": []
       },
      
@@ -800,7 +800,7 @@ export default {
       if (!!typeId) {
         objs = { time: timeStr, tid: typeId, mid: jigouId, ip_id: ip_id };
       }
-
+      console.log(objs)
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
@@ -813,6 +813,7 @@ export default {
         params.append("mid", objs.mid);
         params.append("ip_id", objs.ip_id);
       }
+
       this.$axios({
         url:
           this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Index&a=alarm_info",
@@ -822,6 +823,7 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
+            console.log(data)
             let obj = this.$gscookie.getCookie("message_obj");
             // console.log(item);
             if (!this.jigoulist.length) {
@@ -856,6 +858,7 @@ export default {
                     checked: false
                   };
                })
+               
               let warningType = data.data.data.types.map(e => {
                 return {
                   ...e,
@@ -882,9 +885,8 @@ export default {
             });
             this.selected = o;
             this.rightData1 = data.data.data.type;
-
             this.rightData2 = data.data.data.cou;
-
+            console.log(this.rightData1,this.rightData2)
             this.chartNew1();
 
             this.series = data.data.data.series;
@@ -915,14 +917,17 @@ export default {
       this.$router.push("/loginput");
       return;
     }
-    this.timeStart = obj[0];
-    this.timeEnd = obj[1];
+    
+    this.timeStart = obj.timeObj[0];
+    this.timeEnd = obj.timeObj[1];
+    let mid=obj.mid
     let types = "";
     let arr1 = this.warningType.filter(e => e.checked);
     types = arr1.map(e => e.id).join();
     // console.log("333", item);
     // return;
-    this.getData(obj.join(), types);
+    this.getData(obj.timeObj.join(), types,mid);
+    // getData(timeStr, typeId = "", jigouId = "", ip_id)
   },
   mounted() {
     this.move();

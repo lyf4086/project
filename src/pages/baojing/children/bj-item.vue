@@ -140,7 +140,7 @@
           </div>
           -->
           <div class="text">{{message.mname}}</div>
-          <div class="text imei">{{message.IMEI}}</div>
+          <div class="text imei" :title="message.IMEI">{{message.IMEI}}</div>
           <div class="text">{{message.policeuser_name}}</div>
           <div class="text">{{message.mobile}}</div>
           <div class="text">{{message.gun_code}}</div>

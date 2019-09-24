@@ -215,7 +215,7 @@
       </div>
 
       <div class="sel_time" v-show="setAreaTime">
-        <input type="submit" class="del" value="X" @click="stopSetArea" />
+        <input type="submit" class="del" value="X" @click="stopSetArea" v-if="false"/>
         <h6>请选择起止时间</h6>
         <div class="put_wrap">
           <span>报警类型：</span>

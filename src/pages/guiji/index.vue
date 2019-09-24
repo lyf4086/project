@@ -1116,7 +1116,7 @@ console.log(val[0], val[1])
           renderOptions: {
             //轨迹线的样式
             pathLineStyle: {
-              strokeStyle: "#0091ea",
+              strokeStyle: "#64c0fa",
               lineWidth: 6,
               dirArrowStyle: true
             }

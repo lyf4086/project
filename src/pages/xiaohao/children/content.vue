@@ -102,11 +102,9 @@ export default {
     getXiangQing(id) {
       var key = this.$store.state.key;
       var objs = { vdeid: id };
-
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
-
       params.append("vdeid", objs.vdeid);
       params.append("sign", sign);
       params.append("token", token);
@@ -118,8 +116,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('xiaohaoxiangqing ',data)
-          // return
           if (data.data.code == 200) {
             this.xiangqingData = data.data.data;
             if (this.xiangqingData.length) {
