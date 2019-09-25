@@ -99,6 +99,8 @@
     </div>
     <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" title="aaa" @closeMap="closeMap"/>
     <!-- <MapMarker v-if="gaodeshow" :arr="gaodeArr" title="aaa" @closeMap="closeMap"/> -->
+    <GaoDeMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
+    <!-- <LiXianMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/> -->
   </div>
 </template>
 <style scoped>
@@ -109,8 +111,10 @@ import breadNav from "@/components/breadnav";
 import Item from "./children/bj-item";
 import MapMarker from '@/components/map-marker.vue'//此为离线地图弹窗
 import GaoDeMap from '@/components/mapalertgaode.vue'
+import GaoDeMarkers from '@/components/gaode-mark-arr.vue'
+import LiXianMarkers from '@/components/lixian-mark-arr.vue'
 export default {
-  components: { breadNav, Item ,GaoDeMap,MapMarker},
+  components: { breadNav, Item ,GaoDeMap,MapMarker,GaoDeMarkers,LiXianMarkers},
   data() {
     return {
       currentNodeKey: "",
@@ -141,7 +145,10 @@ export default {
       gaodeshow:false,
       gaodeArr:[116.397428,39.90923],
       warningType:'',
-      warningOption:''      
+      warningOption:'',
+      alarmMarkArr:false ,
+      alarmArr:[] ,
+      alarmMarkTitle:''    
     };
   },
   methods: {
@@ -168,11 +175,11 @@ export default {
     },
     closeMap(){
       this.gaodeshow=false
+      this.alarmMarkArr=false
     },
-    showAlert(arr){
-      console.log(arr)
-      this.gaodeArr=[arr[0]-0,arr[1]-0]
-      this.gaodeshow=true
+    showAlert(obj){
+     this.alarmMarkTitle=obj.name
+      this.getAlarmXY(obj.id)
     },
     currentChange(n) {
       //页码点击事件
@@ -309,7 +316,36 @@ export default {
         });
       this.hasData = true;
     },
+    getAlarmXY(aid){
+      var key = this.$store.state.key;
+      var objs = { aid};
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("aid", objs.aid);
+      params.append("sign", sign);
+      params.append("token", token);
 
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Alarm&a=alarm_weizhi",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          // console.log(data)
+          if(data.status==200){
+            this.alarmArr=data.data
+            this.alarmMarkArr=true
+          }
+          
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     getDataList(mechanismId, p = 1, ps = 8, selValue, putValue, state,tid="") {
       // ......................获取报警列表
       if (!mechanismId) {

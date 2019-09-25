@@ -81,7 +81,8 @@
             />
           </div>
           <div class="title">
-            <span>选择</span>
+            <!-- <span>选择</span> -->
+            <span><input type="checkbox" v-model="checkall" /></span>
             <span>选择机构</span>
             <span>编组人员</span>
             <span>枪支编号</span>
@@ -124,7 +125,7 @@
           class="one_alarm_person_list"
           v-if="oneAlarmPersonList.length && oneAlarmPersonListBox"
         >
-          <div class="item" v-for="(item,index) in oneAlarmPersonList">
+          <div class="item" v-for="(item,index) in oneAlarmPersonList" :key="index">
             <div class="img_wrap">
               <img v-if="item.icon" :src="item.icon" />
               <img v-if="!item.icon" src="../../assets/img/head-icon.png" />
@@ -409,6 +410,14 @@ export default {
       return this.noCheckedList.filter(
         item => item.IMEI !== this.selectedPerson.IMEI
       );
+    },
+    checkall:{
+      get:function (){
+        return this.fillSeilf.every(e=>e.checked)
+      },
+      set:function (){
+        return this.fillSeilf.forEach(e=>e.checked=true)
+      }
     }
   },
   methods: {

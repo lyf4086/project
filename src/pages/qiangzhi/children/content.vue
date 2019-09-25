@@ -4,7 +4,7 @@
     <div class="item_list" v-if="data.length">
       <div
         class="item_gun"
-        v-for="(item,index) in data"
+        v-for="item in data"
         :key="item.gun_id"
         ref="item"
         :class="{'dou':isRemoving}"
@@ -24,7 +24,7 @@
         <div class="center">
           <div class="bg"></div>
           <div class="bg2"></div>
-          <div class="gun"></div>
+          <div class="gun" :class="{'long':item.gtype=='95式'}"></div>
         </div>
         <div class="right">
           <div class="btn" title="枪锁位">枪锁位：{{item.gposition || '无'}}</div>
@@ -34,9 +34,9 @@
               class="jiebang"
               :title="'IMEI号为：'+item.IMEI+'，点击可解绑'"
               @click="deleteBind(item)"
-            >{{item.IMEI}}</p>
+            >{{item.jm}}</p>
             <p
-              v-else="item.gunaiming_id==0"
+              v-if="item.gunaiming_id==0"
               style="color:#3492c9;text-decoration: underline;"
               @click="bindshow(item)"
             >去绑定枪瞄</p>
@@ -261,8 +261,8 @@ export default {
       });
     },
     al4(gun_id) {
-      this.tan4 = true;
-      console.log(gun_id)
+      // this.tan4 = true;
+      // console.log(gun_id)
       this.xiangqing(gun_id);
     },
     close1() {
@@ -448,7 +448,7 @@ export default {
             };
           });
           this.allMiaoList = newArr; //.............返回数据之后赋值给allMiaoList
-          console.log("allMiaoList", this.allMiaoList);
+          // console.log("allMiaoList", this.allMiaoList);
         })
         .catch(error => {
           console.log(error);
@@ -475,7 +475,8 @@ export default {
           if (data.data.code == 200) {
             this.xiangqingList = data.data.history;
             this.guns=data.data.guns
-            console.log(data.data.guns);
+            // console.log(data.data.guns);
+            this.tan4 = true;
           }
         })
         .catch(error => {

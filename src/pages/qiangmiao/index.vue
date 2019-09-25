@@ -156,6 +156,7 @@ export default {
     typeChange(){
       // console.log(this.checkType,this.active_fujigou)
       this.$refs.page.internalCurrentPage = 1;
+
       this.getDataList(this.active_fujigou, 1,this.checkType)
     },
     updataView() {
@@ -285,6 +286,7 @@ export default {
       //.............................获取枪瞄列表数据函数
       var key = this.$store.state.key;
       var objs = { mechanism_id: jigou_id, p: p, ps: 9 ,heart:heart};
+      console.log(objs)
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -303,11 +305,8 @@ export default {
         data: params
       })
         .then(data => {
-          
-          // if(!this.types){
+
             this.types=data.data.data.ggtype
-            // console.log(this.types)
-          // }
           let newArr = data.data.data.list.map(e => {
             return {
               ...e,
@@ -316,7 +315,6 @@ export default {
           });
           this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
           this.pageTotal = data.data.data.psum * 1;
-          // console.log(this.qiangmiaoData)
         })
         .catch(error => {
           console.log(error);

@@ -99,7 +99,8 @@
               <div
                 class="p-item"
                 @click="onePersonClick(item)"
-                v-for="item,index in allPersonList"
+                v-for="(item,index) in allPersonList"
+                :key="index"
               >{{item.policeuser_name}}，&nbsp;&nbsp;警员ID：{{item.policeuser_id}}</div>
             </div>
           </div>
@@ -511,6 +512,7 @@ export default {
             };
           });
           this.activeDataList = dataArr;
+          // console.log(dataArr)
           this.pageTotal = data.data.data.psum * 1;
         })
         .catch(error => {

@@ -13,7 +13,7 @@
       <p>逾期报警</p>
       <div class="dianwrap">
         <div class="line"></div>
-        <div class="diandian" id="diandian">
+        <div class="diandian" id="diandian" v-show="dataList3.length">
           <div class="item">
             <span></span>
           </div>

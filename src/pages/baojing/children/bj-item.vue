@@ -29,9 +29,9 @@
           <span>枪支编号：</span>
           <span>{{item.gun.gun_code}}</span>
         </div>
-        <div class="list">
-          <span>枪支类型：</span>
-          <span>{{item.gun.gtype}}</span>
+        <div class="list" :title="item.IMEI">
+          <span>枪瞄编号：</span>
+          <span>{{item.IMEI}}</span>
         </div>
         <div class="list" v-if="false">
           <span>描述：</span>
@@ -50,7 +50,7 @@
         </div>
         <div class="list btnwrap">
           <button class="btn1" @click="showNew([item.nlongitude,item.nlatitude])">最新位置</button>
-          <button class="btn2" @click="showAlert([item.lon,item.lat])">报警位置</button>
+          <button class="btn2" @click="showAlert(item)">报警位置</button>
           <button class="btn3" @click="showMore(item)">详情</button>
         </div>
       </div>
@@ -220,16 +220,12 @@ export default {
     showNew(arr){     
       this.$emit('showNew',arr)
     },
-    showAlert(arr){
-      console.log(arr)
-      if(!arr[0]&&!arr[1]){
-        this.$message({
-          type:'warning',
-          message:'暂无'
-        })
-        return
-      }
-      this.$emit('showAlert',arr)
+    showAlert(item){
+      this.$emit('showAlert',{
+        id:item.alarm_info_id,
+        name:item.policeuser.policeuser_name,
+        type:item.type
+      })
     },
     
     changeOne(index) {

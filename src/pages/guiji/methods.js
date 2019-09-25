@@ -238,13 +238,10 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
     if (data.data.code == '200') {
       this.oldOrNew = 'old'
       this.checkTime = false
-      // console.log('119',data.data.data.list)
       if (!data.data.data.list.length) {
         this.$message('暂时没有轨迹数据')
         this.checkTime = false
       } else {
-        //  this.lineArr=data.data.data.list.map((e)=>[e.longitude-0,e.latitude-0])
-        // var lineArr =this.lineArr
         let that = this
         let lineArrAndBaoJing = data.data.data.list.filter(e => e.alarm)
         let lineArr = data.data.data.list.map((e) => [e.longitude - 0, e.latitude - 0])

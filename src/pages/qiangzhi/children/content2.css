@@ -112,6 +112,13 @@
   background: url(../../../assets/img/gun-xq.png) no-repeat;
   background-size: 100% 100%;
 }
+.item_list .item_gun .center .gun.long {
+  z-index: 0;
+  width: 2.60416667vw;
+  height: 1.82291667vw;
+  background: url(../../../assets/img/long.png) no-repeat 0 0.26041667vw;
+  background-size: 100% 90%;
+}
 .item_list .item_gun .right {
   position: absolute;
   right: 3.125vw;

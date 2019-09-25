@@ -73,7 +73,8 @@
             />
           </div>
           <div class="title">
-            <span>选择</span>
+            <!-- <span>选择</span> -->
+            <span><input type="checkbox" v-model="checkall" /></span>
             <span>选择机构</span>
             <span>编组人员</span>
             <span>枪支编号</span>
@@ -385,10 +386,17 @@ export default {
       return this.checkedPersonArr;
     },
     fillSeilf() {
-      // console.log(this.noCheckedList);
       return this.noCheckedList.filter(
         item => item.IMEI !== this.selectedPerson.IMEI
       );
+    },
+    checkall:{
+      get:function (){
+        return this.fillSeilf.every(e=>e.checked)
+      },
+      set:function (){
+        return this.fillSeilf.forEach(e=>e.checked=true)
+      }
     }
   },
   methods: {
