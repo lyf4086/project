@@ -52,6 +52,8 @@ let CenterXQ = () => import('../pages/huizong/centerxq/index.vue')
 
 let GlobalScreem =()=>import('../pages/globalscreem/index.vue')
 
+let PeiZhi = ()=>import('../pages/peizhi')
+
 
 let router = new Router({
   // mode:'history',
@@ -267,6 +269,11 @@ let router = new Router({
       // meta:{
       //   keepAlive:true
       // }
+    },
+    {
+      path:'peizhi',
+      name:'PeiZhi',
+      component:PeiZhi
     }
     ]
   },

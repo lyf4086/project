@@ -97,6 +97,9 @@
   background-size: 100% 100%;
   display: flex;
   align-items: center;
+  /deep/.el-pagination__total{
+    color:#fff;
+  }
 }
 
 .add-del {
@@ -201,3 +204,130 @@
   }
 
 }
+
+
+.cover{
+  position: fixed;
+  z-index: 99;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background: rgba(0, 0, 0, 0.3);
+  .alert{
+    position: absolute;
+    width: 50%;
+    height: 80%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+    background-size: 100% 100%;
+    .del{
+      position: absolute;
+      right:20/@rem;
+      top:20/@rem;
+      width:30/@rem;
+      height:30/@rem;
+      text-align: center;
+      line-height: 30/@rem;
+      font-size: 20/@rem;
+      color:#fff;
+      border:1/@rem solid #fff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .close {
+      position: absolute;
+      right: 105/@rem;
+      bottom: 6/@rem;
+      width: 170/@rem;
+      height: 30/@rem;
+      font-size: 18/@rem;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+    }
+    .content{
+      position: absolute;
+      font-size: 18/@rem;
+      text-align: center;
+      top: 4%;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      width: 98%;
+      height: 84%;
+      .over{
+        position: absolute;
+        left:0;
+        right:0;
+        margin:auto;
+        width:200/@rem;
+        margin-top: 80/@rem;
+        height:200/@rem;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10/@rem;
+        z-index: 3;
+      }
+      .floor{
+        width:90%;
+        height:40/@rem;
+        margin:0 auto 20/@rem;
+        
+        display: flex;
+        justify-content: space-between;
+        &>div{
+          width:48%;
+          height:100%;
+          line-height: 40/@rem;
+          display: flex;
+          span{
+            flex:1
+          }
+          input{
+            flex: 3;
+            border-radius: 5/@rem;
+            background: none;
+            border:1/@rem solid #55affd;
+            color:#fff;
+            text-indent: 16/@rem;
+          }
+          span:nth-child(2){
+            flex: 3;
+            color:#fff;
+          }
+          select{
+            flex: 3;
+            border-radius: 5/@rem;
+            background: rgb(24, 44, 63);
+            border:1/@rem solid #55affd;
+            color:#fff;
+          }
+        }
+        
+      }
+      .el-upload--text{
+        width:200/@rem;
+        height:200/@rem;
+        font-size: 80/@rem;
+        background: #185277;
+        line-height: 200/@rem;
+        text-align: center;
+        margin:100/@rem auto;
+        border-radius: 10/@rem;
+        
+      }
+    }
+  }
+}
+
+.avatar{
+  width:200/@rem;
+}
+
+
+

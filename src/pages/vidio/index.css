@@ -76,6 +76,9 @@
   display: flex;
   align-items: center;
 }
+.page-index /deep/ .el-pagination__total {
+  color: #fff;
+}
 .add-del {
   width: 4.6rem;
   height: 0.38rem;
@@ -148,4 +151,122 @@
   background: #185277;
   color: #fff;
   border-radius: 0.1rem;
+}
+.cover {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+}
+.cover .alert {
+  position: absolute;
+  width: 50%;
+  height: 80%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}
+.cover .alert .del {
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.2rem;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.cover .alert .close {
+  position: absolute;
+  right: 1.05rem;
+  bottom: 0.06rem;
+  width: 1.7rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.cover .alert .content {
+  position: absolute;
+  font-size: 0.18rem;
+  text-align: center;
+  top: 4%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 98%;
+  height: 84%;
+}
+.cover .alert .content .over {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 2rem;
+  margin-top: 0.8rem;
+  height: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.1rem;
+  z-index: 3;
+}
+.cover .alert .content .floor {
+  width: 90%;
+  height: 0.4rem;
+  margin: 0 auto 0.2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.cover .alert .content .floor > div {
+  width: 48%;
+  height: 100%;
+  line-height: 0.4rem;
+  display: flex;
+}
+.cover .alert .content .floor > div span {
+  flex: 1;
+}
+.cover .alert .content .floor > div input {
+  flex: 3;
+  border-radius: 0.05rem;
+  background: none;
+  border: 0.01rem solid #55affd;
+  color: #fff;
+  text-indent: 0.16rem;
+}
+.cover .alert .content .floor > div span:nth-child(2) {
+  flex: 3;
+  color: #fff;
+}
+.cover .alert .content .floor > div select {
+  flex: 3;
+  border-radius: 0.05rem;
+  background: #182c3f;
+  border: 0.01rem solid #55affd;
+  color: #fff;
+}
+.cover .alert .content .el-upload--text {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.8rem;
+  background: #185277;
+  line-height: 2rem;
+  text-align: center;
+  margin: 1rem auto;
+  border-radius: 0.1rem;
+}
+.avatar {
+  width: 2rem;
 }

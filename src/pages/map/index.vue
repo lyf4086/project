@@ -394,8 +394,8 @@ export default {
       get:function (){
         return this.fillSeilf.every(e=>e.checked)
       },
-      set:function (){
-        return this.fillSeilf.forEach(e=>e.checked=true)
+      set:function (b){
+        return this.fillSeilf.forEach(e=>e.checked=b)
       }
     }
   },

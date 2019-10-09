@@ -460,12 +460,15 @@ export default {
         data: params
       })
         .then(data => {
-          this.citys = data.data.mname;
-          console.log(data);
-          this.mid = data.data.mid;
-          this.ip_id = data.data.ip_id;
-          this.numbers = data.data.number;
-          this.char1();
+          if(data.data.number.length){
+            this.citys = data.data.mname;
+            
+            this.mid = data.data.mid;
+            this.ip_id = data.data.ip_id;
+            this.numbers = data.data.number;
+            this.char1();
+          }
+          
         })
         .catch(error => {
           console.log(error);

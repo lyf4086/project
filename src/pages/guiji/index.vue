@@ -415,8 +415,9 @@ export default {
       get:function (){
         return this.fillSeilf.every(e=>e.checked)
       },
-      set:function (){
-        return this.fillSeilf.forEach(e=>e.checked=true)
+      set:function (b){
+        // console.log(b)
+        return this.fillSeilf.forEach(e=>e.checked=b)
       }
     }
   },
@@ -1125,7 +1126,8 @@ console.log(val[0], val[1])
           renderOptions: {
             //轨迹线的样式
             pathLineStyle: {
-              strokeStyle: "#64c0fa",
+              // strokeStyle: "#64c0fa",
+              strokeStyle: '#b9ddfb',
               lineWidth: 6,
               dirArrowStyle: true
             }

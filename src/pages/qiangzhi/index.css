@@ -76,6 +76,9 @@
   display: flex;
   align-items: center;
 }
+.page-index /deep/ .el-pagination__total {
+  color: #fff;
+}
 .message-box {
   width: 55%;
   height: 0.5rem;
@@ -133,6 +136,7 @@
   width: 88.9%;
   height: 89%;
   position: absolute;
+  overflow: hidden;
   right: 0;
   top: 8.5vh;
 }

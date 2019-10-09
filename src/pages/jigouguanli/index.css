@@ -7,7 +7,6 @@
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  overflow: hidden;
 }
 .cover {
   position: fixed;
@@ -104,7 +103,12 @@
   background: url(../../assets/img/fenye.png) no-repeat;
   background-size: 100% 100%;
   display: flex;
+  color: #fff;
+  z-index: 999;
   align-items: center;
+}
+.page-index /deep/ .el-pagination__total {
+  color: #fff;
 }
 .message-box {
   width: 55%;

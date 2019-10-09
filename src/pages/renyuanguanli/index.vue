@@ -45,7 +45,7 @@
         :page-size="6"
         :pager-count="9"
         :current-page="currentPage"
-        layout="prev, pager, next"
+        layout="total,prev, pager, next"
         @current-change="currentChange"
         :total="pageTotal"
         ref="page"

@@ -37,11 +37,11 @@
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
-    <div class="page-index">
+    <div class="page-index" v-show="pageTotal">
       <el-pagination
         :page-size="4"
         :pager-count="9"
-        layout="prev, pager, next"
+        layout="total,prev, pager, next"
         @current-change="currentChange"
         :total="pageTotal"
         ref="page"

@@ -1,6 +1,6 @@
 <template>
   <div class="sixitem">
-    <div v-for="item,index in this.dataList" :key="index" :class="{'dou':del}">
+    <div v-for="(item,index) in this.dataList" :key="index" :class="{'dou':del}">
       <div class="text deltext">
         <p>
           <span>机构名称：</span>

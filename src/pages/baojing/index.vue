@@ -48,7 +48,7 @@
       <el-pagination
         :page-size="8"
         :pager-count="9"
-        layout="prev, pager, next"
+        layout="total,prev, pager, next"
         @current-change="currentChange"
         :total="dataTotal"
         ref="page"

@@ -84,7 +84,7 @@
   color: #fff;
 }
 #header .btns {
-  width: 4.3rem;
+  width: 5.6rem;
   height: 0.4rem;
   margin-top: 0.4rem;
   display: flex;
@@ -98,30 +98,37 @@
   border-radius: 50%;
   cursor: pointer;
 }
-#header .btns span:nth-child(1) {
+#header .btns span:nth-last-child(7) {
+  background: url('../assets/img/peizhi.png');
+  font-size: 12px;
+  line-height: 0.49rem;
+  text-align: center;
+  background-size: cover;
+}
+#header .btns span:nth-last-child(6) {
   background: url('../assets/img/tongbu.png');
   background-size: cover;
 }
-#header .btns span:nth-child(1):hover {
+#header .btns span:nth-last-child(6):hover {
   animation: zhuan 3s linear infinite;
 }
-#header .btns span:nth-child(2) {
+#header .btns span:nth-last-child(5) {
   background: url('../assets/img/icon6.png');
   background-size: cover;
 }
-#header .btns span:nth-child(3) {
+#header .btns span:nth-last-child(4) {
   background: url('../assets/img/icon22.png');
   background-size: cover;
 }
-#header .btns span:nth-child(4) {
+#header .btns span:nth-last-child(3) {
   background: url('../assets/img/icon2.png');
   background-size: cover;
 }
-#header .btns span:nth-child(5) {
+#header .btns span:nth-last-child(2) {
   background: url('../assets/img/mine.png');
   background-size: cover;
 }
-#header .btns span:nth-child(6) {
+#header .btns span:nth-last-child(1) {
   background: url('../assets/img/icon5.png');
   background-size: cover;
 }

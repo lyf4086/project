@@ -273,7 +273,8 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
               path: path2,
               strokeWeight: 8,
               strokeOpacity: 0.8,
-              strokeColor: '#64c0fa',
+              // strokeColor: '#64c0fa',
+              strokeColor:'#b9ddfb',
               showDir: true
             })
             that.map.add(newLine)

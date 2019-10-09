@@ -25,7 +25,7 @@
     </div>
     <div class="mes-r" :class="{'alert':oneDate.state}">
       <span v-if="oneDate.state" @click="toAlarm(oneDate)" style="cursor:pointer"></span>
-      <span v-else="!oneDate.state"></span>
+      <span v-if="!oneDate.state"></span>
       <p>借出时间：{{oneDate.optime}}</p>
       <p>预期归还时间：{{oneDate.planreturntime}}</p>
     </div>
@@ -41,7 +41,7 @@
             <div class="btnwrap">
               <button @click="toNew(oneDate)">最新轨迹</button>
               <button @click="toHistory(oneDate)">历史轨迹</button>
-              <button>枪支状态异常</button>
+              <button>枪瞄状态{{xiangqingData.heart}}</button>
             </div>
             <div class="iconwrap1">
               

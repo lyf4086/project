@@ -164,6 +164,7 @@ export default {
         });
     },
     setMarker(list) {
+      let that=this
       let activeImg = require("@/assets/img/head-icon.png"); //引入默认图片
       let markerArr = list.map((item, i) => {
         let xy = [item.longitude, item.latitude];
@@ -175,13 +176,31 @@ export default {
                       </div>
                     </div>`,
           position: xy,
+          IMEI:item.IMEI,
+          created:item.created,
+          gun_code:item.gun_code,
+          heart:item.heart,
+          mechanism_name:item.mechanism_name,
+          ptype:item.ptype,
           title: item.policeName,
           offset: new AMap.Pixel(-16, -56)
         });
       });
+
       markerArr.forEach(item => {
         AMap.event.addListener(item, "click", function(ev) {
-          // console.log(333);
+          // console.log(item.Ge)
+           that.$alert(`
+            <p>枪瞄编号：${item.Ge.IMEI}</p>
+            <p>枪支编号：${item.Ge.gun_code}</p>
+            <p>是否在线：${item.Ge.heart==0?"不在线":"在线"}</p>
+            <p>所属机构：${item.Ge.mechanism_name}</p>
+            <p>定位类型：${item.Ge.ptype}</p>
+           `, item.Ge.title, {
+              dangerouslyUseHTMLString: true,
+              showClose:false
+            });
+          
         });
       });
 

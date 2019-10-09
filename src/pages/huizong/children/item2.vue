@@ -44,7 +44,7 @@ export default {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
       this.$router.push({
-        name: "ZaiKu"
+        name: "QiangZhi"
       });
     },
     toQiangMiao() {

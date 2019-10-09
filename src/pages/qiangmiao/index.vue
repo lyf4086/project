@@ -18,7 +18,7 @@
     <div class="top-nav">
       <div class="bread-wrap">
         <!--面包屑导航-->
-        <breadNav title="机构管理" :next="active_title" />
+        <breadNav title="枪瞄管理" :next="active_title" />
       </div>
       <div class="check-type">
         <select name="" id="" v-model="checkType" @change="typeChange">
@@ -43,11 +43,12 @@
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
-    <div class="page-index">
+    <div class="page-index" v-show="pageTotal">
       <el-pagination
         :page-size="9"
         :pager-count="9"
-        layout="prev, pager, next"
+        layout="total, prev, pager, next"
+        :current-page="currentPage"
         @current-change="currentChange"
         :total="pageTotal"
         ref="page"
@@ -149,7 +150,8 @@ export default {
       options: [],
       value: '',
       types:[],
-      checkType:1
+      checkType:1,
+      currentPage:0
     };
   },
   methods: {
@@ -286,7 +288,6 @@ export default {
       //.............................获取枪瞄列表数据函数
       var key = this.$store.state.key;
       var objs = { mechanism_id: jigou_id, p: p, ps: 9 ,heart:heart};
-      console.log(objs)
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();

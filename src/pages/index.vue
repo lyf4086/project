@@ -2,7 +2,7 @@
   <div id="wrap">
     <div id="header">
       <div class="logo">
-        <img src="@/assets/img/logo1.png" />
+        <img src="@/assets/img/logo1.png"  @click="toBigScreem"/>
       </div>
       <div class="nav_wrap">
         <div class="nav-btns">
@@ -19,6 +19,13 @@
             </router-link>
           </div>
           <div class="btns">
+            <!-- <span>配置</span> -->
+            <router-link
+              v-if="mes.role_id==1"
+              title="配置"
+              to="/indexg/peizhi"
+              tag="span"
+            ></router-link>
             <!--  v-show="mes.role_id!=3 && sync==1" -->
             <span title="同步数据" @click="tongbu" v-show="false"></span>
 
@@ -205,6 +212,9 @@ export default {
     };
   },
   methods: {
+    toBigScreem(){
+      this.$router.push('/globalscreem')
+    },
     tongbu() {
       let that = this;
       this.$confirm("此操作将同步系统数据, 是否继续?", "提示", {

@@ -1005,15 +1005,15 @@ div.info-bottom img {
 }
 .jiupian {
   position: relative;
-  width: 2.08333333vw;
-  height: 2.34375vw;
+  width: 1.5625vw;
+  height: 1.82291667vw;
 }
 .jiupian .j-icon {
   position: absolute;
-  left: 0.10416667vw;
+  left: 0.05208333vw;
   top: 0.10416667vw;
-  width: 1.875vw;
-  height: 1.875vw;
+  width: 1.45833333vw;
+  height: 1.45833333vw;
 }
 .jiupian .wx {
   background: url(../../assets/img/wx.png) no-repeat;

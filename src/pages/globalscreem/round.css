@@ -1,0 +1,102 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+.wrap .content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 66%;
+  height: 66%;
+}
+.wrap .content .num {
+  height: 60%;
+  border-bottom: 0.15625vw solid #456b9d;
+  font-size: 0.9375vw;
+  font-weight: bold;
+  color: #dbfcfe;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.wrap .content .name {
+  height: 40%;
+  font-synthesis: 0.83333333vw;
+  color: #dbfcfe;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.wrap .left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+.wrap .left .down {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-width: 0.20833333vw 0 0.20833333vw 0.20833333vw;
+  border-style: solid;
+  border-color: #30416a;
+  border-radius: 5.20833333vw 0 0 5.20833333vw;
+  transform-origin: right center;
+}
+.wrap .left .up {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+  border-width: 0.20833333vw 0.20833333vw 0.20833333vw 0;
+  border-style: solid;
+  border-color: #fff;
+  border-radius: 0 5.20833333vw 5.20833333vw 0;
+  transform-origin: left center;
+}
+.wrap .right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+.wrap .right .down {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-width: 0.20833333vw 0.20833333vw 0.20833333vw 0;
+  border-style: solid;
+  border-radius: 0 5.20833333vw 5.20833333vw 0;
+  border-color: #30416a;
+}
+.wrap .right .up {
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  border-width: 0.20833333vw 0 0.20833333vw 0.20833333vw;
+  border-style: solid;
+  border-radius: 5.20833333vw 0 0 5.20833333vw;
+  border-color: #fff;
+  transform-origin: right center;
+}

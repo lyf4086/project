@@ -357,25 +357,24 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            // console.log(data);
-            this.mes = {
-              ip_id: data.data.ip_id,
-              mid: data.data.mid,
-              tt: data.data.tt
-            };
-            let input = data.data.data.map((item, index) => {
-              return item.input;
-            });
-            let out = data.data.data.map((item, index) => {
-              return item.out;
-            });
-            let time = data.data.data.map((item, index) => {
-              return item.time;
-            });
-            this.rightData.in = input;
-            this.rightData.out = out;
-            this.rightData.time = time;
-            this.char2();
+              this.mes = {
+                ip_id: data.data.ip_id,
+                mid: data.data.mid,
+                tt: data.data.tt
+              };
+              let input = data.data.data.map((item, index) => {
+                return item.input;
+              });
+              let out = data.data.data.map((item, index) => {
+                return item.out;
+              });
+              let time = data.data.data.map((item, index) => {
+                return item.time;
+              });
+              this.rightData.in = input;
+              this.rightData.out = out;
+              this.rightData.time = time;
+              this.char2();
           }
         })
         .catch(error => {
@@ -385,9 +384,6 @@ export default {
   },
   mounted() {
     let mes = this.$gscookie.getCookie("message_obj");
-    console.log(mes.mechanism_id);
-    // this.char1()
-    // this.char2()
     this.getDataLeft(mes.mechanism_id);
     this.getDataCenter();
     this.getDataRight();

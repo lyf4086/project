@@ -354,6 +354,7 @@ export default {
         });
     },
     zuodonghua() {
+      
       let main = $(".num-icon")[0];
       let list = document.querySelectorAll("#num-icon .item");
       let num = -1;
