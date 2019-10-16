@@ -186,8 +186,8 @@
         <p v-if="!oneAlarmMessage.datetime">--|--</p>
       </div>
       <div>
-        <strong>创建时间：</strong>
-        <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.datetime}}</p>
+        <strong>报警时间：</strong>
+        <p class="lh" v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.stime}}<br/>至<br/>{{oneAlarmMessage.etime}}</p>
         <p v-if="!oneAlarmMessage.datetime">--|--</p>
       </div>
       <div v-if="oneAlarmMessage.datetime">
@@ -603,13 +603,19 @@ console.log(val[0], val[1])
       this.markerArr.length = 0;
       // console.log(this.markerArr)
     },
-    showOne() {
+    showOne(ev,val) {
       this.hasPerson = false;
       this.bianzu_list_show = false;
       this.markerArr.forEach(item => {
         item.stopMove();
       });
-      let v = this.$refs.alarmSelect.value;
+      let v=null;
+      if(!val){
+        v = this.$refs.alarmSelect.value;
+      }else{
+        v=val
+      }
+     
       // let id = this.alarmId;
       this.allMechanismPersonList.length = 0;
       this.jigouSelArr.length = 1;
@@ -852,6 +858,7 @@ console.log(val[0], val[1])
       });
     },
     changeGuiJiType(e) {
+      this.bianzu_list_show=false
       this.isChange = true; //..改变了数据避免多次点击
       this.oldOrNew = e.target.value;
       if (e.target.value == "new") {
@@ -1021,6 +1028,7 @@ console.log(val[0], val[1])
       }
     },
     binaZuBack() {
+      this.bianzu_list_show=false
       this.checked_person_show = !this.checked_person_show;
     },
     jigouSelChange(e) {
@@ -1127,8 +1135,10 @@ console.log(val[0], val[1])
             //轨迹线的样式
             pathLineStyle: {
               // strokeStyle: "#64c0fa",
-              strokeStyle: '#b9ddfb',
-              lineWidth: 6,
+              // strokeStyle: '#b9ddfb',
+              strokeStyle:"rgba(0,0,0,0)",
+              // lineWidth: 6,
+              lineWidth:0,
               dirArrowStyle: true
             }
             // pathNavigatorStyle:{
@@ -1151,13 +1161,14 @@ console.log(val[0], val[1])
         //这里构建两条简单的轨迹，仅作示例
         pathSimplifierIns.setData([
           {
-            name: "轨迹0",
+            name: "轨迹",
             path: arr //.....传参
             // strokeColor:'red'
           }
         ]);
 
         //创建一个巡航器
+        return
         var navg0 = pathSimplifierIns.createPathNavigator(
           0, //关联第1条轨迹
           {

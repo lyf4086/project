@@ -151,6 +151,84 @@
   right: 0;
   top: 0.83rem;
 }
+.change_type {
+  width: 2rem;
+  height: 0.4rem;
+  position: absolute;
+  top: 0.4rem;
+  left: 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.change_type button {
+  border: 0.01rem solid rgba(129, 126, 126, 0.3);
+  color: #fff;
+  width: 0.36rem;
+  height: 0.36rem;
+  line-height: 0.2rem;
+  padding: 0.05rem 0.1rem;
+  border-radius: 0.05rem;
+  cursor: pointer;
+}
+.change_type button:nth-child(1) {
+  background: url(../../assets/img/keshihua.png) no-repeat;
+  background-size: 100% 100%;
+}
+.change_type button:nth-child(2) {
+  background: url(../../assets/img/leibiao.png) no-repeat;
+  background-size: 100% 100%;
+}
+.change_type .active {
+  border-color: #50b5f8;
+}
+.content2 {
+  width: 88.9%;
+  height: 88%;
+  position: absolute;
+  right: 0;
+  top: 0.83rem;
+  font-size: 0.16rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: stretch;
+}
+.content2 .none-data {
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 0.2rem;
+  background: rgba(0, 0, 0, 0.2);
+  margin-top: 1rem;
+  border-radius: 0.2rem;
+}
+.content2 .item {
+  box-sizing: border-box;
+  position: relative;
+  width: 4.76rem;
+  height: 0.8rem;
+  font-size: 0.72916667vw;
+  color: #3caffd;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: space-around;
+}
+.content2 .item input {
+  position: absolute;
+  left: -0.08rem;
+  top: -0.03rem;
+}
+.content2 .item span {
+  padding: 0 0.52083333vw;
+}
+.content2 .item span i {
+  font-size: 0.83333333vw;
+  color: #a3d3ff;
+}
 .cover {
   position: fixed;
   width: 100vw;

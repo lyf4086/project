@@ -56,7 +56,8 @@ export default {
       isshow: true,
       timer: null,
       map:null,
-      BM:null
+      BM:null,
+      loading:null
     };
   },
   methods: {
@@ -198,7 +199,7 @@ export default {
             this.dataList = data.data.data;
             this.personList = data.data.positions;
           this.setMarkerLiXian(data.data.positions);
-            
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -232,6 +233,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let mes = this.$gscookie.getCookie("message_obj");
     this.t_mechanism_id = mes.mechanism_id;
     this.getData(mes.mechanism_id);
@@ -251,6 +258,7 @@ export default {
     clearInterval(this.timer);
     this.timer = null;
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

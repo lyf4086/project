@@ -53,12 +53,8 @@
   background: url(../../assets/img/global-icon7.png) no-repeat;
   background-size: 100% 100%;
 }
-.wrap .title button {
-  position: relative;
-  z-index: 999;
-  width: 6.25vw;
-  height: 1.5625vw;
-  margin-left: 26.04166667vw;
+.wrap .title .center {
+  color: #fff;
 }
 .wrap .title .right {
   width: 120px;
@@ -85,6 +81,14 @@
   width: 58.54166667vw;
   height: 37.8125vw;
   border: 0.05208333vw solid #7c7c7c;
+}
+.wrap .moveimg img {
+  position: absolute;
+  width: 36.45833333vw;
+  height: 36.45833333vw;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 @keyframes tobig {
   0% {
@@ -131,6 +135,7 @@
   background: url(../../assets/img/write-jiao.png) no-repeat;
 }
 .wrap > .content .left1 {
+  visibility: hidden;
   transition: 0.6s;
   position: absolute;
   top: 3.75vw;
@@ -147,6 +152,7 @@
   height: 5.72916667vw;
 }
 .wrap > .content .left2 {
+  visibility: hidden;
   transition: 0.6s;
   position: absolute;
   top: 12.08333333vw;
@@ -173,6 +179,7 @@
   background: #1c1a46;
 }
 .wrap > .content .left3 {
+  visibility: hidden;
   transition: 0.6s;
   position: absolute;
   top: 27.70833333vw;
@@ -209,6 +216,7 @@
   background: url(../../assets/img/write-jiao2.png) no-repeat;
 }
 .wrap > .content .right1 {
+  visibility: hidden;
   position: absolute;
   transition: 0.6s;
   left: 64.0625vw;
@@ -220,6 +228,7 @@
   border: 0.05208333vw solid #746f7e;
 }
 .wrap > .content .right2 {
+  visibility: hidden;
   position: absolute;
   transition: 0.6s;
   left: 64.0625vw;
@@ -230,6 +239,7 @@
   border: 0.05208333vw solid #746f7e;
 }
 .wrap > .content .right3 {
+  visibility: hidden;
   position: absolute;
   transition: 0.6s;
   left: 51.5625vw;
@@ -309,6 +319,7 @@
   background: url(../../assets/img/write-jiao2.png) no-repeat;
 }
 .wrap > .content .right4 {
+  visibility: hidden;
   position: absolute;
   transition: 0.6s;
   right: 4.6875vw;
@@ -377,6 +388,7 @@
   margin-right: 0.15625vw;
 }
 .wrap > .content .right5 {
+  visibility: hidden;
   position: absolute;
   transition: 0.6s;
   right: 4.6875vw;

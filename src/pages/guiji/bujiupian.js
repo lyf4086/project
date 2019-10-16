@@ -48,7 +48,7 @@ function getBujiupian(IMEI,stime,etime){
               */
  //  console.log(data.data)
             let lineArrAndBaoJing = data.data.filter(e => e.state)
-            console.log('报警点',lineArrAndBaoJing)
+            // console.log('报警点',lineArrAndBaoJing)
 // return
               let markerArr = lineArrAndBaoJing.map((e, i) => {
                 return new AMap.Marker({
@@ -57,7 +57,7 @@ function getBujiupian(IMEI,stime,etime){
                               <div class="j-cover"></div>
                             </div>`,
                   position: [e.longitude - 0, e.latitude - 0],
-                  title: e.sname,
+                  title: `${e.sname}\n${e.time}`,
                   offset: new AMap.Pixel(-17, -40)
                 })
               })

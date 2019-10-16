@@ -88,7 +88,8 @@ export default {
       t_mechanism_id: "",
       timeStart: "",
       timeEnd: "",
-      dataList: []
+      dataList: [],
+      loading:null
     };
   },
   methods: {
@@ -102,6 +103,12 @@ export default {
      })
     },
     subSearch() {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       let start = this.timeStart;
       let end = this.timeEnd;
       let selmec = this.mec.filter(e => e.checked);
@@ -194,6 +201,7 @@ export default {
             // this.cou = data.data.cou;
             // this.date = data.data.date;
             // this.initEchart();
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -202,6 +210,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let par = this.$route.params;
     if(!par.mid){
       this.$router.push({
@@ -224,6 +238,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

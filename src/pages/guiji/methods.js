@@ -273,8 +273,8 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
               path: path2,
               strokeWeight: 8,
               strokeOpacity: 0.8,
-              // strokeColor: '#64c0fa',
-              strokeColor:'#b9ddfb',
+              strokeColor: '#147de9',
+              // strokeColor:'#b9ddfb',
               showDir: true
             })
             that.map.add(newLine)
@@ -925,11 +925,13 @@ function shezhiquyu(gun_ids, ip_ids, pointsArr, policeuser_id, stime, etime, tex
       this.getAlarmList()
       // this.$refs.alarmSelect.value=data.data.data.area_alarm_id
       // this.alarmId=data.data.data.area_alarm_id
+
       setTimeout(() => {
+        // this.$router.go(0)
 
-        this.$router.go(0)
+        this.showOne(null,this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id)
       }, 2000)
-
+      
     }
 
   }).catch((error) => {
@@ -988,6 +990,7 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     changeOrigin: true,
     data: params
   }).then((data) => {
+    // console.log(data)
     if (data.data.code == 200) {
       // console.log(data)
       let state = data.data.data.list.state
@@ -998,13 +1001,23 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
       this.oneAlarmPersonList = data.data.data.list.child
       this.moveingPersonList = this.oneAlarmPersonList
       this.oneAlarmMessage = data.data.data.arr
+      // console.log(data.data.data.arr)
       this.personMoveing()
     }else{
-      this.$message({
-        type:"warning",
-        message:data.data.msg,
-        duration:5000
-      })
+      // this.$message({
+      //   type:"warning",
+      //   message:data.data.msg,
+      //   duration:5000
+      // })
+      let that=this
+      this.$alert(data.data.msg+'是否要删除该区域？', '系统错误', {
+        confirmButtonText: '确定',
+        callback: action => {
+          if(action=='confirm'){
+            that.del()
+          }
+        }
+      });
     }
   }).catch((error) => {
     console.log(error)

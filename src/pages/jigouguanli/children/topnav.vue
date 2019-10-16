@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <ul class="nav-list">
-            <li class="nav-item" v-for="item in 6">
+            <li class="nav-item" v-for="(item,index) in 6" >
                 <div class="bg-pic"></div>
                 <div class="text-wrap">
                     <span>持枪人员</span>

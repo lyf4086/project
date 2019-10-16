@@ -89,7 +89,8 @@ export default {
       dataList: [],
       mec: [],
       cou: [],
-      date: []
+      date: [],
+      loading:null
     };
   },
   methods: {
@@ -99,6 +100,12 @@ export default {
       let ip_id = selmec.map(e => e.ip_id).join();
 
       if (mid != "") {
+        this.loading = this.$loading({
+          lock: true,
+          text: "Loading",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
         this.getData(mid, ip_id);
       } else {
         this.$message({
@@ -263,8 +270,8 @@ export default {
         data: params
       })
         .then(data => {
+         
           if (data.status == 200) {
-            // console.log(data);
             this.mec = data.data.mec.map((item, index) => {
               if (index == 0) {
                 return {
@@ -277,7 +284,12 @@ export default {
                   checked: false
                 };
               }
+              
             });
+              let selmec = this.mec.filter(e => e.checked);
+              let mid = selmec.map(e => e.id).join();
+              let ip_id = selmec.map(e => e.ip_id).join();
+              this.getData(mid, ip_id);
           }
         })
         .catch(error => {
@@ -289,7 +301,6 @@ export default {
         mid,
         ip_id
       };
-      console.log(objs);
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
@@ -309,11 +320,11 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            console.log(data);
             this.dataList = data.data.data;
             this.cou = data.data.cou;
             this.date = data.data.lname;
             this.initEchart();
+            this.loading ?this.loading.close():null
           }
         })
         .catch(error => {
@@ -322,13 +333,19 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.getTypes();
     let par = this.$route.params;
     let mes = this.$gscookie.getCookie("message_obj");
     this.ip_id = par.ip_id;
     this.mid = par.mid;
 
-    this.getData(par.mid, par.ip_id);
+    // this.getData(par.mid, par.ip_id||"");
   },
   mounted() {
     this.move();
@@ -340,6 +357,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

@@ -217,10 +217,12 @@ export default {
       this.getXiangqing(item.alarm_info_id)
       
     },
-    showNew(arr){     
+    showNew(arr){
+     
       this.$emit('showNew',arr)
     },
     showAlert(item){
+      
       this.$emit('showAlert',{
         id:item.alarm_info_id,
         name:item.policeuser.policeuser_name,

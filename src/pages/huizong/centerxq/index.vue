@@ -32,7 +32,7 @@
       </div>
       <div class="content">
         <div class="list">
-          <div class="item" v-for="item,index in dataList" :key="index">
+          <div class="item" v-for="(item,index) in dataList" :key="index">
             <span>{{item.vname}}</span>
             <span>{{item.vcode}}</span>
             <span>{{item.vtype}}</span>
@@ -61,7 +61,8 @@ export default {
         { value: 132.9, name: "房地产开发" },
         { value: 52.8, name: "物业管理" },
         { value: 10.4, name: "其他" }
-      ]
+      ],
+      loading:null
     };
   },
   methods: {
@@ -508,6 +509,7 @@ export default {
             });
             this.chartRight();
             this.dataList = data.data.loc;
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -517,6 +519,12 @@ export default {
   },
   created() {},
   mounted() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let mes = this.$gscookie.getCookie("message_obj");
     this.t_mechanism_id = mes.mechanism_id;
     this.getData(mes.mechanism_id);
@@ -528,6 +536,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

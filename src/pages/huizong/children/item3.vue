@@ -11,7 +11,7 @@
           <div>
             <span title="警员角色">{{item.job}}</span>
             <span title="枪支类型">{{item.gtype}}</span>
-            <span @click="goPersonMessage(item)">其他信息</span>
+            <span @click.stop="goPersonMessage(item)">其他信息</span>
           </div>
         </div>
       </div>
@@ -44,7 +44,6 @@ export default {
       });
     },
     goPersonMessage(item) {
-      return
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
       this.$gscookie.setCookie("personMessage", {

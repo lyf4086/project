@@ -300,16 +300,18 @@ export default {
         data: params
       })
         .then(data => {
-          for (let item in data.data.date) {
-            this.chart1names.push(data.data.date[item]);
+          if(data.status==200){
+            for (let item in data.data.date) {
+              this.chart1names.push(data.data.date[item]);
+            }
+            this.chart1data = data.data.cou.map((item, index) => {
+              return {
+                name: data.data.date[index],
+                value: item
+              };
+            });
+            this.char1();
           }
-          this.chart1data = data.data.cou.map((item, index) => {
-            return {
-              name: data.data.date[index],
-              value: item
-            };
-          });
-          this.char1();
         })
         .catch(error => {
           console.log(error);

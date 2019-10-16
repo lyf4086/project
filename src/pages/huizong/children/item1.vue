@@ -164,15 +164,16 @@ export default {
         data: params
       })
         .then(data => {
-          console.log(data);
-          this.timeObj = data.data.time;
-          this.mid=data.data.mid
-          this.echar1_date = data.data.data.days;
-          this.echar1_num = data.data.data.value;
-          this.list = data.data.data.series;
-          this.echar1_names = data.data.data.mname;
-          this.selected = data.data.data.selected;
-          this.char1();
+          if(data.status==200){
+            this.timeObj = data.data.time;
+            this.mid=data.data.mid
+            this.echar1_date = data.data.data.days;
+            this.echar1_num = data.data.data.value;
+            this.list = data.data.data.series;
+            this.echar1_names = data.data.data.mname;
+            this.selected = data.data.data.selected;
+            this.char1();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -195,8 +196,10 @@ export default {
         data: params
       })
         .then(data => {
-          this.echart2_data = data.data.data;
-          this.char2();
+          if(data.status==200){
+            this.echart2_data = data.data.data;
+            this.char2();
+          }
         })
         .catch(error => {
           console.log(error);

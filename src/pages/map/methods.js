@@ -631,7 +631,8 @@ function shezhiquyu(gun_ids, pointsArr, policeuser_id, stime, etime, text, IMEIS
       this.polyLineArr.length = 0
       //刷新当前页面
       setTimeout(() => {
-        this.$router.go(0)
+        // this.$router.go(0)
+        this.showOne(null,this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id)
       }, 2000)
     }
 
@@ -704,11 +705,16 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
       this.oneAlarmMessage = data.data.data.arr
       this.personMoveing()
     }else{
-      this.$message({
-        type:"warning",
-        message:data.data.msg,
-        duration:5000
-      })
+     
+      let that=this
+      this.$alert(data.data.msg+'是否要删除该区域？', '系统错误', {
+        confirmButtonText: '确定',
+        callback: action => {
+          if(action=='confirm'){
+            that.del()
+          }
+        }
+      });
     }
   }).catch((error) => {
     console.log(error)

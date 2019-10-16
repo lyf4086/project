@@ -57,7 +57,7 @@
 
     <div class="content">
       <!-- <Content/> -->
-      <div class="none-data" v-if="!list.length">暂时没有数据......</div>
+      <div class="none-data" v-if="!list.length">暂时没有数据</div>
       <Item v-for="(item,index) in list" 
         :item="item" :key="index" 
         @changeOneData="changeOneData" 
@@ -97,8 +97,8 @@
         <p @click="quxiao">X</p>
       </div>
     </div>
-    <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" title="aaa" @closeMap="closeMap"/>
-    <!-- <MapMarker v-if="gaodeshow" :arr="gaodeArr" title="aaa" @closeMap="closeMap"/> -->
+    <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" title="" @closeMap="closeMap"/>
+    <!-- <MapMarker v-if="gaodeshow" :arr="gaodeArr" title="" @closeMap="closeMap"/> -->
     <GaoDeMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
     <!-- <LiXianMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/> -->
   </div>
@@ -148,12 +148,20 @@ export default {
       warningOption:'',
       alarmMarkArr:false ,
       alarmArr:[] ,
-      alarmMarkTitle:''    
+      alarmMarkTitle:'' ,
+      loading:null   
     };
   },
   methods: {
     changeType(){
-      console.log(this.warningType)
+      // console.log(this.warningType)
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.list=[]
       this.getDataList(
         this.activeMechanismId,
         1,
@@ -183,7 +191,13 @@ export default {
     },
     currentChange(n) {
       //页码点击事件
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.list=[]
       if (this.search) {
         this.getDataList(
           this.activeMechanismId,
@@ -335,10 +349,11 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log(data)
-          if(data.status==200){
+          if(data.data){
             this.alarmArr=data.data
             this.alarmMarkArr=true
+          }else{
+            this.$message('无')
           }
           
         })
@@ -403,7 +418,7 @@ export default {
             });
             this.beiYongList = this.list;
             this.dataTotal = data.data.data.psum * 1;
-
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -453,6 +468,13 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.list=[]
       this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
       this.activeMechanismId = item.mechanism_id;
       this.message = "";
@@ -466,6 +488,7 @@ export default {
       this.warningType=''
     },
     subSearch() {
+      this.list=[]
       if (!this.selValue) {
         this.$message({
           type: "warning",
@@ -478,6 +501,12 @@ export default {
           message: "请输入搜索关键字"
         });
       }
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.serach = true;
       this.message = this.putValue;
       this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
@@ -492,6 +521,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let obj = this.$route.params;
     let str = this.$gscookie.getCookie("gun");

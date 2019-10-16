@@ -39,7 +39,7 @@
     </div>
     <div class="page-index"  v-show="pageTotal">
       <el-pagination
-        :page-size="9"
+        :page-size="keshihua?9:21"
         :pager-count="9"
         layout="total,prev, pager, next"
         :current-page="currentPage"
@@ -56,7 +56,7 @@
       <button @click="deleteGun">删除枪支</button>
       <button @click="modify">修改枪支</button>
     </div>
-    <div class="content">
+    <div class="content" v-show="keshihua">
       <Content
         :data="activeDataList"
         :activeJigouId="activeJiGouId"
@@ -65,6 +65,23 @@
         ref="myChild"
         :activeYeMa="active_yema"
       />
+    </div>
+    <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
+    <div class="content2" v-show="!keshihua">
+      <div class="none-data" v-if="!activeDataList.length">暂时没有数据</div>
+      <div class="item" v-for="(item,index) in activeDataList" :key="index">
+        <input type="checkbox"  v-model="item.checked">
+        <span><i>枪支编号:</i>{{item.gun_code}}</span>
+        <span><i>枪支类型：</i>{{item.gtype||"暂无"}}</span>
+        <span><i>所属机构：</i>{{item.mechanism_name}}</span>
+        <span><i>枪柜编号：</i>{{item.guncabinet_code||'无'}}</span>
+        <span><i>枪锁位：</i>{{item.gposition || '无'}}</span>
+        <span><i>枪瞄编号：</i>{{item.jm}}</span>
+        <span><i>持枪警员：</i>{{item.policeuser_name ||"暂无"}}</span>
+      </div>
     </div>
     <div class="alert" v-show="alert||xiugai">
       <div class="text-wrap" v-show="alert">
@@ -116,7 +133,6 @@
         </div>
         <div class="change-type">
           <span>枪支类型：{{xiugaiData.gtype}}</span>
-          <!--  -->
           <select class="sel-type" v-model="changedGtype" v-html="optionStr" @change="change11">
             <!-- <option value="1">92式</option>
             <option value="2">95式</option>
@@ -178,11 +194,30 @@ export default {
       noCheckPerson: false,
       allPersonList: "",
       isRemoving: false,
-      sync: 0 //判断动静态，默认静态
+      sync: 0 ,//判断动静态，默认静态
+      keshihua:true,
+      loading:null
     };
   },
 
   methods: {
+
+    changeShowType(n){
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+       this.activeDataList=[]
+      if(n===1){
+        this.keshihua=true
+      }else{
+        this.keshihua=false
+      }
+      this.getDataList(this.activeJiGouId, 1)
+      this.$refs.page.internalCurrentPage = 1;
+    },
     change11(e) {},
     putFocus() {
       this.noCheckPerson = true;
@@ -203,7 +238,13 @@ export default {
     },
     currentChange(n) {
       //..........页码点击
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+       this.activeDataList=[]
       this.active_yema = n;
       this.getDataList(this.activeJiGouId, n);
     },
@@ -215,7 +256,12 @@ export default {
         this.$message.error("请输入您要搜索的内容");
         return;
       }
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.search(1, this.putValue);
     },
     getOptionStr() {
@@ -280,6 +326,7 @@ export default {
           this.selValue = "";
           this.putValue = "";
           this.pageTotal = null;
+          this.loading.close()
         })
         .catch(error => {
           console.log(error);
@@ -441,6 +488,13 @@ export default {
       this.alert = false;
     },
     handleNodeClick(item) {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.activeDataList=[]
       this.$refs.page.internalCurrentPage = 1;
       this.currentNodeKey = item.mechanism_id;
       this.active_jigou = item;
@@ -487,7 +541,7 @@ export default {
       //................获取列表信息函数
 
       var key = this.$store.state.key;
-      var objs = { mechanism_id: jigou_id, p: active_p, ps: 9 };
+      var objs = { mechanism_id: jigou_id, p: active_p, ps: this.keshihua ?9:21  };
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -505,15 +559,17 @@ export default {
         data: params
       })
         .then(data => {
-          let dataArr = data.data.data.list.map(e => {
-            return {
-              ...e,
-              checked: false
-            };
-          });
-          this.activeDataList = dataArr;
-          // console.log(dataArr)
-          this.pageTotal = data.data.data.psum * 1;
+          if(data.data.code==200){
+            this.loading.close()
+            let dataArr = data.data.data.list.map(e => {
+              return {
+                ...e,
+                checked: false
+              };
+            });
+            this.activeDataList = dataArr;
+            this.pageTotal = data.data.data.psum * 1;
+          }
         })
         .catch(error => {
           console.log(error);
@@ -665,6 +721,12 @@ export default {
     } //..........................解绑end
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.getOptionStr();
     this.sync = this.$gscookie.getCookie("sync");
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");

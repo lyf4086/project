@@ -5,17 +5,19 @@
                <i></i> 
                北京市公安局一大队
             </div>
-            <button @click="startMoveing">{{bl?"关闭自动播放":"开启自动播放"}}</button>
+            
             <div class="right">
                 <i></i>
                 北京市
             </div>
         </div>
-        <div class="moveimg"></div>
+        <div class="moveimg">
+            <img src="../../assets/img/baozha.png" alt="">
+        </div>
         <div class="content">
             <div class="left1 move-item animated" @click="lookitem1" ref="left1">
                 <div class="item">
-                    <Round data="20" title="离套报警"/>
+                    <Round data="20" title="离套报警"><h1>111</h1></Round>
                 </div>
                 <div class="item">
                     <Round data="56" title="离枪报警"/>
@@ -24,11 +26,11 @@
                     <Round data="70" title="区域报警"/>
                 </div>
             </div>
-            <div class="left2 move-item"  @click="lookitem2" ref="left2">
+            <div class="left2 move-item animated"  @click="lookitem2" ref="left2">
                 <div class="top">枪支类型分别统计</div>
                 <div class="down"></div>
             </div>
-            <div class="left3 move-item" @click="lookitem3" ref="left3" >
+            <div class="left3 move-item animated" @click="lookitem3" ref="left3" >
                 <div class="top">定位</div>
                 <div class="down"></div>
                 <i class="jiao jiao1"></i>
@@ -36,19 +38,19 @@
                 <i class="jiao jiao3"></i>
                 <i class="jiao jiao4"></i>
             </div>
-            <div class="right1 move-item" @click="lookitem4" ref="left4">
+            <div class="right1 move-item animated" @click="lookitem4" ref="left4">
                 <i class="jiao jiao1"></i>
                 <i class="jiao jiao2"></i>
                 <i class="jiao jiao3"></i>
                 <i class="jiao jiao4"></i>
             </div>
-            <div class="right2 move-item" @click="lookitem5" ref="left5">
+            <div class="right2 move-item animated" @click="lookitem5" ref="left5">
                 <i class="jiao jiao1"></i>
                 <i class="jiao jiao2"></i>
                 <i class="jiao jiao3"></i>
                 <i class="jiao jiao4"></i>
             </div>
-            <div class="right3 move-item" @click="lookitem6" ref="left6">
+            <div class="right3 move-item animated" @click="lookitem6" ref="left6">
                 <div class="title">
                     <span>机构名称</span>
                     <span>警员名称</span>
@@ -107,7 +109,16 @@
                 <i class="jiao jiao3"></i>
                 <i class="jiao jiao4"></i>
             </div>
-            <div class="right4">
+            
+            <div class="right5 move-item animated">
+                <div class="con">
+                    <p>ip:686:6:66:6</p>
+                    <p>服务器ip地址：s.tronl.cn</p>
+                    <p>服务器主机名：阿克苏v话uv</p>
+                    <p>服务器运行时常：233天34小时34分</p>
+                </div>
+            </div>
+            <div class="right4 move-item animated">
                 <div class="con">
                     <div class="ti">
                         <i></i>
@@ -121,14 +132,6 @@
                         <span class="span1">盐城市公安局</span>
                         <span class="span2">2019-09-03 14:23:22</span>
                     </p>
-                </div>
-            </div>
-            <div class="right5">
-                <div class="con">
-                    <p>ip:686:6:66:6</p>
-                    <p>服务器ip地址：s.tronl.cn</p>
-                    <p>服务器主机名：阿克苏v话uv</p>
-                    <p>服务器运行时常：233天34小时34分</p>
                 </div>
             </div>
             <div class="right6">
@@ -167,6 +170,7 @@
 </style>
 <script>
 import Round from './round'
+import { setInterval } from 'timers'
 export default {
     components:{ Round },
     data(){
@@ -180,15 +184,15 @@ export default {
     },
     methods:{
         lookitem1(){
-            this.$refs.left1.classList.add('tada')
+            this.$refs.left1.classList.add('rubberBand')
             setTimeout(()=>{
-                //  this.$refs.left1.classList.add('active')
+                 this.$refs.left1.classList.add('active')
             },600)
             setTimeout(()=>{
-                // this.$refs.alert1.classList.add('bigalert')
-                this.$refs.left1.classList.remove('tada')
+                this.$refs.alert1.classList.add('bigalert')
+                this.$refs.left1.classList.remove('rubberBand')
                 setTimeout(()=>{
-                    // this.$refs.alert1.classList.add('rubberBand')
+                    this.$refs.alert1.classList.add('rubberBand')
                 },600)
             },800)
         },
@@ -258,74 +262,39 @@ export default {
                 this.$refs.left6.classList.remove('active')
             },800)
         },
-        startMoveing(){
-            let that=this
-            let moveitems=document.querySelectorAll('.move-item');
-            let alertList=document.querySelectorAll('.alert');
-            let num=0
-            if(!this.bl){
-                aa()
-                this.timer1=setInterval(()=>{
-                    moveitems.forEach(e=>e.classList.remove('active'))
-                    moveitems[num].classList.add('active')
-                    ~(function (num){
-                        that.timer2=setTimeout(()=>{
-                                alertList.forEach(e=>e.classList.remove('bigalert'))
-                                alertList[num].classList.add('bigalert');
-                                ~(function (num){
-                                    that.timer3=setTimeout(()=>{
-                                        alertList[num].classList.remove('bigalert');
-                                    },5000)
-                                })(num);
-                                num<alertList.length-1?++num:num=0
-                        },600)
-                    })(num);
-                    num<moveitems.length-1?++num:num=0
-                },6000)
-            }else{
-                clearInterval(this.timer1)
-                clearInterval(this.timer2)
-                clearInterval(this.timer3)
-                this.timer1=this.timer2=this.time3=null
-                moveitems.forEach(e=>e.classList.remove('active'))
-                alertList.forEach(e=>e.classList.remove('bigalert'))
-            }
-            this.bl=!this.bl
-            function aa(){
-                that.$refs.left1.classList.remove('active')
-                that.$refs.alert1.classList.remove('bigalert')
-                that.$refs.left2.classList.remove('active')
-                that.$refs.alert2.classList.remove('bigalert')
-                that.$refs.left3.classList.remove('active')
-                that.$refs.alert3.classList.remove('bigalert')
-                that.$refs.left4.classList.remove('active')
-                that.$refs.alert4.classList.remove('bigalert')
-                that.$refs.left5.classList.remove('active')
-                that.$refs.alert5.classList.remove('bigalert')
-                that.$refs.left6.classList.remove('active')
-                that.$refs.alert6.classList.remove('bigalert')
-
-                moveitems.forEach(e=>e.classList.remove('active'))
-                moveitems[num].classList.add('active')
-                ~(function (num){
-                    setTimeout(()=>{
-                            alertList.forEach(e=>e.classList.remove('bigalert'))
-                            alertList[num].classList.add('bigalert');
-                            ~(function (num){
-                                setTimeout(()=>{
-                                    alertList[num].classList.remove('bigalert');
-                                },5000)
-                            })(num);
-                            num<alertList.length-1?++num:num=0
-                    },600)
-                })(num);
-                num<moveitems.length-1?++num:num=0
-            }
-        }
+        
     },
     mounted(){
         $('.jiao').css('border','none')
         let m=this.$methods.listMove('#move_list');
+        for(let i=0;i<8;i++){
+            setTimeout(() => {
+                $('.move-item').eq(i).css('visibility','visible')
+                if(i==0){
+                    $('.move-item').eq(i).addClass('tada')
+                    ~(function (){setTimeout(()=>{$('.move-item').eq(0).removeClass('tada')},1000)})();
+                }else if(i==1){
+                    $('.move-item').eq(i).addClass('wobble')
+                    ~(function (){setTimeout(()=>{$('.move-item').eq(1).removeClass('wobble')},1000)})();
+                }else if(i==2){
+                    $('.move-item').eq(i).addClass('bounceInLeft');
+                    ~(function (){setTimeout(()=>{$('.move-item').eq(2).removeClass('bounceInLeft')},1000)})();
+                }else if(i==3){
+                    $('.move-item').eq(i).addClass('bounceIn');
+                    ~(function (){setTimeout(()=>{$('.move-item').eq(3).removeClass('bounceIn')},1000)})();
+                }else if(i==4){
+                  $('.move-item').eq(i).addClass('lightSpeedIn') ;
+                  ~(function (){setTimeout(()=>{$('.move-item').eq(4).removeClass('lightSpeedIn')},1000)})(); 
+                }else if(i==5){
+                    $('.move-item').eq(i).addClass('wobble');
+                    ~(function (){setTimeout(()=>{$('.move-item').eq(5).removeClass('wobble')},1000)})();
+                }else if(i==6){
+                    $('.move-item').eq(i).addClass('bounceInDown')
+                }else if(i==7){
+                    $('.move-item').eq(i).addClass('bounceInDown')
+                }
+            }, (i+3)*600);
+        }
         
     },
     beforeDestroy(){

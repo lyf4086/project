@@ -667,8 +667,12 @@ div.info-bottom img {
 }
 .alarm_list > div p {
   font-size: 0.14rem;
-  line-height: 0.4rem;
+  line-height: 0.3rem;
   color: #fff;
+}
+.alarm_list > div .lh {
+  line-height: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 .alarm_list .sel {
   width: 96%;

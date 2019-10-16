@@ -161,7 +161,8 @@ export default {
       showXiangqing: false,
       currentPage: 0,
       sync: 0, //动静态区分，默认静态，1为动态
-      roles:[]
+      roles:[],
+      loading:null
     };
   },
   methods: {
@@ -174,6 +175,12 @@ export default {
     },
     currentChange(n) {
       //..............小叶码点击事件
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.active_yema = n;
       this.isRemoveimg = false;
       this.clickTree(this.activeTreeId, n);
@@ -192,7 +199,12 @@ export default {
         this.$message({ message: "请输入您要搜索的内容", type: "warning" });
         return;
       }
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.search(1, this.putValue);
     },
     search(n = 1, val = "") {
@@ -229,6 +241,7 @@ export default {
           this.selValue = "";
           this.putValue = "";
           this.pageTotal = null;
+          this.loading.close()
         })
         .catch(error => {
           console.log(error);
@@ -272,6 +285,12 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.$refs.page.internalCurrentPage = 1;
       this.isRemoveimg = false;
       this.active_yema = 0;
@@ -377,7 +396,7 @@ export default {
               put3show: false
             };
           });
-
+          this.loading.close()
           this.pageTotal = data.data.data.psum - 0; //获取页码总数
         })
         .catch(error => {
@@ -489,6 +508,12 @@ export default {
     } //..................删除人员结束
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.sync = this.$gscookie.getCookie("sync");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let obj = this.$store.state;

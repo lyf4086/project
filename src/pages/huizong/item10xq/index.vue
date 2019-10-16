@@ -58,7 +58,8 @@ export default {
       timeStart: "",
       timeEnd: "",
       dataList: [],
-      names: ["1街", "2街", "3街", "4街", "5街", "6街"]
+      names: ["1街", "2街", "3街", "4街", "5街", "6街"],
+      loading:null
     };
   },
   methods: {
@@ -267,6 +268,12 @@ export default {
       if (mid != "" && start != "" && end != "") {
         // console.log(t_mechanism_id, mid, ip_id, time);
         // return;
+        this.loading = this.$loading({
+          lock: true,
+          text: "Loading",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
         this.getData(t_mechanism_id, mid, ip_id, time);
       } else {
         this.$message({
@@ -353,6 +360,7 @@ export default {
             this.data1 = data.data.input;
             this.data2 = data.data.out;
             this.initChart();
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -361,6 +369,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let par = this.$route.params;
     let timearr = par.tt.split(",");
     this.mid = par.mid;
@@ -377,6 +391,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

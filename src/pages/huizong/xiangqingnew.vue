@@ -222,7 +222,7 @@ export default {
         "001": [],
         "09": []
       },
-     
+     loading:null
     };
   },
   methods: {
@@ -490,6 +490,12 @@ export default {
       this.jigoulist[index].checked = !checked;
     },
     subCheckDate() {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       let { timeStart, timeEnd } = this;
       let types = "",
         names = "",
@@ -891,6 +897,7 @@ export default {
 
             this.series = data.data.data.series;
             this.chartNew2();
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -899,6 +906,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let str = this.$gscookie.getCookie("gun");
     if (JSON.stringify(str) == "{}") {
       this.$router.push("/loginput");
@@ -938,6 +951,7 @@ export default {
   },
   destroyed(){
     this.$store.commit('huanyuanStr')
+    this.loading.close()
   }
 };
 </script>

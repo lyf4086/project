@@ -185,12 +185,12 @@
       <div>
         <strong>报警类型：</strong>
         <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.type}}</p>
-        <p v-else="!oneAlarmMessage.datetime">--|--</p>
+        <p v-if="!oneAlarmMessage.datetime">--|--</p>
       </div>
       <div>
-        <strong>创建时间：</strong>
-        <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.datetime}}</p>
-        <p v-else="!oneAlarmMessage.datetime">--|--</p>
+        <strong>报警时间：</strong>
+        <p class="lh" v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.stime}}<br/>至<br/>{{oneAlarmMessage.etime}}</p>
+        <p v-if="!oneAlarmMessage.datetime">--|--</p>
       </div>
       <div v-if="oneAlarmMessage.datetime">
         <button class="del-area" @click="del">删除该区域</button>

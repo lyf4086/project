@@ -54,7 +54,8 @@ export default {
     return {
       dataList: [],
       isshow: true,
-      timer: null
+      timer: null,
+      loading:null
     };
   },
   methods: {
@@ -157,6 +158,7 @@ export default {
             this.personList = data.data.positions;
             this.setMarker(data.data.positions);
             // this.move()
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -209,6 +211,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let mes = this.$gscookie.getCookie("message_obj");
     this.t_mechanism_id = mes.mechanism_id;
     this.getData(mes.mechanism_id);
@@ -227,6 +235,7 @@ export default {
     clearInterval(this.timer);
     this.timer = null;
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

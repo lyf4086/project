@@ -31,7 +31,7 @@
           <div
             class="item"
             :class="{'selected':item.checked}"
-            v-for="item,index in types"
+            v-for="(item,index) in types"
             :key="index"
             @click="typeChange(index)"
           >
@@ -49,7 +49,7 @@
           <div
             class="item"
             :class="{'selected':item.checked}"
-            v-for="item,index in mec"
+            v-for="(item,index) in mec"
             :key="index"
             @click="changeMec(index)"
           >
@@ -106,7 +106,7 @@
             class="item"
             @click="dbchecktype(index)"
             :class="{selected:item.checked}"
-            v-for="item,index in dbwarningtype"
+            v-for="(item,index) in dbwarningtype"
             :key="index"
           >
             <i></i>
@@ -128,7 +128,7 @@
             class="item"
             @click="dbjigoucheck(index)"
             :class="{selected:item.checked}"
-            v-for="item,index in dbjigoulist"
+            v-for="(item,index) in dbjigoulist"
             :key="index"
           >
             <i></i>
@@ -199,7 +199,8 @@ export default {
       dbdate: [],
       dbDataList: [],
       dbDatax: [],
-      dbDataName: []
+      dbDataName: [],
+      loading:null
     };
   },
   methods: {
@@ -213,6 +214,12 @@ export default {
         });
         return;
       }
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.getData(this.t_mechanism_id, arr.join(), ip_id.join());
     },
 
@@ -829,14 +836,8 @@ export default {
                 };
               }
             });
-            // console.log(this.dbjigoulist);
-            this.getData(this.t_mechanism_id, this.t_mechanism_id, this.ip_id);
-            // this.warnTypes = data.data.types.map(item => {
-            //   return {
-            //     ...item,
-            //     checked: true
-            //   };
-            // });
+            let arr = this.mec.filter(e => e.checked).map(e => e.id);
+            this.getData(this.t_mechanism_id, arr.join(), this.ip_id);          
           }
         })
         .catch(error => {
@@ -877,7 +878,8 @@ export default {
             this.rightData2 = data.data.ratio;
             this.chartLeft();
             this.chartRight();
-            console.log(data.data.ratio);
+            // console.log(data.data.ratio);
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -933,6 +935,7 @@ export default {
               }
             }, 100);
             this.duibichart();
+            this.loading.close()
             return;
             // this.dbnames = data.data.mname;
             // this.dbx = data.data.days;
@@ -958,6 +961,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     //t_mechanism_id    mid    ip_id
     let item = this.$gscookie.getCookie("message_obj");
     let obj = this.$route.params;
@@ -972,6 +981,7 @@ export default {
   },
    destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

@@ -34,6 +34,7 @@ export default {
       },
       time: "",
       timer: null,
+      timer1:null,
       dataRightUp: [],
       dataRight: [],
       chart1Data: {
@@ -274,7 +275,7 @@ export default {
             this.time = data.data.time;
             this.timermove = setTimeout(() => {
               this.zuodonghua();
-            }, 0);
+            }, 3000);
           }
         })
         .catch(error => {
@@ -338,16 +339,18 @@ export default {
         data: params
       })
         .then(data => {
-          let list = data.data.data.map((item, index) => {
-            return {
-              value: item.number,
-              name: item.gtype,
-              gtypes: item.gtypes
-            };
-          });
-          this.dataRight = list;
-          this.dataRightUp = data.data.data.map(item => item.gtype);
-          this.chart2();
+          if(data.status==200){
+            let list = data.data.data.map((item, index) => {
+              return {
+                value: item.number,
+                name: item.gtype,
+                gtypes: item.gtypes
+              };
+            });
+            this.dataRight = list;
+            this.dataRightUp = data.data.data.map(item => item.gtype);
+            this.chart2();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -358,8 +361,7 @@ export default {
       let main = $(".num-icon")[0];
       let list = document.querySelectorAll("#num-icon .item");
       let num = -1;
-      let timer1 = null;
-      timer1 = setInterval(donghua, 2000);
+      this.timer1 = setInterval(donghua, 2000);
       function donghua() {
         num++;
         num %= 4;
@@ -372,10 +374,10 @@ export default {
         for (let i = 0; i < 4; i++) {
           list[i].classList.remove("active");
         }
-        clearInterval(timer1);
+        clearInterval(this.timer1);
       };
       main.onmouseout = function() {
-        timer1 = setInterval(donghua, 2000);
+        this.timer1 = setInterval(donghua, 2000);
       };
     }
   },

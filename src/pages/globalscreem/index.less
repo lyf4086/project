@@ -55,12 +55,8 @@
                 
             }
         }
-        button{
-            position: relative;
-            z-index: 999;
-            width:120/@vw;
-            height:30/@vw;
-            margin-left: 500/@vw;
+        .center{
+            color:#fff;
         }
         .right{
             width:120px;
@@ -88,7 +84,14 @@
         width:1124/@vw;
         height:726/@vw;
         border:1/@vw solid #7c7c7c;
-        
+        img{
+            position: absolute;
+            width:700/@vw;
+            height:700/@vw;
+            top:46%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
     }
     @keyframes tobig {
         0%{
@@ -137,6 +140,7 @@
             background: url(../../assets/img/write-jiao.png)no-repeat;
         }
         .left1{
+            visibility: hidden;
             transition:   0.6s;
             position: absolute;
             top:72/@vw;
@@ -156,6 +160,7 @@
         }
         
         .left2{
+            visibility: hidden;
             transition:   0.6s;
             position: absolute;
             top:232/@vw;
@@ -183,6 +188,7 @@
         }
         
         .left3{
+            visibility: hidden;
             transition:   0.6s;
             position: absolute;
             top:532/@vw;
@@ -220,6 +226,7 @@
         }
 
         .right1{
+            visibility: hidden;
             position: absolute;
             transition:   0.6s;
             left:1230/@vw;
@@ -231,6 +238,7 @@
             border:1/@vw solid #746f7e;
         }
         .right2{
+            visibility: hidden;
             position: absolute;
             transition:   0.6s;
             left:1230/@vw;
@@ -241,6 +249,7 @@
             border:1/@vw solid #746f7e;
         }
         .right3{
+            visibility: hidden;
             position: absolute;
             transition:   0.6s;
             left:990/@vw;
@@ -319,6 +328,7 @@
             background: url(../../assets/img/write-jiao2.png) no-repeat;
         }
         .right4{
+            visibility: hidden;
             position: absolute;
             transition:  0.6s;
             right:90/@vw;
@@ -387,6 +397,7 @@
             }
         }
         .right5{
+            visibility: hidden;
             position: absolute;
             transition:  0.6s;
             right:90/@vw;

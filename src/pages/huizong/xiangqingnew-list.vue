@@ -107,7 +107,8 @@ export default {
       num:0,
       data1:["2014", "2015", "2016"],
       data2:[150, 270, 259],
-      dianlianglist:[]
+      dianlianglist:[],
+      loading:null
     };
   },
   methods: {
@@ -148,7 +149,13 @@ export default {
         .map(e => e.id)
         .join();
       let timeStr = timeStart + "," + timeEnd;
-      console.log(par.mechanism_id, par.ip_id, timeStr, types);
+      // console.log(par.mechanism_id, par.ip_id, timeStr, types);
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.getData(par.mechanism_id, par.ip_id, timeStr, types);
     },
     typeChange(index) {
@@ -253,6 +260,7 @@ export default {
               };
             });
             this.dataList = arr1;
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -296,6 +304,12 @@ export default {
     this.getData(mechanism_id, ip_id, timestr, types);
   },
   mounted() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.$store.commit("setStr", {
       str1: "报警类型",
       str2: "趋势详情"

@@ -92,7 +92,8 @@ export default {
       dataList: [],
       mec: [],
       cou: [],
-      date: []
+      date: [],
+      loading:null
     };
   },
   methods: {
@@ -114,6 +115,12 @@ export default {
       let time = start + "," + end;
       let t_mechanism_id = this.t_mechanism_id;
       if (mid != "" && start != "" && end != "") {
+        this.loading = this.$loading({
+          lock: true,
+          text: "Loading",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
         this.getData(t_mechanism_id, mid, ip_id, time);
       } else {
         this.$message({
@@ -321,6 +328,7 @@ export default {
             this.cou = data.data.cou;
             this.date = data.data.date;
             this.initEchart();
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -329,7 +337,12 @@ export default {
     }
   },
   created() {
-    
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let par = this.$route.params;
     if(!par.mid){
       this.$router.push({
@@ -361,6 +374,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

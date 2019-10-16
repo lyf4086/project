@@ -1,6 +1,6 @@
 <template>
   <div class="main" ref="main">
-    <div class="none-data" v-if="!dataList.length">暂时没有数据......</div>
+    <div class="none-data" v-if="!dataList.length">暂时没有数据</div>
     <!-- 
     <div class="item_miao" v-for="item in data" :key="item.IMEI" >
       <div class="content">

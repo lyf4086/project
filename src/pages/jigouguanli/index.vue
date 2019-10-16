@@ -156,12 +156,19 @@ export default {
       },
       selValue: "",
       putValue: "",
-      sync: 0 //判断动静态，默认静态
+      sync: 0 ,//判断动静态，默认静态
+      loading:null
     };
   },
 
   methods: {
     handleNodeClick(item) {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.$refs.page.internalCurrentPage = 1;
       this.currentNodeKey = item.id;
       this.activeHandTreeData = item;
@@ -180,7 +187,12 @@ export default {
       // }else if(this.selValue=='code'){
       //     this.jigouSearch(1,'',this.putValue)
       // }
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.jigouSearch(1, this.putValue);
     },
     jigouSearch(n = 1, val = "") {
@@ -215,15 +227,13 @@ export default {
         data: params
       })
         .then(data => {
-          //  this.jigoulist=data.data.data.list         //.....返回数据赋值给当前显示的机构列表
-          //  this.pageTotal=data.data.data.psum-0
-          // return
           if (data.data.code == 200 && data.data.data.length != 0) {
             this.jigoulist = data.data.data.list;
           }
           // this.selValue=''
           this.putValue = "";
           this.pageTotal = null;
+          this.loading.close()
         })
         .catch(error => {
           console.log(error);
@@ -231,6 +241,12 @@ export default {
     },
     currentChange(n) {
       //activeHandTreeData
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.deleteShow = false;
       this.active_yema = n; //........记录当前显示第几页数据
       this.handClick(this.currentNodeKey, n);
@@ -453,7 +469,8 @@ export default {
         .then(data => {
           this.jigoulist = data.data.data.list; //.....返回数据赋值给当前显示的机构列表
           this.pageTotal = data.data.data.psum - 0;
-          console.log(this.pageTotal)
+          // console.log(this.pageTotal)
+          this.loading.close()
         })
         .catch(error => {
           console.log(error);
@@ -526,6 +543,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.sync = this.$gscookie.getCookie("sync");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     this.handClick(this.currentNodeKey);

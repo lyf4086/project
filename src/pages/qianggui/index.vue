@@ -43,7 +43,7 @@
 
     <div class="content">
       <!-- <Content/> -->
-      <div class="none-data" v-if="!dataArr.length">暂时没有数据......</div>
+      <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
       <div class="qianggui-content" v-if="dataArr.length">
         <div class="title">弹柜总量：{{dataArr.length}}</div>
         <div class="wrap">
@@ -209,6 +209,7 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.dataArr = data.data.data;
+            this.loading.close();
           }
         })
         .catch(error => {
@@ -281,6 +282,12 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.activeMechanismId = item.id;
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.active_title = item.mechanism_name;
@@ -347,6 +354,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let item = this.$gscookie.getCookie("message_obj");
     let jigou = this.$gscookie.getCookie("mechanism_id");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");

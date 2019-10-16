@@ -165,9 +165,14 @@ function stopSetArea() {
   // console.log(this.markerArr)
 }
 
-function showOne() {
+function showOne(ev,val) {
   this.bianzu_list_show = false;
-  let v = this.$refs.alarmSelect.value
+  let v = null
+  if(!val){
+    v = this.$refs.alarmSelect.value;
+  }else{
+    v=val
+  }
   this.hasPerson = false;
   if (!v) {
     this.$message({
@@ -516,6 +521,7 @@ function yijingXuanze() { //.................编组后搜索一组人员
 }
 
 function binaZuBack() {
+  this.bianzu_list_show=false
   this.checked_person_show = !this.checked_person_show
 }
 

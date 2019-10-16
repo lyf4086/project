@@ -5,7 +5,7 @@
         <p>弹柜总量：{{dataArr.length}}</p>
       </div>
       <div class="item-wrap">
-        <div class="none-data" v-if="!dataArr.length">暂时没有数据......</div>
+        <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
         <div class="item" v-for="(item,index) in dataArr" :key="index">
           <p class="title">单位：{{item.org_name}}</p>
           <img src="../../../assets/img/qingguitest.png">
@@ -84,12 +84,19 @@ export default {
     return {
       xiangqingData: "",
       xiangqingindex: 0,
-      xiangqingshow: false
+      xiangqingshow: false,
+      loading:null
     };
   },
   computed: {},
   methods: {
     xiangqing(index) {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.xiangqingindex = index;
       // this.xiangqingshow=true
       // console.log(index.id)
@@ -123,6 +130,7 @@ export default {
             } else {
               this.$message("暂无数据");
             }
+            this.loading.close()
           }
         })
         .catch(error => {

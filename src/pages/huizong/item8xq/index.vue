@@ -88,7 +88,8 @@ export default {
       dataList: [],
       mec: [],
       cou: [],
-      date: []
+      date: [],
+      loading:null
     };
   },
   methods: {
@@ -111,6 +112,12 @@ export default {
       let time = start + "," + end;
       let t_mechanism_id = this.t_mechanism_id;
       if (mid != "" && start != "" && end != "") {
+        this.loading = this.$loading({
+          lock: true,
+          text: "Loading",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
         this.getData(t_mechanism_id, mid, ip_id, time);
       } else {
         this.$message({
@@ -162,6 +169,7 @@ export default {
       }
     },
     sub() {
+      
       let str = this.timeStart + "," + this.timeEnd;
       this.getData(str);
     },
@@ -319,6 +327,7 @@ export default {
             this.cou = data.data.cou;
             this.date = data.data.gname;
             this.initEchart();
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -335,6 +344,12 @@ export default {
       })
       return
     }
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.getTypes();
     let mes = this.$gscookie.getCookie("message_obj");
     this.ip_id = par.ip_id;
@@ -358,6 +373,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

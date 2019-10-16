@@ -213,6 +213,7 @@ export default {
   },
   methods: {
     toBigScreem(){
+      return
       this.$router.push('/globalscreem')
     },
     tongbu() {

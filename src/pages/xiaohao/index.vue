@@ -96,7 +96,8 @@ export default {
       defaultProps: {
         children: "child",
         label: "mechanism_name"
-      }
+      },
+      loading:null
     };
   },
   methods: {
@@ -108,6 +109,13 @@ export default {
         this.$message({ message: "请输入您要搜索的内容", type: "warning" });
         return;
       }
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.dataList=[]
       this.search(this.activeMechanismId);
     },
 
@@ -138,7 +146,9 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.dataList = data.data.data;
+            console.log(data.data.data)
             this.liebiao = data.data.dat;
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -171,6 +181,7 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.dataList = data.data.data;
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -208,6 +219,13 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
+      this.dataList=[]
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.activeMechanismId = item.id;
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.active_title = item.mechanism_name;
@@ -215,6 +233,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let item = this.$gscookie.getCookie("message_obj");
     let jigou = this.$gscookie.getCookie("mechanism_id");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");

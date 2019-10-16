@@ -150,7 +150,8 @@ import Content from './children/content'
             jingyuanSel:'',
             qiangzhiSel:'',
             shipingName:'',
-            t_policeuser_id:''
+            t_policeuser_id:'',
+            loading:null
           };
         },
         methods: {
@@ -256,7 +257,12 @@ import Content from './children/content'
             if(!this.putValue.trim()){
               this.$message('请输入关键字！')
             }
-
+            this.loading = this.$loading({
+                lock: true,
+                text: "Loading",
+                spinner: "el-icon-loading",
+                background: "rgba(0, 0, 0, 0.7)"
+              });
             this.search()
 
           },
@@ -360,6 +366,7 @@ import Content from './children/content'
                         }
                       })
                         this.dataList=list
+                        this.loading.close()
                         this.pageTotal=data.data.total-0
                     }
                 }).catch((error)=>{
@@ -388,7 +395,12 @@ import Content from './children/content'
                         type:"success",
                         message:data.data.msg
                       })
-
+                      this.loading = this.$loading({
+                        lock: true,
+                        text: "Loading",
+                        spinner: "el-icon-loading",
+                        background: "rgba(0, 0, 0, 0.7)"
+                      });
                       this.getDataList(this.activeItem.id,this.active_page)
                     }
                 }).catch((error)=>{
@@ -427,6 +439,7 @@ import Content from './children/content'
                         this.pageTotal=data.data.total-0
                         this.selValue=''
                         this.putValue=''
+                        this.loading.close()
                     }
                 }).catch((error)=>{
                     console.log(error)
@@ -460,16 +473,34 @@ import Content from './children/content'
                 })
             },
             handleNodeClick(item){//树形菜单点击
+              this.loading = this.$loading({
+                lock: true,
+                text: "Loading",
+                spinner: "el-icon-loading",
+                background: "rgba(0, 0, 0, 0.7)"
+              });
                 this.$refs.page.internalCurrentPage = 1;
                 this.activeItem=item             //记录当前激活的树形菜单子项
                 this.getDataList(item.id)   
             },
             currentChange(n){//...页码点击
+            this.loading = this.$loading({
+                lock: true,
+                text: "Loading",
+                spinner: "el-icon-loading",
+                background: "rgba(0, 0, 0, 0.7)"
+              });
               this.active_page=n
               this.getDataList(this.activeItem.id,n)
             }
         },
         created(){
+          this.loading = this.$loading({
+            lock: true,
+            text: "Loading",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.7)"
+          });
           let item =this.$gscookie.getCookie("message_obj");
           this.t_policeuser_id=item.id
           this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");

@@ -95,7 +95,8 @@ export default {
       },
       lixianMap:false,
       lixianArr:[],
-      lixianTitle:''
+      lixianTitle:'',
+      loading:null
     };
   },
   methods: {
@@ -110,7 +111,12 @@ export default {
       if (!this.putValue.trim()) {
         this.$message("请输入关键字！");
       }
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.search();
     },
     mapInit(obj) {
@@ -198,6 +204,12 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.$refs.page.internalCurrentPage = 1;
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.active_title = item.mechanism_name;
@@ -229,6 +241,7 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             console.log(data.data.data)
+            this.loading.close()
             this.dataList = data.data.data;
             this.pageTotal = data.data.total - 0;
           }
@@ -238,6 +251,12 @@ export default {
         });
     },
     currentChange(n) {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.getDataList(this.activeItem.id, n);
     },
     search() {
@@ -264,6 +283,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            this.loading.close()
             this.dataList = data.data.data;
             this.pageTotal = data.data.total - 0;
             this.selValue = "";
@@ -276,6 +296,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     this.getTreeList();
     this.getDataList();
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");

@@ -45,12 +45,19 @@ export default {
       data2: [],
       names: [],
       data3: [],
-      data4: []
+      data4: [],
+      loading:null
     };
   },
   methods: {
     sub() {
       let str = this.timeStart + "," + this.timeEnd;
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.getData(str);
     },
     initEchart() {
@@ -233,6 +240,7 @@ export default {
             this.data3 = data.data.tname;
             this.data4 = data.data.tcou;
             this.initEchartRight();
+            this.loading.close()
           }
         })
         .catch(error => {
@@ -241,6 +249,12 @@ export default {
     }
   },
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let par = this.$route.params;
     this.timeStart = par[0];
     this.timeEnd = par[1];
@@ -255,6 +269,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
+    this.loading.close()
   }
 };
 </script>

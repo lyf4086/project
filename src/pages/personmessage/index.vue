@@ -242,15 +242,11 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
-            console.log(data)
             this.data=data.data.number
             this.names=data.data.tname
             this.message = data.data.data;
             this.gunList = data.data.guns;
             this.initChart()
-            if (!this.message.mechanism_name) {
-              this.$router.go(-1);
-            }
           }
         })
         .catch(error => {
@@ -277,7 +273,6 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.xiangqingList = data.data.history;
-            // console.log( this.xiangqingList)
           }
         })
         .catch(error => {
@@ -312,11 +307,12 @@ export default {
       });
     }
     let policeuser_id = this.$store.state.policeuser_id;
-    // console.log('policeuser_id',policeuser_id)
+    if(!policeuser_id){
+      this.$router.go(-1)
+    }
     this.getData(policeuser_id);
   },
   mounted(){
-    // this.initChart()
   }
   
 };

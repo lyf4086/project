@@ -45,7 +45,7 @@
     </div>
     <div class="page-index" v-show="pageTotal">
       <el-pagination
-        :page-size="9"
+        :page-size="keshihua?9:21"
         :pager-count="9"
         layout="total, prev, pager, next"
         :current-page="currentPage"
@@ -62,7 +62,7 @@
       <button @click="delQiaoMiao">删除枪瞄</button>
       <button @click="modifyMiao">修改枪瞄</button>
     </div>
-    <div class="content">
+    <div class="content"  v-show="keshihua">
       <newContent
         @hehe="openMap"
         :dataList="qiangmiaoData"
@@ -73,6 +73,24 @@
         :activeyema="active_yema"
       ></newContent>
       <MapAlert :isShow="mapIsShow" :delthis="delMap" />
+    </div>
+    <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
+    <div class="content2" v-show="!keshihua">
+      <div class="none-data" v-if="!qiangmiaoData.length">暂时没有数据</div>
+      <div class="item" v-for="(item,index) in qiangmiaoData" :key="index">
+        <input type="checkbox"  v-model="item.checked">
+        <span><i>枪瞄编号：</i>{{item.IMEI}}</span>
+        <span><i>所属警员：</i>{{item.policeuser_name || '暂无'}}</span>
+        <span><i>枪瞄状态：</i>{{item.heart==1 ? "在线":"离线"}}</span>
+        <span><i>枪瞄类型：</i>{{item.gtypes_name}}</span>
+        <span><i>剩余电量：</i>{{item.electricity}}%</span>
+        <span><i>绑定枪支：</i>{{item.gun_code || '暂无'}}</span>
+        <span><i>充电状态：</i>{{item.ischarging}}</span>
+        <span><i>最后定位时间：</i>{{item.created}}</span>
+      </div>
     </div>
     <div class="cover" v-show="alert||xiugai">
       <div class="text-wrap" v-show="alert">
@@ -151,11 +169,35 @@ export default {
       value: '',
       types:[],
       checkType:1,
-      currentPage:0
+      currentPage:0,
+      keshihua:true,
+      loading:null
     };
   },
   methods: {
+    changeShowType(n){
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.qiangmiaoData=[]
+      if(n===1){
+        this.keshihua=true
+      }else{
+        this.keshihua=false
+      }
+      this.getDataList(this.active_fujigou, 1,this.checkType)
+      this.$refs.page.internalCurrentPage = 1;
+    },
     typeChange(){
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       // console.log(this.checkType,this.active_fujigou)
       this.$refs.page.internalCurrentPage = 1;
 
@@ -169,6 +211,13 @@ export default {
     changeOneDataZhuangTai(n) {},
     currentChange(n) {
       //..........页码的点ji
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.qiangmiaoData=[]
       this.active_yema = n;
       this.getDataList(this.active_fujigou, n,this.checkType);
     },
@@ -180,7 +229,12 @@ export default {
         this.$message({ message: "请输入您要搜索的内容", type: "warning" });
         return;
       }
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.search(1, this.putValue);
     },
     search(n = 1, val = "") {
@@ -217,6 +271,7 @@ export default {
           this.selValue = "";
           this.putValue = "";
           this.pageTotal = null;
+          this.loading.close()
         })
         .catch(error => {
           console.log(error);
@@ -224,6 +279,13 @@ export default {
     },
     handleNodeClick(item) {
       //.............树形菜单点击
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.qiangmiaoData=[]
       this.currentPage = 1;
       this.checkType=1;
       this.active_yema = 1;
@@ -287,7 +349,9 @@ export default {
     getDataList(jigou_id = 1, p = 1,heart=1) {
       //.............................获取枪瞄列表数据函数
       var key = this.$store.state.key;
-      var objs = { mechanism_id: jigou_id, p: p, ps: 9 ,heart:heart};
+      var objs = { 
+        mechanism_id: jigou_id, p: p, ps: this.keshihua ?9:21 
+      ,heart:heart};
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -306,16 +370,18 @@ export default {
         data: params
       })
         .then(data => {
-
-            this.types=data.data.data.ggtype
-          let newArr = data.data.data.list.map(e => {
-            return {
-              ...e,
-              checked: false
-            };
-          });
-          this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
-          this.pageTotal = data.data.data.psum * 1;
+            if(data.data.code==200){
+              this.loading.close()
+               this.types=data.data.data.ggtype
+              let newArr = data.data.data.list.map(e => {
+                return {
+                  ...e,
+                  checked: false
+                };
+              });
+              this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
+              this.pageTotal = data.data.data.psum * 1;
+            }
         })
         .catch(error => {
           console.log(error);
@@ -590,7 +656,12 @@ export default {
     } //................获取列表信息函数end
   },
   created() {
-    
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let { jiGouId, yeMa } = this.$store.state;
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");

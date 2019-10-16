@@ -460,7 +460,7 @@ export default {
         data: params
       })
         .then(data => {
-          if(data.data.number.length){
+          if(data.status==200){
             this.citys = data.data.mname;
             
             this.mid = data.data.mid;
@@ -492,14 +492,16 @@ export default {
       })
         .then(data => {
           // console.log(data);
-          this.chart2Names = data.data.tname;
-          this.chart2Day = data.data.date.map(item => {
-            return {
-              name: item
-            };
-          });
-          this.chart2Data = data.data.cou;
-          this.chart2();
+          if(data.status==200){
+            this.chart2Names = data.data.tname;
+            this.chart2Day = data.data.date.map(item => {
+              return {
+                name: item
+              };
+            });
+            this.chart2Data = data.data.cou;
+            this.chart2();
+          }
         })
         .catch(error => {
           console.log(error);

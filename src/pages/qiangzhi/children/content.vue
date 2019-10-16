@@ -1,6 +1,6 @@
 <template>
   <div class="qiangmiao-content" ref="main">
-    <div class="none-data" v-if="!data.length">暂时没有数据......</div>
+    <div class="none-data" v-if="!data.length">暂时没有数据</div>
     <div class="item_list" v-if="data.length">
       <div
         class="item_gun"
@@ -261,8 +261,7 @@ export default {
       });
     },
     al4(gun_id) {
-      // this.tan4 = true;
-      // console.log(gun_id)
+
       this.xiangqing(gun_id);
     },
     close1() {
