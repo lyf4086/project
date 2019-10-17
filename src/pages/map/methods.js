@@ -24,6 +24,12 @@ function personMoveing() {
 }
 
 function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数组
+  this.loading = this.$loading({
+    lock: true,
+    text: "Loading",
+    spinner: "el-icon-loading",
+    background: "rgba(0, 0, 0, 0.7)"
+  });
   let IMEIStr = IMEIArr.join(',')
   var key = this.$store.state.key
   var objs = {
@@ -45,7 +51,8 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
-    console.log(data.data.data.list)
+    // console.log(data.data.data.list)
+    this.loading.close()
     let that = this
     this.isChange = false //避免多次点击
     this.hasPerson = true;
@@ -65,10 +72,10 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
 
     let styleStr1 = `position:relative;width:2.5vw;height:3vw;
                     top:-3vw;left:-1.3vw;`
-    let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:3vw;
+    let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:2.7vw;
                     box-sizing:border-box;border:2px solid red;
                     border-radius:1.2vw;`
-    let styleStr3 = `background:#ccc;position:absolute;width:2.5vw;height:3vw;border:1px solid red;
+    let styleStr3 = `background:#ccc;position:absolute;width:2.5vw;height:2.7vw;border:1px solid red;
                     border-radius:1.2vw; overflow: hidden;`
     let styleStr4 = `position:absolute;bottom:-1vw;left:0.65vw;
                     width:0;height:0;border-width:0.5vw;border-style:solid;
@@ -78,7 +85,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     let activeImg = require("@/assets/img/head-icon.png")
     let divIconArr = this.checkedPersonArr.map((item, index) => {
       return this.BM.divIcon({
-        html: `<div class="icon_wrap" style="${styleStr1}">
+        html: `<div class="icon_wrap" title=${item.policeuser_name || ''} style="${styleStr1}">
                 <div class="img_wrap" style="${styleStr3}">
                   <img src="${this.header[this.headName] || item.policeuser.icon || activeImg}" style="${styleImg}"/>
                 </div>
@@ -103,14 +110,27 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
 
 
     markerArr.forEach((e, i) => {
-      e.bindPopup(`警员姓名：${this.checkedPersonArr[i].policeuser_name} \</br>
+      /* e.bindPopup(`警员姓名：${this.checkedPersonArr[i].policeuser_name} \</br>
         所属机构：${this.checkedPersonArr[i].mechanism_name}\</br>
         枪支类型：${this.checkedPersonArr[i].gtype} \</br>
         枪支编号：${this.checkedPersonArr[i].gun_code} \</br>
         是否在线：${data.data.data.list[i].heart == 1 ? "在线" : "不在线"} \</br>
         定位类型：${data.data.data.list[i].ptype} \</br>
         枪瞄编号：${this.checkedPersonArr[i].IMEI} \</br>
-        `);
+        `); */
+        e.on('click',function (){
+          that.$alert(`
+          <p>所属机构：${that.checkedPersonArr[i].mechanism_name}</p>
+          <p>枪支类型：${that.checkedPersonArr[i].gtype}</p>
+          <p>枪支编号：${that.checkedPersonArr[i].gun_code}</p>
+          <p>是否在线：${data.data.data.list[i].heart == 1 ? "在线" : "不在线"}</p>
+          <p>定位类型：${data.data.data.list[i].ptype}</p>
+          <p>枪瞄编号：${that.checkedPersonArr[i].IMEI}</p>
+        `, that.checkedPersonArr[i].policeuser_name || '', {
+            dangerouslyUseHTMLString: true,
+            showClose:true
+          });
+        })
     });
     this.fitBoundsArr = arr
     //地图自适应显示
@@ -175,6 +195,12 @@ function getJiGouStr() {
 }
 
 function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨迹函数
+  this.loading = this.$loading({
+    lock: true,
+    text: "Loading",
+    spinner: "el-icon-loading",
+    background: "rgba(0, 0, 0, 0.7)"
+  });
   var key = this.$store.state.key
   var objs = {
     "IMEI": IMEI,
@@ -197,6 +223,7 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
     changeOrigin: true,
     data: params
   }).then((data) => {
+    this.loading.close()
     if (data.data.code == '200') {
       this.oldOrNew = 'old'
       this.checkTime = false
@@ -692,7 +719,7 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     changeOrigin: true,
     data: params
   }).then((data) => {
-
+    this.loading.close()
     if (data.data.code == 200) {
       let state = data.data.data.list.state //是否存在报警，0为没有，1为又报警
       let id = this.$refs.alarmSelect.value
@@ -756,10 +783,10 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
 
   let styleStr1 = `position:relative;width:2.5vw;height:3vw;
                     top:-3vw;left:-1.3vw;`
-  let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:3vw;
+  let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:2.7vw;
                     box-sizing:border-box;border:2px solid red;
                     border-radius:1.2vw;`
-  let styleStr3 = `position:absolute;width:2.5vw;height:3vw;border:1px solid red;
+  let styleStr3 = `position:absolute;width:2.5vw;height:2.7vw;border:1px solid red;
                     border-radius:1.2vw; overflow: hidden;`
   let styleStr4 = `position:absolute;bottom:-1vw;left:0.65vw;
                     width:0;height:0;border-width:0.5vw;border-style:solid;
@@ -770,7 +797,7 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   let styleImg = `position:absolute;top:50%;width:2.5vw;transform:translateY(-50%)`
   let divIconArr = data.child.map((item, index) => {
     return this.BM.divIcon({
-      html: `<div class="icon_wrap" style="${styleStr1}">
+      html: `<div class="icon_wrap" title=${item.policeuser_name ||'暂无'} style="${styleStr1}">
                 <div class="img_wrap" style="${styleStr3}">
                   <img src="${item.icon ? item.icon : noimg}" style="${styleImg}"/>
                 </div>
@@ -794,15 +821,30 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   map.fitBounds(dianArr);
   this.markerArr = markerArr;
   markerArr.forEach((e, i) => {
-    e.bindPopup(`警员姓名：${data.child[i].policeuser_name} \</br>
-    所属机构：${data.child[i].mechanism.mechanism_name}\</br>
-    枪支类型：${data.child[i].gtype} \</br>
-    枪支编号：${data.child[i].gun_code} \</br>
-    是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"} \</br>
-    定位类型：${data.child[i].ptype} \</br>
-    枪瞄编号：${data.child[i].IMEI} \</br>
-    `);
-  });
+   /*  e.bindPopup(`警员姓名：${data.child[i].policeuser_name} \</br>
+      所属机构：${data.child[i].mechanism.mechanism_name}\</br>
+      枪支类型：${data.child[i].gtype} \</br>
+      枪支编号：${data.child[i].gun_code} \</br>
+      是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"} \</br>
+      定位类型：${data.child[i].ptype} \</br>
+      枪瞄编号：${data.child[i].IMEI} \</br>
+      `); */
+
+      e.on('click',function (){
+        that.$alert(`
+        <p>所属机构：${data.child[i].mechanism.mechanism_name}</p>
+        <p>枪支类型：${data.child[i].gtype}</p>
+        <p>枪支编号：${data.child[i].gun_code}</p>
+        <p>是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"}</p>
+        <p>定位类型：${data.child[i].ptype}</p>
+        <p>枪瞄编号：${data.child[i].IMEI}</p>
+      `, data.child[i].policeuser_name || '', {
+          dangerouslyUseHTMLString: true,
+          showClose:true
+        });
+      })
+
+    });
 
 
 }

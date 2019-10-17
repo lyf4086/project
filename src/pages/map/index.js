@@ -8,6 +8,12 @@ function jigouSelChange(e) {
 }
 //通过第一个选择框动态生成第二个选择框的数据
 function getPersonAndGunStr(id) {
+  this.loading = this.$loading({
+    lock: true,
+    text: "Loading",
+    spinner: "el-icon-loading",
+    background: "rgba(0, 0, 0, 0.7)"
+  });
   var key = this.$store.state.key
   var objs = {
     p: 1,
@@ -29,6 +35,7 @@ function getPersonAndGunStr(id) {
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
+      this.loading.close()
       this.startTime=data.data.start+'T'+"01:00"
       this.endTime =data.data.start+'T'+"23:00"
       /**新增获取其他机构人员 */
@@ -193,7 +200,12 @@ function showOne(ev,val) {
   this.jigouSelArr.length = 1;
   this.jigouSelIndex = 0;
   // 跨区域编组新增
-
+  this.loading = this.$loading({
+    lock: true,
+    text: "Loading",
+    spinner: "el-icon-loading",
+    background: "rgba(0, 0, 0, 0.7)"
+  });
 
   this.delId = v
   this.getOneAlarmArea(v)
@@ -368,6 +380,8 @@ function outIn() {
 }
 
 function changeGuiJiType(e) {
+  this.bianzu_list_show=false
+  this.checked_person_show=false
   this.isChange = true //..改变了数据避免多次点击
   this.oldOrNew = e.target.value
   if (e.target.value == 'new') {

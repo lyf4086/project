@@ -74,14 +74,13 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
-
+    this.loading.close()
     let that = this
     this.hasPerson = true;
     this.isChange = false //避免多次点击
     let a1 = data.data.data.list.map(e => {
       return [e.longitude * 1, e.latitude * 1]
     })
-    // console.log(a1)
     let dataList = data.data.data.list
     let newArr = this.checkedPersonArr
     newArr.unshift(this.selectedPerson)
@@ -213,6 +212,12 @@ function getJiGouStr() {
 }
 
 function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨迹函数
+  this.loading = this.$loading({
+    lock: true,
+    text: "Loading",
+    spinner: "el-icon-loading",
+    background: "rgba(0, 0, 0, 0.7)"
+  });
   var key = this.$store.state.key
   var objs = {
     "IMEI": IMEI,
@@ -236,6 +241,7 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
     data: params
   }).then((data) => {
     if (data.data.code == '200') {
+      this.loading.close()
       this.oldOrNew = 'old'
       this.checkTime = false
       if (!data.data.data.list.length) {
@@ -560,10 +566,11 @@ function getPersonAndGunStr(id) {
         })
         strArr.unshift(`<option value="" disabled selected >请选择</option>`)
         this.allMechanism = strArr.join()
+        
       } else {
         console.log('无跨机构数据')
       }
-
+      this.loading.close()
       this.allPersonIEMIStr = data.data.IMEIs
       let allPersonList = data.data.data.list.map(e => {
         return {
@@ -581,6 +588,7 @@ function getPersonAndGunStr(id) {
         })
         return
       }
+      
       this.activeIMEI = data.data.data.list.length ? data.data.data.list[0].IMEI : ''
       this.gunAndJingyuanOptionStr = `
             <option value="" disabled selected >请选择人员和枪支</option>
@@ -1019,6 +1027,7 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
         }
       });
     }
+    this.loading.close()
   }).catch((error) => {
     console.log(error)
   })

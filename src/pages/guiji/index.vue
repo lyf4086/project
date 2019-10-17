@@ -398,7 +398,8 @@ export default {
       allMechanismPersonList: [],
       jigouname: "",
       markerArrLinShi: [],
-      jiupian:true
+      jiupian:true,
+      loading:null
     };
   },
   computed: {
@@ -452,7 +453,7 @@ export default {
       if (!hasN) {
         let n = this.jigouSelArr.push(tar.mechanism_name);
         this.jigouSelIndex = n - 1;
-console.log(val[0], val[1])
+
         this.getAllJiGouName(val[0], val[1]);
       }
     },
@@ -636,7 +637,12 @@ console.log(val[0], val[1])
       this.areaTimer = setInterval(() => {
         this.overArea(v);
       }, 10000);
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.getOneAlarmArea(v);
 
       this.noClick = true;
@@ -858,6 +864,7 @@ console.log(val[0], val[1])
       });
     },
     changeGuiJiType(e) {
+      this.checked_person_show=false
       this.bianzu_list_show=false
       this.isChange = true; //..改变了数据避免多次点击
       this.oldOrNew = e.target.value;
@@ -932,7 +939,7 @@ console.log(val[0], val[1])
       // 跨区域编组新增
       this.jigouSelArr.length = 0;
       this.jigouSelArr.push(this.jigouname);
-      console.log(this.jigouname);
+      // console.log(this.jigouname);
       // 跨区域编组新增
       clearInterval(this.areaTimer);
       this.noCheckedList.forEach(e => (e.checked = false));
@@ -960,7 +967,12 @@ console.log(val[0], val[1])
 
       // this.IMEI_img[this.activeIMEI] = this.activeimg ;
       this.active_person_show = true;
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.getIMEI([this.activeIMEI]); //..............搜索一个人员
       function nowTime() {
         //...获取当前时间串
@@ -1032,6 +1044,12 @@ console.log(val[0], val[1])
       this.checked_person_show = !this.checked_person_show;
     },
     jigouSelChange(e) {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       let n = e.target[e.target.selectedIndex];
       this.jigouname = n.innerText.trim(); //记录当前选中的机构名字
       this.isChange = true;
@@ -1116,21 +1134,21 @@ console.log(val[0], val[1])
             //返回轨迹数据中的节点坐标信息，[AMap.LngLat, AMap.LngLat...] 或者 [[lng|number,lat|number],...]
             return pathData.path;
           },
-          getHoverTitle: function(pathData, pathIndex, pointIndex) {
-            //返回鼠标悬停时显示的信息
-            // if (pointIndex >= 0) {
-            //   //鼠标悬停在某个轨迹节点上
-            //   return (
-            //     pathData.name +
-            //     "，点:" +
-            //     pointIndex +
-            //     "/" +
-            //     pathData.path.length
-            //   );
-            // }
-            //鼠标悬停在节点之间的连线上
-            // return pathData.name + "，点数量" + pathData.path.length;
-          },
+          // getHoverTitle: function(pathData, pathIndex, pointIndex) {
+          //   返回鼠标悬停时显示的信息
+          //   if (pointIndex >= 0) {
+          //     //鼠标悬停在某个轨迹节点上
+          //     return (
+          //       pathData.name +
+          //       "，点:" +
+          //       pointIndex +
+          //       "/" +
+          //       pathData.path.length
+          //     );
+          //   }
+          //   鼠标悬停在节点之间的连线上
+          //   return pathData.name + "，点数量" + pathData.path.length;
+          // },
           renderOptions: {
             //轨迹线的样式
             pathLineStyle: {
@@ -1168,7 +1186,7 @@ console.log(val[0], val[1])
         ]);
 
         //创建一个巡航器
-        return
+return
         var navg0 = pathSimplifierIns.createPathNavigator(
           0, //关联第1条轨迹
           {
@@ -1257,6 +1275,7 @@ console.log(val[0], val[1])
   },
   
   deactivated(){
+    this.loading ? this.loading.close():null
     this.$store.commit('huanyuanStr')
   }
 };

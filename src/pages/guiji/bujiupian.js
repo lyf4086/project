@@ -1,4 +1,10 @@
 function getBujiupian(IMEI,stime,etime){
+  this.loading = this.$loading({
+    lock: true,
+    text: "Loading",
+    spinner: "el-icon-loading",
+    background: "rgba(0, 0, 0, 0.7)"
+  });
     var key = this.$store.state.key
     var objs = {
         "IMEI": IMEI,
@@ -21,7 +27,7 @@ function getBujiupian(IMEI,stime,etime){
         changeOrigin: true,
         data: params
     }).then((data) => {
-       
+      this.loading.close()
         if (!data.data.length) {
             this.$message('暂时没有轨迹数据')
             this.checkTime = false
@@ -29,27 +35,10 @@ function getBujiupian(IMEI,stime,etime){
             let that = this
              let lineArr=data.data.map((e)=>[e.longitude-0,e.latitude-0])
 
-             this.guijiHistory(lineArr)
+            //  this.guijiHistory(lineArr) //暂时去掉轨迹线
              this.checkTime = false //...事件选择器隐藏
-            /*
-             //下面的方法暂时不用
-            var polyline = new AMap.Polyline({
-                path: lineArr,          //设置线覆盖物路径
-                strokeColor: "#3366FF", //线颜色
-                strokeWeight: 5,        //线宽
-                strokeStyle: "solid",   //线样式
-              });
-              this.map.add(polyline);
-// return
-              this.map.setCenter([lineArr[0].Q, lineArr[0].P])//....设置地图中心点
-              this.map.setZoom(16)
-            //   this.map.setFitView([lineArr])
-              this.checkTime = false //...事件选择器隐藏
-              */
- //  console.log(data.data)
+           
             let lineArrAndBaoJing = data.data.filter(e => e.state)
-            // console.log('报警点',lineArrAndBaoJing)
-// return
               let markerArr = lineArrAndBaoJing.map((e, i) => {
                 return new AMap.Marker({
                   content: `<div class="jiupian" >
@@ -57,43 +46,27 @@ function getBujiupian(IMEI,stime,etime){
                               <div class="j-cover"></div>
                             </div>`,
                   position: [e.longitude - 0, e.latitude - 0],
-                  title: `${e.sname}\n${e.time}`,
+                  title: `定位类型：${e.sname}\n定位时间：${e.time}`,
+                  type:e.sname,
+                  time:e.time,
                   offset: new AMap.Pixel(-17, -40)
                 })
               })
-      
               this.map.add(markerArr)
- return     
+              this.map.setFitView()  
               let map = this.map
       
               markerArr.forEach(item => {
                 AMap.event.addListener(item, 'click', function (ev) {
-                  // infoWindow.open(map, item.getPosition());
-                  creatInfoBox(item, item.G.created)
-      
+                  creatInfoBox(item)     
                 })
               })
       
-              function creatInfoBox(item, timer) {
-                let t = changeTime(timer)
-      
-                function changeTime(timestamp) {
-                  var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                  var Y = date.getFullYear() + '-';
-                  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-                  var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-                  var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-                  var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-                  var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
-                  return Y + M + D + h + m + s;
-                }
-                var title = `报警类型：<span style="font-size:11px;color:#F00;">${tit}报警</span>`,
+              function creatInfoBox(item) {
+                var title = `定位类型：<span style="font-size:11px;color:#F00;">${item.Ge.type}</span>`,
                   content = [];
-                content.push(`<div class="tou_wrap"><img alt="null" src='${item.G.src}'></div>报警时间：${t}<br/>警员姓名：${that.filterMessage.uname}`);
-                // content.push("电话：010-64733333");
-                content.push("<br/>");
-                // content.push(`<span class="to_xiangqing" data-d="${tit}">详细信息</span>`);
-      
+              content.push(`定位时间：${item.Ge.time}`);
+                content.push("<br/>");      
                 var infoWindow = new AMap.InfoWindow({
                   isCustom: true, //使用自定义窗体
                   content: createInfoWindow(title, content.join("<br/>")),
@@ -116,7 +89,7 @@ function getBujiupian(IMEI,stime,etime){
                   titleD.innerHTML = title;
                   closeX.src = "https://webapi.amap.com/images/close2.gif";
                   closeX.onclick = closeInfoWindow;
-      
+                  setTimeout(()=>{closeInfoWindow()},5000)
                   top.appendChild(titleD);
                   top.appendChild(closeX);
                   info.appendChild(top);

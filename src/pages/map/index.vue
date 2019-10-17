@@ -45,7 +45,7 @@
             <span>编组人员详细信息</span>
           </div>
           <div class="item_wrap_scroll">
-            <div class="item" v-for="item,index in checkedPersonArr" :key="index">
+            <div class="item" v-for="(item,index) in checkedPersonArr" :key="index">
               <p>
                 <span class="img_wrap">
                   <img :src="item.policeuser.icon" alt />
@@ -258,7 +258,7 @@
     </div>
     <!-- 切换航速据模式 -->
 
-    <div class="change-type" v-show="hasPerson">
+    <div class="change-type" v-show="hasPerson&&oldOrNew!=='old'">
       <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
         <i class="fangxiang"></i>
       </div>
@@ -378,7 +378,8 @@ export default {
       jigouSelArr: [],
       jigouSelIndex: 0,
       allMechanismPersonList: [],
-      jigouname: ""
+      jigouname: "",
+      loading:null
     };
   },
   computed: {
@@ -508,7 +509,7 @@ export default {
     },
     mapInit() {
       let that = this;
-      BM.Config.HTTP_URL = "http://192.168.1.107:9000";
+      BM.Config.HTTP_URL = "http://192.168.1.100:9000";
       if (this.map) {
         this.map.remove();
       }
@@ -585,6 +586,10 @@ export default {
     this.mapInit();
     $(".bigemap-control-zoom").css("display", "none");
     $(".bigemap-control-attribution").css("display", "none");
+  },
+  deactivated(){
+    this.loading ? this.loading.close():null
+    this.$store.commit('huanyuanStr')
   }
 };
 </script>
