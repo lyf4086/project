@@ -308,7 +308,9 @@ export default {
     }
     let policeuser_id = this.$store.state.policeuser_id;
     if(!policeuser_id){
+
       this.$router.go(-1)
+      return 
     }
     this.getData(policeuser_id);
   },

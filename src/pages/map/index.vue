@@ -91,7 +91,7 @@
           </div>-->
           <div class="over-list-wrap">
             <div class="person-list-wrap" :class="{active:jigouSelIndex==0}">
-              <div class="person-list" v-for="item,index in fillSeilf" :key="index">
+              <div class="person-list" v-for="(item,index) in fillSeilf" :key="index">
                 <span>
                   <input type="checkbox" v-model="item.checked" />
                 </span>
@@ -106,7 +106,7 @@
               v-for="(arr,i) in allMechanismPersonList"
               :key="i"
             >
-              <div class="person-list" v-for="item,index in arr" :key="index">
+              <div class="person-list" v-for="(item,index) in arr" :key="index">
                 <span>
                   <input type="checkbox" v-model="item.checked" />
                 </span>
@@ -127,7 +127,7 @@
           class="one_alarm_person_list"
           v-if="oneAlarmPersonList.length && oneAlarmPersonListBox"
         >
-          <div class="item" v-for="item,index in oneAlarmPersonList">
+          <div class="item" v-for="(item,index) in oneAlarmPersonList" :key="index">
             <div class="img_wrap">
               <img v-if="item.icon" :src="item.icon" alt />
               <img v-if="!item.icon" src="../../assets/img/head-icon.png" alt />

@@ -123,7 +123,9 @@ function spanToDelete(item) {
 }
 
 function toOnePersonData() {
-
+  this.$store.commit('setPoliceId',{
+    policeuser_id:this.selectedPerson.policeuser_id
+  })
   this.$router.push({
     name: 'PersonMessage',
     params: this.selectedPerson

@@ -128,7 +128,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
           <p>枪瞄编号：${that.checkedPersonArr[i].IMEI}</p>
         `, that.checkedPersonArr[i].policeuser_name || '', {
             dangerouslyUseHTMLString: true,
-            showClose:true
+            showClose:false
           });
         })
     });
@@ -840,7 +840,7 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
         <p>枪瞄编号：${data.child[i].IMEI}</p>
       `, data.child[i].policeuser_name || '', {
           dangerouslyUseHTMLString: true,
-          showClose:true
+          showClose:false
         });
       })
 
