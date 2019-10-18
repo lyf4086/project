@@ -647,6 +647,7 @@ export default {
 
       this.noClick = true;
       this.isChange = true;
+      this.oldOrNew = "";
     },
     del() {
       let id = this.delId;

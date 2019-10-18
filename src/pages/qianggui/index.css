@@ -23,6 +23,25 @@
 .tree-menu .nav-wrap {
   transform: scaleX(0.96) translate3d(0, 0, 0);
 }
+.tree-menu .nav-wrap /deep/ .el-tree {
+  background: none;
+}
+.tree-menu .nav-wrap /deep/ .el-tree-node__label {
+  font-size: 0.16rem;
+  color: #8ecfff;
+}
+.tree-menu .nav-wrap /deep/ .is-current > .el-tree-node__content {
+  background-color: #25547b;
+}
+.tree-menu .nav-wrap /deep/ .is-current > .el-tree-node__content span {
+  color: #df7d26;
+}
+.tree-menu .nav-wrap /deep/ .el-tree-node__content:hover {
+  background-color: #25547b;
+}
+.tree-menu .nav-wrap /deep/ .el-tree-node__content .el-tree-node__expand-icon {
+  padding: 0.01rem;
+}
 .top-nav {
   width: 88%;
   height: 0.3rem;
@@ -75,6 +94,23 @@
   background-size: 100% 100%;
   display: flex;
   align-items: center;
+}
+.page-index /deep/ .el-pagination__total {
+  color: #fff;
+  font-size: 0.16rem;
+}
+.page-index /deep/ .el-pagination button {
+  background: none;
+}
+.page-index /deep/ .el-pager li {
+  background: none;
+}
+.page-index /deep/ .number {
+  color: #fff;
+  font-size: 0.16rem;
+}
+.page-index /deep/ .active {
+  color: #409EFF;
 }
 .add-del {
   width: 2.6rem;
