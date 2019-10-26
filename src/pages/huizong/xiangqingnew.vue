@@ -892,7 +892,7 @@ export default {
             this.selected = o;
             this.rightData1 = data.data.data.type;
             this.rightData2 = data.data.data.cou;
-            console.log(this.rightData1,this.rightData2)
+            // console.log(this.rightData1,this.rightData2)
             this.chartNew1();
 
             this.series = data.data.data.series;

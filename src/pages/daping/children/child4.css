@@ -1,0 +1,103 @@
+.wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.6);
+  color: #00e4ff;
+  font-size: 0.72916667vw;
+}
+.wrap .main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 83.75vw;
+  height: 85.74074074vh;
+  background: #082042;
+  box-sizing: border-box;
+  padding: 5.55555556vh 4.16666667vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+.wrap .main .close {
+  position: absolute;
+  top: 0.3125vw;
+  right: 0.3125vw;
+  width: 2.08333333vw;
+  height: 2.08333333vw;
+  background: url(../../../assets/img/dp-close.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .main .item1 {
+  position: relative;
+  width: 100%;
+  height: 54%;
+  box-sizing: border-box;
+  padding: 1.48148148vh 0.52083333vw;
+  background-size: 100% 100%;
+}
+.wrap .main .item2 {
+  position: relative;
+  width: 100%;
+  height: 44%;
+  box-sizing: border-box;
+  border: 0.10416667vw solid #35a4f7;
+}
+.wrap .main .item2 .top {
+  width: 100%;
+  height: 4.16666667vh;
+  display: flex;
+  font-size: 0.9375vw;
+  background: #051327;
+}
+.wrap .main .item2 .top span {
+  flex: 1;
+  line-height: 4.16666667vh;
+  text-align: center;
+}
+.wrap .main .item2 .top .danwei::before {
+  display: inline-block;
+  content: "";
+  width: 1.04166667vw;
+  height: 1.04166667vw;
+  transform: translateY(0.27777778vh);
+  margin-right: 0.3125vw;
+  background: url(../../../assets/img/dp-icon1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .main .item2 .list-wrap {
+  position: relative;
+  width: 100%;
+  height: 28.14814815vh;
+  overflow: hidden;
+}
+.wrap .main .item2 .list-wrap .list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.wrap .main .item2 .list-wrap .list .item {
+  width: 100%;
+  height: 3.51851852vh;
+  font-size: 0.72916667vw;
+  display: flex;
+}
+.wrap .main .item2 .list-wrap .list .item span {
+  flex: 1;
+  line-height: 3.51851852vh;
+  text-align: center;
+}
+.wrap .main .item2 .list-wrap .list .item:nth-child(odd) {
+  background: #11293f;
+}
+.wrap .main .item2 .list-wrap .list .item:nth-child(even) {
+  background: #264c6e;
+}

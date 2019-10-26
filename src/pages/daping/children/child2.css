@@ -1,0 +1,135 @@
+.wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.6);
+}
+.wrap .main-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 83.75vw;
+  height: 85.74074074vh;
+  background: #082042;
+  box-sizing: border-box;
+  padding: 4.62962963vh 4.6875vw 0;
+  font-size: 0.9375vw;
+  color: #fff;
+}
+.wrap .main-box .close {
+  position: absolute;
+  top: 0.3125vw;
+  right: 0.3125vw;
+  width: 2.08333333vw;
+  height: 2.08333333vw;
+  background: url(../../../assets/img/dp-close.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .main-box .top {
+  width: 100%;
+  height: 5.55555556vh;
+  color: #00edfb;
+  display: flex;
+  justify-content: space-between;
+}
+.wrap .main-box .top .l {
+  display: flex;
+  font-size: 1.25vw;
+}
+.wrap .main-box .top .l span {
+  width: 1.97916667vw;
+  height: 1.85185185vh;
+  margin-top: 0.46296296vh;
+  margin-right: 0.3125vw;
+  background: url(../../../assets/img/dp-bg33.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .main-box .top .r {
+  font-size: 1.04166667vw;
+}
+.wrap .main-box .header {
+  width: 100%;
+  height: 7.22222222vh;
+  background: #061933;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.04166667vw;
+  color: #4adbff;
+}
+.wrap .main-box .header span {
+  flex: 1;
+  text-align: center;
+}
+.wrap .main-box .header span:before {
+  display: inline-block;
+  content: "";
+  width: 1.09375vw;
+  height: 1.09375vw;
+  margin-right: 0.26041667vw;
+  transform: translateY(0.27777778vh);
+  background-size: 100% 100%;
+}
+.wrap .main-box .header span:nth-child(1):before {
+  background: url(../../../assets/img/dp-icon1.png) no-repeat;
+}
+.wrap .main-box .header span:nth-child(2):before {
+  background: url(../../../assets/img/dp-icon2.png) no-repeat;
+}
+.wrap .main-box .header span:nth-child(3):before {
+  background: url(../../../assets/img/dp-icon3.png) no-repeat;
+}
+.wrap .main-box .header span:nth-child(4):before {
+  background: url(../../../assets/img/dp-icon4.png) no-repeat;
+}
+.wrap .main-box .header span:nth-child(5):before {
+  background: url(../../../assets/img/dp-icon5.png) no-repeat;
+}
+.wrap .main-box .header span:nth-child(6):before {
+  background: url(../../../assets/img/dp-icon6.png) no-repeat;
+}
+.wrap .main-box .header span:nth-child(7):before {
+  background: url(../../../assets/img/dp-icon7.png) no-repeat;
+}
+.wrap .main-box .list {
+  width: 100%;
+  height: 57.87037037vh;
+}
+.wrap .main-box .list .item {
+  width: 100%;
+  height: 4.44444444vh;
+  display: flex;
+  font-size: 0.9375vw;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrap .main-box .list .item span {
+  flex: 1;
+  text-align: center;
+}
+.wrap .main-box .list .item:nth-child(odd) {
+  background: #11293f;
+}
+.wrap .main-box .list .item:nth-child(even) {
+  background: #264c6e;
+}
+.wrap .main-box .page {
+  width: 23.95833333vw;
+  height: 7.40740741vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrap .main-box .page /deep/ .btn-next {
+  color: #00edfb;
+}
+.wrap .main-box .page /deep/ .btn-prev {
+  color: #00edfb;
+}

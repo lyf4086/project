@@ -1,0 +1,140 @@
+
+@vw:19.2vw;
+@vh:10.8vh;
+
+.wrap{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index: 9;
+    background: rgba(0,0,0,0.6);
+    .main-box{
+        position: absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        margin:auto;
+        width:1608/@vw;
+        height:926/@vh;
+        background: #082042;
+        box-sizing: border-box;
+        padding:50/@vh 90/@vw 0;
+        font-size: 18/@vw;
+        color:#fff;
+        .close{
+            position: absolute;
+            top:6/@vw;
+            right:6/@vw;
+            width:40/@vw;
+            height:40/@vw;
+            background: url(../../../assets/img/dp-close.png) no-repeat;
+            background-size: 100% 100%;
+        }
+        .top{
+            width:100%;
+            height: 60/@vh;
+            color:#00edfb;
+            display: flex;
+            justify-content: space-between;
+            .l{
+                display: flex;
+                font-size: 24/@vw;
+                span{
+                    width:38/@vw;
+                    height:20/@vh;
+                    margin-top: 5/@vh;
+                    margin-right: 6/@vw;
+                    background: url(../../../assets/img/dp-bg33.png)no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+            .r{
+                font-size: 20/@vw;
+            }
+        }
+        .header{
+            width:100%;
+            height:78/@vh;
+            background: #061933;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20/@vw;
+            color:#4adbff;
+           span{
+               flex: 1;
+               text-align: center;
+           }
+            span:before{
+                display: inline-block;
+                content: "";
+                width:21/@vw;
+                height:21/@vw;
+                margin-right:5/@vw;
+                transform: translateY(3/@vh);
+                background-size: 100% 100%;
+            }
+            span:nth-child(1):before{
+                background: url(../../../assets/img/dp-icon1.png) no-repeat;
+            }
+            span:nth-child(2):before{
+                background: url(../../../assets/img/dp-icon2.png) no-repeat;
+            }
+            span:nth-child(3):before{
+                background: url(../../../assets/img/dp-icon3.png) no-repeat;
+            }
+            span:nth-child(4):before{
+                background: url(../../../assets/img/dp-icon4.png) no-repeat;
+            }
+            span:nth-child(5):before{
+                background: url(../../../assets/img/dp-icon5.png) no-repeat;
+            }
+            span:nth-child(6):before{
+                background: url(../../../assets/img/dp-icon6.png) no-repeat;
+            }
+            span:nth-child(7):before{
+                background: url(../../../assets/img/dp-icon7.png) no-repeat;
+            }
+        }
+        .list{
+            width: 100%;
+            height:625/@vh;
+            .item{
+                width:100%;
+                height:48/@vh;
+                display: flex;
+                font-size: 18/@vw;
+                justify-content: space-between;
+                align-items: center;
+                span{
+                    flex: 1;
+                    text-align: center;
+
+                }
+            }
+            .item:nth-child(odd){
+                background: #11293f;
+            }
+            .item:nth-child(even){
+                background: #264c6e;
+            }
+        }
+        .page{
+            width:460/@vw;
+            height:80/@vh;
+            margin:0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /deep/.btn-next{
+                color:#00edfb;
+            }
+            /deep/.btn-prev{
+                color:#00edfb;
+            }
+        }
+    }
+}

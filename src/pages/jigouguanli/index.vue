@@ -469,7 +469,6 @@ export default {
         .then(data => {
           this.jigoulist = data.data.data.list; //.....返回数据赋值给当前显示的机构列表
           this.pageTotal = data.data.data.psum - 0;
-          // console.log(this.pageTotal)
           this.loading.close()
         })
         .catch(error => {

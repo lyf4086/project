@@ -51,7 +51,7 @@ let Item14XQ = () => import('../pages/huizong/item14xq/index.vue')
 let CenterXQ = () => import('../pages/huizong/centerxq/index.vue')
 
 let GlobalScreem =()=>import('../pages/globalscreem/index.vue')
-
+let DaPing =()=>import('../pages/daping/index.vue')
 let PeiZhi = ()=>import('../pages/peizhi')
 
 
@@ -281,6 +281,11 @@ let router = new Router({
     path:'/globalscreem',
     name:'GlobalScreem',
     component:GlobalScreem
+  },
+  {
+    path:'/daping',
+    name:'DaPing',
+    component:DaPing
   },
   {
     path: '/login',

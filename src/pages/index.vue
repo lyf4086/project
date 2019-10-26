@@ -213,8 +213,8 @@ export default {
   },
   methods: {
     toBigScreem(){
-      return
-      this.$router.push('/globalscreem')
+      // return
+      this.$router.push('/daping')
     },
     tongbu() {
       let that = this;

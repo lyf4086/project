@@ -1,0 +1,172 @@
+
+@vw:19.2vw;
+@vh:10.8vh;
+
+.wrap{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index: 9;
+    background: rgba(0,0,0,0.6);
+    color:#00e4ff;
+    font-size: 14/@vw;
+    .main{
+        position: absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        margin:auto;
+        width:1608/@vw;
+        height:926/@vh;
+        background: #082042;
+        box-sizing: border-box;
+        padding:0/@vh 85/@vw;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: space-around;
+        .close{
+            position: absolute;
+            top:6/@vw;
+            right:6/@vw;
+            width:40/@vw;
+            height:40/@vw;
+            background: url(../../../assets/img/dp-close.png) no-repeat;
+            background-size: 100% 100%;
+        }
+       .up-area{
+        width:100%;
+        height:48%;
+        .nav{
+            width:100%;
+            height:60/@vh;
+            display: flex;
+            justify-content: space-between;
+            .btns{
+                width:554/@vw;
+                height:100%;
+                background: rgba(146, 13, 13, 0.2);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .btn{
+                    width:154/@vw;
+                    height:42/@vh;
+                    font-size: 16/@vw;
+                    line-height: 38/@vh;
+                    text-align: center;
+                    background: rgba(224, 224, 40,0.2);
+                }
+            }
+            .selects{
+                width:388/@vw;
+                height: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                /deep/.el-input__inner{
+                    box-sizing: border-box;
+                    width:120/@vw;
+                    height:32/@vh;
+                    font-size: 12/@vw;
+                    color:#fff;
+                    border:1/@vw solid #35a4f7;
+                    background: none;
+                    padding:0;
+                    text-align: center;
+                    
+                }
+                /deep/.el-input__prefix{
+                    display: none;
+                }
+                /deep/.el-input{
+                    width:120/@vw;
+                }
+                button{
+                    width:66/@vw;
+                    height:24/@vh;
+                    line-height: 24/@vh;
+                    font-size: 12/@vw;
+                    color:#fff;
+                    border-radius: 12/@vh;
+                    background: #0d2f6e;
+                    &:before{
+                        display: inline-block;
+                        content:"";
+                        width:15/@vw;
+                        height:15/@vw;
+                        background: url(../../../assets/img/search-icon.png) no-repeat;
+                        background-size: 100% 100%;
+                        transform: translate(-3/@vw, 3/@vh);
+                        
+                    }
+                }
+            }
+        }
+        .title{
+            margin-top: 10/@vh;
+            widows: 100%;
+            height:64/@vh;
+            font-size: 20/@vw;
+            color:#3db8d8;
+            background: #061933;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            span{
+                flex: 1;
+                text-align: center;
+            }
+        }
+        .list-wrap{
+            position: relative;
+            width:100%;
+            height:310/@vh;
+            background: rgba(122, 172, 72,0.1);
+            overflow: hidden;
+            .bg{
+                width:100%;
+                height:100%;
+                display:flex;
+                flex-wrap: wrap;
+                span{
+                    width:100%;
+                    height:39/@vh;
+                }
+                span:nth-child(even){
+                    background: #264c6e;
+                }
+                span:nth-child(odd){
+                    background: #11293f;
+                }
+            }
+            .list{
+                position: absolute;
+                top:0;
+                left:0;
+                width:100%;
+                .item{
+                    width:100%;
+                    height:39/@vh;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    span{
+                        flex: 1;
+                        text-align: center;
+                        font-size: 18/@vw;
+                        color:#fff;
+                    }
+                }
+            }
+        }
+       }
+       .down-area{
+        width:100%;
+        height:48%;
+       }
+    }
+}

@@ -53,13 +53,13 @@
       <div class="btns">
         <span @click="changeperson(index)" v-if="sync !=1">修改人员</span>
         <span @click="setjuese(index)">设置角色</span>
-        <span @click="setmima(item)">设置初始密码</span>
+        <span @click="setmima(item)">{{item.sta===1?'修改初始密码':'设置初始密码'}}</span>
       </div>
       <button class="del-one" @click="delClick(item)">X</button>
     </div>
     <div class="zhezhao" v-show="changeShow||xiangqing">
       <div class="changepsd" v-show="changeShow">
-        <i>用户：{{changing}} 设置初始密码</i>
+        <i>用户：{{changing}} 设置或修改初始密码</i>
         <div class="putwrap">
           <span>新 密 码：</span>
           <input type="password" class="pass1" placeholder="新密码" v-model="pwd1" />

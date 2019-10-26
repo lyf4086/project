@@ -1,0 +1,126 @@
+.wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.6);
+  color: #00e4ff;
+  font-size: 0.72916667vw;
+}
+.wrap .main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 83.75vw;
+  height: 85.74074074vh;
+  background: #082042;
+  box-sizing: border-box;
+  padding: 5.55555556vh 4.16666667vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+.wrap .main .close {
+  position: absolute;
+  top: 0.3125vw;
+  right: 0.3125vw;
+  width: 2.08333333vw;
+  height: 2.08333333vw;
+  background: url(../../../assets/img/dp-close.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .main .item1 {
+  position: relative;
+  width: 100%;
+  height: 54%;
+  box-sizing: border-box;
+  padding: 1.48148148vh 0.52083333vw;
+  background: url(../../../assets/img/dp-long.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .main .item1 .tit {
+  position: absolute;
+  top: -0.26041667vw;
+  left: 2.08333333vw;
+  font-size: 0.83333333vw;
+  line-height: 1.04166667vw;
+}
+.wrap .main .item1 .list-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.wrap .main .item1 .list-wrap .list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1.04166667vw;
+}
+.wrap .main .item1 .list-wrap .list .item {
+  width: 100%;
+  height: 9.25925926vh;
+  border-bottom: 0.10416667vw dotted #115371;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrap .main .item1 .list-wrap .list .item span {
+  font-size: 0.9375vw;
+}
+.wrap .main .item1 .list-wrap .list .item .one {
+  width: 15.52083333vw;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrap .main .item1 .list-wrap .list .item .one .name {
+  width: 4.375vw;
+  height: 2.03703704vh;
+  background: url(../../../assets/img/dp-bg11.png) no-repeat;
+  background-size: 100% 100%;
+  font-size: 0.625vw;
+  line-height: 2.22222222vh;
+  text-align: center;
+}
+.wrap .main .item1 .list-wrap .list .item .one .number {
+  width: 9.27083333vw;
+  height: 3.88888889vh;
+  background: url(../../../assets/img/dp-bg11.png) no-repeat;
+  background-size: 100% 100%;
+  font-size: 1.35416667vw;
+  line-height: 3.88888889vh;
+  text-align: center;
+}
+.wrap .main .item2 {
+  position: relative;
+  width: 100%;
+  height: 42%;
+  box-sizing: border-box;
+}
+.wrap .main .item2 #child1_chart1 {
+  width: 100%;
+  height: 100%;
+}
+.wrap .main .item2 .tit {
+  position: absolute;
+  top: -0.05208333vw;
+  left: 0.52083333vw;
+  font-size: 1.25vw;
+}
+.wrap .main .item2 .tit span {
+  display: inline-block;
+  width: 1.97916667vw;
+  height: 1.66666667vh;
+  background: url(../../../assets/img/dp-bg33.png) no-repeat;
+  background-size: 100% 100%;
+}

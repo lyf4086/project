@@ -236,7 +236,15 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200 && data.data.data.length != 0) {
-            this.itemList = data.data.data.list;
+             this.itemList = data.data.data.list.map(e => {
+                return {
+                  ...e,
+                  zhuangtai: 1,
+                  put1show: false,
+                  put2show: false,
+                  put3show: false
+                };
+              });
           }
           this.selValue = "";
           this.putValue = "";

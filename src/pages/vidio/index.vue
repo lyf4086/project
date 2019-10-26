@@ -101,7 +101,7 @@
               <!-- </el-form-item> -->
 
             </div>
-            <button class="close" @click="close">取消</button>
+            <button class="close" @click="close">确定</button>
             <div class="del"  @click="close">X</div>
           </div>
             
@@ -188,7 +188,12 @@ import Content from './children/content'
             })
           },
           beforeUploadVideo(file) {
-            
+            this.loading = this.$loading({
+              lock: true,
+              text: "Loading",
+              spinner: "el-icon-loading",
+              background: "rgba(0, 0, 0, 0.7)"
+            });
              var objs = {
                "policeid":this.jingyuanSel,
                "gun_id":this.qiangzhiSel,
@@ -236,6 +241,7 @@ import Content from './children/content'
               this.videoUploadPercent-=0
           },
           handleVideoSuccess(res, file) {       //获取上传图片地址
+            this.loading.close()
               this.videoFlag = false;
               // this.videoUploadPercent = 0;
               if(res.code == 200){

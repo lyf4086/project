@@ -235,10 +235,11 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      this.search(1, this.putValue);
+      this.search('',1, this.putValue);
     },
-    search(n = 1, val = "") {
+    search(id='',n = 1, val = "") {
       var objs = {
+        mechanism_id:id,
         p: n,
         ps: "12"
       };
@@ -249,6 +250,7 @@ export default {
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
       var params = new URLSearchParams();
+      params.append("mechanism_id", objs.mechanism_id);
       params.append("p", objs.p);
       params.append("ps", objs.ps);
       params.append(name_code, objs[name_code]);
@@ -258,7 +260,8 @@ export default {
       this.$axios({
         url:
           this.$store.state.baseURL +
-          "/weixin/project/index.php?m=home&c=search&a=gunaimings",
+          // "/weixin/project/index.php?m=home&c=search&a=gunaimings",
+          "/weixin/project/index.php?m=home&c=gunaiming&a=gunaimings",
         method: "POST",
         changeOrigin: true,
         data: params
@@ -266,7 +269,6 @@ export default {
         .then(data => {
           if (data.data.code == 200 && data.data.data.length != 0) {
             this.qiangmiaoData = data.data.data.list;
-            
           }
           this.selValue = "";
           this.putValue = "";
