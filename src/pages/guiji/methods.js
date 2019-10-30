@@ -105,16 +105,16 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
       return Object.assign(item, o)
     })
     let warningtype=JSON.parse(sessionStorage.getItem('everBodyWarningType'))
-    console.log(warningtype)
+    // console.log(warningtype)
     let activeImg = require("@/assets/img/head-icon.png");//引入默认图片
     let markerArr = bbb.map((e, i) => {
-      // let tar=warningtype.find(item=>item.policeuser_id==e.policeuser_id)
       return new AMap.Marker({
-        content: `<div class="marker-route" >
+        content: `<div class="marker-route">
                     <div class="cover"></div>
                     <div class="img_wrap">
                       <img src="${this.header[this.headName] || e.policeuser.icon || activeImg}" />
                     </div>
+                    <div class="set-type ${e.IMEI}"></div>
                   </div>`,
         position: e.ponint,
         jigou: e.mechanism_name,
@@ -130,10 +130,10 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
         policeuser_id: e.policeuser_id
       })
     })
-
     markerArr.forEach(item => {
       AMap.event.addListener(item, 'click', function (ev) {
 
+        // $('#settype').addClass('litao-s')
         that.creatInfoBox(item)
 
       })
@@ -240,6 +240,7 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
     changeOrigin: true,
     data: params
   }).then((data) => {
+    let that=this
     if (data.data.code == '200') {
       this.loading.close()
       this.oldOrNew = 'old'
@@ -247,6 +248,7 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
       if (!data.data.data.list.length) {
         this.$message('暂时没有轨迹数据')
         this.checkTime = false
+
       } else {
         let that = this
         let lineArrAndBaoJing = data.data.data.list.filter(e => e.alarm)
@@ -287,6 +289,10 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
             that.map.setFitView()
           } else {
             console.log(error)
+            that.$message({
+              type:"error",
+              message:"引擎返回数据异常！"
+            })
           }
         })
 
@@ -1091,16 +1097,13 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
                 <div class="img_wrap">
                   ${imgurl}
                 </div>
+                <div class="set-type ${e.IMEI}"></div>
               </div>`,
       position: [e.position.longitude, e.position.latitude],
-      // title: e.policeuser_name ,
       title:title,
-      // src: e.icon,
       src:src,
       jigou: jigou,
-      // jigou:e.mechanism.mechanism_name,
       gtype: e.gtype,
-      // time: e.created ,
       time:time,
       IMEI: e.IMEI,
       heart: e.heart,
@@ -1157,7 +1160,6 @@ function delOneAlarmArea(id) { //.....删除一个报警区域
 }
 
 function getNewPosition(id) {
-
   let IMEIstr = this.moveingPersonList.map(e => e.IMEI).join()
   var objs = {
     "IMEI": IMEIstr,
@@ -1165,7 +1167,6 @@ function getNewPosition(id) {
     "area_id": id || '',
     "lid": this.value
   };
-  // console.log(objs)
   var key = this.$store.state.key;
   var sign = this.$methods.mkSign(objs, key);
   var token = this.$gscookie.getCookie('gun')
@@ -1200,14 +1201,16 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
   this.oldPositionArr = this.markerArr.map(item => {
     return {
       "IMEI": item.Ge.IMEI,
+      "astate":"",
       "lng": item.Ge.position.lng - 0,
       "lat": item.Ge.position.lat - 0
     }
   })
-
+// astate    1离套   2入套   3范围
   let newA = newPositionArr.map(item => {
     return {
       "IMEI": item.IMEI,
+      "astate":item.astate,
       "lng": item.longitude - 0,
       "lat": item.latitude - 0
     }
@@ -1233,18 +1236,22 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
     return [item.lng, item.lat]
   })
 
-  // targetPosition.forEach((item,index)=>{
-  //没有动画效果
-  //   this.markerArr[index].setPosition(item)
-  // })
-  // targetPosition.forEach((item,index)=>{
-  //   console.log(item)
-  //   this.markerArr[index].moveTo(item,2)
-  // })
-  //问题就出在这里
+  
   //标记点所有动画停止
+  // 王瑞军  900019300102007
+  newA.forEach((item,index)=>{
+    if(item.astate==="1"){
+      $(`.${item.IMEI}`).addClass('litao-s')
+    }else if(item.astate==="2"){
+      $(`.${item.IMEI}`).addClass('rutao-s')
+    }else if(item.astate==="3"){
+      $(`.${item.IMEI}`).addClass('fanwei-s')
+    }else{
+      $(`.${item.IMEI}`).removeClass('fanwei-s rutao-s litao-s')
+    }
+  })
 
-
+  // console.log($('.900019300102007').addClass('litao-s'))
   targetPosition.forEach((item, index) => {
     let speed = speedArr[index] ? speedArr[index] : 10
     this.markerArr[index].moveTo(item, speed)

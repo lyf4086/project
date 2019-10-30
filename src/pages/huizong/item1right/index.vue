@@ -51,6 +51,13 @@ export default {
   },
   methods: {
     sub() {
+      if(new Date(this.timeStart).getTime() >new Date(this.timeEnd).getTime()){
+        this.$message({
+          type:"error",
+          message:"时间选择有误"
+        })
+        return
+      }
       let str = this.timeStart + "," + this.timeEnd;
       this.loading = this.$loading({
         lock: true,

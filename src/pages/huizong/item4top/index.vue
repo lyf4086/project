@@ -245,6 +245,13 @@ export default {
     },
     next1() {
       if (this.dbtimestart && this.dbtimeend) {
+        if(new Date(this.dbtimestart).getTime() >new Date(this.dbtimeend).getTime()){
+          this.$message({
+            type:'error',
+            message:"时间选择有误"
+          })
+          return
+        }
         this.steap = 2;
       } else {
         this.$message({

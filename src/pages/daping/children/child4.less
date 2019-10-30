@@ -1,7 +1,7 @@
 
 @vw:19.2vw;
 @vh:10.8vh;
-
+@rem:100rem;
 .wrap{
     position: absolute;
     top:0;
@@ -78,7 +78,8 @@
                 position: relative;
                 width: 100%;
                 height:304/@vh;
-                overflow: hidden;
+                overflow-x: hidden;
+                overflow-y: auto;
                 .list{
                     position: absolute;
                     top:0;
@@ -88,6 +89,7 @@
                         width:100%;
                         height:38/@vh;
                         font-size: 14/@vw;
+                        color:#fff;
                         display: flex;
                         span{
                             flex: 1;
@@ -107,3 +109,26 @@
       
     }
 }
+
+
+
+.list-wrap::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 4/@rem;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4/@rem;
+  }
+
+  .list-wrap::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5/@rem;
+    -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+    background: rgba(34, 3, 117, 0.8);
+  }
+
+  .list-wrap::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(221, 213, 213, 0.6);
+  }

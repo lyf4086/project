@@ -10,8 +10,8 @@
           :highlight-current="true"
           node-key="id"
           :current-node-key="currentNodeKey"
-          default-expand-all
           @node-click="handleNodeClick"
+          :default-expanded-keys="zhankai"
         ></el-tree>
       </div>
     </div>
@@ -162,7 +162,8 @@ export default {
       currentPage: 0,
       sync: 0, //动静态区分，默认静态，1为动态
       roles:[],
-      loading:null
+      loading:null,
+      zhankai:[]
     };
   },
   methods: {
@@ -278,6 +279,7 @@ export default {
       })
         .then(data => {
           this.treeListData = data.data.data.list;
+          this.zhankai.push(data.data.data.list[0].id)
           if (jiGouId) {
             this.clickTree(jiGouId, yeMa);
           } else {

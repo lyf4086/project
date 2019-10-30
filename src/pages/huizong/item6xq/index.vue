@@ -103,14 +103,22 @@ export default {
      })
     },
     subSearch() {
+      let start = this.timeStart;
+      let end = this.timeEnd;
+      if(new Date(start).getTime() >new Date(end).getTime()){
+        this.$message({
+          type:"error",
+          message:"时间选择有误"
+        })
+        return 
+      }
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      let start = this.timeStart;
-      let end = this.timeEnd;
+      
       let selmec = this.mec.filter(e => e.checked);
       let mid = selmec.map(e => e.id).join();
       let ip_id = selmec.map(e => e.ip_id).join();

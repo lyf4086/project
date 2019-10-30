@@ -20,6 +20,8 @@
 .tree-menu {
   width: 11%;
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .tree-menu h3 {
   width: 100%;
@@ -51,19 +53,19 @@
 .tree-menu .nav-wrap /deep/ .el-tree-node__content .el-tree-node__expand-icon {
   padding: 0.01rem;
 }
-.tree-menu .nav-wrap::-webkit-scrollbar {
+.tree-menu::-webkit-scrollbar {
   /*滚动条整体样式*/
   width: 4px;
   /*高宽分别对应横竖滚动条的尺寸*/
   height: 4px;
 }
-.tree-menu .nav-wrap::-webkit-scrollbar-thumb {
+.tree-menu::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
   border-radius: 5px;
   -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
   background: rgba(34, 3, 117, 0.8);
 }
-.tree-menu .nav-wrap::-webkit-scrollbar-track {
+.tree-menu::-webkit-scrollbar-track {
   /*滚动条里面轨道*/
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0;

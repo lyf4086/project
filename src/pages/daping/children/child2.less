@@ -1,7 +1,7 @@
 
 @vw:19.2vw;
 @vh:10.8vh;
-
+@rem:100rem;
 .wrap{
     position: absolute;
     top:0;
@@ -32,6 +32,19 @@
             height:40/@vw;
             background: url(../../../assets/img/dp-close.png) no-repeat;
             background-size: 100% 100%;
+        }
+        #item2map{
+            position: absolute;
+            z-index: 22;
+            top:0;
+            left:0;
+            right:0;
+            bottom: 0;
+            margin: auto;
+            width:90%;
+            height:90%;
+            background: oldlace;
+            
         }
         .top{
             width:100%;
@@ -102,6 +115,9 @@
         .list{
             width: 100%;
             height:625/@vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             .item{
                 width:100%;
                 height:48/@vh;
@@ -138,3 +154,65 @@
         }
     }
 }
+
+.list::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 4/@rem;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4/@rem;
+  }
+
+  .list::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5/@rem;
+    -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+    background: rgba(34, 3, 117, 0.8);
+  }
+
+  .list::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(221, 213, 213, 0.6);
+  }
+
+  
+  .marker-route11 {
+    position: relative;
+    // width:70/@rem;
+    // height:90/@rem;
+    width: 50/@rem;
+    height: 60/@rem;
+    border:10px solid red;
+
+  }
+
+  .marker-route11 .cover11 {
+      position: absolute;
+      top:0;
+      left:0;
+      z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: url(../../../assets/img/tou.png) no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .marker-route11 .img_wrap11 {
+    // width:68/@rem;
+    // height:76/@rem;
+    width: 46/@rem;
+    height: 50/@rem;
+    margin-top: 3/@rem;
+    margin-left: 1/@rem;
+    border-radius: 50%;
+    // background: red;
+    overflow: hidden;
+
+    img {
+        position: absolute;
+        top:2/@vw;
+        left:0;
+      width: 100%;
+    }
+  }

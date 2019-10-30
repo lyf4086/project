@@ -24,13 +24,8 @@
   }
   .marker-route {
     position: relative;
-    // width:70/@rem;
-    // height:90/@rem;
-    width: 50/@rem;
-    height: 60/@rem;
-
-    // border:1px solid red;
-
+    width: 40/@rem;
+    height: 46/@rem;
   }
 
   .marker-route .cover {
@@ -48,29 +43,42 @@
       
     }
     .litao{
-      background: red;
+      // background: red;
     }
   }
 
   .marker-route .img_wrap {
-    // width:68/@rem;
-    // height:76/@rem;
-    width: 46/@rem;
-    height: 50/@rem;
-    margin-top: 3/@rem;
-    margin-left: 1/@rem;
+    width: 38/@rem;
+    height: 38/@rem;
+    margin-top: 1/@rem;
+    margin-left: 0/@rem;
     border-radius: 50%;
-    // background: red;
     overflow: hidden;
 
     img {
       width: 102%;
     }
   }
-
-
-
-
+  .marker-route .set-type{
+    position: absolute;
+    z-index: 999;
+    top:-9/@rem;
+    right:-9/@rem;
+    width:22/@rem;
+    height:22/@rem;
+  }
+  .marker-route .litao-s{
+    background: url(../../assets/img/litao-s.png);
+    background-size: 100% 100%;;
+  }
+  .marker-route .rutao-s{
+    background: url(../../assets/img/rutao-s.png);
+    background-size: 100% 100%;;
+  }
+  .marker-route .fanwei-s{
+    background: url(../../assets/img/fanwei-s.png);
+    background-size: 100% 100%;;
+  }
 
 
 
@@ -568,26 +576,22 @@
       }
 
       span:nth-child(1)::before {
-        background: url(../../assets/img/guiji-icon6.png) no-repeat;
+        background: url(../../assets/img/litao-i.png) no-repeat;
         background-size: 100% 100%;
       }
 
       span:nth-child(2)::before {
-        background: url(../../assets/img/rutao.png) no-repeat;
+        background: url(../../assets/img/rutao-i.png) no-repeat;
         background-size: 100% 100%;
       }
 
       span:nth-child(3)::before {
         height: 32/@rem;
         margin-bottom: -9/@rem;
-        background: url(../../assets/img/zhiqin.png) no-repeat;
+        background: url(../../assets/img/fanwei-i.png) no-repeat;
         background-size: 100% 100%;
       }
 
-      span:nth-child(4)::before {
-        background: url(../../assets/img/guiji-icon9.png) no-repeat;
-        background-size: 100% 100%;
-      }
     }
   }
 
@@ -1181,13 +1185,13 @@ div.info-bottom img {
     }
     .i:nth-child(2){
       span{
-        background: url(../../assets/img/jiupian-a.png)no-repeat;
+        background: url(../../assets/img/bujiupian-a.png)no-repeat;
         background-size: 100% 100%;
       }
     }
     .i:nth-child(3){
       span{
-        background: url(../../assets/img/bujiupian-a.png)no-repeat;
+        background: url(../../assets/img/jiupian-a.png)no-repeat;
         background-size: 100% 100%;
       }
     }
@@ -1195,7 +1199,7 @@ div.info-bottom img {
       color:#fff;
       background: #3873a4;
       span{
-        background: url(../../assets/img/jiupian.png)no-repeat;
+        background: url(../../assets/img/bujiupian.png)no-repeat;
         background-size: 100% 100%;
       }
     }
@@ -1203,7 +1207,7 @@ div.info-bottom img {
       color:#fff;
       background: #3873a4;
       span{
-        background: url(../../assets/img/bujiupian.png)no-repeat;
+        background: url(../../assets/img/jiupian.png)no-repeat;
         background-size: 100% 100%;
       }
     }

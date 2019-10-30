@@ -6,21 +6,21 @@
                 <div class="tit">枪弹药列表详情</div>
                 <div class="list-wrap">
                     <div class="list" id="dp-item1-list">
-                        <div class="item" v-for="e in 10">
+                        <div class="item" v-for="(item,index) in list" :key="index">
                             <div class="l">
-                                <span>浙江</span>
+                                <span>{{item.sname}}</span>
                                 <div class="name">弹药总数</div>
-                                <div class="number">4567545</div>
+                                <div class="number">{{item.total}}</div>
                                 <span>枚</span>
                             </div>
                             <div class="c">
-                                <div class="name">弹药总数</div>
-                                <div class="number">4567545</div>
+                                <div class="name">在库数量</div>
+                                <div class="number">{{item.zaiku}}</div>
                                 <span>枚</span>
                             </div>
                             <div class="r">
-                                <div class="name">弹药总数</div>
-                                <div class="number">4567545</div>
+                                <div class="name">出库数量</div>
+                                <div class="number">{{item.chuku}}</div>
                                 <span>枚</span>
                             </div>
                         </div>
@@ -43,6 +43,12 @@
 </style>
 <script>
 export default {
+    props:{
+        list:{
+            type:Array,
+            default:[]
+        }
+    },
     data(){
         return {
             a:'2222'
@@ -55,12 +61,11 @@ export default {
         listMove(){
             this.$methods.listMove("#dp-item1-list",2000)
         },
-        chartleft(){
+        chartleft(names,list){
             let that = this;
             let box = document.getElementById("child1_chart1");
             let Echart = this.$echarts.init(box);
             let option = {
-                // backgroundColor:'#000',
                 "animation": true,
                 "title": {
                     "text": '',
@@ -93,7 +98,8 @@ export default {
                     "bottom": "0",
                     "padding": [1, 20],
                     "itemGap": 20,
-                    "data": ["测量工", "电焊工", "钢筋工", "沥青工", "安装工", "起重工", "养护工", "其它"]
+                    "data": names
+                    // ["测量工", "电焊工", "钢筋工", "沥青工", "安装工", "起重工", "养护工", "其它"]
                 },
                 "series": [{
                     "type": "pie",
@@ -183,31 +189,7 @@ export default {
                             }
                         }
                     },
-                    "data": [{
-                        "name": "测量工",
-                        "value": 3
-                    }, {
-                        "name": "电焊工",
-                        "value": 2
-                    }, {
-                        "name": "钢筋工",
-                        "value": 26
-                    }, {
-                        "name": "沥青工",
-                        "value": 24
-                    }, {
-                        "name": "安装工",
-                        "value": 12
-                    }, {
-                        "name": "起重工",
-                        "value": 11
-                    }, {
-                        "name": "养护工",
-                        "value": 3
-                    }, {
-                        "name": "其它",
-                        "value": 2
-                    }]
+                    "data": list
                 }, {
                     "type": "pie",
                     "center": ["50%", "50%"],
@@ -251,7 +233,7 @@ export default {
             }
             Echart.setOption(option)
         },
-        chartright(){
+        chartright(types,citys,zongliang,zaiku,chuku){
             let that = this;
             let box = document.getElementById("child1_chart2");
             let Echart = this.$echarts.init(box);
@@ -266,7 +248,8 @@ export default {
                     textStyle:{
                         color:"#fff"
                     },
-                    data: ['A级门店', 'B级门店','C级门店']
+                    data: types
+                    // ['A级门店', 'B级门店','C级门店']
                 },
                 grid: {
                     left: '10%',
@@ -276,7 +259,7 @@ export default {
                 },
                 xAxis:  {
                     type: 'value',
-                    max: 1000,
+                    // max: 100000,
                      axisLabel: {
                         show: true,
                         color: '#fff',
@@ -299,11 +282,12 @@ export default {
                         }
                     },
                     type: 'category',
-                    data: ['福建','广州','厦门','南宁','背景','长沙','重庆']
+                    data: citys
+                    // ['福建','广州','厦门','南宁','背景','长沙','重庆']
                 },
                 series: [
                     {
-                        name: 'A级门店',
+                        name: types[0],
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
@@ -321,10 +305,10 @@ export default {
                             }
                         },
                         z:  10,
-                        data: [320, 302, 301, 334, 390, 330, 320]
+                        data: zongliang
                     },
                     {
-                        name: 'B级门店',
+                        name: types[1],
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
@@ -345,10 +329,10 @@ export default {
                             }
                         },
                         z: 5,
-                        data: [120, 132, 101, 134, 90, 230, 210]
+                        data: zaiku
                     },
                     {
-                        name: 'C级门店',
+                        name: types[2],
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
@@ -369,7 +353,7 @@ export default {
                             }
                         },
                         
-                        data: [220, 182, 191, 234, 290, 330, 310]
+                        data: chuku
                     },
                     // {  // 灰色背景柱状图
                     //     type: 'bar',
@@ -391,10 +375,23 @@ export default {
         }
     },
     mounted(){
-        this.chartleft()
-        this.chartright()
-        this.listMove()
-        
+       if(this.list.length>4){
+            this.listMove()
+        }
+        let chart1Names=this.list.map(item=>item.sname)
+        let chart1List=this.list.map(item=>{
+            return {
+                "name":item.sname,
+                "value":item.total
+            }
+        })
+        this.chartleft(chart1Names,chart1List)
+
+        let chart2names=['总量','在线','不在线']
+        let zongliang=this.list.map(item=>item.total)
+        let zaiku=this.list.map(item=>item.zaiku)
+        let chuku=this.list.map(item=>item.chuku)
+        this.chartright(chart2names,chart1Names,zongliang,zaiku,chuku)
     }
 }
 </script>

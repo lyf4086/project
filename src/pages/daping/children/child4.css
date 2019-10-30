@@ -76,7 +76,8 @@
   position: relative;
   width: 100%;
   height: 28.14814815vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .wrap .main .item2 .list-wrap .list {
   position: absolute;
@@ -88,6 +89,7 @@
   width: 100%;
   height: 3.51851852vh;
   font-size: 0.72916667vw;
+  color: #fff;
   display: flex;
 }
 .wrap .main .item2 .list-wrap .list .item span {
@@ -100,4 +102,22 @@
 }
 .wrap .main .item2 .list-wrap .list .item:nth-child(even) {
   background: #264c6e;
+}
+.list-wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 0.04rem;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0.04rem;
+}
+.list-wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 0.05rem;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.list-wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
 }

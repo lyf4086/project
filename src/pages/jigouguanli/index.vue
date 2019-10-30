@@ -10,7 +10,7 @@
           :highlight-current="true"
           node-key="id"
           :current-node-key="currentNodeKey"
-          default-expand-all
+          :default-expanded-keys="zhankai"
           @node-click="handleNodeClick"
         ></el-tree>
       </div>
@@ -157,7 +157,8 @@ export default {
       selValue: "",
       putValue: "",
       sync: 0 ,//判断动静态，默认静态
-      loading:null
+      loading:null,
+      zhankai:[]
     };
   },
 
@@ -510,6 +511,7 @@ export default {
       })
         .then(data => {
           this.treeData = data.data.data.list;
+          this.zhankai.push(data.data.data.list[0].id)
           this.handClick(this.treeData[0].id);
           function creatTreeStr(obj) {
             let str = "";

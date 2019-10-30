@@ -27,11 +27,17 @@ function getBujiupian(IMEI,stime,etime){
         changeOrigin: true,
         data: params
     }).then((data) => {
+     
       this.loading.close()
+      if(!data.data){
+        this.$message('没有数据')
+        return
+      }
         if (!data.data.length) {
             this.$message('暂时没有轨迹数据')
             this.checkTime = false
         } else {
+          
             let that = this
              let lineArr=data.data.map((e)=>[e.longitude-0,e.latitude-0])
 

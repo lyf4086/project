@@ -10,8 +10,9 @@
           :highlight-current="true"
           node-key="id"
           :current-node-key="currentNodeKey"
-          default-expand-all
           @node-click="handleNodeClick"
+          :default-expanded-keys="zhankai"
+          
         ></el-tree>
       </div>
     </div>
@@ -171,7 +172,8 @@ export default {
       checkType:1,
       currentPage:0,
       keshihua:true,
-      loading:null
+      loading:null,
+      zhankai:[]
     };
   },
   methods: {
@@ -235,7 +237,7 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      this.search('',1, this.putValue);
+      this.search(this.active_fujigou,1, this.putValue);
     },
     search(id='',n = 1, val = "") {
       var objs = {
@@ -246,7 +248,6 @@ export default {
       var token = this.$gscookie.getCookie("gun");
       let name_code = this.selValue;
       objs[name_code] = val;
-
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
       var params = new URLSearchParams();
@@ -256,7 +257,6 @@ export default {
       params.append(name_code, objs[name_code]);
       params.append("sign", sign);
       params.append("token", token);
-
       this.$axios({
         url:
           this.$store.state.baseURL +
@@ -269,6 +269,7 @@ export default {
         .then(data => {
           if (data.data.code == 200 && data.data.data.length != 0) {
             this.qiangmiaoData = data.data.data.list;
+
           }
           this.selValue = "";
           this.putValue = "";
@@ -383,6 +384,7 @@ export default {
               });
               this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
               this.pageTotal = data.data.data.psum * 1;
+              // console.log(this.qiangmiaoData)
             }
         })
         .catch(error => {
@@ -447,6 +449,7 @@ export default {
         data: params
       })
         .then(data => {
+          this.zhankai.push(data.data.data.list[0].id)
           this.treeData = data.data.data.list;
           // this.handleNodeClick(this.treeData[0]); //....主动促发一次点击事件
           this.firstId = this.treeData[0].id;

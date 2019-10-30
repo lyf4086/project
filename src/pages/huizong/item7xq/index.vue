@@ -107,6 +107,13 @@ export default {
      })
     },
     subSearch() {
+      if(new Date(this.timeStart).getTime() >new Date(this.timeEnd).getTime()){
+        this.$message({
+          type:"error",
+          message:"时间选择有误"
+        })
+        return 
+      }
       let start = this.timeStart;
       let end = this.timeEnd;
       let selmec = this.mec.filter(e => e.checked);

@@ -10,8 +10,8 @@
           :highlight-current="true"
           node-key="id"
           :current-node-key="currentNodeKey"
-          default-expand-all
           @node-click="handleNodeClick"
+          :default-expanded-keys="zhankai"
         ></el-tree>
       </div>
     </div>
@@ -196,7 +196,8 @@ export default {
       isRemoving: false,
       sync: 0 ,//判断动静态，默认静态
       keshihua:true,
-      loading:null
+      loading:null,
+      zhankai:[]
     };
   },
 
@@ -523,6 +524,7 @@ export default {
         data: params
       })
         .then(data => {
+          this.zhankai.push(data.data.data.list[0].id)
           this.treeData = data.data.data.list;
           // console.log(data.data.data.list);
           this.active_title = data.data.data.list[0].mechanism_name;

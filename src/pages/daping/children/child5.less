@@ -48,7 +48,6 @@
             .btns{
                 width:554/@vw;
                 height:100%;
-                background: rgba(146, 13, 13, 0.2);
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -56,9 +55,16 @@
                     width:154/@vw;
                     height:42/@vh;
                     font-size: 16/@vw;
+                    color: #57627b;
                     line-height: 38/@vh;
                     text-align: center;
-                    background: rgba(224, 224, 40,0.2);
+                    background: url(../../../assets/img/dp-navbtn.png)no-repeat;
+                    background-size: 100% 100%;
+                }
+                .active{
+                    color: #fbfbfc;
+                    background: url(../../../assets/img/dp-nav-a.png)no-repeat;
+                    background-size: 100% 100%;
                 }
             }
             .selects{
@@ -84,6 +90,19 @@
                 }
                 /deep/.el-input{
                     width:120/@vw;
+                }
+                input{
+                    box-sizing: border-box;
+                    width:120/@vw;
+                    height:32/@vh;
+                    border-radius: 5/@vw;
+                    padding-left: 3/@vw;
+                    font-size: 12/@vw;
+                    color:#fff;
+                    border:1/@vw solid #35a4f7;
+                    background: none;
+                    padding:0;
+                    text-align: center;
                 }
                 button{
                     width:66/@vw;

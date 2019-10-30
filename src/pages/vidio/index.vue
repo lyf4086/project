@@ -9,8 +9,8 @@
                     :highlight-current="true"
                     node-key="id"
                      :current-node-key="currentNodeKey"
-                     default-expand-all
                     @node-click="handleNodeClick"
+                    :default-expanded-keys="zhankai"
                   ></el-tree>
             </div>
 
@@ -151,7 +151,8 @@ import Content from './children/content'
             qiangzhiSel:'',
             shipingName:'',
             t_policeuser_id:'',
-            loading:null
+            loading:null,
+            zhankai:[]
           };
         },
         methods: {
@@ -322,7 +323,7 @@ import Content from './children/content'
                     changeOrigin:true,
                     data:params
                 }).then((data)=>{
-
+                    this.zhankai.push(data.data.data.list[0].id)
                     this.treeListData=data.data.data.list
                     this.handleNodeClick(this.treeListData[0])//..........主动促发点击事件
                 }).catch((error)=>{
@@ -479,6 +480,7 @@ import Content from './children/content'
                 })
             },
             handleNodeClick(item){//树形菜单点击
+            console.log(item)
               this.loading = this.$loading({
                 lock: true,
                 text: "Loading",

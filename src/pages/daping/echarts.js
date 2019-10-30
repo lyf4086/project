@@ -575,7 +575,7 @@ function round4(obj){
     };
     Echart.setOption(option)
 }
-function initMap(n=0){
+function initMap(n=1){
     // selectCity=[[{name: '北京',value: 1000,selected:true}]]
     let that=this
     let main=document.getElementById('main')

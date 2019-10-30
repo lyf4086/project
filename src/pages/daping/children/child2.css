@@ -31,6 +31,18 @@
   background: url(../../../assets/img/dp-close.png) no-repeat;
   background-size: 100% 100%;
 }
+.wrap .main-box #item2map {
+  position: absolute;
+  z-index: 22;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 90%;
+  height: 90%;
+  background: oldlace;
+}
 .wrap .main-box .top {
   width: 100%;
   height: 5.55555556vh;
@@ -100,6 +112,8 @@
 .wrap .main-box .list {
   width: 100%;
   height: 57.87037037vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .wrap .main-box .list .item {
   width: 100%;
@@ -132,4 +146,52 @@
 }
 .wrap .main-box .page /deep/ .btn-prev {
   color: #00edfb;
+}
+.list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 0.04rem;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0.04rem;
+}
+.list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 0.05rem;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.marker-route11 {
+  position: relative;
+  width: 0.5rem;
+  height: 0.6rem;
+  border: 10px solid red;
+}
+.marker-route11 .cover11 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: url(../../../assets/img/tou.png) no-repeat;
+  background-size: 100% 100%;
+}
+.marker-route11 .img_wrap11 {
+  width: 0.46rem;
+  height: 0.5rem;
+  margin-top: 0.03rem;
+  margin-left: 0.01rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.marker-route11 .img_wrap11 img {
+  position: absolute;
+  top: 0.10416667vw;
+  left: 0;
+  width: 100%;
 }

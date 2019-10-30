@@ -10,8 +10,8 @@
           accordion
           node-key="id"
           :current-node-key="currentNodeKey"
-          default-expand-all
           @node-click="handleNodeClick"
+          :default-expanded-keys="zhankai"
         ></el-tree>
       </div>
     </div>
@@ -93,7 +93,8 @@ export default {
       defaultProps: {
         children: "child",
         label: "mechanism_name"
-      }
+      },
+      zhankai:[]
     };
   },
   methods: {
@@ -130,6 +131,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            this.zhankai.push(data.data.data.list[0].id)
             this.treeListData = data.data.data.list;
           }
         })

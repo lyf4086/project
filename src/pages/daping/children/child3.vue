@@ -4,16 +4,16 @@
             <button class="close" @click="cl"></button>
             <div class="item1">
                 <div class="tit">任务信息列表</div>
-                <div class="list-wrap" @click="toXQ">
+                <div class="list-wrap">
                     <div class="list" id="dp-item1-list">
-                        <div class="item" v-for="e in 10">
-                            <span>浙江</span>
-                            <div class="one">
-                                <div class="name">一级任务</div>
-                                <div class="number">4567545</div>
+                        <div class="item" v-for="(item,index) in list" :key="index"  >
+                            <span>{{item[0].cname}}</span>
+                            <div class="one" v-for="(e,i) in item" :key="i" @click="toXQ(e)">
+                                <div class="name">{{e.vtask}}</div>
+                                <div class="number">{{e.total}}</div>
                                 <span>次</span>
                             </div>
-                            <div class="one">
+                            <!-- <div class="one">
                                 <div class="name">二级任务</div>
                                 <div class="number">4567545</div>
                                 <span>次</span>
@@ -27,13 +27,13 @@
                                 <div class="name">四级任务</div>
                                 <div class="number">4567545</div>
                                 <span>次</span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
             <div class="item2">
-                <div class="tit"><span></span>当月任务统计</div>
+                <div class="tit"><span></span>任务统计</div>
                 <div id="child1_chart1"></div>
             </div>
         </div>
@@ -44,20 +44,36 @@
 </style>
 <script>
 export default {
+    props:{
+        list:{
+            type:Array,
+            default :function (){return []}
+        },
+        sname:{
+            type:Array,
+            default:[]
+        },
+        arrs:{
+            type:Array,
+            default:[]
+        }
+    },
     data(){
         return {
             a:'2222'
         }
     },
     methods:{
-        toXQ(){
-            this.$emit('lookxiangqing')
+        toXQ(item){
+            
+            this.$emit('lookxiangqing',{...item})
         },
         cl(){
-            console.log('close333')
+            console.log('close child3')
             this.$emit('close')
         },
         listMove(){
+            // console.log('move')
             this.$methods.listMove("#dp-item1-list",2000)
         },
         chart(){
@@ -80,7 +96,8 @@ export default {
                 },
                 xAxis: [{
                     type: 'category',
-                    data: ['工作票', '操作票', '抢修', '用电调查', '设备巡视', '现场勘查', '到岗到位'],
+                    data: that.sname,
+                    // ['工作票', '操作票', '抢修', '用电调查', '设备巡视', '现场勘查', '到岗到位'],
                     axisLine: {
                         lineStyle: {
                             color: 'rgba(255,255,255,0.12)'
@@ -110,7 +127,8 @@ export default {
                 }],
                 series: [{
                     type: 'bar',
-                    data: [300, 450, 770, 203, 255, 188, 156],
+                    data: that.arrs,
+                    // [300, 450, 770, 203, 255, 188, 156],
                     barWidth: '20px',
                     itemStyle: {
                         normal: {
@@ -167,7 +185,11 @@ export default {
        
     },
     mounted(){
-        // this.listMove()
+        console.log(this.list.length)
+        if(this.list.length>4){
+            this.listMove()
+        }
+        
         this.chart()
     }
 }

@@ -19,8 +19,8 @@
 }
 .guiji .marker-route {
   position: relative;
-  width: 0.5rem;
-  height: 0.6rem;
+  width: 0.4rem;
+  height: 0.46rem;
 }
 .guiji .marker-route .cover {
   width: 100%;
@@ -35,19 +35,36 @@
   width: 0.2rem;
   height: 0.2rem;
 }
-.guiji .marker-route .cover .litao {
-  background: red;
-}
 .guiji .marker-route .img_wrap {
-  width: 0.46rem;
-  height: 0.5rem;
-  margin-top: 0.03rem;
-  margin-left: 0.01rem;
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-top: 0.01rem;
+  margin-left: 0rem;
   border-radius: 50%;
   overflow: hidden;
 }
 .guiji .marker-route .img_wrap img {
   width: 102%;
+}
+.guiji .marker-route .set-type {
+  position: absolute;
+  z-index: 999;
+  top: -0.09rem;
+  right: -0.09rem;
+  width: 0.22rem;
+  height: 0.22rem;
+}
+.guiji .marker-route .litao-s {
+  background: url(../../assets/img/litao-s.png);
+  background-size: 100% 100%;
+}
+.guiji .marker-route .rutao-s {
+  background: url(../../assets/img/rutao-s.png);
+  background-size: 100% 100%;
+}
+.guiji .marker-route .fanwei-s {
+  background: url(../../assets/img/fanwei-s.png);
+  background-size: 100% 100%;
 }
 .guiji .left_mes {
   position: absolute;
@@ -448,21 +465,17 @@
   margin-right: 0.06rem;
 }
 .guiji .warning .btns span:nth-child(1)::before {
-  background: url(../../assets/img/guiji-icon6.png) no-repeat;
+  background: url(../../assets/img/litao-i.png) no-repeat;
   background-size: 100% 100%;
 }
 .guiji .warning .btns span:nth-child(2)::before {
-  background: url(../../assets/img/rutao.png) no-repeat;
+  background: url(../../assets/img/rutao-i.png) no-repeat;
   background-size: 100% 100%;
 }
 .guiji .warning .btns span:nth-child(3)::before {
   height: 0.32rem;
   margin-bottom: -0.09rem;
-  background: url(../../assets/img/zhiqin.png) no-repeat;
-  background-size: 100% 100%;
-}
-.guiji .warning .btns span:nth-child(4)::before {
-  background: url(../../assets/img/guiji-icon9.png) no-repeat;
+  background: url(../../assets/img/fanwei-i.png) no-repeat;
   background-size: 100% 100%;
 }
 .guiji .cover {
@@ -961,11 +974,11 @@ div.info-bottom img {
   text-align: center;
 }
 .isjiupian .list .i:nth-child(2) span {
-  background: url(../../assets/img/jiupian-a.png) no-repeat;
+  background: url(../../assets/img/bujiupian-a.png) no-repeat;
   background-size: 100% 100%;
 }
 .isjiupian .list .i:nth-child(3) span {
-  background: url(../../assets/img/bujiupian-a.png) no-repeat;
+  background: url(../../assets/img/jiupian-a.png) no-repeat;
   background-size: 100% 100%;
 }
 .isjiupian .list .i:nth-child(2).active {
@@ -973,7 +986,7 @@ div.info-bottom img {
   background: #3873a4;
 }
 .isjiupian .list .i:nth-child(2).active span {
-  background: url(../../assets/img/jiupian.png) no-repeat;
+  background: url(../../assets/img/bujiupian.png) no-repeat;
   background-size: 100% 100%;
 }
 .isjiupian .list .i:nth-child(3).active {
@@ -981,7 +994,7 @@ div.info-bottom img {
   background: #3873a4;
 }
 .isjiupian .list .i:nth-child(3).active span {
-  background: url(../../assets/img/bujiupian.png) no-repeat;
+  background: url(../../assets/img/jiupian.png) no-repeat;
   background-size: 100% 100%;
 }
 .isjiupian .btn {

@@ -166,10 +166,9 @@
     </div>
     <div class="warning">
       <div class="btns">
-        <span>在库</span>
-        <span>入套</span>
-        <span>执勤</span>
         <span>离套</span>
+        <span>入套</span>
+        <span>范围</span>
       </div>
     </div>
     <div class="setWarning" v-show="setWarning">
@@ -286,13 +285,14 @@
       </div>
       <div class="list" v-show="!checkTypeIsShow">
         <p>请选择轨迹模式</p>
-        <div class="i" :class="{active:jiupian}" @click="jiupianhou">
-          <span></span>
-          <p>可能轨迹</p>
-        </div>
-        <div class="i" :class="{active:!jiupian}" @click="weijiupian">
+        <!-- 默认显示不纠偏 -->
+        <div class="i" :class="{active:!jiupian}" @click="jiupianhou">
           <span></span>
           <p>混合定位</p>
+        </div>
+        <div class="i" :class="{active:jiupian}" @click="weijiupian">
+          <span></span>
+          <p>可能轨迹</p>
         </div>
       </div>
       
@@ -398,7 +398,7 @@ export default {
       allMechanismPersonList: [],
       jigouname: "",
       markerArrLinShi: [],
-      jiupian:true,
+      jiupian:false,
       loading:null
     };
   },
@@ -427,12 +427,13 @@ export default {
     ...more,
     ...buJiupian,
     jiupianhou(){
-      this.jiupian=true
+      //现在是反的未纠偏的是显示纠偏后的数据
+      this.jiupian=false
       this.searchByTime()
     },
     weijiupian(){
-      console.log('weijiupian')
-      this.jiupian=false
+      //现在是反的未纠偏的是显示纠偏后的数据
+      this.jiupian=true
       this.searchByTime()
     },
     clickOneTab(n) {
@@ -696,6 +697,13 @@ export default {
         });
         return;
       }
+     if(new Date(s_t).getTime() >new Date(e_t).getTime()){
+       this.$message({
+          type: "warning",
+          message: "时间选择有误，请重新选择"
+        });
+        return;
+     }
       this.shezhiquyu(
         gun_ids11,
         ip_ids,
@@ -907,6 +915,13 @@ export default {
         });
         return;
       }
+      if(new Date(t1).getTime()>new Date(t2).getTime()){
+        this.$message({
+          message: "时间选择有误，请重新选择",
+          type: "warning"
+        });
+        return;
+      }
       this.shuaXinMap();
       if(this.jiupian){
         this.searchHistory(this.activeIMEI, t1, t2); //通过起止时间搜索历史轨迹
@@ -918,7 +933,7 @@ export default {
       // this.startTime = this.endTime = "";
     },
     searchOnePerson() {
-      this.jiupian=true//默认是纠偏后的
+      // this.jiupian=true//默认是纠偏后的
       // clearInterval(this.moveTimer);
       //.........搜索人员后弹出该人员信息
       this.oneAlarmMessage = {};

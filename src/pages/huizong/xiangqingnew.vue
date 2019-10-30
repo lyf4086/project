@@ -241,6 +241,13 @@ export default {
     },
     next1(){
       if(this.dbtimestart && this.dbtimeend){
+        if(new Date(this.dbtimestart).getTime() >new Date(this.dbtimeend).getTime()){
+          this.$message({
+            type:"error",
+            message:"请重新选择时间"
+          })
+          return
+        }
         this.steap=2;
       }else{
         this.$message({
@@ -490,13 +497,21 @@ export default {
       this.jigoulist[index].checked = !checked;
     },
     subCheckDate() {
+      let { timeStart, timeEnd } = this;
+      if(new Date(timeStart).getTime() > new Date(timeEnd).getTime()){
+        this.$message({
+          type:"error",
+          message:"时间选择有误"
+        })
+        return
+      }
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      let { timeStart, timeEnd } = this;
+      
       let types = "",
         names = "",
         ip_id = "";

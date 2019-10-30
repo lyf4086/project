@@ -22,8 +22,7 @@ function getCitysDate(){
                    selected:true
                }]
            })
-           console.log(this.cityData)
-           
+           clearInterval(this.changeCityTimer)
            let n=0
            this.changeCityTimer=setInterval(()=>{
                 if(n<this.cityData.length){
@@ -33,7 +32,7 @@ function getCitysDate(){
                     n=0
                     // clearInterval(t)
                 }
-           },3000)
+           },5000)
         }
     })
     .catch(error => {
@@ -62,28 +61,14 @@ function getCitys(){
     .then(data => {
         if(data.status==200){
             this.citys=data.data.data.map((e,i)=>{
-                if(i==0){
-                    return {
-                        ...e,
-                        checked:true
-                    }
-                }else{
-                    return {
-                        ...e,
-                        checked:false
-                    }
+                return {
+                    ...e,
+                    checked:false
                 }
-            }) 
-            console.log('getcity')
-            // this.changeCityTimer=setInterval(() => {
-            //     // console.log(this.changeCityIndex)
-            //     this.changeCityIndex++
-            //     if(this.changeCityIndex==this.citys.length){
-            //         // clearInterval(this.changeCityTimer)
-            //         this.changeCityIndex=0
-            //     }
-            //     this.initMap([[{name: this.citys[this.changeCityIndex].cname,selected:true}]])
-            // }, 3000);
+               
+            })
+            this.citys.unshift({checked:true,cname:"全国",id:''})
+           
         }
     })
     .catch(error => {
@@ -276,7 +261,6 @@ function baojingqingkuang(server_id=''){
     })
     .then(data => {
         if(data.status==200){
-            console.log(data)
             this.bjqk=data.data.data
             this.starMove()
         }
@@ -361,14 +345,22 @@ function renwuxiangqing(server_id=''){
     data: params
     })
     .then(data => {
-        console.log(data)
+        if(data.status==200){
+            this.child3Data=data.data
+        }
     })
     .catch(error => {
         console.log(error);
     });
 }
 
-function renwuliebiao(server_id, tid ,sid){
+function renwuliebiao(server_id='', tid ,sid){
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     var objs = {"server_id":server_id ,"tid":tid,"sid":sid};
     var key = this.$store.state.key;
     var sign = this.$methods.mkSign(objs, key);
@@ -388,7 +380,11 @@ function renwuliebiao(server_id, tid ,sid){
     data: params
     })
     .then(data => {
-        console.log(data)
+        if(data.status==200){
+            this.loading.close()
+            console.log(data)
+        }
+        
     })
     .catch(error => {
         console.log(error);
@@ -441,7 +437,6 @@ function renwutop5(server_id=''){
     })
     .then(data => {
         if(data.status==200){
-            console.log(data)
             this.rwtop5=data.data.data
         }
     })
@@ -469,7 +464,6 @@ function baojingtop5(server_id=''){
     })
     .then(data => {
         if(data.status==200){
-            console.log(data)
             this.bjtop5=data.data.data
         }
     })
@@ -478,6 +472,87 @@ function baojingtop5(server_id=''){
     });
 }
 
+function getleixingxiangqing(server_id=''){
+    var objs = {"server_id":server_id };
+    var key = this.$store.state.key;
+    var sign = this.$methods.mkSign(objs, key);
+    var token = this.$gscookie.getCookie("gun");
+    var params = new URLSearchParams();
+    params.append("sign", sign);
+    params.append("token", token);
+    params.append("server_id", objs.server_id);
+    this.$axios({
+    url:
+        this.$store.state.baseURL +
+        "/weixin/project/index.php?m=Home&c=Page&a=gtype_info",
+    method: "POST",
+    changeOrigin: true,
+    data: params
+    })
+    .then(data => {
+        if(data.status==200){
+           this.child4Data=data.data
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+function getdanyaoxiangqing(server_id=''){
+    var objs = {"server_id":server_id };
+    var key = this.$store.state.key;
+    var sign = this.$methods.mkSign(objs, key);
+    var token = this.$gscookie.getCookie("gun");
+    var params = new URLSearchParams();
+    params.append("sign", sign);
+    params.append("token", token);
+    params.append("server_id", objs.server_id);
+    this.$axios({
+    url:
+        this.$store.state.baseURL +
+        "/weixin/project/index.php?m=Home&c=Page&a=gun_arm_info",
+    method: "POST",
+    changeOrigin: true,
+    data: params
+    })
+    .then(data => {
+        if(data.status==200){
+            this.danyaoData=data.data.data
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+function renwuzhixing(server_id='',stime='',etime=''){
+    var objs = {"server_id":server_id ,"stime":stime,"etime":etime};
+    var key = this.$store.state.key;
+    var sign = this.$methods.mkSign(objs, key);
+    var token = this.$gscookie.getCookie("gun");
+    var params = new URLSearchParams();
+    params.append("sign", sign);
+    params.append("token", token);
+    params.append("server_id", objs.server_id);
+    params.append("stime", objs.stime);
+    params.append("etime", objs.etime);
+    this.$axios({
+    url:
+        this.$store.state.baseURL +
+        "/weixin/project/index.php?m=Home&c=Page&a=moth_task",
+    method: "POST",
+    changeOrigin: true,
+    data: params
+    })
+    .then(data => {
+        if(data.status==200){
+            this.top5Xiangqing=data.data
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
 
 
 
@@ -496,5 +571,8 @@ export {
     renwuliebiao,
     qiangmiaozaixian,
     renwutop5,
-    baojingtop5
+    baojingtop5,
+    getleixingxiangqing,
+    getdanyaoxiangqing,
+    renwuzhixing
 }

@@ -7,6 +7,16 @@
   align-content: space-between;
   background: url(../../assets/img/bm-bg.png) no-repeat;
   background-size: 100% 100%;
+  overflow: hidden;
+}
+.cover {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1);
 }
 .top {
   position: relative;
@@ -213,6 +223,7 @@
 }
 .content .center {
   position: absolute;
+  z-index: 1;
   top: 0;
   bottom: 0;
   left: 26.30208333vw;
