@@ -97,7 +97,7 @@
         <p @click="quxiao">X</p>
       </div>
     </div>
-    <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" title="" @closeMap="closeMap"/>
+    <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" :mes="this.alertMessage" title="" @closeMap="closeMap"/>
     <!-- <MapMarker v-if="gaodeshow" :arr="gaodeArr" title="" @closeMap="closeMap"/> -->
     <GaoDeMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
     <!-- <LiXianMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/> -->
@@ -150,7 +150,8 @@ export default {
       alarmArr:[] ,
       alarmMarkTitle:'' ,
       loading:null,
-      zhankai:[]   
+      zhankai:[],
+      alertMessage:null 
     };
   },
   methods: {
@@ -178,8 +179,9 @@ export default {
       let yeMa = this.activeYeMa || 1;
       this.getDataList(this.activeItem.mechanism_id, yeMa, 8,this.warningType);
     },
-    showNew(arr){
-      this.gaodeArr=[arr[0]-0,arr[1]-0]
+    showNew(item){
+      this.alertMessage={type:item.type,mechanism_name:item.mechanism_name}
+      this.gaodeArr=[item.nlongitude-0,item.nlatitude-0]
       this.gaodeshow=true
     },
     closeMap(){
@@ -320,6 +322,10 @@ export default {
       })
         .then(data => {
           this.zhankai.push(data.data.data.list[0].id)
+          this.zhankai.push(data.data.data.list[0].child[0].id || "")
+          if(data.data.data.list[0].child[0].child){
+            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+          }
           this.treeListData = data.data.data.list;
           this.rootId = data.data.data.list[0].root_id;
           this.activeItem = data.data.data.list[0];
@@ -352,6 +358,7 @@ export default {
       })
         .then(data => {
           if(data.data){
+           
             this.alarmArr=data.data
             this.alarmMarkArr=true
           }else{

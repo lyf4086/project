@@ -12,7 +12,7 @@
 </style>
 <script>
 export default {
-    props:["arr","title"],
+    props:["arr","mes","title"],
     data(){
         return {
             BM:null,
@@ -37,14 +37,28 @@ export default {
             this.setMarker(a)         
         },
         setMarker(arr) {
+            let that=this
             let a=arr||[116.397428, 39.90923]
              var marker = new AMap.Marker({
                 position: new AMap.LngLat(...a),
                 // position: new AMap.LngLat(obj.longitude, obj.latitude), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
                 title: this.title
             });
+           
             this.map.add(marker);
-            this.map.setFitView([...marker]);          
+            this.map.setFitView([...marker]);
+            
+            marker.on('click',function (){
+                const h = that.$createElement;
+               that.$message({
+                   type:"info",
+                   message:h('div',{style:"font-size:12px"},[
+                       h('p',null,`所属机构：${that.mes.mechanism_name}`),
+                       h('p',null,`报警类型：${that.mes.type}`)
+                   ]),
+                   duration:4000
+               })
+            })
         }
     },
     mounted(){       

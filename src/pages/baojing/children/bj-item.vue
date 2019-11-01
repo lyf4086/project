@@ -49,7 +49,7 @@
           </span>
         </div>
         <div class="list btnwrap">
-          <button class="btn1" @click="showNew([item.nlongitude,item.nlatitude])">最新位置</button>
+          <button class="btn1" @click="showNew(item)">最新位置</button>
           <button class="btn2" @click="showAlert(item)">报警位置</button>
           <button class="btn3" @click="showMore(item)">详情</button>
         </div>
@@ -217,9 +217,9 @@ export default {
       this.getXiangqing(item.alarm_info_id)
       
     },
-    showNew(arr){
-     
-      this.$emit('showNew',arr)
+    showNew(item){
+      
+      this.$emit('showNew',item)
     },
     showAlert(item){
       

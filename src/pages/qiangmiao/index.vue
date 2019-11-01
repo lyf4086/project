@@ -46,7 +46,7 @@
     </div>
     <div class="page-index" v-show="pageTotal">
       <el-pagination
-        :page-size="keshihua?9:21"
+        :page-size="keshihua?9:19"
         :pager-count="9"
         layout="total, prev, pager, next"
         :current-page="currentPage"
@@ -81,7 +81,7 @@
     </div>
     <div class="content2" v-show="!keshihua">
       <div class="none-data" v-if="!qiangmiaoData.length">暂时没有数据</div>
-      <div class="item" v-for="(item,index) in qiangmiaoData" :key="index">
+      <!-- <div class="item" v-for="(item,index) in qiangmiaoData" :key="index">
         <input type="checkbox"  v-model="item.checked">
         <span><i>枪瞄编号：</i>{{item.IMEI}}</span>
         <span><i>所属警员：</i>{{item.policeuser_name || '暂无'}}</span>
@@ -91,6 +91,28 @@
         <span><i>绑定枪支：</i>{{item.gun_code || '暂无'}}</span>
         <span><i>充电状态：</i>{{item.ischarging}}</span>
         <span><i>最后定位时间：</i>{{item.created}}</span>
+      </div> -->
+      <div class="list-title" v-show="qiangmiaoData.length">
+        <input type="checkbox" v-model="checkAll"/>
+        <span>枪瞄编号</span>
+        <span>所属警员</span>
+        <span>枪瞄状态</span>
+        <span>枪瞄类型</span>
+        <span>剩余电量</span>
+        <span>绑定枪支</span>
+        <span>充电状态</span>
+        <span>最后定位时间</span>
+      </div>
+      <div class="list-item"  v-for="(item,index) in qiangmiaoData" :key="index">
+        <input type="checkbox" v-model="item.checked"/>
+        <span>{{item.IMEI}}</span>
+        <span>{{item.policeuser_name || '暂无'}}</span>
+        <span>{{item.heart==1 ? "在线":"离线"}}</span>
+        <span>{{item.gtypes_name}}</span>
+        <span>{{item.electricity}}%</span>
+        <span>{{item.gun_code || '暂无'}}</span>
+        <span>{{item.ischarging}}</span>
+        <span>{{item.created}}</span>
       </div>
     </div>
     <div class="cover" v-show="alert||xiugai">
@@ -175,6 +197,16 @@ export default {
       loading:null,
       zhankai:[]
     };
+  },
+  computed:{
+    checkAll:{
+      get(){
+        return this.qiangmiaoData.every(e=>e.checked)
+      },
+      set(b){
+        return this.qiangmiaoData.forEach(e=>e.checked=b)
+      }
+    }
   },
   methods: {
     changeShowType(n){
@@ -353,7 +385,7 @@ export default {
       //.............................获取枪瞄列表数据函数
       var key = this.$store.state.key;
       var objs = { 
-        mechanism_id: jigou_id, p: p, ps: this.keshihua ?9:21 
+        mechanism_id: jigou_id, p: p, ps: this.keshihua ?9:19
       ,heart:heart};
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
@@ -450,6 +482,10 @@ export default {
       })
         .then(data => {
           this.zhankai.push(data.data.data.list[0].id)
+          this.zhankai.push(data.data.data.list[0].child[0].id || "")
+          if(data.data.data.list[0].child[0].child){
+            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+          }
           this.treeData = data.data.data.list;
           // this.handleNodeClick(this.treeData[0]); //....主动促发一次点击事件
           this.firstId = this.treeData[0].id;

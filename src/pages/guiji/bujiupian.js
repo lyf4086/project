@@ -48,6 +48,7 @@ function getBujiupian(IMEI,stime,etime){
               let markerArr = lineArrAndBaoJing.map((e, i) => {
                 return new AMap.Marker({
                   content: `<div class="jiupian" >
+                              <div class="alarm_type ${e.astate==="1" ?'litao':null} ${e.astate==="2" ?'rutao':null} ${e.astate==="3" ?'fanwei':null}"></div>
                               <div class="j-icon ${e.state==2?'wx':''} ${e.state==3?'jz':''} ${e.state==4?'wf':''}"></div>
                               <div class="j-cover"></div>
                             </div>`,

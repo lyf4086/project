@@ -39,7 +39,7 @@
     </div>
     <div class="page-index"  v-show="pageTotal">
       <el-pagination
-        :page-size="keshihua?9:21"
+        :page-size="keshihua?9:19"
         :pager-count="9"
         layout="total,prev, pager, next"
         :current-page="currentPage"
@@ -72,7 +72,7 @@
     </div>
     <div class="content2" v-show="!keshihua">
       <div class="none-data" v-if="!activeDataList.length">暂时没有数据</div>
-      <div class="item" v-for="(item,index) in activeDataList" :key="index">
+      <!-- <div class="item" v-for="(item,index) in activeDataList" :key="index">
         <input type="checkbox"  v-model="item.checked">
         <span><i>枪支编号:</i>{{item.gun_code}}</span>
         <span><i>枪支类型：</i>{{item.gtype||"暂无"}}</span>
@@ -81,6 +81,26 @@
         <span><i>枪锁位：</i>{{item.gposition || '无'}}</span>
         <span><i>枪瞄编号：</i>{{item.jm}}</span>
         <span><i>持枪警员：</i>{{item.policeuser_name ||"暂无"}}</span>
+      </div> -->
+      <div class="list-title" v-show="activeDataList.length">
+        <input type="checkbox" v-model="checkAll">
+        <span>枪支编号</span>
+        <span>枪支类型</span>
+        <span>所属机构</span>
+        <span>枪柜编号</span>
+        <span>枪锁位</span>
+        <span>枪瞄编号</span>
+        <span>持枪警员</span>
+      </div>
+      <div class="list-item" v-for="(item,index) in activeDataList" :key="index">
+        <input type="checkbox" v-model="item.checked">
+        <span>{{item.gun_code}}</span>
+        <span>{{item.gtype||"暂无"}}</span>
+        <span>{{item.mechanism_name}}</span>
+        <span>{{item.guncabinet_code||'无'}}</span>
+        <span>{{item.gposition || '无'}}</span>
+        <span>{{item.jm}}</span>
+        <span>{{item.policeuser_name ||"暂无"}}</span>
       </div>
     </div>
     <div class="alert" v-show="alert||xiugai">
@@ -200,7 +220,16 @@ export default {
       zhankai:[]
     };
   },
-
+  computed:{
+    checkAll:{
+      get(){
+        return this.activeDataList.every(e=>e.checked)
+      },
+      set(b){
+        return this.activeDataList.forEach(e=>e.checked=b)
+      }
+    }
+  },
   methods: {
 
     changeShowType(n){
@@ -525,6 +554,10 @@ export default {
       })
         .then(data => {
           this.zhankai.push(data.data.data.list[0].id)
+          this.zhankai.push(data.data.data.list[0].child[0].id || "")
+          if(data.data.data.list[0].child[0].child){
+            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+          }
           this.treeData = data.data.data.list;
           // console.log(data.data.data.list);
           this.active_title = data.data.data.list[0].mechanism_name;
@@ -543,7 +576,7 @@ export default {
       //................获取列表信息函数
 
       var key = this.$store.state.key;
-      var objs = { mechanism_id: jigou_id, p: active_p, ps: this.keshihua ?9:21  };
+      var objs = { mechanism_id: jigou_id, p: active_p, ps: this.keshihua ?9:19  };
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();

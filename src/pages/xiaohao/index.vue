@@ -212,6 +212,10 @@ export default {
       })
         .then(data => {
           this.zhankai.push(data.data.data.list[0].id)
+          this.zhankai.push(data.data.data.list[0].child[0].id || "")
+          if(data.data.data.list[0].child[0].child){
+            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+          }
           this.treeListData = data.data.data.list;
         })
         .catch(error => {

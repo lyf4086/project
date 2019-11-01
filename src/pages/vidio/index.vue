@@ -324,6 +324,10 @@ import Content from './children/content'
                     data:params
                 }).then((data)=>{
                     this.zhankai.push(data.data.data.list[0].id)
+                    this.zhankai.push(data.data.data.list[0].child[0].id || "")
+                    if(data.data.data.list[0].child[0].child){
+                      this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+                    }
                     this.treeListData=data.data.data.list
                     this.handleNodeClick(this.treeListData[0])//..........主动促发点击事件
                 }).catch((error)=>{

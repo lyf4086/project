@@ -509,7 +509,7 @@ export default {
     },
     mapInit() {
       let that = this;
-      BM.Config.HTTP_URL = "http://192.168.1.100:9000";
+      BM.Config.HTTP_URL = "http://192.168.1.149:3000";
       if (this.map) {
         this.map.remove();
       }

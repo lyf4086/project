@@ -512,6 +512,10 @@ export default {
         .then(data => {
           this.treeData = data.data.data.list;
           this.zhankai.push(data.data.data.list[0].id)
+          this.zhankai.push(data.data.data.list[0].child[0].id || "")
+           if(data.data.data.list[0].child[0].child){
+              this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+            }
           this.handClick(this.treeData[0].id);
           function creatTreeStr(obj) {
             let str = "";
@@ -581,6 +585,7 @@ export default {
   },
 
   destroyed(){
+    
     this.$store.commit('huanyuanStr')
   }
 };

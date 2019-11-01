@@ -353,6 +353,7 @@ export default {
       this.chuLi(id, "极速处理");
     },
     logout() {
+     
       this.$confirm("将要退出登录, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -368,7 +369,7 @@ export default {
             message: "已取消退出"
           });
         });
-      // if (!confirm("确定要退出登录吗？")) return;
+
     },
     mine() {
       // this.mineShow=!this.mineShow
@@ -485,26 +486,40 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            
             if (!data.data.data.length) return;
-            let list = data.data.data.map(e => {
-              return {
-                ...e,
-                show: true
-              };
-            });
-            this.warningList = list;
-            let obj={};
-            let newArr=[]
-            data.data.data.forEach(item=>{
-              obj[item.policeuser_id]=item
-            })
-
-            for(let i in obj){
-              newArr.push(obj[i])
+            if(data.data.data.length>this.warningList.length){//如果是新增了报警数据，则情况原数据
+              this.warningList=[]
+              let list = data.data.data.map(e => {
+                return {
+                    ...e,
+                    show: true
+                  };
+                });
+                this.warningList = list;
+             
+            }else{
+               let list = data.data.data.map(e => {
+                return {
+                    ...e,
+                    show: true
+                  };
+                });
+                this.warningList = list;  
             }
-            //  console.log(newArr)
-            //存去重后的所有报警人员
-             sessionStorage.setItem('everBodyWarningType',JSON.stringify(newArr))
+              let obj={};
+                let newArr=[]
+                data.data.data.forEach(item=>{
+                  obj[item.policeuser_id]=item
+                })
+
+                for(let i in obj){
+                  newArr.push(obj[i])
+                }
+                //  console.log(newArr)
+                //存去重后的所有报警人员
+                sessionStorage.setItem('everBodyWarningType',JSON.stringify(newArr))
+           
           }
         })
         .catch(error => {

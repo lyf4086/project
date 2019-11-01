@@ -74,6 +74,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
+    this.last_time_arr=data.data.data.list.map(e=>e.created)
     this.loading.close()
     let that = this
     this.hasPerson = true;
@@ -105,16 +106,16 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
       return Object.assign(item, o)
     })
     let warningtype=JSON.parse(sessionStorage.getItem('everBodyWarningType'))
-    // console.log(warningtype)
+  
     let activeImg = require("@/assets/img/head-icon.png");//引入默认图片
     let markerArr = bbb.map((e, i) => {
       return new AMap.Marker({
-        content: `<div class="marker-route">
+        content: `<div class="marker-route ${e.heart==1?'':'is_lixian'}">
                     <div class="cover"></div>
                     <div class="img_wrap">
                       <img src="${this.header[this.headName] || e.policeuser.icon || activeImg}" />
                     </div>
-                    <div class="set-type ${e.IMEI}"></div>
+                    <div class="set-type ${e.IMEI} ${e.astate==="1" ?'litao-s':null} ${e.astate==="2" ?'rutao-s':null} ${e.astate==="3" ?'fanwei-s':null}"></div>
                   </div>`,
         position: e.ponint,
         jigou: e.mechanism_name,
@@ -130,11 +131,9 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
         policeuser_id: e.policeuser_id
       })
     })
-    markerArr.forEach(item => {
+    markerArr.forEach((item,index) => {
       AMap.event.addListener(item, 'click', function (ev) {
-
-        // $('#settype').addClass('litao-s')
-        that.creatInfoBox(item)
+        that.creatInfoBox(item,index)
 
       })
     })
@@ -243,6 +242,10 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
     let that=this
     if (data.data.code == '200') {
       this.loading.close()
+      this.$message({
+        message:"当前为可能轨迹，位置可能又偏差，仅供参考",
+        duration:5000
+      })
       this.oldOrNew = 'old'
       this.checkTime = false
       if (!data.data.data.list.length) {
@@ -434,40 +437,19 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
 function creatInfoBox(item, ...res) {
   setTimeout(() => { //如果没有手动关闭，20秒之后自动关闭
     closeInfoWindow()
-  }, 15000)
-
-  function changeTime() {
-    var date = new Date(); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-    var Y = date.getFullYear() + "-";
-    var M =
-      (date.getMonth() + 1 < 10 ?
-        "0" + (date.getMonth() + 1) :
-        date.getMonth() + 1) + "-";
-    var D =
-      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
-    var h =
-      (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":";
-    var m =
-      (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
-      ":";
-    var s =
-      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-    return Y + M + D + h + m + s;
-  }
-
+  }, 20000)
   let that = this
   let map = this.map
   var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title}</span>`,
     content = [];
-  content.push(`<img alt="头像" src='${item.Ge.src}' style="width:1rem;">`)
-  content.push(`所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`); 
-  // content.push(`最后定位时间:${changeTime()}`);
+  content.push(`<div class="tou_wrap"><img alt="头像" src='${item.Ge.src}' style="width:1rem;"></div>`)
+  content.push(`<div class="map_txt_wrap">所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`); 
   content.push(`枪支编号:${item.Ge.positions}`);
-  // content.push(`<span class="toxiangqing" >详细信息</span>`);
   content.push(`是否在线:${item.Ge.heart == 1 ? "在线" : "不在线"}`);
   content.push(`定位类型:${item.Ge.ptype}`);
   content.push(`枪瞄编号:${item.Ge.IMEI}`);
-  content.push(`最后定位时间:${item.Ge.time}`);
+  content.push(`最后定位时间:<span class="last_time">${that.last_time_arr[res]}</span></div>`);
+// 测试弹窗
   var infoWindow = new AMap.InfoWindow({
     isCustom: true, //使用自定义窗体
     content: createInfoWindow(title, content.join("<br/>")),
@@ -870,8 +852,11 @@ function confirmSetArea() {
 function resetArea() {
   let map = this.map
   this.clickTrue = true
-  // console.log(this.markerArr)
-  map.remove(this.polygon)
+  this.markerArr.forEach(e=>{
+    this.map.remove(e)
+  })
+  this.markerArr.length=0
+  
   this.polygon = null
 
 }
@@ -1092,12 +1077,12 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
     let jigou=(e.mechanism)?(e.mechanism.mechanism_name):""
     let time=e.created||"";
     return new AMap.Marker({
-      content: `<div class="marker-route" >
+      content: `<div class="marker-route ${e.heart==1?'':'is_lixian'}" >
                 <div class="cover" ></div>
                 <div class="img_wrap">
                   ${imgurl}
                 </div>
-                <div class="set-type ${e.IMEI}"></div>
+                <div class="set-type ${e.IMEI} ${e.astate==="1" ?'litao-s':null} ${e.astate==="2" ?'rutao-s':null} ${e.astate==="3" ?'fanwei-s':null}"></div>
               </div>`,
       position: [e.position.longitude, e.position.latitude],
       title:title,
@@ -1185,6 +1170,8 @@ function getNewPosition(id) {
   }).then((data) => {
     if (data.data.code == 200) {
       // ...匀速运动有问题
+      if(!data.data.data.list.length)return
+      this.last_time_arr=data.data.data.list.map(e=>e.created)
       this.unifromSpeedMoveing(data.data.data.list)
     }
   }).catch((error) => {
@@ -1197,11 +1184,14 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
   //   console.log(this.setWarning)
   //   return
   // }
+  console.log(newPositionArr)
   let that = this
   this.oldPositionArr = this.markerArr.map(item => {
     return {
       "IMEI": item.Ge.IMEI,
       "astate":"",
+      "das":[],
+      "heart":"",//是否在线。默认不在线
       "lng": item.Ge.position.lng - 0,
       "lat": item.Ge.position.lat - 0
     }
@@ -1211,6 +1201,8 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
     return {
       "IMEI": item.IMEI,
       "astate":item.astate,
+      "das":item.das,
+      "heart":item.heart,
       "lng": item.longitude - 0,
       "lat": item.latitude - 0
     }
@@ -1236,19 +1228,40 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
     return [item.lng, item.lat]
   })
 
-  
   //标记点所有动画停止
-  // 王瑞军  900019300102007
+  // 王瑞军  900019300102007  is_lixian  $(`.${item.IMEI}`).parent('.marker-route')
   newA.forEach((item,index)=>{
-    if(item.astate==="1"){
-      $(`.${item.IMEI}`).addClass('litao-s')
-    }else if(item.astate==="2"){
-      $(`.${item.IMEI}`).addClass('rutao-s')
-    }else if(item.astate==="3"){
-      $(`.${item.IMEI}`).addClass('fanwei-s')
+    if(item.heart==1){
+      $(`.${item.IMEI}`).parent('.marker-route').removeClass('is_lixian')
     }else{
-      $(`.${item.IMEI}`).removeClass('fanwei-s rutao-s litao-s')
+      $(`.${item.IMEI}`).parent('.marker-route').addClass('is_lixian')
     }
+    //暂时不用这段代码，原逻辑
+    // if(item.astate==="1"){  
+    //   $(`.${item.IMEI}`).addClass('litao-s')
+    // }else if(item.astate==="2"){
+    //   $(`.${item.IMEI}`).addClass('rutao-s')
+    // }else if(item.astate==="3"){
+    //   $(`.${item.IMEI}`).addClass('fanwei-s')
+    // }else{
+    //   $(`.${item.IMEI}`).removeClass('fanwei-s rutao-s litao-s')
+    // }
+    item.das.forEach((e,i)=>{
+      setTimeout(()=>{
+        if(e==1){
+          $(`.${item.IMEI}`).addClass('litao-a')
+          $(`.${item.IMEI}`).removeClass('fanwei-a rutao-a')
+        }else if(e==2){
+          $(`.${item.IMEI}`).addClass('rutao-a')
+          $(`.${item.IMEI}`).removeClass('fanwei-a litao-a')
+        }else if(e==3){
+          $(`.${item.IMEI}`).addClass('fanwei-a')
+          $(`.${item.IMEI}`).removeClass('rutao-a litao-a')
+        }
+      },i*1000)
+    })
+
+
   })
 
   // console.log($('.900019300102007').addClass('litao-s'))

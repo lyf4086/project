@@ -7,7 +7,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 0.4rem;
+  height: 0.45rem;
   box-sizing: border-box;
   border: 0.01rem solid #328dc3;
   border-left: none;
@@ -27,7 +27,7 @@
   border-right: none;
 }
 .shangchuan .list {
-  padding-top: 0.39rem;
+  padding-top: 0.44rem;
   height: 96.5%;
 }
 .shangchuan .list .item {

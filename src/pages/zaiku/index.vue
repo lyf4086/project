@@ -94,7 +94,8 @@ export default {
         children: "child",
         label: "mechanism_name"
       },
-      zhankai:[]
+      zhankai:[],
+      loading:null
     };
   },
   methods: {
@@ -130,8 +131,13 @@ export default {
         data: params
       })
         .then(data => {
+          this.loading.close()
           if (data.data.code == 200) {
             this.zhankai.push(data.data.data.list[0].id)
+            this.zhankai.push(data.data.data.list[0].child[0].id || "")
+            if(data.data.data.list[0].child[0].child){
+            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+          }
             this.treeListData = data.data.data.list;
           }
         })
@@ -150,7 +156,12 @@ export default {
     },
     getDataList(jigou_id) {
       //................弹药在库列表信息函数
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       var key = this.$store.state.key;
       var objs = { page: 1 };
       if (jigou_id) {
@@ -175,6 +186,7 @@ export default {
       })
         .then(data => {
           // console.log("zaiku", data);
+          this.loading.close()
           if (data.data.code == 200) {
             this.dataList = data.data.data;
             this.liebiao = data.data.dat;
@@ -222,6 +234,12 @@ export default {
   },
 
   created() {
+    this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
     let item = this.$gscookie.getCookie("message_obj");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     if (item.role_id == 3) {

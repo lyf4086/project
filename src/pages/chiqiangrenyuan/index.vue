@@ -121,8 +121,7 @@ export default {
       this.search();
     },
     mapInit(obj) {
-      // console.log(obj);
-      
+      let that=this
       let map = new AMap.Map("map-content", {
         center: [obj.longitude, obj.latitude],
         resizeEnable: true,
@@ -134,6 +133,12 @@ export default {
       });
       map.add(marker);
       map.setFitView([...marker]);
+      marker.on('click',function (){
+        that.$message({
+          message:`警员姓名：${obj.policeName}, 时间：${obj.time}`,
+          duration:4000
+        })
+      })
     },
     mapOff() {
       this.mapShow = false;
@@ -197,6 +202,10 @@ export default {
       })
         .then(data => {
           this.zhankai.push(data.data.data.list[0].id)
+          this.zhankai.push(data.data.data.list[0].child[0].id || "")
+          if(data.data.data.list[0].child[0].child){
+            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+          }
           this.treeListData = data.data.data.list;
         })
         .catch(error => {

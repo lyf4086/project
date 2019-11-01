@@ -149,8 +149,8 @@
         <span>追踪类型：</span>
         <select v-model="oldOrNew" @change="changeGuiJiType">
           <option value disabled selected>请选择轨迹类型</option>
-          <option value="old">历史轨迹</option>
-          <option value="new">最新轨迹</option>
+          <option value="old">历史定位</option>
+          <option value="new">最新定位</option>
         </select>
       </div>
       <button @click="searchOnePerson" v-show="activeIMEI">查找</button>
@@ -166,9 +166,9 @@
     </div>
     <div class="warning">
       <div class="btns">
-        <span>离套</span>
-        <span>入套</span>
-        <span>范围</span>
+        <span>离套状态</span>
+        <span>正常值勤</span>
+        <span>范围预警</span>
       </div>
     </div>
     <div class="setWarning" v-show="setWarning">
@@ -254,7 +254,7 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
-    <div class="change-type" v-show="hasPerson &&oldOrNew!=='old'">
+    <div class="change-type" v-show="hasPerson &&oldOrNew!=='old'&& !setWarning">
       <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
         <i class="fangxiang"></i>
       </div>
@@ -288,11 +288,11 @@
         <!-- 默认显示不纠偏 -->
         <div class="i" :class="{active:!jiupian}" @click="jiupianhou">
           <span></span>
-          <p>混合定位</p>
+          <p>历史定位</p>
         </div>
         <div class="i" :class="{active:jiupian}" @click="weijiupian">
           <span></span>
-          <p>可能轨迹</p>
+          <p>可能路劲</p>
         </div>
       </div>
       
@@ -399,7 +399,8 @@ export default {
       jigouname: "",
       markerArrLinShi: [],
       jiupian:false,
-      loading:null
+      loading:null,
+      last_time_arr:['111111']
     };
   },
   computed: {

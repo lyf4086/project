@@ -34,7 +34,7 @@ export default {
             this.setMarker(this.arr)       
         },
         setMarker(arr) {
-            
+            let that=this
             let a1=arr.map(item=>[item.lon-0,item.lat-0])
             let a=a1||[[116.397428, 39.90923]]
             let markerArr=a.map(item=>{
@@ -43,17 +43,26 @@ export default {
                     title: this.title
                 })
             })
-            // console.log(markerArr)
-            //  var marker = new AMap.Marker({
-            //     position: new AMap.LngLat(...a),
-            //     // position: new AMap.LngLat(obj.longitude, obj.latitude), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-            //     title: this.title
-            // });
+            
             this.map.add(markerArr);
-            this.map.setFitView([...markerArr]);          
+            this.map.setFitView([...markerArr]); 
+            markerArr.forEach((item,index)=>{
+               
+                item.on('click',function (){
+                    const h = that.$createElement;
+                    that.$message({
+                        type:"info",
+                        message:h('div',null,[
+                            h('p',{style:"font-size:12px"},`时间：${that.arr[index].date}`)
+                        ]),
+                        duration:4000
+                    })
+                })
+            })         
         }
     },
-    mounted(){       
+    mounted(){
+        // console.log(this.arr)       
         this.mapInit()        
     }
 }
