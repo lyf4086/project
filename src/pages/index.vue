@@ -123,7 +123,7 @@
         >
           <div class="warning_item">
             <span :title="index+1">{{index+1}}</span>
-            <span @click="itemClick(item)">{{item.policeuser_name||"暂无"}} {{item.type||"暂无"}}</span>
+            <span @click="itemClick(item)"><i>{{item.policeuser_name||"暂无"}}</i>&nbsp;（{{item.type||"暂无"}}）</span>
             <span class="chuli" @click="done(index)">极速处理</span>
           </div>
         </transition>

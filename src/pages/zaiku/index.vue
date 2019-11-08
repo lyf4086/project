@@ -150,7 +150,6 @@ export default {
       //树形菜单点击
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.activeMechanismId = item.id;
-      // this.clickTree(this.activeItem,1)
       this.active_title = item.mechanism_name;
       this.getDataList(item.id);
     },
@@ -185,7 +184,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log("zaiku", data);
           this.loading.close()
           if (data.data.code == 200) {
             this.dataList = data.data.data;
@@ -202,13 +200,11 @@ export default {
         mechanism_id: MechanismId,
         page: 1
       };
-
       let selV = this.selValue;
       objs[selV] = this.putValue;
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
-
       params.append(selV, objs[selV]);
       params.append("page", objs.page);
       params.append("mechanism_id", objs.mechanism_id);

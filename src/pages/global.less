@@ -507,74 +507,75 @@
 
 .has_donghua {
   // box-shadow: inset 0 0 10px 5px red;
-  animation: shanshuo .5s linear infinite;
-  animation-direction: alternate;
+  // animation: shanshuo .5s linear infinite;
+  // animation-direction: alternate;
+  i{
+    transform: rotate(180deg);
+  }
 }
 
 .warning_list {
-  width: 286/@rem;
+  width: 306/@rem;
   height: 145/@rem;
-  padding-top: 10/@rem;
   overflow: hidden;
   position: absolute;
   bottom: 90/@rem;
   right: 80/@rem;
-  // background: pink;
-
-  .item_wrap {
-    // animation: move 5s linear infinite;
-  }
-
-  // .item_wrap:hover{
-  //   animation-play-state: paused;
-  // }
   .warning_item {
-    // position: relative;
-    // left:0;
     font-size: 16/@rem;
-    height: 58/@rem;
-    line-height: 58/@rem;
-    margin: -8/@rem 0;
-    background: url(../assets/img/bj-warning.png) no-repeat;
+    height: 48/@rem;
+    line-height: 48/@rem;
+    background: url(../assets/img/warn-item.png) no-repeat;
     background-size: 100% 100%;
     display: flex;
     align-items: center;
-    transition: 1s;
-
+    transition: 0.6s;
+    &:hover{
+      background: url(../assets/img/warn-item-a.png) no-repeat;
+      background-size: 100% 100%;
+      span:nth-child(3){
+        display: block;
+      }
+    }
     span:nth-child(1) {
-      width: 50/@rem;
-      line-height: 30/@rem;
-      text-align: center;
-      font-size: 26/@rem;
-      font-weight: bold;
-      height: 30/@rem;
-      color: rgb(166, 52, 52);
-      margin-left: 37/@rem;
-      margin-right: 5/@rem;
-      margin-top: -6/@rem;
+      height:20/@rem;
+      max-width:32/@rem;
+      overflow: hidden;
+      line-height: 20/@rem;
+      padding:0 6/@rem;
+      border-radius: 12/@rem;
+      margin:0 10/@rem 0 25/@rem;
+      font-size: 16/@rem;
+      background: rgb(230, 169, 83);
+      color: rgb(255, 254, 254);      
       transform: translateX(-20%);
       overflow: hidden;
-      // text-overflow: ellipsis;
     }
 
     span:nth-child(2) {
-      width: 160/@rem;
+      width: 140/@rem;
       height: 30/@rem;
+      font-size: 14/@rem;
       line-height: 30/@rem;
       color: #fffeff;
       cursor: pointer;
+      i{
+        font-size: 16/@rem;
+      }
     }
 
     span:nth-child(3) {
       width: 90/@rem;
       cursor: pointer;
       text-align: center;
-      background: #fff;
+      font-size: 12/@rem;
+      border:1/@rem solid rgb(236, 75, 75);
       border-radius: 5/@rem;
-      height: 30/@rem;
+      height: 28/@rem;
       line-height: 30/@rem;
-      color: #333;
-      transform: scale(0.8)
+      color: #fff;
+      transform: scale(0.8);
+      display: none;
     }
   }
 
@@ -595,22 +596,34 @@
 }
 
 .warning_list_onoff {
+  box-sizing: border-box;
+  padding:10/@rem 10/@rem 0;
+  font-size: 14/@rem;
   position: absolute;
-  bottom: 120/@rem;
-  right: 38/@rem;
-  width: 30/@rem;
-  height: 100/@rem;
-  border-radius: 8/@rem;
-  background: rgb(232, 52, 40);
+  bottom: 80/@rem;
+  right: 30/@rem;
+  width: 46/@rem;
+  height: 130/@rem;
+  // border-radius: 8/@rem;
+  background: url(../assets/img/warn-btn.png) no-repeat;
+  background-size: 100% 100%;
   text-align: center;
   line-height: 20/@rem;
   cursor: pointer;
 
   span {
-    font-size: 16/@rem;
+    font-size: 14/@rem;
     color: #fff;
   }
-
+  i{
+    display: inline-block;
+    margin-top: 3/@rem;
+    width: 14/@rem;
+    height:14/@rem;
+    background: url(../assets/img/fangxiang-icon.png) no-repeat;
+    background-size: 100% 100%;
+    transition: 0.6s;
+  }
 }
 
 

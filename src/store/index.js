@@ -15,7 +15,8 @@ let store = new Vuex.Store({
     str1: '全国枪支',
     str2: '使用情况汇总',
     baseURL: "http://s.tronl.cn",
-    lixianStr:"http://192.168.1.107:9000"
+    lixianStr:"http://192.168.1.107:9000",
+    keshihua:true
 
   },
   mutations: {
@@ -39,7 +40,6 @@ let store = new Vuex.Store({
     setPreFix(state, payload) {
       state.prefix_on = payload.prefix_on
     }
-
   },
   actions: {
 

@@ -185,7 +185,8 @@ export default {
        
     },
     mounted(){
-        console.log(this.list.length)
+        
+        console.log('child3')
         if(this.list.length>4){
             this.listMove()
         }

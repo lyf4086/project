@@ -32,9 +32,8 @@
 }
 .shangchuan .list .item {
   width: 100%;
-  height: 6.49350649%;
+  height: 6.4516129%;
   font-size: 0.16rem;
-  line-height: 0.4rem;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr repeat(7, 5fr);
@@ -42,11 +41,13 @@
 }
 .shangchuan .list .item span {
   text-align: center;
-  line-height: 0.4rem;
   border: 0.01rem solid #328dc3;
   border-left: none;
   border-top: none;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .none-data {
   width: 50%;

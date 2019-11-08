@@ -1133,3 +1133,51 @@ div.info-bottom img {
     }
   }
 }
+
+//标记点样式
+/deep/.icon_wrap{
+  position:relative;
+  width:2.5vw;
+  height:3vw;
+  top:-3vw;
+  left:-1.3vw;
+  .img_wrap{
+    background:#ccc;
+    position:absolute;
+    width:2.5vw;
+    height:2.7vw;
+    border:1px solid red;
+    border-radius:1.2vw; overflow: hidden;
+    img{
+      position:absolute;
+      top:50%;
+      width:2.5vw;
+      transform:translateY(-50%)
+    }
+  }
+  .round_cover{
+    position:absolute;
+    top:0;
+    left:0;
+    width:2.5vw;
+    height:2.7vw;
+    box-sizing:border-box;
+    border:2px solid red;
+    border-radius:1.2vw;
+    i{
+      position:absolute;
+      bottom:-1vw;
+      left:0.65vw;
+      width:0;
+      height:0;
+      border-width:0.5vw;
+      border-style:solid;
+      border-color:red transparent transparent transparent;
+    }
+  }
+}
+
+/deep/.bigemap-div-icon{
+  width:0px !important;
+  height:0px !important;
+}

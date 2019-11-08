@@ -99,7 +99,7 @@
         <span>{{item.mechanism_name}}</span>
         <span>{{item.guncabinet_code||'无'}}</span>
         <span>{{item.gposition || '无'}}</span>
-        <span>{{item.jm}}</span>
+        <span>{{item.IMEI}}</span>
         <span>{{item.policeuser_name ||"暂无"}}</span>
       </div>
     </div>
@@ -215,7 +215,7 @@ export default {
       allPersonList: "",
       isRemoving: false,
       sync: 0 ,//判断动静态，默认静态
-      keshihua:true,
+      keshihua:'',
       loading:null,
       zhankai:[]
     };
@@ -239,12 +239,14 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
+
        this.activeDataList=[]
       if(n===1){
         this.keshihua=true
       }else{
         this.keshihua=false
       }
+      localStorage.setItem('setKeShiHua',this.keshihua)
       this.getDataList(this.activeJiGouId, 1)
       this.$refs.page.internalCurrentPage = 1;
     },
@@ -756,6 +758,8 @@ export default {
     } //..........................解绑end
   },
   created() {
+    let keshi=localStorage.getItem('setKeShiHua')
+      this.keshihua=JSON.parse(keshi) 
     this.loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -792,6 +796,7 @@ export default {
     }
   },
    mounted() {
+     
     this.$store.commit('setStr',{
       str1:'枪支列表',
       str2:'情况汇总'

@@ -70,26 +70,14 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
       return [item.latitude * 1, item.longitude * 1]
     })
 
-    let styleStr1 = `position:relative;width:2.5vw;height:3vw;
-                    top:-3vw;left:-1.3vw;`
-    let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:2.7vw;
-                    box-sizing:border-box;border:2px solid red;
-                    border-radius:1.2vw;`
-    let styleStr3 = `background:#ccc;position:absolute;width:2.5vw;height:2.7vw;border:1px solid red;
-                    border-radius:1.2vw; overflow: hidden;`
-    let styleStr4 = `position:absolute;bottom:-1vw;left:0.65vw;
-                    width:0;height:0;border-width:0.5vw;border-style:solid;
-                    border-color:red transparent transparent transparent;
-                    `
-    let styleImg = `position:absolute;top:50%;width:2.5vw;transform:translateY(-50%)`
     let activeImg = require("@/assets/img/head-icon.png")
     let divIconArr = this.checkedPersonArr.map((item, index) => {
       return this.BM.divIcon({
-        html: `<div class="icon_wrap" title=${item.policeuser_name || ''} style="${styleStr1}">
-                <div class="img_wrap" style="${styleStr3}">
-                  <img src="${this.header[this.headName] || item.policeuser.icon || activeImg}" style="${styleImg}"/>
+        html: `<div class="icon_wrap" title=${item.policeuser_name || ''} >
+                <div class="img_wrap">
+                  <img src="${this.header[this.headName] || item.policeuser.icon || activeImg}"/>
                 </div>
-                <div class="round_cover" style="${styleStr2}"><i style="${styleStr4}"></i></div>
+                <div class="round_cover"><i></i></div>
               </div>`
       })
     })
@@ -797,11 +785,11 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   let styleImg = `position:absolute;top:50%;width:2.5vw;transform:translateY(-50%)`
   let divIconArr = data.child.map((item, index) => {
     return this.BM.divIcon({
-      html: `<div class="icon_wrap" title=${item.policeuser_name ||'暂无'} style="${styleStr1}">
-                <div class="img_wrap" style="${styleStr3}">
-                  <img src="${item.icon ? item.icon : noimg}" style="${styleImg}"/>
+      html: `<div class="icon_wrap" title=${item.policeuser_name ||'暂无'}>
+                <div class="img_wrap">
+                  <img src="${item.icon ? item.icon : noimg}"/>
                 </div>
-                <div class="round_cover" style="${styleStr2}"><i style="${styleStr4}"></i></div>
+                <div class="round_cover"><i></i></div>
               </div>`
     })
   })
@@ -903,6 +891,7 @@ function getNewPosition() {
   }).then((data) => {
 
     if (data.data.code == 200) {
+      console.log(data.data.data.list)
       let BM = this.BM
       // console.log('10s请求一次数据更新位置', this.markerArr, this.moveingPersonList, data.data.data.list)
       let xy = data.data.data.list.map(item => [item.latitude, item.longitude])

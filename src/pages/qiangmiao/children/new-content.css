@@ -14,6 +14,12 @@
     transform: rotate(360deg);
   }
 }
+.one-data:hover .up {
+  animation: roundleft 3s infinite alternate;
+}
+.one-data:hover .down {
+  animation: roundright 5s linear infinite;
+}
 .none-data {
   width: 50%;
   height: 3rem;
@@ -72,7 +78,6 @@
   height: 1.4rem;
   background: url(../../../assets/img/qm-r2.png) no-repeat;
   background-size: 100% 100%;
-  animation: roundleft 3s infinite alternate;
 }
 .main .item_miao .center .round2 {
   position: absolute;
@@ -85,7 +90,6 @@
   height: 1.05rem;
   background: url(../../../assets/img/qm-r1.png) no-repeat;
   background-size: 100% 100%;
-  animation: roundright 5s linear infinite;
 }
 .main .item_miao .center .qm {
   position: absolute;
@@ -674,7 +678,6 @@
   margin: auto;
   background: url(../../../assets/img/miao-r1.png) no-repeat;
   background-size: 100% 100%;
-  animation: roundright 2s linear infinite;
 }
 .one-data .center .up {
   position: absolute;
@@ -687,7 +690,6 @@
   margin: auto;
   background: url(../../../assets/img/miao-r2.png) no-repeat;
   background-size: 100% 100%;
-  animation: roundleft 3s linear infinite;
 }
 .one-data .center .m {
   position: absolute;

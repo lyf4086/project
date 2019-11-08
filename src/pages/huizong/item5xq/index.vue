@@ -157,7 +157,7 @@ export default {
             this.dataList = data.data.data;
             this.personList = data.data.positions;
             this.setMarker(data.data.positions);
-            // this.move()
+            // this.move()//列表动画
             this.loading.close()
           }
         })
@@ -171,11 +171,14 @@ export default {
       let markerArr = list.map((item, i) => {
         let xy = [item.longitude, item.latitude];
         return new AMap.Marker({
-          content: `<div class="marker-route11" >
+          content: `<div class="marker-route11 ${!!item.heart&&item.heart==1?'':'is_lixian'}" >
                       <div class="cover11" ></div>
                       <div class="img_wrap11">
                         <img src="${activeImg}" />
                       </div>
+                      <div class="set-type ${item.IMEI} ${item.astate==="1" ?'litao-s':null} ${item.astate==="2" ?'rutao-s':null} ${item.astate==="3" ?'fanwei-s':null}"
+                        title="报警类型" 
+                      ></div>
                     </div>`,
           position: xy,
           IMEI:item.IMEI,
@@ -185,7 +188,7 @@ export default {
           mechanism_name:item.mechanism_name,
           ptype:item.ptype,
           title: item.policeName,
-          offset: new AMap.Pixel(-16, -56)
+          offset: new AMap.Pixel(-16, -39)
         });
       });
 

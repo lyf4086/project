@@ -4,8 +4,8 @@
   line-height: 0.3rem;
 }
 .breadnav .title {
-  width: 1.4rem;
-  height: 90%;
+  width: 1.6rem;
+  height: 100%;
   font-size: 0.14rem;
   line-height: 0.3rem;
   text-indent: 0.28rem;
@@ -14,8 +14,8 @@
   margin-left: -0.1rem;
 }
 .breadnav .next {
-  min-width: 1.6rem;
-  height: 90%;
+  min-width: 1.4rem;
+  height: 100%;
   line-height: 0.3rem;
   text-indent: 0.18rem;
   font-size: 0.14rem;
@@ -24,7 +24,7 @@
 }
 .breadnav .mes {
   width: 1.5rem;
-  height: 90%;
+  height: 100%;
   line-height: 0.3rem;
   text-indent: 0.18rem;
   font-size: 0.14rem;

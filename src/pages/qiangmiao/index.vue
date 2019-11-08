@@ -222,6 +222,8 @@ export default {
       }else{
         this.keshihua=false
       }
+      localStorage.setItem('setKeShiHua',this.keshihua)
+      
       this.getDataList(this.active_fujigou, 1,this.checkType)
       this.$refs.page.internalCurrentPage = 1;
     },
@@ -730,6 +732,8 @@ export default {
     }
   },
   mounted() {
+    let keshi=localStorage.getItem('setKeShiHua')
+     this.keshihua=JSON.parse(keshi) 
     this.$store.commit('setStr',{
       str1:'枪瞄列表',
       str2:'情况汇总'

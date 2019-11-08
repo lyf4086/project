@@ -85,6 +85,7 @@
 .top-nav .search-wrap {
   width: 40%;
   height: 100%;
+  box-sizing: border-box;
   font-size: 0.16rem;
   border: 1px solid #55affd;
   overflow: hidden;

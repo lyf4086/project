@@ -71,7 +71,7 @@
                 :class="{'big':item.gtype=='95式'}"
                 :key="index"
               >
-                <p>枪支类型：{{item.gtype}}</p>
+                <p>类型：{{item.gtype}}</p>
                 <div class="bg"></div>
                 <div class="text" v-if="item.child">
                   <div class="a" title="警号">{{item.child.police_number}}</div>

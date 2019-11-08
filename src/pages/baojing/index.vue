@@ -46,7 +46,7 @@
     </div>
     <div class="page-index">
       <el-pagination
-        :page-size="8"
+        :page-size="keshihua ? 8:17"
         :pager-count="9"
         layout="total,prev, pager, next"
         @current-change="currentChange"
@@ -54,8 +54,11 @@
         ref="page"
       ></el-pagination>
     </div>
-
-    <div class="content">
+    <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
+    <div class="content" v-show="keshihua">
       <!-- <Content/> -->
       <div class="none-data" v-if="!list.length">暂时没有数据</div>
       <Item v-for="(item,index) in list" 
@@ -65,6 +68,35 @@
         @showAlert="showAlert"
         @chulihuidiao="chulihuidiao"
       />
+        
+    </div>
+    <div class="content2" v-show="!keshihua" >
+      <div class="title-child" v-show="list.length">
+        <span><input type="checkbox" v-show="false"/></span>
+        <span>姓名</span>
+        <span>警号</span>
+        <span>所属机构</span>
+        <span>时间</span>
+        <span>报警类型</span>       
+        <span>枪支编号</span>
+        <span>枪瞄编号</span>
+        <span>是否处理</span>
+        <span>最新位置</span>
+        <span>报警位置</span>
+      </div>
+      <div class="item-child" v-for="(item,index) in list" :key="index">
+        <span><input type="checkbox" v-model="item.checked" :disabled="!!item.desc" /></span>
+        <span>{{item.policeuser.policeuser_name}}</span>
+        <span>{{item.policeuser.police_number}}</span>
+        <span>{{item.mechanism_name}}</span>
+        <span>{{changeTime(item.created)}}</span>
+        <span>{{item.type}}</span>
+        <span>{{item.gun.gun_code}}</span>
+        <span>{{item.IMEI}}</span>
+        <span>{{item.desc? "已处理" : "未处理"}}</span>
+        <span @click="showNew(item)">最新位置</span>
+        <span @click="showAlert({id:item.alarm_info_id,name:item.policeuser.policeuser_name,type:item.type})">报警位置</span>
+      </div>
     </div>
     <div class="check_type">
       <div class="all" @click="dealAll">
@@ -151,12 +183,45 @@ export default {
       alarmMarkTitle:'' ,
       loading:null,
       zhankai:[],
-      alertMessage:null 
+      alertMessage:null,
+      keshihua:'',
     };
   },
   methods: {
+    changeTime(timestamp) {
+      var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var Y = date.getFullYear() + "-";
+      var M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "-";
+      var D = date.getDate() + " ";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes() + ":";
+      var s = date.getSeconds();
+      return Y + M + D + h + m + s;
+    },
+    changeShowType(n){
+      this.list=[]
+      this.warningType=''
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+       this.activeDataList=[]
+      if(n===1){
+        this.keshihua=true
+      }else{
+        this.keshihua=false
+      }
+      localStorage.setItem('setKeShiHua',this.keshihua)
+      let num=this.keshihua?8:17
+      this.getDataList(this.activeMechanismId, 1,num)
+      this.$refs.page.internalCurrentPage = 1;
+    },
     changeType(){
-      // console.log(this.warningType)
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -164,10 +229,11 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       this.list=[]
+      let num=this.keshihua ?8:17
       this.getDataList(
         this.activeMechanismId,
         1,
-        8,
+        num,
         this.selValue,
         this.putValue,
         this.state,
@@ -201,11 +267,12 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       this.list=[]
+      let num=this.keshihua?8:17
       if (this.search) {
         this.getDataList(
           this.activeMechanismId,
           n,
-          8,
+          num,
           this.selValue,
           this.putValue,
           this.state
@@ -216,7 +283,7 @@ export default {
       this.getDataList(
         this.activeMechanismId,
         n,
-        8,
+        num,
         this.selValue,
         this.putValue,
         this.state,
@@ -279,6 +346,7 @@ export default {
         this.warningType
       );
     },
+    
     subRewrite() {
       this.message = "";
       if (this.txt.trim() == "" || this.textArea.trim() == "") {
@@ -330,7 +398,8 @@ export default {
           this.rootId = data.data.data.list[0].root_id;
           this.activeItem = data.data.data.list[0];
           if (isCreate) {
-            this.getDataList(this.activeItem.id, 1, 8);
+            let num=this.keshihua?8:17
+            this.getDataList(this.activeItem.id, 1, num);
           }
         })
         .catch(error => {
@@ -409,7 +478,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log(data)
           if (data.data.code == 200) {
             if(this.warningOption==''){
               let str='<option value="">全部类型</option>'
@@ -493,7 +561,8 @@ export default {
       this.putValue = "";
       this.active_title = item.mechanism_name;
       this.activeItem = item; //记录当前激活的树形菜单子项
-      this.getDataList(item.mechanism_id, 1, 8);
+      let num=this.keshihua?8:17
+      this.getDataList(item.mechanism_id, 1, num);
       this.warningType=''
     },
     subSearch() {
@@ -554,11 +623,12 @@ export default {
 
     if (obj.one) {
       //....单个人的报警信息跳转过来的
+      let num=this.keshihua?8:17
       this.getTreeList(false);
       this.getDataList(
         obj.org_id || obj.mechanism_id,
         1,
-        8,
+        num,
         "policeuser_name",
         obj.policeName || obj.policeuser_name,
         1
@@ -581,6 +651,8 @@ export default {
     }
   },
   mounted() {
+    let keshi=localStorage.getItem('setKeShiHua')
+      this.keshihua=JSON.parse(keshi) 
     this.$store.commit('setStr',{
       str1:'报警列表',
       str2:'情况汇总'

@@ -6,6 +6,9 @@
     transform: rotate(360deg);
   }
 }
+.item-main:hover .round {
+  animation: round 3s linear infinite;
+}
 .item-main {
   width: 3.7rem;
   color: #fff;
@@ -34,7 +37,6 @@
   margin: auto;
   background: url(../../../assets/img/bj-round.png) no-repeat;
   background-size: 100% 100%;
-  animation: round 3s linear infinite;
 }
 .item-main .title .round_wrap .gun {
   position: absolute;
@@ -73,7 +75,8 @@
 }
 .item-main .content {
   width: 100%;
-  height: 70%;
+  height: 66%;
+  margin-top: -0.03rem;
   position: relative;
 }
 .item-main .content .sel {
@@ -307,7 +310,7 @@
 .cover .alert .txt .biaoti textarea {
   box-sizing: border-box;
   padding: 0.20833333vw;
-  border: 1px solid  #129fdf;
+  border: 1px solid #129fdf;
   background: none;
   margin-top: -0.26041667vw;
   color: #129fdf;

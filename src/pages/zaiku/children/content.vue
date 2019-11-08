@@ -5,7 +5,7 @@
         <p>弹柜总量：{{dataArr.length?dataArr.length:0}}</p>
       </div>
       <div class="item-wrap">
-        <div class="item" v-for="item,index in dataArr" :key="index">
+        <div class="item" v-for="(item,index) in dataArr" :key="index">
           <p class="title">单位：{{item.org_name}}</p>
           <img src="../../../assets/img/qingguitest.png" />
           <p>弹柜名称：{{item.vdevSN}}</p>
@@ -35,7 +35,7 @@
         <p class="title">弹药详情</p>
         <div class="content">
           <div class="cabinet">
-            <div class="item" v-for="item,index in xiangqingData" :key="index">
+            <div class="item" v-for="(item,index) in xiangqingData" :key="index">
               <div class="text">
                 <p>弹药名称：{{item.bullname}}</p>
                 <p>弹药类型：{{item.bulletType}}</p>
@@ -81,15 +81,14 @@ export default {
     return {
       xiangqingData: "",
       xiangqingindex: 0,
-      xiangqingshow: false
+      xiangqingshow: false,
+      loading:null
     };
   },
   computed: {},
   methods: {
     xiangqing(index) {
       this.xiangqingindex = index;
-      // this.xiangqingshow=true
-      // console.log(index.id)
       this.getXiangQing(index.id);
     },
     close() {
@@ -98,7 +97,12 @@ export default {
     },
     getXiangQing(id) {
       //................详情信息函数
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       var key = this.$store.state.key;
       var objs = { vdeid: id };
 
@@ -119,6 +123,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            this.loading.close()
             this.xiangqingData = data.data.data;
             if (!this.xiangqingData.length) {
               this.$message("暂无数据");

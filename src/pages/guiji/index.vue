@@ -192,7 +192,7 @@
       <div v-if="oneAlarmMessage.datetime">
         <button class="del-area" @click="del">删除该区域</button>
       </div>
-      <button class="goback" @click="outIn">
+      <button class="goback" @click="outIn" >
         <i class="ii"></i>
       </button>
     </div>
@@ -254,7 +254,7 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
-    <div class="change-type" v-show="hasPerson &&oldOrNew!=='old'&& !setWarning">
+    <div class="change-type" v-show="hasPerson &&oldOrNew!=='old'&& !setWarning &&moveingPersonList.length===1">
       <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
         <i class="fangxiang"></i>
       </div>
@@ -292,7 +292,7 @@
         </div>
         <div class="i" :class="{active:jiupian}" @click="weijiupian">
           <span></span>
-          <p>可能路劲</p>
+          <p>可能路径</p>
         </div>
       </div>
       
@@ -400,7 +400,8 @@ export default {
       markerArrLinShi: [],
       jiupian:false,
       loading:null,
-      last_time_arr:['111111']
+      last_time_arr:[],
+     
     };
   },
   computed: {
@@ -408,9 +409,8 @@ export default {
       return this.checkedPersonArr.slice(1);
     },
     fillSeilf() {
-      // console.log(this.noCheckedList);
       return this.noCheckedList.filter(
-        item => item.IMEI !== this.selectedPerson.IMEI
+        item => item.IMEI != this.selectedPerson.IMEI
       );
     },
     checkall:{

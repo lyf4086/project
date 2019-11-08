@@ -88,6 +88,7 @@
 .top-nav .search-wrap {
   width: 40%;
   height: 100%;
+  box-sizing: border-box;
   font-size: 0.16rem;
   border: 1px solid #55affd;
   overflow: hidden;
@@ -179,6 +180,8 @@
   background-size: 100% 100%;
 }
 .content {
+  box-sizing: border-box;
+  padding-top: 4.16666667vh;
   width: 88.9%;
   height: 95%;
   position: absolute;
@@ -187,6 +190,90 @@
   display: flex;
   flex-wrap: wrap;
   align-content: stretch;
+}
+.content2 {
+  width: 88.9%;
+  height: 95%;
+  position: absolute;
+  right: 0;
+  top: 4.8%;
+  box-sizing: border-box;
+  padding-top: 4.90740741vh;
+  font-size: 0.72916667vw;
+}
+.content2 .title-child {
+  box-sizing: border-box;
+  width: 100%;
+  height: 3.7037037vh;
+  border: 0.05208333vw solid #55affd;
+  display: flex;
+  font-size: 0.83333333vw;
+  justify-content: space-around;
+  align-items: center;
+}
+.content2 .title-child span {
+  flex: 4;
+  height: 100%;
+  line-height: 3.7037037vh;
+  text-align: center;
+  border-right: 0.05208333vw solid #55affd;
+}
+.content2 .title-child span:nth-child(1) {
+  flex: 1;
+  text-align: center;
+}
+.content2 .title-child span:nth-child(5) {
+  flex: 5;
+  text-align: center;
+}
+.content2 .title-child span:nth-child(8) {
+  flex: 5;
+  text-align: center;
+}
+.content2 .title-child span:nth-child(10),
+.content2 .title-child span:nth-child(11),
+.content2 .title-child span:nth-child(12) {
+  flex: 2.5;
+  text-align: center;
+}
+.content2 .item-child {
+  box-sizing: border-box;
+  width: 100%;
+  height: 3.7037037vh;
+  border: 0.05208333vw solid #55affd;
+  border-top: none;
+  display: flex;
+  font-size: 0.72916667vw;
+  color: #fff;
+  justify-content: space-around;
+  align-items: center;
+}
+.content2 .item-child span {
+  flex: 4;
+  height: 100%;
+  line-height: 3.7037037vh;
+  text-align: center;
+  border-right: 0.05208333vw solid #55affd;
+}
+.content2 .item-child span:nth-child(1) {
+  flex: 1;
+  text-align: center;
+}
+.content2 .item-child span:nth-child(5) {
+  flex: 5;
+  text-align: center;
+}
+.content2 .item-child span:nth-child(8) {
+  flex: 5;
+  text-align: center;
+}
+.content2 .item-child span:nth-child(10),
+.content2 .item-child span:nth-child(11),
+.content2 .item-child span:nth-child(12) {
+  flex: 2.5;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
 }
 .check_type {
   width: 1rem;
@@ -347,4 +434,36 @@
   background: rgba(0, 0, 0, 0.2);
   margin: 1rem auto;
   border-radius: 0.2rem;
+}
+.change_type {
+  width: 2rem;
+  height: 0.4rem;
+  position: absolute;
+  z-index: 9;
+  top: 3.7037037vh;
+  left: 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.change_type button {
+  border: 0.01rem solid rgba(129, 126, 126, 0.3);
+  color: #fff;
+  width: 0.36rem;
+  height: 0.36rem;
+  line-height: 0.2rem;
+  padding: 0.05rem 0.1rem;
+  border-radius: 0.05rem;
+  cursor: pointer;
+}
+.change_type button:nth-child(1) {
+  background: url(../../assets/img/keshihua.png) no-repeat;
+  background-size: 100% 100%;
+}
+.change_type button:nth-child(2) {
+  background: url(../../assets/img/leibiao.png) no-repeat;
+  background-size: 100% 100%;
+}
+.change_type .active {
+  border-color: #50b5f8;
 }

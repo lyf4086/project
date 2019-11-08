@@ -74,6 +74,7 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
+    console.log(data.data.data.list)
     this.last_time_arr=data.data.data.list.map(e=>e.created)
     this.loading.close()
     let that = this
@@ -134,7 +135,6 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     markerArr.forEach((item,index) => {
       AMap.event.addListener(item, 'click', function (ev) {
         that.creatInfoBox(item,index)
-
       })
     })
 
@@ -434,13 +434,14 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
   })
 }
 
-function creatInfoBox(item, ...res) {
+function creatInfoBox(item, res) {
   setTimeout(() => { //如果没有手动关闭，20秒之后自动关闭
     closeInfoWindow()
-  }, 20000)
+  }, 15000)
+  
   let that = this
   let map = this.map
-  var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title}</span>`,
+  var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title || "暂无"}</span>`,
     content = [];
   content.push(`<div class="tou_wrap"><img alt="头像" src='${item.Ge.src}' style="width:1rem;"></div>`)
   content.push(`<div class="map_txt_wrap">所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`); 
@@ -992,6 +993,7 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     // console.log(data)
     if (data.data.code == 200) {
       // console.log(data)
+      this.last_time_arr=data.data.data.list.child.map(e=>e.created)
       let state = data.data.data.list.state
       let id = this.$refs.alarmSelect.value
       this.shuaXinMap()
@@ -1098,10 +1100,10 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
     })
   })
   this.markerArr = markerArr //...存储当前状态下显示的标记点
-  markerArr.forEach(item => {
+  markerArr.forEach((item,index) => {
     AMap.event.addListener(item, 'click', function (ev) {
       // infoWindow.open(map, item.getPosition());
-      that.creatInfoBox(item)
+      that.creatInfoBox(item,index)
 
     })
   })
@@ -1171,6 +1173,7 @@ function getNewPosition(id) {
     if (data.data.code == 200) {
       // ...匀速运动有问题
       if(!data.data.data.list.length)return
+      
       this.last_time_arr=data.data.data.list.map(e=>e.created)
       this.unifromSpeedMoveing(data.data.data.list)
     }

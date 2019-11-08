@@ -41,7 +41,14 @@
 
 @vw: 19.2vw;
 @vh: 10.8vh;
-
+.item_gun:hover{
+  .bg{
+    animation: round1 5s linear infinite;
+  }
+  .bg2{
+    animation: round2 3s linear infinite;
+  }
+}
 .item_list {
   font-size: 16/@vw;
   height: 100%;
@@ -122,7 +129,7 @@
         height: 110/@vw;
         background: url(../../../assets/img/linshi1.png) no-repeat;
         background-size: 100% 100%;
-        animation: round1 5s linear infinite;
+        // animation: round1 5s linear infinite;
       }
 
       .bg2 {
@@ -130,7 +137,7 @@
         height: 80/@vw;
         background: url(../../../assets/img/linshi2.png) no-repeat;
         background-size: 100% 100%;
-        animation: round2 3s linear infinite;
+        // animation: round2 3s linear infinite;
       }
 
       .gun {
