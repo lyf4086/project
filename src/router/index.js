@@ -5,7 +5,8 @@ Vue.use(Router)
 
 let HuiZong = () => import('../pages/huizong/indexrest');
 // let HuiZong = () =>import('../pages/huizong');//弃用
-let GuiJi = () => import('../pages/guiji');
+let GuiJi = () => import('../pages/guiji');//高德地图
+let BigMap = () => import('../pages/map/index.vue');//离线地图
 let QiangMiao = () => import('../pages/qiangmiao');
 let JiGouGuanLi = () => import('../pages/jigouguanli');
 let QiangZhi = () => import('../pages/qiangzhi');
@@ -16,12 +17,13 @@ let QiangGui = () => import('../pages/qianggui');
 let ChiQiang = () => import('../pages/chiqiangrenyuan');
 let QiangKu = () => import('../pages/qiangku');
 let Vidio = () => import('../pages/vidio');
-import Login from '../pages/login'
+// import Login from '../pages/login'
+let Login=()=>import('../pages/login')
 let LoginPut = () => import('../pages/login/index2');
 let RenYuan = () => import('../pages/renyuanguanli');
 let PersonMessage = () => import('../pages/personmessage');
 let GunMessage = () => import('../pages/gunmessage');
-let BigMap = () => import('../pages/map/index.vue');
+
 //弃用，由NewXiangQing代替
 // let XiangQing = () => import('../pages/huizong/xiangqing');
 let List = () => import('../pages/huizong/list');

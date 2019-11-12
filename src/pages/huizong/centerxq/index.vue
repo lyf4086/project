@@ -66,10 +66,9 @@ export default {
     };
   },
   methods: {
-    moveing() {
-      this.$methods.listMove("movelist");
-      console.log("开始了");
-    },
+    // moveing() {
+    //   this.$methods.listMove("movelist");
+    // },
     chartLeftTop() {
       let that = this;
       let box = document.getElementById("left_top");
@@ -469,6 +468,12 @@ export default {
       Echart.setOption(option);
     },
     getData(t_mechanism_id) {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       let objs = {
         t_mechanism_id
       };
@@ -489,7 +494,7 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            // console.log(data);
+            this.loading.close()
             let arr = data.data.da.sort((a, b) => b.value - a.value);
             this.char1Num = arr.map(e => e.value);
             this.char1Name = arr.map(e => e.name);
@@ -509,7 +514,7 @@ export default {
             });
             this.chartRight();
             this.dataList = data.data.loc;
-            this.loading.close()
+            
           }
         })
         .catch(error => {
@@ -519,16 +524,10 @@ export default {
   },
   created() {},
   mounted() {
-    this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+    
     let mes = this.$gscookie.getCookie("message_obj");
     this.t_mechanism_id = mes.mechanism_id;
     this.getData(mes.mechanism_id);
-    this.moveing();
     this.$store.commit("setStr", {
       str1: "数据汇总",
       str2: "概况"
@@ -536,7 +535,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("huanyuanStr");
-    this.loading.close()
+    
   }
 };
 </script>

@@ -356,8 +356,7 @@ export default {
           console.log(error);
         });
     },
-    zuodonghua() {
-      
+    zuodonghua() {     
       let main = $(".num-icon")[0];
       let list = document.querySelectorAll("#num-icon .item");
       let num = -1;
@@ -387,8 +386,7 @@ export default {
     this.getData_under_r();
   },
   mounted() {
-    this.chart1();
-    this.chart2();
+    
   },
   beforeDestroy() {
     clearTimeout(this.timermove);

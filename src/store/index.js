@@ -15,9 +15,9 @@ let store = new Vuex.Store({
     str1: '全国枪支',
     str2: '使用情况汇总',
     baseURL: "http://s.tronl.cn",
-    lixianStr:"http://192.168.1.107:9000",
-    keshihua:true
-
+    // baseURL:'http://192.168.124.160',
+    lixianStr:"http://192.168.1.149:9000",
+    zaixian:true,//默认是在线状态，关于地图的都走在线地图
   },
   mutations: {
     setStr(state, payload) {

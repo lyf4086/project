@@ -171,7 +171,7 @@ function stopSetArea() {
   this.setAreaTime = false;
   this.polygon.hide()
   this.markerArr.length = 0
-  // console.log(this.markerArr)
+  
 }
 
 function showOne(ev,val) {
@@ -218,7 +218,6 @@ function showOne(ev,val) {
 
 function showAll() {
   let v = this.$refs.alarmSelect.value
-  // console.log(v)
   this.getOneAlarmArea(v)
   // this.showAllAlarmArea(this.allAlarmAreaList)
 }
@@ -227,7 +226,6 @@ function submitSetAreaWarning() {
 
   let newArr1 = [...this.checkedPersonArr, this.selectedPerson]
   let gun_ids11 = newArr1.map(e => e.gun_id)
-  // 废弃的方法 let pointsArr11=this.markerArr.map(e=>`${e.G.position.M}|${e.G.position.O}`)
   let pointsArr11 = this.polyLineArr.map(item => {
     return `${item[1]}|${item[0]}`
   })
@@ -245,17 +243,13 @@ function submitSetAreaWarning() {
     return
   }
 
-
-
   this.shezhiquyu(gun_ids11, pointsArr11, policeuser_id, s_t, e_t, areaName, str)
-  // this.markerArr.length=0
   this.startTime = this.endTime = ''
   this.areaName = ''
 
 }
 
 function showOneAlarmArea(arr, id) {
-  // console.log('185', arr, id)
   let map = this.map
   let that = this
   let arr2 = arr.map(e => e.G.position)
@@ -432,6 +426,7 @@ function searchByTime() { //.....根据时间搜索历史轨迹
 }
 
 function searchOnePerson() { //.........搜索人员后弹出该人员信息
+  
   this.oneAlarmPersonList.length = 0
   this.oneAlarmMessage = {};
   if (this.polygon) {
@@ -529,7 +524,7 @@ function yijingXuanze() { //.................编组后搜索一组人员
     this.newShuaXinMap()
 
 
-
+    this.oldOrNew=''
 
     this.getIMEI(IMEIList) //....................................
   }

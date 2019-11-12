@@ -12,7 +12,7 @@
 </style>
 <script>
 export default {
-    props:["arr","title"],
+    props:["arr","title","mes"],
     data(){
         return {
             BM:null,
@@ -26,7 +26,7 @@ export default {
         mapInit() {
             let that = this;
             BM.Config.HTTP_URL = this.$store.state.lixianStr           
-            var map = BM.map("map", "bigemap.awiawk58", {
+            var map = BM.map("map", "bigemap.ap8r91ep", {
                 center: [39.9, 116.32],
                 zoom: 1,
                 zoomControl: true
@@ -43,11 +43,19 @@ export default {
             let that = this;
             let BM = this.BM;
             let map = this.map;
-            BM.marker(a,{title:this.title}).addTo(map);          
+            let mar=BM.marker(a,{title:this.title}).addTo(map); 
+            mar.on('click',function (){
+                if(!that.mes)return
+                that.$message({
+                    type:'none',
+                    message:`所属机构：${that.mes.mechanism_name}`
+                })
+            })         
             map.fitBounds([a]);           
         }
     },
     mounted(){
+        
         this.mapInit()        
     }
 }

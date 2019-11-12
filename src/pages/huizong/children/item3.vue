@@ -39,9 +39,17 @@ export default {
   },
   methods: {
     toXiangQing() {
-      this.$router.push({
-        name: "Item5XQ"
-      });
+      let zaixian=this.$store.state.zaixian
+      if(zaixian){
+        this.$router.push({
+          name: "Item5XQ"
+        });
+      }else{
+        this.$router.push({
+          name: "Item5XQ_LX"
+        });
+      }
+      
     },
     goPersonMessage(item) {
       let roleId = this.$store.state.role_id;

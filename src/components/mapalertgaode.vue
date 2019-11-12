@@ -50,11 +50,14 @@ export default {
             
             marker.on('click',function (){
                 const h = that.$createElement;
+                console.log(that.mes)
                that.$message({
-                   type:"info",
-                   message:h('div',{style:"font-size:12px"},[
+                   type:"none",
+                   message:h('div',{style:"font-size:12px;line-height:22px"},[
                        h('p',null,`所属机构：${that.mes.mechanism_name}`),
-                       h('p',null,`报警类型：${that.mes.type}`)
+                       h('p',null,`报警类型：${that.mes.type}`),
+                       h('p',null,`所属机构：${that.mes.mechanism_name}`),
+                       h('p',null,`枪瞄编号：${that.mes.IMEI}`)
                    ]),
                    duration:4000
                })

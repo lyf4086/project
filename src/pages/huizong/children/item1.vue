@@ -223,8 +223,6 @@ export default {
     }
   },
   mounted() {
-    this.char1();
-    this.char2();
     this.getData();
     this.getData_chart2();
   }

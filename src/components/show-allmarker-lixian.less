@@ -1,0 +1,82 @@
+@vw:19.2vw;
+@rem:100rem;
+#map-wrap{
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 9;
+    width:100%;
+    height:100%;
+    background: pink;
+}
+
+
+/deep/.marker-route11{
+    position: relative;
+    width: 50/@rem;
+    height: 60/@rem;
+    
+        .set-type{
+        position: absolute;
+        z-index: 1;
+        top:-10/@vw;
+        right:-10/@vw;
+        width:25/@vw;
+        height:25/@vw;
+      }
+      .cover11 {
+          position: absolute;
+          top:0;
+          left:0;
+          z-index: 1;
+        width: 100%;
+        height: 100%;
+        background: url(../assets/img/tou.png) no-repeat;
+        background-size: 100% 100%;
+      }
+    
+     .img_wrap11 {
+        width: 46/@rem;
+        height: 50/@rem;
+        margin-top: 3/@rem;
+        margin-left: 1/@rem;
+        border-radius: 50%;
+        border:1px solid red;
+        overflow: hidden;
+        img {
+            position: absolute;
+            top:2/@vw;
+            left:0;
+          width: 100%;
+        }
+      }
+    
+      .litao{
+        background: url(../assets/img/litao-s.png);
+        background-size: 100% 100%;;
+      }
+      .rutao{
+        background: url(../assets/img/rutao-s.png);
+        background-size: 100% 100%;;
+      }
+      .fanwei{
+        background: url(../assets/img/fanwei-s.png);
+        background-size: 100% 100%;;
+      }
+     
+}
+/deep/.lixian{
+    .img_wrap11{
+      filter: grayscale(90%);
+      img{
+          width:106%
+      }
+    }
+    .cover11{
+      filter: grayscale(90%);
+    }
+}
+/deep/.bigemap-div-icon{
+    width:0px !important;
+    height:0px !important;
+  }

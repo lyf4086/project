@@ -194,16 +194,18 @@ export default {
 
       markerArr.forEach(item => {
         AMap.event.addListener(item, "click", function(ev) {
-          // console.log(item.Ge)
            that.$alert(`
             <p>枪瞄编号：${item.Ge.IMEI}</p>
-            <p>枪支编号：${item.Ge.gun_code}</p>
+            <p>枪支编号：${item.Ge.gun_code ||""}</p>
             <p>是否在线：${item.Ge.heart==0?"不在线":"在线"}</p>
             <p>所属机构：${item.Ge.mechanism_name}</p>
             <p>定位类型：${item.Ge.ptype}</p>
            `, item.Ge.title, {
               dangerouslyUseHTMLString: true,
-              showClose:false
+              showClose:false,
+              closeOnClickModal:true
+            }).then(res=>{
+              console.log(res)
             });
           
         });

@@ -129,10 +129,16 @@
         <p @click="quxiao">X</p>
       </div>
     </div>
-    <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" :mes="this.alertMessage" title="" @closeMap="closeMap"/>
-    <!-- <MapMarker v-if="gaodeshow" :arr="gaodeArr" title="" @closeMap="closeMap"/> -->
-    <GaoDeMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
-    <!-- <LiXianMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/> -->
+    <div v-if="this.$store.state.zaixian">
+      <!-- 高德地图 -->
+      <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" :mes="this.alertMessage" title="" @closeMap="closeMap"/>
+      <GaoDeMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
+    </div>
+    <div v-if="!this.$store.state.zaixian">
+      <!-- 离线地图 -->
+      <LiXianMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
+      <MapMarker v-if="gaodeshow" :arr="gaodeArr" :mes="this.alertMessage" title="" @closeMap="closeMap"/>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -243,10 +249,11 @@ export default {
     },
     chulihuidiao(){
       let yeMa = this.activeYeMa || 1;
-      this.getDataList(this.activeItem.mechanism_id, yeMa, 8,this.warningType);
+      let num=this.keshihua ?8:17
+      this.getDataList(this.activeItem.mechanism_id, yeMa, num,this.warningType);
     },
     showNew(item){
-      this.alertMessage={type:item.type,mechanism_name:item.mechanism_name}
+      this.alertMessage={type:item.type,mechanism_name:item.mechanism_name,...item}
       this.gaodeArr=[item.nlongitude-0,item.nlatitude-0]
       this.gaodeshow=true
     },
@@ -321,12 +328,13 @@ export default {
       this.textArea = "";
     },
     noDeal() {
+      let num=this.keshihua ?8:17
       this.message = "";
       this.state = 1; //未处理
       this.getDataList(
         this.activeItem.mechanism_id,
         1,
-        8,
+        num,
         this.selValue,
         this.putValue,
         this.state,
@@ -336,10 +344,11 @@ export default {
     dealed() {
       this.message = "";
       this.state = 2; //已处理
+      let num=this.keshihua ?8:17
       this.getDataList(
         this.activeItem.mechanism_id,
         1,
-        8,
+        num,
         this.selValue,
         this.putValue,
         this.state,
@@ -364,7 +373,8 @@ export default {
     quanbu() {
       this.message = "";
       this.state = "";
-      this.getDataList(this.activeItem.mechanism_id, 1, 8,this.warningType);
+      let num=this.keshihua ?8:17
+      this.getDataList(this.activeItem.mechanism_id, 1, num,this.warningType);
     },
     getTreeList(isCreate = true) {
       // ......................该组件默认加载树形菜单数据
@@ -478,6 +488,7 @@ export default {
         data: params
       })
         .then(data => {
+          this.loading.close()
           if (data.data.code == 200) {
             if(this.warningOption==''){
               let str='<option value="">全部类型</option>'
@@ -486,6 +497,7 @@ export default {
               })
               this.warningOption=str
             }
+            
             this.list = data.data.data.list.map((e, i) => {
               return {
                 ...e,
@@ -495,7 +507,7 @@ export default {
             });
             this.beiYongList = this.list;
             this.dataTotal = data.data.data.psum * 1;
-            this.loading.close()
+            
           }
         })
         .catch(error => {
@@ -535,7 +547,8 @@ export default {
               message: "处理完成"
             });
             let yeMa = this.activeYeMa || 1;
-            this.getDataList(this.activeItem.mechanism_id, yeMa, 8);
+            let num=this.keshihua ?8:17
+            this.getDataList(this.activeItem.mechanism_id, yeMa, num);
           }
         })
         .catch(error => {
@@ -588,6 +601,7 @@ export default {
       this.serach = true;
       this.message = this.putValue;
       this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
+      let num=this.keshihua ?8:17
       this.getDataList(
         this.activeMechanismId,
         1,
@@ -609,12 +623,19 @@ export default {
     let obj = this.$route.params;
     let str = this.$gscookie.getCookie("gun");
     let item = this.$gscookie.getCookie("message_obj");
-    // console.log(item);
     this.policeuser_id = item.id;
+    let zaixian=this.$store.state.zaixian
     if (item.role_id == 3) {
-      this.$router.push({
-        name: "GuiJi"
-      });
+      if(zaixian){
+        this.$router.push({
+          name: "GuiJi"
+        });
+      }else{
+        this.$router.push({
+          name: "Map"
+        });
+      }
+      
     }
     if (JSON.stringify(str) == "{}") {
       this.$router.push("/loginput");
@@ -637,15 +658,15 @@ export default {
     }
     if (obj.mechanism_id) {
       this.search = true;
-
       this.activeMechanismId = obj.mechanism_id;
       this.state = "";
       this.selValue = "policeuser_name";
       this.putValue = obj.policeuser_name;
       this.currentNodeKey = obj.mechanism_id;
       this.getTreeList(false);
+      console.log('走搜索')
       this.subSearch();
-      // this.getDataList(obj.mechanism_id,1,8,"policeuser_name",obj.policeuser_name)
+     
     } else {
       this.getTreeList();
     }

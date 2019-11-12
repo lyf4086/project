@@ -469,12 +469,17 @@ export default {
         });
         return;
       }
-      //打开谷歌离线地图
-      // this.mapShow=true
-      // this.mapLngLat=[item.latitude-0,item.longitude-0]
-     
-      this.map = true;
-      this.mapInit(item);
+   
+      let zaixian=this.$store.state.zaixian
+        if(zaixian){
+          //默认打开在线地图
+          this.map = true;
+          this.mapInit(item);
+        }else{
+          //打开谷歌离线地图
+          this.mapShow=true
+          this.mapLngLat=[item.latitude-0,item.longitude-0]
+        }
     },
     mapInit(obj) {
       let map = new AMap.Map("map_content", {

@@ -328,6 +328,10 @@ export default {
             this.date = data.data.gname;
             this.initEchart();
             this.loading.close()
+            if(data.data.data.length>6){
+              this.move();
+            }
+            
           }
         })
         .catch(error => {
@@ -364,7 +368,7 @@ export default {
     this.getData(mes.mechanism_id, par.mid, par.ip_id, par.tt);
   },
   mounted() {
-    this.move();
+    
     this.$store.commit("setStr", {
       str1: "枪支借出",
       str2: "数据统计"

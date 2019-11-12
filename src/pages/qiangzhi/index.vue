@@ -770,11 +770,20 @@ export default {
     this.sync = this.$gscookie.getCookie("sync");
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");
+      let zaixian=this.$store.state.zaixian
     if (item.role_id == 3) {
-      this.$router.push({
-        name: "GuiJi"
-      });
+      if(zaixian){
+        this.$router.push({
+          name: "GuiJi"
+        });
+      }else{
+        this.$router.push({
+          name: "Map"
+        });
+      }
+      
     }
+
     let jiGouId = this.$store.state.jiGouId;
     let yeMa = this.$store.state.yeMa;
 

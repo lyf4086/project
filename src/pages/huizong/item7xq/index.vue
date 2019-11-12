@@ -336,6 +336,9 @@ export default {
             this.date = data.data.date;
             this.initEchart();
             this.loading.close()
+            if(data.data.data.length>7){
+              this.move();
+            }
           }
         })
         .catch(error => {
@@ -372,7 +375,7 @@ export default {
     this.getData(mes.mechanism_id, par.mid, par.ip_id, par.tt);
   },
   mounted() {
-    this.move();
+    
     this.$store.commit("setStr", {
       str1: "出勤任务",
       str2: "数据对比"

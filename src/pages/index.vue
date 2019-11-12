@@ -123,7 +123,7 @@
         >
           <div class="warning_item">
             <span :title="index+1">{{index+1}}</span>
-            <span @click="itemClick(item)"><i>{{item.policeuser_name||"暂无"}}</i>&nbsp;（{{item.type||"暂无"}}）</span>
+            <span @click="itemClick(item)"><i>{{item.policeuser_name||"暂无"}}</i> ({{item.type||"暂无"}})</span>
             <span class="chuli" @click="done(index)">极速处理</span>
           </div>
         </transition>
@@ -208,7 +208,8 @@ export default {
       warningMove: false,
       warningBoxIsShow: true,
       tb: false,
-      sync: ""
+      sync: "",
+      loading:null
     };
   },
   methods: {
@@ -422,46 +423,44 @@ export default {
       }
       if (this.pwd1 !== this.pwd2) {
         this.$message.error("两次输入不一致，请重新输入");
+        return;
       }
-      return; //............................................................
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+       //............................................................
+       let mes=JSON.parse(sessionStorage.getItem('message_obj'))
       var token = this.$gscookie.getCookie("gun");
       var objs = {
-        uname: this.list[index].policeuser_name,
-        role_id: this.list[index].role_id,
-        policeuser_id: this.list[index].policeuser_id,
-        mobile: this.list[index].mobile,
-        sex: this.list[index].sex, //this.list[index].mobile
-        mechanism_id: this.list[index].mechanism_id,
-        police_number: this.list[index].police_number,
-        ishow: this.list[index].ishow
+        "policeuser_id":mes.id,
+        "pwd":this.pwd1
       };
+     
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
       var params = new URLSearchParams();
-      params.append("uname", objs.uname);
-      params.append("role_id", objs.role_id);
-      params.append("policeuser_id", objs.policeuser_id);
-      params.append("mobile", objs.mobile);
-      params.append("sex", objs.sex);
-      params.append("mechanism_id", objs.mechanism_id);
-      params.append("police_number", objs.police_number);
-      params.append("ishow", objs.ishow);
+     params.append("policeuser_id", objs.policeuser_id);
+     params.append("pwd", objs.pwd);
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
         url:
-          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=policeuser&a=rewrite",
+          this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=policeuser&a=hand",
         method: "POST",
         changeOrigin: true,
         data: params
       })
         .then(data => {
           if (data.data.code == 200) {
+            this.loading.close()
             this.$message({
-              message: "修改状态成功",
+              message: "修改成功",
               type: "success"
             });
+            this.pasShow=false
           }
         })
         .catch(error => {
@@ -486,27 +485,16 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
-            
             if (!data.data.data.length) return;
-            if(data.data.data.length>this.warningList.length){//如果是新增了报警数据，则情况原数据
-              this.warningList=[]
-              let list = data.data.data.map(e => {
-                return {
+            this.warningList.length=0
+            let list = data.data.data.map(e => {
+                  return {
                     ...e,
                     show: true
                   };
                 });
-                this.warningList = list;
-             
-            }else{
-               let list = data.data.data.map(e => {
-                return {
-                    ...e,
-                    show: true
-                  };
-                });
-                this.warningList = list;  
-            }
+            this.warningList = Object.assign([],this.warningList,list)          
+
               let obj={};
                 let newArr=[]
                 data.data.data.forEach(item=>{

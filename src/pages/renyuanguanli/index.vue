@@ -400,6 +400,7 @@ export default {
         data: params
       })
         .then(data => {
+          this.loading.close()
           this.roles=data.data.roles
           this.itemList = data.data.data.list.map(e => {
             return {
@@ -410,7 +411,7 @@ export default {
               put3show: false
             };
           });
-          this.loading.close()
+          
           this.pageTotal = data.data.data.psum - 0; //获取页码总数
         })
         .catch(error => {

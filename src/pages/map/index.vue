@@ -168,10 +168,9 @@
     </div>
     <div class="warning">
       <div class="btns">
-        <span title="库存" @click="test">库存</span>
-        <span title="入套">入套</span>
-        <span title="执勤">执勤</span>
-        <span title="离套">离套</span>
+        <span>离套状态</span>
+        <span>正常值勤</span>
+        <span>范围预警</span>
       </div>
     </div>
     <div class="setWarning" v-show="setWarning">
@@ -258,7 +257,7 @@
     </div>
     <!-- 切换航速据模式 -->
 
-    <div class="change-type" v-show="hasPerson&&oldOrNew!=='old'">
+    <div class="change-type" v-show="hasPerson&&oldOrNew=='new'">
       <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
         <i class="fangxiang"></i>
       </div>
@@ -379,7 +378,8 @@ export default {
       jigouSelIndex: 0,
       allMechanismPersonList: [],
       jigouname: "",
-      loading:null
+      loading:null,
+      paixuarr:[],//用来排序的imei号
     };
   },
   computed: {
@@ -509,11 +509,11 @@ export default {
     },
     mapInit() {
       let that = this;
-      BM.Config.HTTP_URL = "http://192.168.1.149:3000";
+      BM.Config.HTTP_URL = this.$store.state.lixianStr;
       if (this.map) {
         this.map.remove();
       }
-      var map = BM.map("map", "bigemap.awiawk58", {
+      var map = BM.map("map", "bigemap.ap8r91ep", {
         center: [39.9, 116.32],
         zoom: 1,
         zoomControl: true
@@ -529,20 +529,18 @@ export default {
       let BM = this.BM;
       let map = this.map;
       let markerArr = arr.map(item => {
-        // console.log(item);
-        // , { title: "999999" }
         return BM.marker(item).addTo(map);
       });
 
       map.fitBounds(arr);
       this.markerArr = markerArr;
-      markerArr.forEach(e => {
-        console.log(e);
-        e.bindPopup("测试弹窗");
-      });
+      // markerArr.forEach(e => {
+      //   console.log(e);
+      //   e.bindPopup("测试弹窗");
+      // });
     },
     setPolyGon(arr, state) {
-      let color = state === 1 ? "red" : "blue"; //state为1则存在报警
+      let color =state === 1 ? "red" : "blue"; //state为1则存在报警
       let that = this;
       let BM = this.BM;
       let map = this.map;
@@ -572,11 +570,7 @@ export default {
         this.shangyigequyu.remove();
       }
     },
-    test() {
-      // this.newShuaXinMap()
-      console.log(this.markerArr);
-      // this.markerArr.forEach(e=>e.remove())
-    }
+    
   },
   created() {
     this.getJiGouStr();
@@ -591,6 +585,9 @@ export default {
     this.loading ? this.loading.close():null
     this.$store.commit('huanyuanStr')
   }
+  // beforeRouteLeave(to,from,next){
+  //   console.log('页面将要离开',to,from,next)
+  // }
 };
 </script>
 

@@ -526,6 +526,8 @@ export default {
         .then(data => {
           if (data.status == 200) {
             this.dataList3 = data.data.data;
+            this.moveing();
+            this.moveDian()
           }
           // console.log('逾期',data)
         })
@@ -535,13 +537,10 @@ export default {
     }
   },
   mounted() {
-    this.char1();
-    // this.chart2();
     this.getDataOne();
     this.getDataTwo();
     this.getDataThree();
-    this.moveing();
-    this.moveDian()
+    
   }
 };
 </script>

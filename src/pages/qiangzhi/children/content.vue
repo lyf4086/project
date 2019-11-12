@@ -24,7 +24,7 @@
         <div class="center">
           <div class="bg"></div>
           <div class="bg2"></div>
-          <div class="gun" :class="{'long':item.gtype=='95式'}"></div>
+          <div class="gun" :class="{'long':item.gtype=='95式'||item.gtype=='79式'}"></div>
         </div>
         <div class="right">
           <div class="btn" title="枪锁位">枪锁位：{{item.gposition || '无'}}</div>

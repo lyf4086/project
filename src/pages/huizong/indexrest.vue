@@ -112,5 +112,6 @@ export default {
       this.$router.push("/loginput");
     }
   }
+
 };
 </script>

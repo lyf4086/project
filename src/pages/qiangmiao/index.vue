@@ -81,17 +81,7 @@
     </div>
     <div class="content2" v-show="!keshihua">
       <div class="none-data" v-if="!qiangmiaoData.length">暂时没有数据</div>
-      <!-- <div class="item" v-for="(item,index) in qiangmiaoData" :key="index">
-        <input type="checkbox"  v-model="item.checked">
-        <span><i>枪瞄编号：</i>{{item.IMEI}}</span>
-        <span><i>所属警员：</i>{{item.policeuser_name || '暂无'}}</span>
-        <span><i>枪瞄状态：</i>{{item.heart==1 ? "在线":"离线"}}</span>
-        <span><i>枪瞄类型：</i>{{item.gtypes_name}}</span>
-        <span><i>剩余电量：</i>{{item.electricity}}%</span>
-        <span><i>绑定枪支：</i>{{item.gun_code || '暂无'}}</span>
-        <span><i>充电状态：</i>{{item.ischarging}}</span>
-        <span><i>最后定位时间：</i>{{item.created}}</span>
-      </div> -->
+      
       <div class="list-title" v-show="qiangmiaoData.length">
         <input type="checkbox" v-model="checkAll"/>
         <span>枪瞄编号</span>
@@ -119,11 +109,7 @@
       <div class="text-wrap" v-show="alert">
         <div class="text-title">新增枪瞄</div>
         <div class="text-content">
-          <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
-            <el-form-item label="IMEI">
-              <el-input v-model="formLabelAlign.iemi"></el-input>
-            </el-form-item>
-          </el-form> -->
+          
           IMEI:<input type="number" v-model="formLabelAlign.iemi"><br/>
           枪瞄类型：<el-select v-model="value" placeholder="请选择">
                     <el-option
@@ -709,10 +695,18 @@ export default {
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
+    let zaixian=this.$store.state.zaixian
     if (item.role_id == 3) {
-      this.$router.push({
-        name: "GuiJi"
-      });
+      if(zaixian){
+        this.$router.push({
+          name: "GuiJi"
+        });
+      }else{
+        this.$router.push({
+          name: "Map"
+        });
+      }
+      
     }
     let str = this.$gscookie.getCookie("gun");
     if (JSON.stringify(str) == "{}") {

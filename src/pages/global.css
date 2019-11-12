@@ -398,7 +398,7 @@
   transform: rotate(180deg);
 }
 .warning_list {
-  width: 3.06rem;
+  width: 3.16rem;
   height: 1.45rem;
   overflow: hidden;
   position: absolute;
@@ -436,7 +436,7 @@
   overflow: hidden;
 }
 .warning_list .warning_item span:nth-child(2) {
-  width: 1.4rem;
+  width: 1.56rem;
   height: 0.3rem;
   font-size: 0.14rem;
   line-height: 0.3rem;

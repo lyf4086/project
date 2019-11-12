@@ -18,8 +18,8 @@ function personMoveing() {
   let that = this
   clearInterval(this.moveTimer)
   this.moveTimer = setInterval(() => {
-    console.log('请求最新位置了', this.moveingPersonList.length)
-    that.getNewPosition()
+    console.log('请求最新位置了', this.moveingPersonList.length,this.$refs.alarmSelect.value)
+    that.getNewPosition(this.$refs.alarmSelect.value)
   }, movingTime)
 }
 
@@ -51,19 +51,14 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
-    // console.log(data.data.data.list)
+    // console.log(data)
     this.loading.close()
     let that = this
     this.isChange = false //避免多次点击
     this.hasPerson = true;
     let newArr = this.checkedPersonArr
     newArr.unshift(this.selectedPerson)
-
-
     this.moveingPersonList = newArr //当前要做动画运动的人
-
-
-
     this.newShuaXinMap()
     let polyArr = data.data.data.list
     let arr = polyArr.map(item => {
@@ -72,12 +67,25 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
 
     let activeImg = require("@/assets/img/head-icon.png")
     let divIconArr = this.checkedPersonArr.map((item, index) => {
+      let cln=polyArr[index].heart&&polyArr[index].heart==1?null:'is_lixian'
+      let stateName=''
+      if(polyArr[index].astate==1){
+        stateName='litao';
+      }else if(polyArr[index].astate==2){
+        stateName='rutao';
+      }else if(polyArr[index].astate==3){
+        stateName='fanwei';
+      }else{
+        stateName='';
+      }
+      
       return this.BM.divIcon({
-        html: `<div class="icon_wrap" title=${item.policeuser_name || ''} >
+        html: `<div class="icon_wrap ${item.IMEI} ${cln}" title=${item.policeuser_name || ''} >
                 <div class="img_wrap">
                   <img src="${this.header[this.headName] || item.policeuser.icon || activeImg}"/>
                 </div>
                 <div class="round_cover"><i></i></div>
+                <div class="set-type ${stateName}"></div>
               </div>`
       })
     })
@@ -88,35 +96,22 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
         title: this.checkedPersonArr[index].policeuser_name
       }).addTo(this.map)
     })
-    console.log(this.checkedPersonArr)
-    // markerArr.forEach(item => {
-    //   console.log(item)
-    //   item.bindPopup(`<div>${item.options.title}</div>`)
-    // })
     this.markerArr = markerArr
     //把当前显示的标记点存一下
-
-
     markerArr.forEach((e, i) => {
-      /* e.bindPopup(`警员姓名：${this.checkedPersonArr[i].policeuser_name} \</br>
-        所属机构：${this.checkedPersonArr[i].mechanism_name}\</br>
-        枪支类型：${this.checkedPersonArr[i].gtype} \</br>
-        枪支编号：${this.checkedPersonArr[i].gun_code} \</br>
-        是否在线：${data.data.data.list[i].heart == 1 ? "在线" : "不在线"} \</br>
-        定位类型：${data.data.data.list[i].ptype} \</br>
-        枪瞄编号：${this.checkedPersonArr[i].IMEI} \</br>
-        `); */
         e.on('click',function (){
-          that.$alert(`
-          <p>所属机构：${that.checkedPersonArr[i].mechanism_name}</p>
-          <p>枪支类型：${that.checkedPersonArr[i].gtype}</p>
-          <p>枪支编号：${that.checkedPersonArr[i].gun_code}</p>
-          <p>是否在线：${data.data.data.list[i].heart == 1 ? "在线" : "不在线"}</p>
-          <p>定位类型：${data.data.data.list[i].ptype}</p>
-          <p>枪瞄编号：${that.checkedPersonArr[i].IMEI}</p>
-        `, that.checkedPersonArr[i].policeuser_name || '', {
-            dangerouslyUseHTMLString: true,
-            showClose:false
+          const h = that.$createElement;
+          that.$message({
+            type:'none',
+            duration:6000,
+            message: h('div', {style:'font-size:16px;line-height:30px;'}, [
+              h('p', null, `所属机构：${that.checkedPersonArr[i].mechanism_name}`),
+              h('p', null, `枪支类型：${that.checkedPersonArr[i].gtype}`),
+              h('p', null, `枪支编号：${that.checkedPersonArr[i].gun_code}`),
+              h('p', null, `是否在线：${data.data.data.list[i].heart == 1 ? "在线" : "不在线"}`),
+              h('p', null, `定位类型：${data.data.data.list[i].ptype}`),
+              h('p', null, `枪瞄编号：${that.checkedPersonArr[i].IMEI}`)
+            ])
           });
         })
     });
@@ -572,11 +567,8 @@ function confirmSetArea() {
 }
 
 function resetArea() {
-  let map = this.map
-  // console.log(this.markerArr)
-  map.remove(this.polygon)
-  this.polygon = null
-
+  this.$router.go(0)
+  
 }
 
 function shezhiquyu(gun_ids, pointsArr, policeuser_id, stime, etime, text, IMEIStr) {
@@ -645,8 +637,10 @@ function shezhiquyu(gun_ids, pointsArr, policeuser_id, stime, etime, text, IMEIS
       })
       this.polyLineArr.length = 0
       //刷新当前页面
+            
       setTimeout(() => {
         // this.$router.go(0)
+        console.log('两秒钟之后')
         this.showOne(null,this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id)
       }, 2000)
     }
@@ -706,7 +700,7 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     method: 'POST',
     changeOrigin: true,
     data: params
-  }).then((data) => {
+  }).then((data) => {   
     this.loading.close()
     if (data.data.code == 200) {
       let state = data.data.data.list.state //是否存在报警，0为没有，1为又报警
@@ -714,13 +708,11 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
       this.newShuaXinMap()
       this.showOneAreaAllMarker(data.data.data.list)
       this.showOneAlarmPolygon(data.data.data.list.points, state)
-
       this.oneAlarmPersonList = data.data.data.list.child
       this.moveingPersonList = this.oneAlarmPersonList
       this.oneAlarmMessage = data.data.data.arr
       this.personMoveing()
-    }else{
-     
+    }else{    
       let that=this
       this.$alert(data.data.msg+'是否要删除该区域？', '系统错误', {
         confirmButtonText: '确定',
@@ -756,40 +748,39 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   if (this.markerArr.length) {
     this.markerArr.forEach(e => e.remove())
   }
-
+console.log(data.child)
   let that = this
   this.filterMessage.uname = data.policeuser_name
   this.filterMessage.bianhao = data.police_number
   this.filterMessage.newOrOld = 'old'
   this.filterMessage.imgSrc = data.icon
   let dianArr = data.child.map((e, i) => [e.position.latitude * 1, e.position.longitude * 1])
-  // this.newShuaXinMap()
   let IMEIArr = data.child.map(item => item.IMEI)
 
-
+  let paixuarr=data.child.map(e=>e.IMEI)
+  this.paixuarr=paixuarr
   // this.setMarker(dianArr)
 
-  let styleStr1 = `position:relative;width:2.5vw;height:3vw;
-                    top:-3vw;left:-1.3vw;`
-  let styleStr2 = `position:absolute;top:0;left:0;width:2.5vw;height:2.7vw;
-                    box-sizing:border-box;border:2px solid red;
-                    border-radius:1.2vw;`
-  let styleStr3 = `position:absolute;width:2.5vw;height:2.7vw;border:1px solid red;
-                    border-radius:1.2vw; overflow: hidden;`
-  let styleStr4 = `position:absolute;bottom:-1vw;left:0.65vw;
-                    width:0;height:0;border-width:0.5vw;border-style:solid;
-                    border-color:red transparent transparent transparent;
-
-                    `
   let noimg = require('@/assets/img/head-icon.png')
-  let styleImg = `position:absolute;top:50%;width:2.5vw;transform:translateY(-50%)`
   let divIconArr = data.child.map((item, index) => {
+    let cln=item.heart==1?null:'is_lixian' //classname
+      let stateName=''
+      if(item.astate==1){
+        stateName='litao';
+      }else if(item.astate==2){
+        stateName='rutao';
+      }else if(item.astate==3){
+        stateName='fanwei';
+      }else{
+        stateName='';
+      }
     return this.BM.divIcon({
-      html: `<div class="icon_wrap" title=${item.policeuser_name ||'暂无'}>
+      html: `<div class="icon_wrap ${item.IMEI} ${cln}" title=${item.policeuser_name ||'暂无'}>
                 <div class="img_wrap">
                   <img src="${item.icon ? item.icon : noimg}"/>
                 </div>
                 <div class="round_cover"><i></i></div>
+                <div class="set-type ${stateName}"></div>
               </div>`
     })
   })
@@ -819,17 +810,20 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
       `); */
 
       e.on('click',function (){
-        that.$alert(`
-        <p>所属机构：${data.child[i].mechanism.mechanism_name}</p>
-        <p>枪支类型：${data.child[i].gtype}</p>
-        <p>枪支编号：${data.child[i].gun_code}</p>
-        <p>是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"}</p>
-        <p>定位类型：${data.child[i].ptype}</p>
-        <p>枪瞄编号：${data.child[i].IMEI}</p>
-      `, data.child[i].policeuser_name || '', {
-          dangerouslyUseHTMLString: true,
-          showClose:false
-        });
+       
+        const h = that.$createElement;
+          that.$message({
+            type:'none',
+            duration:6000,
+            message: h('div', {style:'font-size:16px;line-height:30px'}, [
+              h('p', null, `所属机构：${data.child[i].mechanism.mechanism_name}`),
+              h('p', null, `枪支类型：${data.child[i].gtype}`),
+              h('p', null, `枪支编号：${data.child[i].gun_code}`),
+              h('p', null, `是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"}`),
+              h('p', null, `定位类型：${data.child[i].ptype}`),
+              h('p', null, `枪瞄编号：${data.child[i].IMEI}`)
+            ])
+          });
       })
 
     });
@@ -866,12 +860,13 @@ function delOneAlarmArea(id) { //.....删除一个报警区域
 
 }
 
-function getNewPosition() {
+function getNewPosition(id) {
 
   let IMEIstr = this.moveingPersonList.map(e => e.IMEI).join()
   var objs = {
     "IMEI": IMEIstr,
     "ps": 999,
+    "area_id": id || '',
     "lid": this.value
   };
   var key = this.$store.state.key;
@@ -880,6 +875,7 @@ function getNewPosition() {
   var params = new URLSearchParams();
   params.append('IMEI', objs.IMEI);
   params.append('ps', objs.ps);
+  params.append('area_id', objs.area_id);
   params.append('sign', sign);
   params.append('token', token);
   params.append('lid', objs.lid)
@@ -891,10 +887,35 @@ function getNewPosition() {
   }).then((data) => {
 
     if (data.data.code == 200) {
-      console.log(data.data.data.list)
+      let newArr=[]
+      this.paixuarr.forEach(item=>{
+        newArr.push(data.data.data.list.find(e=>e.IMEI==item))
+      })
+      newArr.length&&newArr.forEach((item,index)=>{//每10秒更新状态
+        if(item.heart==1){//判断是否离线
+          $(`.${item.IMEI}`).removeClass('is_lixian')
+        }else{
+          $(`.${item.IMEI}`).addClass('is_lixian')
+        }
+        
+        item.das.length&&item.das.forEach((e,i)=>{//动态添加报警状态
+          setTimeout(()=>{
+            if(e==1){
+              $(`.${item.IMEI}`).find('.set-type').addClass('litao-a')
+              $(`.${item.IMEI}`).find('.set-type').removeClass('fanwei-a rutao-a')
+            }else if(e==2){
+              $(`.${item.IMEI}`).find('.set-type').addClass('rutao-a')
+              $(`.${item.IMEI}`).find('.set-type').removeClass('fanwei-a litao-a')
+            }else if(e==3){
+              $(`.${item.IMEI}`).find('.set-type').addClass('fanwei-a')
+              $(`.${item.IMEI}`).find('.set-type').removeClass('rutao-a litao-a')
+            }
+          },i*1000)
+        })
+      })
       let BM = this.BM
-      // console.log('10s请求一次数据更新位置', this.markerArr, this.moveingPersonList, data.data.data.list)
-      let xy = data.data.data.list.map(item => [item.latitude, item.longitude])
+      // console.log('10s请求一次数据更新位置')
+      let xy = newArr.map(item => [item.latitude, item.longitude])
       //讲返回的坐标值生成信坐标位置
       let latLngArr = xy.map(item => BM.latLng(item))
       //将现有的标记点移动到新位置

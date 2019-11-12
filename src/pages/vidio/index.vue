@@ -357,6 +357,7 @@ import Content from './children/content'
                     changeOrigin:true,
                     data:params
                 }).then((data)=>{
+                  this.loading.close()
                     if(data.data.code==200){
                          this.jingyuanStr=`<option value="" disabled selected hidden>请选择人员</option>`
                          let str1=data.data.pol.map(item=>{
@@ -377,7 +378,7 @@ import Content from './children/content'
                         }
                       })
                         this.dataList=list
-                        this.loading.close()
+                        
                         this.pageTotal=data.data.total-0
                     }
                 }).catch((error)=>{

@@ -115,7 +115,7 @@ export default {
     mapInitLiXian() {
       let that = this;
       BM.Config.HTTP_URL = this.$store.state.lixianStr;
-      var map = BM.map("container", "bigemap.awiawk58", {
+      var map = BM.map("container", "bigemap.ap8r91ep", {
         center: [39.9, 116.32],
         zoom: 1,
         zoomControl: true
@@ -125,19 +125,32 @@ export default {
       this.map = map;
     },
     setMarkerLiXian(arr) {
-      let activeImg = require("@/assets/img/head-icon.png");
-      let icon=this.BM.divIcon({
-            html:`<div class="marker-route11" style="margin-top:-50px;margin-left:-20px;">
-                      <div class="cover11" ></div>
-                      <div class="img_wrap11">
-                        <img src="${activeImg}" />
-                      </div>
-                    </div>`
-          })
+
       let that = this;
       let BM = this.BM;
       let map = this.map;
       let markerArr = arr.map(item => {
+        let cln=item.heart==1?null:'is_lixian'
+        let stateName=''
+        if(item.astate==1){
+          stateName='litao';
+        }else if(item.astate==2){
+          stateName='rutao';
+        }else if(item.astate==3){
+          stateName='fanwei';
+        }else{
+          stateName='';
+        }
+        let activeImg = require("@/assets/img/head-icon.png");
+        let icon=this.BM.divIcon({
+            html:`<div class="marker-route11 ${cln}" style="margin-top:-50px;margin-left:-20px;">
+                      <div class="cover11" ></div>
+                      <div class="img_wrap11">
+                        <img src="${activeImg}" />
+                      </div>
+                      <div class="set-type ${stateName}"></div>
+                    </div>`
+          })
         return BM.marker([item.latitude-0,item.longitude-0], {
           title: item.policeName ,
           icon:icon
@@ -148,9 +161,22 @@ export default {
         })
       map.fitBounds(lixianArr);
       this.markerArr = markerArr;
-      // markerArr.forEach(e => {
-      //   e.bindPopup("");
-      // });
+      markerArr.forEach((item,index)=>{
+        item.on('click',function (){
+          const h = that.$createElement;
+          that.$message({
+            type:'none',
+            duration:6000,
+            message: h('div', {style:'font-size:0.16rem;line-height:0.32rem'}, [
+              h('h1', null, `警员姓名：${arr[index].policeName}`),
+              h('p', { style: 'color: teal' }, `所属机构：${arr[index].mechanism_name}`),
+              h('p', { style: 'color: teal' }, `定位类型：${arr[index].ptype}`),
+              h('p', { style: 'color: teal' }, `是否在线：${arr[index].heart==1?'在线':'不在线'}`),
+              h('p', { style: 'color: teal' }, `定位时间：${arr[index].created}`)
+            ])
+          });
+        })
+      })
     },
     getTypes() {
       let objs = {};
@@ -198,39 +224,15 @@ export default {
           if (data.status == 200) {
             this.dataList = data.data.data;
             this.personList = data.data.positions;
-          this.setMarkerLiXian(data.data.positions);
+            this.setMarkerLiXian(data.data.positions);
             this.loading.close()
           }
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    setMarker(list) {//高德地图方法
-      let activeImg = require("@/assets/img/head-icon.png"); //引入默认图片
-      let markerArr = list.map((item, i) => {
-        let xy = [item.longitude, item.latitude];
-        return new AMap.Marker({
-          content: `<div class="marker-route11" >
-                      <div class="cover11" ></div>
-                      <div class="img_wrap11">
-                        <img src="${activeImg}" />
-                      </div>
-                    </div>`,
-          position: xy,
-          title: item.policeName,
-          offset: new AMap.Pixel(-16, -56)
-        });
-      });
-      markerArr.forEach(item => {
-        AMap.event.addListener(item, "click", function(ev) {
-          // console.log(333);
-        });
-      });
-
-      this.map.add(markerArr);
-      this.map.setFitView([...markerArr]);
     }
+   
   },
   created() {
     this.loading = this.$loading({
@@ -247,7 +249,7 @@ export default {
     }, 180000);
   },
   mounted() {
-    // this.initMap();//高德地图方法
+    
     this.mapInitLiXian()
     this.$store.commit("setStr", {
       str1: "全国枪支",

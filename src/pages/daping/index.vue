@@ -188,6 +188,8 @@
         <!-- 全国枪支总量 child4 -->
         <Child4 v-if="qiangzhizongliangShow" :child4Data="child4Data" @close="closeQiangZhiZongLiang"/>
         <Child5 v-if="top5Show" @close="closeTop5" :activeid="activeID" :dataObj="top5Xiangqing"/>
+        <!-- <ShowAllMarkerGaoDe/> -->
+        <!-- <ShowAllMarkerLiXian/> -->
     </div>
 </template>
 <style scoped>
@@ -206,8 +208,10 @@ import Child3 from './children/child3.vue'
 import Child4 from './children/child4.vue'
 import Child5 from './children/child5.vue'
 import { resolve } from 'url';
+import ShowAllMarkerGaoDe from '@/components/show-allmarker-gaode.vue'
+import ShowAllMarkerLiXian from '@/components/show-allmarker-lixian.vue'
 export default {
-    components:{Yuan,Child1,Child2,Child3,Child4,Child5},
+    components:{Yuan,Child1,Child2,Child3,Child4,Child5,ShowAllMarkerGaoDe,ShowAllMarkerLiXian},
     data(){
         return {
             activeCity:"全国",

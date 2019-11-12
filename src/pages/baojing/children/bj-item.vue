@@ -57,7 +57,7 @@
 
       <div
         class="sel"
-        v-show="!item.desc && item.types!='08'"
+        v-show="!item.desc && item.types!='08'&&item.type!='逾期报警'"
         :class="{selected:item.checked}"
         @click="changeOne(item.index)"
       ></div>

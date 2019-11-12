@@ -24,7 +24,7 @@ export default {
         mapInit() {
             let that = this;
             BM.Config.HTTP_URL = this.$store.state.lixianStr           
-            var map = BM.map("map", "bigemap.awiawk58", {
+            var map = BM.map("map", "bigemap.ap8r91ep", {
                 center: [39.9, 116.32],
                 zoom: 1,
                 zoomControl: true
@@ -36,18 +36,25 @@ export default {
             this.setMarker(this.arr)
         },
         setMarker(arr) {
-            // console.log(arr)
+            let that=this
             let a=arr.map(item=>{
                 return [item.lat-0,item.lon-0]
             })
            let marks=a.map(item=>{
                return BM.marker(item,{title:this.title}).addTo(this.map);
-           })         
-            // this.map.fitBounds(marks);           
+           })   
+           marks.forEach((item,index)=>{
+               this.map.on('click',function (){
+                   that.$message({
+                       type:'none',
+                       message:`报警时间：${that.arr[index].date}`
+                   })
+               })
+           })              
+            this.map.fitBounds(a); 
         }
     },
     mounted(){
-        
         this.mapInit()        
     }
 }

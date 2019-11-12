@@ -851,14 +851,8 @@ function confirmSetArea() {
 }
 
 function resetArea() {
-  let map = this.map
-  this.clickTrue = true
-  this.markerArr.forEach(e=>{
-    this.map.remove(e)
-  })
-  this.markerArr.length=0
+  this.$router.go(0)
   
-  this.polygon = null
 
 }
 
@@ -1187,7 +1181,6 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
   //   console.log(this.setWarning)
   //   return
   // }
-  console.log(newPositionArr)
   let that = this
   this.oldPositionArr = this.markerArr.map(item => {
     return {
@@ -1199,18 +1192,19 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
       "lat": item.Ge.position.lat - 0
     }
   })
+  
 // astate    1离套   2入套   3范围
   let newA = newPositionArr.map(item => {
     return {
       "IMEI": item.IMEI,
       "astate":item.astate,
-      "das":item.das,
+      "das":item.das||[],
       "heart":item.heart,
       "lng": item.longitude - 0,
       "lat": item.latitude - 0
     }
   })
-
+  console.log('old',this.oldPositionArr,'new',newA)
   //给返回的数据排序
   let paixuArr = this.oldPositionArr.map((item) => {
     return newA.find(e => e.IMEI == item.IMEI)

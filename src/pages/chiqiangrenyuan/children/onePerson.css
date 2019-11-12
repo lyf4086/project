@@ -216,6 +216,9 @@
 .cover .alert .leftwrap .box-r .text1 p {
   width: 100%;
   display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cover .alert .leftwrap .box-r .text1 p i:nth-child(1) {
   flex: 1;

@@ -156,14 +156,18 @@ export default {
         return;
       }
      
-
-      // 打开离线地图
-      // this.lixianMap=true
-      // this.lixianArr=[obj.latitude-0,obj.longitude-0]
-      // this.lixianTitle=obj.policeName
-
-      this.mapShow = true;
-      this.mapInit(obj);
+      let zaixian=this.$store.state.zaixian
+      if(zaixian){
+        //高德地图
+        this.mapShow = true;
+        this.mapInit(obj);
+      }else{
+        // 打开离线地图
+        this.lixianMap=true
+        this.lixianArr=[obj.latitude-0,obj.longitude-0]
+        this.lixianTitle=obj.policeName
+      }
+  
     },
     toHistory(obj) {
       if (!obj.longitude) {
@@ -173,11 +177,21 @@ export default {
         });
         return;
       }
-
-      this.$router.push({
-        name: "GuiJi",
-        params: obj
-      });
+      let zaixian=this.$store.state.zaixian
+      if(zaixian){
+        //高德地图
+        this.$router.push({
+          name: "GuiJi",
+          params: obj
+        });
+      }else{
+        // 打开离线地图
+        this.$router.push({
+          name: "Map",
+          params: obj
+        });
+      }
+      
     },
     getTreeList() {
       // ......................该组件默认加载树形菜单数据

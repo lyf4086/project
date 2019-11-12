@@ -170,6 +170,21 @@ i {
   width: 0.5rem;
   height: 0.6rem;
 }
+.is_lixian .img_wrap11 {
+  filter: grayscale(90%);
+}
+.is_lixian .cover11 {
+  filter: grayscale(90%);
+}
+.set-type {
+  position: absolute;
+  z-index: 1;
+  top: -0.52083333vw;
+  right: -0.52083333vw;
+  width: 1.30208333vw;
+  height: 1.30208333vw;
+  background: red;
+}
 .marker-route11 .cover11 {
   position: absolute;
   top: 0;
@@ -193,4 +208,20 @@ i {
   top: 0.10416667vw;
   left: 0;
   width: 100%;
+}
+.litao {
+  background: url(../../../assets/img/litao-s.png);
+  background-size: 100% 100%;
+}
+.rutao {
+  background: url(../../../assets/img/rutao-s.png);
+  background-size: 100% 100%;
+}
+.fanwei {
+  background: url(../../../assets/img/fanwei-s.png);
+  background-size: 100% 100%;
+}
+.bigemap-div-icon {
+  width: 0px !important;
+  height: 0px !important;
 }

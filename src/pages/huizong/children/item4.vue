@@ -108,6 +108,10 @@ export default {
             this.ip_id = data.data.ip_id;
             this.tt = data.data.tt;
             this.mid = data.data.mid;
+            if(data.data.data.length>5){
+              this.move();
+            }
+            
           }
         })
         .catch(error => {
@@ -118,7 +122,7 @@ export default {
   mounted() {
     let mes = this.$gscookie.getCookie("message_obj");
     this.getData(mes.mechanism_id);
-    this.move();
+    
   }
 };
 </script>

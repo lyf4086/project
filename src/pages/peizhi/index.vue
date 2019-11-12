@@ -41,6 +41,12 @@
             </div>
         </div>
         <div class="floor">
+            <div class="title">混合定位时间容差</div>
+            <div class="content">
+                <input type="text" v-model="txt7" @blur="blur7">
+            </div>
+        </div>
+        <div class="floor">
             <button @click="submitSet">提交</button>
         </div>
     </div>
@@ -57,12 +63,14 @@ export default {
             txt4:'',
             txt5:'',
             txt6:'',
+            txt7:'',
             btxt1:'',
             btxt2:'',
             btxt3:'',
             btxt4:'',
             btxt5:'',
             btxt6:'',
+            btxt7:''
         }
     },
     methods:{
@@ -96,9 +104,12 @@ export default {
                 this.txt6=this.btxt6
             }
         },
+        blur7(){
+
+        },
         submitSet(){           
-            let {id,url,txt1,txt2,txt3,txt4,txt5,txt6}=this._data
-            this.setData(id,url,txt1,txt2,txt3,txt4,txt5,txt6)
+            let {id,url,txt1,txt2,txt3,txt4,txt5,txt6,txt7}=this._data
+            this.setData(id,url,txt1,txt2,txt3,txt4,txt5,txt6,txt7)
         },
         getData(){
             var key = this.$store.state.key;
@@ -118,7 +129,7 @@ export default {
             })
             .then(data => {
                 if (data.data.code == 200) {
-                    let {id,banquan,beian,miaoshu,name,url,weizhi,zaixian}=data.data.data
+                    let {id,banquan,beian,miaoshu,name,url,weizhi,zaixian,dwei}=data.data.data
                     this.id=id
                     this.url=url
                     // console.log(banquan,beian,miaoshu,name,url,weizhi,zaixian)
@@ -128,20 +139,21 @@ export default {
                     this.txt4=banquan;
                     this.txt5=miaoshu;
                     this.txt6=beian;
-
+                    this.txt7=dwei
                     this.btxt1=zaixian;
                     this.btxt2=weizhi;
                     this.btxt3=name;
                     this.btxt4=banquan;
                     this.btxt5=miaoshu;
                     this.btxt6=beian;
+                    this.btxt7=dwei
                 }
             })
             .catch(error => {
                 console.log(error);
             });
         },
-        setData(id,url,zaixian,weizhi,name,banquan,miaoshu,beian){
+        setData(id,url,zaixian,weizhi,name,banquan,miaoshu,beian,dwei){
             var key = this.$store.state.key;
             var objs = {
                 id,
@@ -151,7 +163,8 @@ export default {
                 name,
                 banquan,
                 miaoshu,
-                beian
+                beian,
+                dwei
             };
             var sign = this.$methods.mkSign(objs, key);
             var token = this.$gscookie.getCookie("gun");
@@ -164,7 +177,7 @@ export default {
             params.append("banquan", objs.banquan);
             params.append("miaoshu", objs.miaoshu);
             params.append("beian", objs.beian);
-            
+            params.append("dwei", objs.dwei);
             params.append("sign", sign);
             params.append("token", token);
             this.$axios({
@@ -222,6 +235,7 @@ export default {
             display: flex;
             justify-content: flex-start;
             button{
+                margin-top: 5/@vw;
                 width:417/@vw;
                 height:40/@vw;
                 border-radius: 5/@vw;

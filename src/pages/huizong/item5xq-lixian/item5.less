@@ -183,14 +183,26 @@ div,span,i{
 
 .marker-route11 {
     position: relative;
-    // width:70/@rem;
-    // height:90/@rem;
     width: 50/@rem;
     height: 60/@rem;
-    // border:1px solid red;
-
+}
+.is_lixian{
+    .img_wrap11{
+      filter: grayscale(90%);
+    }
+    .cover11{
+      filter: grayscale(90%);
+    }
+}
+.set-type{
+    position: absolute;
+    z-index: 1;
+    top:-10/@vw;
+    right:-10/@vw;
+    width:25/@vw;
+    height:25/@vw;
+    background: red;
   }
-
   .marker-route11 .cover11 {
       position: absolute;
       top:0;
@@ -203,16 +215,12 @@ div,span,i{
   }
 
   .marker-route11 .img_wrap11 {
-    // width:68/@rem;
-    // height:76/@rem;
     width: 46/@rem;
     height: 50/@rem;
     margin-top: 3/@rem;
     margin-left: 1/@rem;
     border-radius: 50%;
-    // background: red;
     overflow: hidden;
-
     img {
         position: absolute;
         top:2/@vw;
@@ -221,10 +229,19 @@ div,span,i{
     }
   }
 
-//   .markerwrap{
-//     //   width:100/@vw;
-//     //   height:100/@vw;
-//     width:50px;
-//     height:50px;
-//       background: red;
-//   }
+  .litao{
+    background: url(../../../assets/img/litao-s.png);
+    background-size: 100% 100%;;
+  }
+  .rutao{
+    background: url(../../../assets/img/rutao-s.png);
+    background-size: 100% 100%;;
+  }
+  .fanwei{
+    background: url(../../../assets/img/fanwei-s.png);
+    background-size: 100% 100%;;
+  }
+  .bigemap-div-icon{
+    width:0px !important;
+    height:0px !important;
+  }
