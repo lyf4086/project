@@ -265,7 +265,6 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
-            console.log(data.data.data)
             this.loading.close()
             this.dataList = data.data.data;
             this.pageTotal = data.data.total - 0;
@@ -321,13 +320,22 @@ export default {
     }
   },
   created() {
+      let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
+    this.zhankai.push(treeData[0].id)
+    if(!!treeData[0].child.length){
+       this.zhankai.push(treeData[0].child[0].id || "")
+       if(!!treeData[0].child[0].child){
+          this.zhankai.push(treeData[0].child[0].child[0].id)
+        }
+     }
+    this.treeListData = treeData;
+
     this.loading = this.$loading({
         lock: true,
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-    this.getTreeList();
     this.getDataList();
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");

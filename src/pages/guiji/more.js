@@ -48,9 +48,9 @@ function overArea(id) { //..区域内是否存在超出区域的报警
       }
       let state = data.data.state
       console.log('是否存在报警state为', state)
-      clearInterval(this.shezhiyanse)
+      window.clearInterval(this.shezhiyanse)
       
-      this.shezhiyanse = setTimeout(() => {
+      this.shezhiyanse = window.setTimeout(() => {
         if (state === 1) {
 
           this.polygon.setOptions({

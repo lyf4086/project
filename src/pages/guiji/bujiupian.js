@@ -96,7 +96,7 @@ function getBujiupian(IMEI,stime,etime){
                   titleD.innerHTML = title;
                   closeX.src = "https://webapi.amap.com/images/close2.gif";
                   closeX.onclick = closeInfoWindow;
-                  setTimeout(()=>{closeInfoWindow()},5000)
+                  window.setTimeout(()=>{closeInfoWindow()},5000)
                   top.appendChild(titleD);
                   top.appendChild(closeX);
                   info.appendChild(top);

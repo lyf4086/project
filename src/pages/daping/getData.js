@@ -27,7 +27,7 @@ function getCitysDate(){
            this.changeCityTimer=setInterval(()=>{
                 if(n<this.cityData.length){
                     ++n;
-                    this.initMap(n)
+                    // this.initMap(n)
                 }else{
                     n=0
                     // clearInterval(t)
@@ -67,7 +67,7 @@ function getCitys(){
                 }
                
             })
-            this.citys.unshift({checked:true,cname:"全国",id:''})
+            // this.citys.unshift({checked:true,cname:"全国",id:''})
            
         }
     })
@@ -185,9 +185,12 @@ function qiangdan(server_id=''){
             let one2=Math.floor(number2/100)
             this.qdtj={
                 ...data.data.data,
-                toal:Math.floor(data.data.data.toal*0.5)+'',
-                nCount:Math.floor(data.data.data.nCount*0.5)+''
+                toal:data.data.data.toal||'0',
+                nCount:data.data.data.nCount||'0'
+                // toal:Math.floor(data.data.data.toal*0.5)+'',
+                // nCount:Math.floor(data.data.data.nCount*0.5)+''
             }
+            return
             let t1=setInterval(()=>{
 
                 if(this.qdtj.toal<number1){
@@ -346,6 +349,7 @@ function renwuxiangqing(server_id=''){
     })
     .then(data => {
         if(data.status==200){
+            console.log('349',data)
             this.child3Data=data.data
         }
     })
@@ -382,7 +386,7 @@ function renwuliebiao(server_id='', tid ,sid){
     .then(data => {
         if(data.status==200){
             this.loading.close()
-            console.log(data)
+            console.log('renwuliebiao',data)
         }
         
     })

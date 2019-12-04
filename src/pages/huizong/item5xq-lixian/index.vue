@@ -104,19 +104,13 @@ export default {
     updown() {
       this.isshow = !this.isshow;
     },
-    initMap() {
-      let map = new AMap.Map("container", {
-        center: [116.397428, 39.90923],
-        resizeEnable: true,
-        zoom: 13
-      });
-      this.map = map;
-    },
     mapInitLiXian() {
       let that = this;
+      let liXianMapKey=this.$store.state.liXianMapKey;
+      let lixianMapCenter=this.$store.state.lixianMapCenter;
       BM.Config.HTTP_URL = this.$store.state.lixianStr;
-      var map = BM.map("container", "bigemap.ap8r91ep", {
-        center: [39.9, 116.32],
+      var map = BM.map("container", liXianMapKey, {
+        center: lixianMapCenter,
         zoom: 1,
         zoomControl: true
       });
@@ -167,12 +161,12 @@ export default {
           that.$message({
             type:'none',
             duration:6000,
-            message: h('div', {style:'font-size:0.16rem;line-height:0.32rem'}, [
+            message: h('div', {style:'font-size:0.18rem;line-height:0.32rem'}, [
               h('h1', null, `警员姓名：${arr[index].policeName}`),
-              h('p', { style: 'color: teal' }, `所属机构：${arr[index].mechanism_name}`),
-              h('p', { style: 'color: teal' }, `定位类型：${arr[index].ptype}`),
-              h('p', { style: 'color: teal' }, `是否在线：${arr[index].heart==1?'在线':'不在线'}`),
-              h('p', { style: 'color: teal' }, `定位时间：${arr[index].created}`)
+              h('p', {  }, `所属机构：${arr[index].mechanism_name}`),
+              h('p', {  }, `定位类型：${arr[index].ptype}`),
+              h('p', {  }, `是否在线：${arr[index].heart==1?'在线':'不在线'}`),
+              h('p', { }, `定位时间：${arr[index].created}`)
             ])
           });
         })

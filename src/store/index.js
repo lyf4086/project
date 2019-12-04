@@ -12,20 +12,32 @@ let store = new Vuex.Store({
     policeuser_id: '',
     yeMa: '',
     jiGouId: '',
-    str1: '全国枪支',
+    str1: '全部枪支',
     str2: '使用情况汇总',
-    baseURL: "http://s.tronl.cn",
-    // baseURL:'http://192.168.124.160',
-    lixianStr:"http://192.168.1.149:9000",
+    // baseURL: "http://50.144.192.33",//盐城服务器
+    // lixianStr:"http://50.144.192.33:9002",//盐城地图服务器
+
+    // baseURL:'http://192.168.1.149',//公司离线服务器
+    // lixianStr:'http://192.168.1.149:9002',//公司离线地图服务器
+
+    baseURL:'http://s.tronl.cn',//公司在线服务器    
     zaixian:true,//默认是在线状态，关于地图的都走在线地图
+    // liXianMapKey:'bigemap.05n2uuzz',//地图key,盐城
+    liXianMapKey:'bigemap.ap8r91ep',//地图key，北京
+    lixianMapCenter:[40.2,116.37],//北京,昌平区
+    // lixianMapCenter:[33.3253895, 120.2956706],//盐城
   },
   mutations: {
+    setMapKey(state,payload){//动态设置地图key
+      state.liXianMapKey=payload.key
+      state.lixianMapCenter=JSON.parse(payload.center)
+    },
     setStr(state, payload) {
       state.str1 = payload.str1;
       state.str2 = payload.str2
     },
     huanyuanStr(state, payload) {
-      state.str1 = '全国枪支';
+      state.str1 = '全部枪支';
       state.str2 = '使用情况汇总';
     },
     setPoliceId(state, payload) { //设置数据
@@ -42,7 +54,7 @@ let store = new Vuex.Store({
     }
   },
   actions: {
-
+   
   }
 
 })

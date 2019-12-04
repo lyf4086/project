@@ -220,7 +220,6 @@
   width: 0.5rem;
   height: 0.3rem;
   border-radius: 0.05rem;
-  cursor: pointer;
 }
 .guiji .left_mes .item_list .item .btns span:nth-child(1) {
   text-align: center;
@@ -409,7 +408,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  cursor: pointer;
 }
 .guiji .warning .btns span::before {
   display: inline-block;
@@ -888,8 +886,8 @@ div.info-bottom img {
   position: relative;
   width: 2.5vw;
   height: 2.8vw;
-  top: -2.8vw;
-  left: -1.3vw;
+  top: -2.7vw;
+  left: -1.06vw;
 }
  /deep/ .icon_wrap .img_wrap {
   background: #ccc;

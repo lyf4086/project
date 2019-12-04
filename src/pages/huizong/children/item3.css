@@ -87,11 +87,14 @@
 }
 .wrap .right h3 {
   position: absolute;
+  cursor: pointer;
+  z-index: 1;
   top: 1rem;
   width: 100%;
   text-align: center;
   font-size: 0.26rem;
   color: #e98837;
+  text-decoration: underline;
 }
 .item {
   width: 98%;

@@ -62,6 +62,7 @@
 export default {
   data() {
     return {
+      timer1:null,
       citys: [],
       numbers: [],
       objArr: [],
@@ -461,12 +462,13 @@ export default {
       })
         .then(data => {
           if(data.status==200){
-            this.citys = data.data.mname;
-            
+            this.citys = data.data.mname;            
             this.mid = data.data.mid;
             this.ip_id = data.data.ip_id;
             this.numbers = data.data.number;
-            this.char1();
+            this.timer1=setTimeout(() => {
+              this.char1();
+            }, 0);
           }
           
         })
@@ -500,7 +502,9 @@ export default {
               };
             });
             this.chart2Data = data.data.cou;
-            this.chart2();
+            this.timer2=setTimeout(() => {
+              this.chart2();
+            }, 0);
           }
         })
         .catch(error => {
@@ -541,6 +545,12 @@ export default {
     this.getDataTwo();
     this.getDataThree();
     
+  },
+  destroyed(){
+    clearTimeout(this.timer1)
+    clearTimeout(this.timer2)
+    this.timer2=null
+    this.timer1=null
   }
 };
 </script>

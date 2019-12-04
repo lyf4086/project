@@ -379,7 +379,7 @@ export default {
           label: "黄金糕"
         }
       ],
-      value: "",
+      value: "1",
       optionsStr: "",
       hasPerson: false,
       clickTrue: true,
@@ -401,7 +401,7 @@ export default {
       jiupian:false,
       loading:null,
       last_time_arr:[],
-     
+      xunxuindex:[],//排序索引数组
     };
   },
   computed: {
@@ -632,11 +632,11 @@ export default {
         return;
       }
 
-      setTimeout(() => {
+      window.setTimeout(() => {
         this.overArea(v);
       }, 500);
-      clearInterval(this.areaTimer);
-      this.areaTimer = setInterval(() => {
+      window.clearInterval(this.areaTimer);
+      this.areaTimer = window.setInterval(() => {
         this.overArea(v);
       }, 10000);
       this.loading = this.$loading({
@@ -935,7 +935,6 @@ export default {
     },
     searchOnePerson() {
       // this.jiupian=true//默认是纠偏后的
-      // clearInterval(this.moveTimer);
       //.........搜索人员后弹出该人员信息
       this.oneAlarmMessage = {};
       this.oneAlarmPersonList.length = 0;
@@ -958,11 +957,11 @@ export default {
       this.jigouSelArr.push(this.jigouname);
       // console.log(this.jigouname);
       // 跨区域编组新增
-      clearInterval(this.areaTimer);
+      window.clearInterval(this.areaTimer);
       this.noCheckedList.forEach(e => (e.checked = false));
       this.checkedPersonArr.length = 0;
       //清除循环请求是否超出区域的定时器
-      clearInterval(this.areaTimer);
+      window.clearInterval(this.areaTimer);
 
       this.shuaXinMap(); //......刷新地图
       this.$refs.alarmSelect.value = "";
@@ -1251,8 +1250,8 @@ return
   },
   beforeDestroy() {
     // console.log('this.timer销毁前')
-    clearInterval(this.timer2);
-    clearInterval(this.moveTimer);
+    // clearInterval(this.timer2);
+    // clearInterval(this.moveTimer);
   },
   updated() {
     document.querySelector(".amap-logo").style.display = "none";
@@ -1290,10 +1289,37 @@ return
       this.checkTime = true;
     }
   },
-  
+  activated(){
+    if(this.areaTimer){//页面激活时候，如果这个定时器开启过，则重新开启
+      window.setTimeout(()=>{
+        this.overArea(this.delId);
+      },200)
+      window.clearInterval(this.areaTimer)
+      this.areaTimer =  window.setInterval(() => {
+        this.overArea(this.delId);
+      }, 10000);
+    }
+    if(this.moveTimer){
+      this.getNewPosition(this.$refs.alarmSelect.value)
+      window.clearInterval(this.moveTimer)
+      this.moveTimer = window.setInterval(() => {
+        this.getNewPosition(this.$refs.alarmSelect.value)
+      }, 10000)
+    }
+  },
   deactivated(){
     this.loading ? this.loading.close():null
-    this.$store.commit('huanyuanStr')
+    this.$store.commit('huanyuanStr')   
+  },
+  beforeRouteLeave(to,from,next){
+    if(this.areaTimer){//页面离开时候清除定时器
+      window.clearInterval(this.areaTimer)
+    }
+    if(this.moveTimer){
+      window.clearInterval(this.moveTimer)
+    }
+    next()
   }
+  
 };
 </script>

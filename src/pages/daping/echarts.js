@@ -615,6 +615,7 @@ function initMap(n=1){
         '上海': [119.1803, 31.2891],
         '台湾': [121.4648, 25.5630]
     };
+    console.log('this.cityData',this.cityData)
     var chinaDatas = this.cityData
     // [
     //     [{
@@ -747,6 +748,7 @@ function initMap(n=1){
     //         value: 1300
     //     }]
     // ];
+    console.log('nnn',n)
     var defaultP = [chinaDatas[n]]
     // [
     //     [{
@@ -755,7 +757,7 @@ function initMap(n=1){
     //     }]
     // ]
     var convertData = function(data) {
-        // console.log(data)
+        console.log(data[i][0])
         var res = [];
         for (var i = 0; i < data.length; i++) {
             var geoCoord = geoCoordMap[data[i][0].name];

@@ -94,8 +94,8 @@ export default {
         children: "child",
         label: "mechanism_name"
       },
-      zhankai:[],
-      loading:null
+      zhankai: [],
+      loading: null
     };
   },
   methods: {
@@ -131,13 +131,13 @@ export default {
         data: params
       })
         .then(data => {
-          this.loading.close()
+          // this.loading.close()
           if (data.data.code == 200) {
-            this.zhankai.push(data.data.data.list[0].id)
-            this.zhankai.push(data.data.data.list[0].child[0].id || "")
-            if(data.data.data.list[0].child[0].child){
-            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
-          }
+            this.zhankai.push(data.data.data.list[0].id);
+            this.zhankai.push(data.data.data.list[0].child[0].id || "");
+            if (data.data.data.list[0].child[0].child) {
+              this.zhankai.push(data.data.data.list[0].child[0].child[0].id);
+            }
             this.treeListData = data.data.data.list;
           }
         })
@@ -184,7 +184,7 @@ export default {
         data: params
       })
         .then(data => {
-          this.loading.close()
+          this.loading.close();
           if (data.data.code == 200) {
             this.dataList = data.data.data;
             this.liebiao = data.data.dat;
@@ -230,12 +230,17 @@ export default {
   },
 
   created() {
-    this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+    let treeData = JSON.parse(sessionStorage.getItem("tree-list"));
+    this.zhankai.push(treeData[0].id);
+
+    if (!!treeData[0].child.length) {
+      this.zhankai.push(treeData[0].child[0].id || "");
+      if (!!treeData[0].child[0].child) {
+        this.zhankai.push(treeData[0].child[0].child[0].id);
+      }
+    }
+    this.treeListData = treeData;
+
     let item = this.$gscookie.getCookie("message_obj");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     if (item.role_id == 3) {
@@ -245,22 +250,20 @@ export default {
     }
     let jigou = this.$gscookie.getCookie("mechanism_id");
     this.activeMechanismId = jigou;
-
-    this.getTreeList(jigou);
     this.getDataList(jigou);
     let str = this.$gscookie.getCookie("gun");
     if (JSON.stringify(str) == "{}") {
       this.$router.push("/loginput");
     }
   },
-  mounted() {
-    this.$store.commit('setStr',{
-      str1:'弹药在库',
-      str2:'情况汇总'
-    })
-  },
-  destroyed(){
-    this.$store.commit('huanyuanStr')
-  }
+  mounted() {
+    this.$store.commit("setStr", {
+      str1: "弹药在库",
+      str2: "情况汇总"
+    });
+  },
+  destroyed() {
+    this.$store.commit("huanyuanStr");
+  }
 };
 </script>

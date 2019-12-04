@@ -6,15 +6,6 @@
   0% {
     transform: rotate(0deg)
   }
-
-  // 40% {
-  //   transform: rotate(-90deg)
-  // }
-
-  // 70% {
-  //   transform: rotate(0deg)
-  // }
-
   100% {
     transform: rotate(-360deg)
   }
@@ -24,15 +15,11 @@
   0% {
     transform: rotate(0deg)
   }
-
-  // 50%{
-  //   transform: rotate(-320deg)
-  // }
   100% {
     transform: rotate(360deg)
   }
 }
-.one-data:hover{
+.one-data:hover{  
   .up{
     animation: roundleft 3s infinite alternate;
   }
@@ -194,9 +181,7 @@
 
         }
 
-        .jiebang {
-          color: red;
-        }
+        
 
         .bg {
           position: absolute;
@@ -762,6 +747,7 @@
     display: flex;
     flex-wrap: wrap;
     align-content: space-around;
+    
     .l1,.l2,.l3,.l4{
       width:140/@vw;
       height:30/@vw;
@@ -855,6 +841,10 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     padding:17/@vw 12/@vw 1/@vw 0;
+    .jiebang {
+      color: red;
+      transform: translate3d(0,0,0);
+    }
     .r1,.r2,.r3,.r4{
       width:140/@vw;
       height:30/@vw;
@@ -866,6 +856,7 @@
       box-sizing: border-box;
       padding-right: 3/@vw;
       padding-left: 2/@vw;
+      
     }
     .r3{
       cursor: pointer;

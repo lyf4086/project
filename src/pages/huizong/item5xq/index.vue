@@ -194,21 +194,21 @@ export default {
 
       markerArr.forEach(item => {
         AMap.event.addListener(item, "click", function(ev) {
-           that.$alert(`
-            <p>枪瞄编号：${item.Ge.IMEI}</p>
-            <p>枪支编号：${item.Ge.gun_code ||""}</p>
-            <p>是否在线：${item.Ge.heart==0?"不在线":"在线"}</p>
-            <p>所属机构：${item.Ge.mechanism_name}</p>
-            <p>定位类型：${item.Ge.ptype}</p>
-           `, item.Ge.title, {
-              dangerouslyUseHTMLString: true,
-              showClose:false,
-              closeOnClickModal:true
-            }).then(res=>{
-              console.log(res)
+          const h = that.$createElement;
+          that.$message({
+            type:'none',
+            duration:5000,
+            message: h('div', {style:'font-size:18px;line-height:30px;'}, [
+                h('p', null, `警员姓名：${item.Ge.title}`),
+                 h('p', null, `所属机构：${item.Ge.mechanism_name}`),
+                h('p', null, `枪瞄编号：${item.Ge.IMEI}`),
+                h('p', {  }, `枪支编号：${item.Ge.gun_code ||""}`),
+                h('p', {  }, `是否在线：${item.Ge.heart==0?"不在线":"在线"}`),
+                h('p', {  }, `所属机构：${item.Ge.mechanism_name}`),
+                h('p', {  }, `定位类型：${item.Ge.ptype}`)
+              ])
             });
-          
-        });
+          });
       });
 
       this.map.add(markerArr);

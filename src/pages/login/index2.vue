@@ -31,6 +31,7 @@ export default {
     res() {
       this.username = this.pwd = "";
     },
+    
     sub() {
       if (!this.username.trim() || !this.pwd.trim()) {
         this.$message({
@@ -64,16 +65,20 @@ export default {
               type: "success",
               message: "登陆成功！"
             });
-
-            // this.$store.commit("setSync", {
-            //   sync: res.data.data.sync
-            // });
-            // 不能刷新页面，弃用
-
+            if(res.data.data.mapkey){
+              this.$store.commit('setMapKey',{key:res.data.data.mapkey,center:res.data.data.mapcentral})
+            }
+            
             this.$gscookie.setCookie("sync", res.data.data.sync);
 
             if (res.data.data.role_id == 3) {
-              this.$router.push(`/indexg/guiji`);
+              let zaixian=this.$store.state.zaixian
+              if(zaixian){
+                this.$router.push(`/indexg/guiji`);
+              }else{
+                this.$router.push(`/indexg/map`);
+              }
+              
             } else {
               this.$router.push(`/indexg/huizong`);
             }
@@ -99,6 +104,7 @@ export default {
               mechanism_id: res.data.data.mechanism_id
             };
             this.$gscookie.setCookie("message_obj", message_obj);
+            
           } else {
             this.$message({
               type: "warning",
@@ -118,6 +124,7 @@ export default {
     if (str.length) {
       this.$router.push("/indexg/huizong");
     }
+    
   },
   mounted() {
     this.$refs.put.focus();

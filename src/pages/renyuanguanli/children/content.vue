@@ -24,7 +24,7 @@
             selected="true"
             ref="put2"
             v-model="item.role_id"
-            @blur="put2blur(index)"
+            @change="put2blur(index)"
           >
             <option :value="item.id" v-for="(item,index) in roles" :key="index">{{item.name}}</option>
             <!-- <option value="2">枪支管理员</option>
@@ -206,9 +206,12 @@ export default {
           ? "0" + (date.getMonth() + 1)
           : date.getMonth() + 1) + "-";
       var D = date.getDate() + " ";
-      var h = date.getHours() + ":";
+      var h =date.getHours()+":";
       var m = date.getMinutes() + ":";
       var s = date.getSeconds();
+      h=h.length==2?'0'+h:h
+      m=m.length==2?'0'+m:m
+      s=s.length==2?'0'+s:s
       return Y + M + D + h + m + s;
     },
     changeperson(index) {
@@ -222,8 +225,6 @@ export default {
     setjuese(index) {
       this.list[index].put2show = true;
       this.$nextTick(() => {
-        // console.log(this.$refs.put2[index].focus());
-        // return;
         this.$refs.put2[index].focus();
       });
     },
@@ -327,13 +328,17 @@ export default {
         data: params
       })
         .then(data => {
-
           if(data.data.code=='200'){
              this.$emit('shuaxin')
               this.$message({
                 type:'success',
                 message:'修改角色成功'
               })
+          }else{
+            this.$message({
+              type:'error',
+              message:data.data.msg
+            })
           }
         })
         .catch(error => {

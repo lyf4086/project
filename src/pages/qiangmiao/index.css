@@ -406,3 +406,98 @@
   text-align: center;
   border-left: 0.05208333vw solid cornflowerblue;
 }
+.alert3 {
+  position: absolute;
+  width: 70%;
+  height: 80%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: url(../../assets/img/round-bg.png) no-repeat;
+  background-size: 100% 100%;
+}
+.alert3 .t {
+  font-size: 0.3rem;
+  width: 100%;
+  line-height: 1.3rem;
+  text-align: center;
+}
+.alert3 .put1 {
+  width: 4rem;
+  height: 0.4rem;
+  margin-left: 50%;
+  text-indent: 0.2rem;
+  font-size: 0.18rem;
+  transform: translateX(-50%);
+}
+.alert3 .list {
+  width: 80%;
+  height: 60%;
+  margin: 0.3rem auto 0 auto;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.alert3 .list .item {
+  position: relative;
+  width: 30%;
+  height: 9%;
+  margin-top: 0.05rem;
+  margin-right: 1%;
+  margin-left: 2%;
+  font-size: 0.16rem;
+  text-indent: 0.2rem;
+  line-height: 0.46rem;
+  border-radius: 0.06rem;
+  white-space: nowrap;
+  background: #005cc8;
+}
+.alert3 .list .shadow {
+  box-shadow: 0 0 1px 1px red;
+}
+.alert3 .list .no-data {
+  font-size: 0.18rem;
+  line-height: 2rem;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.alert3 .list::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.alert3 .list::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(9, 94, 221, 0.945);
+  background: rgba(20, 3, 177, 0.9);
+}
+.alert3 .list::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(12, 203, 209, 0.6);
+  border-radius: 0;
+  background: rgba(9, 247, 207, 0.8);
+}
+.alert3 .btn {
+  margin-top: 0.1rem;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.16rem;
+  padding: 0.05rem;
+  border-radius: 0.05rem;
+}
+.alert3 .close {
+  position: absolute;
+  right: 0.1rem;
+  top: 0.1rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: #f04d4d;
+  color: #fff;
+  border-radius: 50%;
+}

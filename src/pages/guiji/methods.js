@@ -15,11 +15,9 @@ function GetDistance(lng1, lat1, lng2, lat2) { //..计算两坐标点之间的�
 
 function personMoveing() {
   let that = this
-  clearInterval(this.moveTimer)
-
-  this.moveTimer = setInterval(() => {
-    console.log('请求最新位置了', this.moveingPersonList, '嗯', this.$refs.alarmSelect.value)
-
+  window.clearInterval(this.moveTimer)
+  this.moveTimer = window.setInterval(() => {
+    console.log('请求最新位置了,人数：', this.moveingPersonList.length, ',区域id:', this.$refs.alarmSelect.value)
     that.getNewPosition(this.$refs.alarmSelect.value)
   }, 10000)
 }
@@ -74,9 +72,9 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
-    console.log(data.data.data.list)
     this.last_time_arr=data.data.data.list.map(e=>e.created)
     this.loading.close()
+    this.xunxuindex=data.data.data.list.map(e=>e.IMEI)
     let that = this
     this.hasPerson = true;
     this.isChange = false //避免多次点击
@@ -435,10 +433,9 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
 }
 
 function creatInfoBox(item, res) {
-  setTimeout(() => { //如果没有手动关闭，20秒之后自动关闭
+  window.setTimeout(() => { //如果没有手动关闭，20秒之后自动关闭
     closeInfoWindow()
   }, 15000)
-  
   let that = this
   let map = this.map
   var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title || "暂无"}</span>`,
@@ -920,7 +917,7 @@ function shezhiquyu(gun_ids, ip_ids, pointsArr, policeuser_id, stime, etime, tex
       // this.$refs.alarmSelect.value=data.data.data.area_alarm_id
       // this.alarmId=data.data.data.area_alarm_id
 
-      setTimeout(() => {
+      window.setTimeout(() => {
         // this.$router.go(0)
 
         this.showOne(null,this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id)
@@ -984,9 +981,8 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     changeOrigin: true,
     data: params
   }).then((data) => {
-    // console.log(data)
     if (data.data.code == 200) {
-      // console.log(data)
+      this.xunxuindex=data.data.data.list.child.map(e=>e.IMEI)
       this.last_time_arr=data.data.data.list.child.map(e=>e.created)
       let state = data.data.data.list.state
       let id = this.$refs.alarmSelect.value
@@ -1022,9 +1018,8 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
 }
 
 function showOneAlarmPolygon(arr, id, state = 0) {
-  clearInterval(this.shezhiyanse)
+  window.clearInterval(this.shezhiyanse)
   let fillColor = state == 1 ? 'rgba(195,13,35,0.4)' : 'rgba(1,221,156,0.4)';
-  console.log('初始的颜色', fillColor)
   let that = this
   let map = this.map
   let polygon = new AMap.Polygon({
@@ -1044,10 +1039,6 @@ function showOneAlarmPolygon(arr, id, state = 0) {
       that.shuaXinMap()
       that.filterMessage.uname = ''
     }, 0);
-    // contextMenu.addItem("显示该区域人员", function () {
-    //    console.log('显示该区域人员',ev.target.G.area_alarm_id)
-    //    that.getOneAlarmArea(ev.target.G.area_alarm_id)
-    // }, 1);
     contextMenu.open(map, ev.lnglat);
 
   })
@@ -1090,7 +1081,7 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
       heart: e.heart,
       ptype: e.ptype,
       positions: e.gun_code,
-      offset: new AMap.Pixel(-16, -43)
+      offset: new AMap.Pixel(-17, -40)
     })
   })
   this.markerArr = markerArr //...存储当前状态下显示的标记点
@@ -1101,10 +1092,6 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
 
     })
   })
-
-
-
-
 
   this.map.add(markerArr)
   // this.map.setFitView([ ...markerArr ])
@@ -1167,8 +1154,12 @@ function getNewPosition(id) {
     if (data.data.code == 200) {
       // ...匀速运动有问题
       if(!data.data.data.list.length)return
-      
-      this.last_time_arr=data.data.data.list.map(e=>e.created)
+      let xinarr=[]
+      this.xunxuindex.forEach(item=>{
+        xinarr.push(data.data.data.list.find(e=>e.IMEI==item))
+        
+      })
+      this.last_time_arr=xinarr.map(i=>i.created)
       this.unifromSpeedMoveing(data.data.data.list)
     }
   }).catch((error) => {
@@ -1204,7 +1195,6 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
       "lat": item.latitude - 0
     }
   })
-  console.log('old',this.oldPositionArr,'new',newA)
   //给返回的数据排序
   let paixuArr = this.oldPositionArr.map((item) => {
     return newA.find(e => e.IMEI == item.IMEI)
@@ -1244,7 +1234,7 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
     //   $(`.${item.IMEI}`).removeClass('fanwei-s rutao-s litao-s')
     // }
     item.das.forEach((e,i)=>{
-      setTimeout(()=>{
+      window.setTimeout(()=>{
         if(e==1){
           $(`.${item.IMEI}`).addClass('litao-a')
           $(`.${item.IMEI}`).removeClass('fanwei-a rutao-a')

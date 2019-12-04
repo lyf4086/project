@@ -89,6 +89,7 @@ import Item3 from "./children/item3.vue";
 import Item4 from "./children/item4.vue";
 import Item6 from "./children/item6.vue";
 import Item7 from "./children/item7.vue";
+import { setInterval } from 'timers';
 
 export default {
   components: {
@@ -99,6 +100,39 @@ export default {
     Item4,
     Item6,
     Item7
+  },
+  methods:{
+     getTreeList() {
+      // ......................该组件默认加载树形菜单数据
+      var key = this.$store.state.key;
+      var objs = { p: 1, ps: 6, mechanism_id: 1 };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("p", objs.p);
+      params.append("ps", objs.ps);
+      params.append("mechanism_id", objs.mechanism_id);
+      params.append("sign", sign);
+      params.append("token", token);
+
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=mechanism&a=mechanisms_tree",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if(data.data.code==200){
+            sessionStorage.setItem('tree-list',JSON.stringify(data.data.data.list))
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      
+    },
   },
   created() {
     let item = this.$gscookie.getCookie("message_obj");
@@ -111,7 +145,12 @@ export default {
     if (JSON.stringify(str) == "{}") {
       this.$router.push("/loginput");
     }
+    this.getTreeList()
   }
+  // beforeRouteLeave(to,from,next){
+  //   console.log('首页销毁')
+    
+  // }
 
 };
 </script>

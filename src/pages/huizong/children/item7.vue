@@ -32,6 +32,10 @@
 export default {
   data() {
     return {
+      loading:null,
+      timer:null,
+      timer2:null,
+      timer3:null,
       mes: {},
       arr: [],
       leftDataArr: [
@@ -170,7 +174,7 @@ export default {
       };
       myChart.setOption(option);
 
-      setTimeout(function() {
+      this.timer=setTimeout(function() {
         myChart.dispatchAction({
           type: "highlight",
           seriesIndex: 0,
@@ -283,6 +287,7 @@ export default {
       Echar3.setOption(option);
     },
     getDataLeft(t_mechanism_id) {
+     
       let objs = { t_mechanism_id };
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
@@ -310,7 +315,10 @@ export default {
                 value: item
               };
             });
-            this.char1();
+            this.timer2=setTimeout(()=>{
+               this.char1();
+            },200)
+             
           }
         })
         .catch(error => {
@@ -342,6 +350,12 @@ export default {
         });
     },
     getDataRight() {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       let objs = {};
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
@@ -358,6 +372,7 @@ export default {
         data: params
       })
         .then(data => {
+          this.loading.close()
           if (data.status == 200) {
               this.mes = {
                 ip_id: data.data.ip_id,
@@ -376,7 +391,9 @@ export default {
               this.rightData.in = input;
               this.rightData.out = out;
               this.rightData.time = time;
-              this.char2();
+              this.timer3=setTimeout(() => {
+                this.char2();
+              }, 0);
           }
         })
         .catch(error => {
@@ -389,6 +406,14 @@ export default {
     this.getDataLeft(mes.mechanism_id);
     this.getDataCenter();
     this.getDataRight();
+  },
+  destroyed(){
+    clearTimeout(this.timer)
+    clearTimeout(this.timer2)
+    clearTimeout(this.timer3)
+    this.timer=null
+    this.timer2=null
+    this.timer3=null
   }
 };
 </script>

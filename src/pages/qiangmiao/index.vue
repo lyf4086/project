@@ -1,5 +1,5 @@
 <template>
-  <div class="jigou" v-if="hasData">
+  <div class="jigou">
     <div class="tree-menu">
       <h3>枪瞄管理</h3>
       <div class="nav-wrap">
@@ -73,7 +73,6 @@
         :activefujigou="active_fujigou"
         :activeyema="active_yema"
       ></newContent>
-      <MapAlert :isShow="mapIsShow" :delthis="delMap" />
     </div>
     <div class="change_type">
       <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
@@ -92,10 +91,11 @@
         <span>绑定枪支</span>
         <span>充电状态</span>
         <span>最后定位时间</span>
+        <span>绑定/解绑</span>
       </div>
       <div class="list-item"  v-for="(item,index) in qiangmiaoData" :key="index">
         <input type="checkbox" v-model="item.checked"/>
-        <span>{{item.IMEI}}</span>
+        <span style="cursor:pointer;text-decoration:underline" @click="showMap(item)">{{item.IMEI}}</span>
         <span>{{item.policeuser_name || '暂无'}}</span>
         <span>{{item.heart==1 ? "在线":"离线"}}</span>
         <span>{{item.gtypes_name}}</span>
@@ -103,9 +103,11 @@
         <span>{{item.gun_code || '暂无'}}</span>
         <span>{{item.ischarging}}</span>
         <span>{{item.created}}</span>
+        <span v-if="item.gun_id==0" style="cursor:pointer" @click="bangding(item)">绑定</span>
+        <span v-if="item.gun_id>0" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
       </div>
     </div>
-    <div class="cover" v-show="alert||xiugai">
+    <div class="cover" v-show="alert||xiugai||tan3">
       <div class="text-wrap" v-show="alert">
         <div class="text-title">新增枪瞄</div>
         <div class="text-content">
@@ -132,21 +134,40 @@
         </div>
         <button class="sub" @click="subChange">确认修改</button>
       </div>
+      <div class="alert3" v-show="tan3">
+        <p class="t">选择要绑定的枪支</p>
+        <button class="close" @click="close3">X</button>
+        <input @input="putChange" class="put1" v-model.trim="xuanZhongGunId" placeholder="输入枪支ID" />
+        <div class="list" ref="list">
+          <div class="no-data" v-if="allGunList.length==0">该机构下暂时没有枪支信息,请前往添加</div>
+          <div :style="{'opacity':e.opacity}" class="item" :key="e.id" v-for="(e,key) in allGunList"  @click="gunListClick(e,key)" >
+            枪支编号:{{e.gun_code}} ，类型：{{e.gtype || "无"}}
+            <!-- <input type="checkbox" v-model="e.checked" /> -->
+          </div>
+        </div>
+        <input type="submit" class="btn" @click="submitBt" value="确认绑定" />
+      </div>
     </div>
+    <MapMarker @closeMap="close" v-if="liXianMapShow" :arr="liXianLngLat" :title="liXianTitle" :mes="liXianMes"/>
   </div>
 </template>
 <style scoped>
 @import url(./index.css);
 </style>
 <script>
-import MapAlert from "@/components/map-alert";
+import MapMarker from '@/components/map-marker.vue' 
 import breadNav from "@/components/breadnav";
 import newContent from "./children/new-content";
 export default {
-  components: {MapAlert, breadNav, newContent },
+  components: { breadNav, newContent ,MapMarker},
   data() {
     return {
-      hasData: false,
+      tan3:false,
+      xuanZhongGunId:'',
+      liXianMapShow:false,
+      liXianLngLat:[40.2,116.37],
+      liXianMes:{"mechanism_name":'2123223'},
+      liXianTitle:'',
       alert: false,
       xiugai: false,
       xiugaiData: {},
@@ -195,6 +216,79 @@ export default {
     }
   },
   methods: {
+    bangding(item){
+
+      this.tan3=true
+      this.active_qiangmiao=item.gunaiming_id
+    },
+    jiebang(item){
+      this.$confirm("确定要解除绑定吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.unbind(item.gun_id, item.gunaiming_id); //...............解绑枪支枪瞄
+          
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消解绑"
+          });
+        });
+    },
+    close3(){
+      this.tan3=false
+    },
+     putChange(e) {
+      var val = e.target.value;
+      var list = this.allGunList;
+      this.blys(val, list);
+    },
+    blys(val, list) {
+      var v = val;
+      for (let i = 0; i < list.length; i++) {
+        var ind = list[i]["gun_id"].indexOf(v);
+        if (ind == -1) {
+          //  this.list[i]['opacity']='0.3';
+          this.allGunList[i]["opacity"] = "0.3";
+        } else {
+          // this.list[i]['opacity']='1';
+          this.allGunList[i]["opacity"] = "1";
+        }
+      }
+    },
+    gunListClick(e, key) {
+      this.allGunList.forEach(e => (e.opacity = "0.3"));
+      // this.allGunList[key].checked=true
+      this.xuanZhongGunId = e.gun_id;
+      this.allGunList[key].opacity = "1";
+    },
+    submitBt() {
+      // let xuanzhong=this.allGunList.filter(e=>e.checked)
+      if (this.xuanZhongGunId == "") {
+        this.$message("请输入要绑定的枪支ID");
+        return;
+      }
+
+      this.bind(this.xuanZhongGunId, this.active_qiangmiao);
+      this.xuanZhongGunId = "";
+      this.active_qiangmiao = "";
+    },
+    
+    close(){
+      this.liXianMapShow=false
+    },
+    showMap(item){
+      let zaixian=this.$store.state.zaixian
+      if(zaixian)return
+      this.liXianMapShow=true
+      this.liXianLngLat=[item.latitude-0,item.longitude-0]
+      this.liXianMes={"mechanism_name":item.mechanism_name}
+      this.liXianTitle=item.policeuser_name
+
+    },
     changeShowType(n){
       this.loading = this.$loading({
         lock: true,
@@ -371,6 +465,12 @@ export default {
     },
     getDataList(jigou_id = 1, p = 1,heart=1) {
       //.............................获取枪瞄列表数据函数
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       var key = this.$store.state.key;
       var objs = { 
         mechanism_id: jigou_id, p: p, ps: this.keshihua ?9:19
@@ -448,6 +548,7 @@ export default {
     },
     getTreeData(isCreate = true) {
       // ......................该组件默认加载树形菜单数据
+      
       var key = this.$store.state.key;
       var objs = { p: 1, ps: 10 };
       var sign = this.$methods.mkSign(objs, key);
@@ -477,7 +578,6 @@ export default {
           this.treeData = data.data.data.list;
           // this.handleNodeClick(this.treeData[0]); //....主动促发一次点击事件
           this.firstId = this.treeData[0].id;
-          this.hasData = true;
           this.active_fujigou = data.data.data.list[0].id;
           if (isCreate) {
             this.currentNodeKey = data.data.data.list[0].id;
@@ -613,7 +713,10 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+
+            this.tan3=false
             this.$message({ message: "绑定成功", type: "success" });
+            this.updataView()
           }
         })
         .catch(error => {
@@ -642,6 +745,7 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.$message("解除绑定成功");
+            this.updataView()
           }
         })
         .catch(error => {
@@ -685,14 +789,23 @@ export default {
     } //................获取列表信息函数end
   },
   created() {
-    this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+    let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
+    this.zhankai.push(treeData[0].id)
+    if(!!treeData[0].child.length){
+            this.zhankai.push(treeData[0].child[0].id || "")
+            if(!!treeData[0].child[0].child){
+                this.zhankai.push(treeData[0].child[0].child[0].id)
+              }
+          }
+    this.treeData = treeData;
+    this.firstId = this.treeData[0].id;
+    this.active_fujigou = treeData[0].id;
+    this.currentNodeKey = treeData[0].id;
+    this.activeJiGouId = treeData[0].id;
+    this.getDataList(this.activeJiGouId, 1);
+
     let { jiGouId, yeMa } = this.$store.state;
-    this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
+    
     let item = this.$gscookie.getCookie("message_obj");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let zaixian=this.$store.state.zaixian
@@ -720,9 +833,6 @@ export default {
       this.getTreeData(false);
       this.getDataList(jiGouId, yeMa);
       this.$store.commit("emptyNumber");
-    } else {
-      this.getTreeData();
-      this.getDataList(this.activeJiGouId, 1);
     }
   },
   mounted() {

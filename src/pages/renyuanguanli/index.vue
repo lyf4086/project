@@ -280,10 +280,14 @@ export default {
         .then(data => {
           this.treeListData = data.data.data.list;
           this.zhankai.push(data.data.data.list[0].id)
-          this.zhankai.push(data.data.data.list[0].child[0].id || "")
-           if(data.data.data.list[0].child[0].child){
-                      this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
-                    }
+          if(data.data.data.list[0].child){
+            this.zhankai.push(data.data.data.list[0].child[0].id || "")
+            if(data.data.data.list[0].child[0].child){
+              this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+            }
+          }
+          
+           
           if (jiGouId) {
             this.clickTree(jiGouId, yeMa);
           } else {
@@ -299,12 +303,7 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
-      this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+      
       this.$refs.page.internalCurrentPage = 1;
       this.isRemoveimg = false;
       this.active_yema = 0;
@@ -378,7 +377,12 @@ export default {
     },
     clickTree(mechanismId, p) {
       //...........................点击树形菜单获取列表数据
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       var key = this.$store.state.key;
       var objs = { mechanism_id: mechanismId, p: p, ps: 6 };
       var sign = this.$methods.mkSign(objs, key);
@@ -523,12 +527,20 @@ export default {
     } //..................删除人员结束
   },
   created() {
-    this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+    let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
+    this.treeListData = treeData;
+    this.zhankai.push(treeData[0].id)
+
+    if(!!treeData[0].child.length){
+      this.zhankai.push(treeData[0].child[0].id || "")
+      if(!!treeData[0].child[0].child){
+          this.zhankai.push(treeData[0].child[0].child[0].id)
+        }
+    }
+      this.activeTreeId = treeData[0].mechanism_id;
+      this.activeItem=treeData[0]
+  
+
     this.sync = this.$gscookie.getCookie("sync");
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let obj = this.$store.state;

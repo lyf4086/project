@@ -375,6 +375,7 @@ export default {
         }
     },
     mounted(){
+        console.log('child1打开')
        if(this.list.length>4){
             this.listMove()
         }

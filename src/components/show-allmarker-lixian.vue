@@ -1,6 +1,30 @@
 <template>
-    <div id="map-wrap">
-        离线地图
+    <div class="wrap">
+        <div id="map-wrap">
+            离线地图
+        </div>
+        <button @click="closeSelf">X</button>
+        <div class="list-mian">
+            <div class="list-title">
+                <span>111</span>
+                <span>222</span>
+                <span>333</span>
+                <span>44</span>
+                <span>55</span>
+            </div>
+            <div class="list-content" v-show="listShow">
+                <div class="item" v-for="e in 20">
+                    <span>1111</span>
+                    <span>2222</span>
+                    <span>3333</span>
+                    <span>4444</span>
+                    <span>55555</span>
+                </div>
+            </div>
+            <div class="show-hide">
+                <i></i>
+            </div>
+        </div>
     </div>
 </template>
 <style scoped>
@@ -8,17 +32,28 @@
 </style>
 <script>
 export default {
+    props:{
+        arr:{
+            type:Array,
+            required:false
+        }
+    },
     data(){
         return {
-
+            listShow:false
         }
     },
     methods:{
+        closeSelf(){
+            this.$emit('close')
+        },
        mapInit(arr) {
             let that = this;
-            BM.Config.HTTP_URL = this.$store.state.lixianStr           
-            var map = BM.map("map-wrap", "bigemap.ap8r91ep", {
-                center: [39.9, 116.32],
+            BM.Config.HTTP_URL = this.$store.state.lixianStr 
+            let liXianMapKey=this.$store.state.liXianMapKey;
+            let lixianMapCenter=this.$store.state.lixianMapCenter;          
+            var map = BM.map("map-wrap", liXianMapKey, {
+                center: lixianMapCenter,
                 zoom: 1,
                 zoomControl: true
             });
@@ -90,8 +125,29 @@ export default {
                     b:22222,
                     c:3333
                 }
+            },{
+               latlng:["40.212396104601","116.265447591146"],
+                name:'56787654',
+                heart:0,
+                astate:'',
+                message:{
+                    a:1111,
+                    b:22222,
+                    c:3333
+                }
+            },{
+                latlng:["40.215396104601","116.263447591146"],
+                name:'56787654',
+                heart:0,
+                astate:'3',
+                message:{
+                    a:4444,
+                    b:5555,
+                    c:6666
+                }
             }]
-        this.mapInit(arr)
+           
+        this.mapInit(this.arr)
     }
 }
 </script>

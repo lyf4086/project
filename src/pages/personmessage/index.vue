@@ -301,11 +301,11 @@ export default {
   },
   created() {
     let item = this.$gscookie.getCookie("message_obj");
-    if (item.role_id == 3) {
-      this.$router.push({
-        name: "HuiZong"
-      });
-    }
+    // if (item.role_id == 3) {//不和逻辑，停止使用
+    //   this.$router.push({
+    //     name: "HuiZong"
+    //   });
+    // }
     let policeuser_id = this.$store.state.policeuser_id;
     if(!policeuser_id){
 

@@ -1,13 +1,39 @@
 @vw:19.2vw;
 @rem:100rem;
+@vh:10.8vh;
+.wrap{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background: rgba(0,0,0,0.6);
+  button{
+    position: absolute;
+    z-index: 10;
+    top:8/@vw;
+    right:6/@vw;
+    width:40/@vw;
+    height:40/@vw;
+    text-align: center;
+    line-height: 40/@vw;
+    background: cornflowerblue;
+    color:#fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
 #map-wrap{
     position: fixed;
+    width:1608/@vw;
+    height:926/@vh;
     top:0;
     left:0;
+    bottom:0;
+    right:0;
+    margin:auto;
     z-index: 9;
-    width:100%;
-    height:100%;
-    background: pink;
+
 }
 
 
@@ -79,4 +105,74 @@
 /deep/.bigemap-div-icon{
     width:0px !important;
     height:0px !important;
+  }
+
+  .list-mian{
+    position: absolute;
+    z-index: 99;
+    top:80/@vw;
+    right:170/@vw;
+    width:30%;
+    background: rgba(51, 43, 43,0.3);
+
+    .list-title{
+      width:100%;
+      height:40/@vw;
+      display: flex;
+      background: rgba(24, 16, 16, 0.3);
+      span{
+        flex:1;
+        height:40/@vw;
+        line-height: 40/@vw;
+        text-align: center;
+      }
+    }
+    .list-content{
+      width:100%;
+      max-height:600/@vw;
+      background: pink;
+      overflow-x: hidden;
+      overflow-y: auto;
+      .item{
+        width:100%;
+        height:40/@vw;
+        display: flex;
+        span{
+          flex:1;
+          line-height: 40/@vw;
+          text-align: center;
+        }
+      }
+    }
+    .show-hide{
+      i{
+        display: inline-block;
+        width:50/@vw;
+        height:30/@vw;
+        background: url(../assets/img/fangxiang-icon.png) no-repeat center center;
+        transform: rotate(90deg);
+        margin-left:46%;
+      }
+    }
+  }
+
+  .list-content::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 4px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  
+  .list-content::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+    background: rgba(34, 3, 117, 0.8);
+  }
+  
+  .list-content::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(221, 213, 213, 0.6);
   }

@@ -8,7 +8,7 @@
                     <span></span>
                     任务列表
                 </div>
-                <div class="r">查看全部位置</div>
+                <div class="r" @click="lookAllMarker" v-show="false">查看全部位置</div>
             </div>
             <div class="header">
                 <span>机构名称</span>
@@ -31,7 +31,6 @@
                 </div>
             </div>
             <div class="page" v-if="false">
-               
                 <el-pagination
                     :pager-count="5"
                     prev-text="上一页"
@@ -40,6 +39,8 @@
                     :total="1000">
                 </el-pagination>
             </div>
+            <ShowAllMarkerLiXian @close="close" v-if="mapShowLiXian" :arr="personList"/>
+            <ShowAllMarkerGaoDe @close="close" v-if="mapShowZaiXian" :arr="personList"/>
         </div>
     </div>
 </template>
@@ -47,6 +48,8 @@
 @import url(./child2.css);
 </style>
 <script>
+import ShowAllMarkerLiXian from '@/components/show-allmarker-lixian.vue'
+import ShowAllMarkerGaoDe from '@/components/show-allmarker-gaode.vue'
 export default {
     props:{
         data:{
@@ -64,26 +67,48 @@ export default {
             sid:'',
             loading:null,
             dataList:[],
-             showMap:false
+             showMap:false,
+             mapShowLiXian:false,
+             mapShowZaiXian:false,
+             personList:[{
+                latlng:["40.217396104601","116.265447591146"],
+                name:'56787654',
+                heart:1,
+                astate:'2',
+                message:{
+                    a:1111,
+                    b:22222,
+                    c:3333
+                }
+            },{
+               latlng:["40.212396104601","116.265447591146"],
+                name:'56787654',
+                heart:0,
+                astate:'',
+                message:{
+                    a:1111,
+                    b:22222,
+                    c:3333
+                }
+            }]
         }
     },
+    components:{ShowAllMarkerLiXian,ShowAllMarkerGaoDe},
     methods:{
         lookmap(item){
-            console.log(item)
             this.rewuditu(item.iTask,this.sid)
-            this.showMap=true
-            this.initMap()
+
+        },
+        lookAllMarker(){
+            console.log('lookall')
+            
+        },
+        close(){
+            this.mapShowZaiXian=false
+            this.mapShowLiXian=false
         },
         cl(){
             this.$emit('close')
-        },
-        initMap(){
-            let map = new AMap.Map("item2map", {
-                center: [116.397428, 39.90923],
-                resizeEnable: true,
-                zoom: 13
-            });
-            this.map = map;
         },
         renwuliebiao(server_id='', tid ,sid){
             this.loading = this.$loading({
@@ -113,6 +138,7 @@ export default {
             .then(data => {
                 if(data.status==200){
                     this.loading.close()
+                    console.log(data.data.data)
                     this.dataList=data.data.data
                 }
                 
@@ -120,52 +146,6 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        },
-         setMarker(list) {
-             console.log(list)
-            let that=this
-            let activeImg = require("@/assets/img/head-icon.png"); //引入默认图片
-            let markerArr = list.map((item, i) => {
-                let xy = [item.longitude, item.latitude];
-                // 
-                return new AMap.Marker({
-                // content: `<div class="marker-route11" >
-                //             <div class="cover11" ></div>
-                //             <div class="img_wrap11">
-                //                 <img src="${activeImg}" />
-                //             </div>
-                //             </div>`,
-                position: xy,
-                IMEI:item.IMEI||'',
-                created:item.created||'',
-                gun_code:item.gun_code||'',
-                heart:item.heart||'',
-                mechanism_name:item.mechanism_name||'',
-                ptype:item.ptype||'',
-                title: item.policeName||'',
-                offset: new AMap.Pixel(-16, -56)
-                });
-            });
-
-            // markerArr.forEach(item => {
-            //     AMap.event.addListener(item, "click", function(ev) {
-            //     // console.log(item.Ge)
-            //     that.$alert(`
-            //         <p>枪瞄编号：${item.Ge.IMEI}</p>
-            //         <p>枪支编号：${item.Ge.gun_code}</p>
-            //         <p>是否在线：${item.Ge.heart==0?"不在线":"在线"}</p>
-            //         <p>所属机构：${item.Ge.mechanism_name}</p>
-            //         <p>定位类型：${item.Ge.ptype}</p>
-            //     `, item.Ge.title, {
-            //         dangerouslyUseHTMLString: true,
-            //         showClose:false
-            //         });
-                
-            //     });
-            // });
-
-            this.map.add(markerArr);
-            this.map.setFitView([...markerArr]);
         },
         rewuditu(tid,sid){
             this.loading = this.$loading({
@@ -194,8 +174,40 @@ export default {
             .then(data => {
                 if(data.status==200){
                     this.loading.close()
-                    // console.log(data.data)
-                    this.setMarker(data.data)
+                    let zaixian=this.$store.state.zaixian
+                    let personList=data.data.map(item=>{
+                        if(zaixian){
+                            return {
+                                latlng:[item.longitude,item.latitude],
+                                name:item.policeName,
+                                heart:1,
+                                astate:'',
+                                message:{
+                                    "持枪类型":item.gunType,
+                                    "用途":item.taskType
+                                }
+                            }
+                        }else{
+                            return {
+                                latlng:[item.latitude,item.longitude],
+                                name:item.policeName,
+                                heart:1,
+                                astate:'',
+                                message:{
+                                    "持枪类型":item.gunType,
+                                    "用途":item.taskType
+                                }
+                            }
+                        }
+                        
+                    })
+                    this.personList=personList
+                    
+                    if(zaixian){
+                        this.mapShowZaiXian=true
+                    }else{
+                        this.mapShowLiXian=true
+                    }
                 }
                 
             })
@@ -206,7 +218,7 @@ export default {
     },
     mounted(){
         this.renwuliebiao(this.activeid, this.data.ID ,this.data.sid)
-        // console.log(this.data)
+        console.log('child2打开')
         this.sid=this.data.sid
     }
 }

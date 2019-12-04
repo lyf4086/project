@@ -208,6 +208,10 @@ export default {
     chart1XiangQing() {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
+      if(!this.timeObj){
+        return
+      }
+      
       this.$router.push({
         name: "NewXiangQing",
         params: {timeObj:this.timeObj,mid:this.mid}
@@ -216,6 +220,9 @@ export default {
     chart2XiangQing() {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
+      if(!this.timeObj){
+        return
+      }
       this.$router.push({
         name: "Item1Right",
         params: this.timeObj

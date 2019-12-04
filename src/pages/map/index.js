@@ -113,7 +113,7 @@ function spanToDelete(item) {
   })
   if (this.noCheckedList.filter(e => e.checked).length < 1) {
 
-    this.shuaXinMap()
+    this.newShuaXinMap()
     this.getIMEI([this.activeIMEI])
 
     this.checkedPersonArr.length = 0
@@ -190,11 +190,12 @@ function showOne(ev,val) {
     })
     return
   }
-  setTimeout(() => {
+  window.setTimeout(() => {
     this.overArea(v);
   }, 500);
-  clearInterval(this.areaTimer);
-  this.areaTimer = setInterval(() => {
+  window.clearInterval(this.areaTimer);
+  this.areaTimer = window.setInterval(() => {
+    console.log('开启区域巡查')
     this.overArea(v);
   }, 10000);
   // 跨区域编组新增
@@ -388,6 +389,14 @@ function changeGuiJiType(e) {
 }
 
 function toBaoJing() { //去报警管理页面
+  let mes=this.$gscookie.getCookie('message_obj')
+  if(mes.role_id==3){
+    this.$message({
+      type:"warning",
+      message:"您无权访问"
+    })
+    return
+  }
   let p = this.activeIMEI
   this.$confirm("此操作将去报警页面, 是否继续?", "提示", {
     confirmButtonText: "确定",
@@ -426,7 +435,6 @@ function searchByTime() { //.....根据时间搜索历史轨迹
 }
 
 function searchOnePerson() { //.........搜索人员后弹出该人员信息
-  
   this.oneAlarmPersonList.length = 0
   this.oneAlarmMessage = {};
   if (this.polygon) {
@@ -443,7 +451,7 @@ function searchOnePerson() { //.........搜索人员后弹出该人员信息
   this.jigouSelArr.push(this.jigouname);
   console.log(this.jigouname);
   // 跨区域编组新增
-  clearInterval(this.areaTimer);
+  window.clearInterval(this.areaTimer);
   this.noCheckedList.forEach(e => e.checked = false)
   this.checkedPersonArr.length = 0
 
@@ -539,7 +547,6 @@ function binaZuBack() {
 function jingyuanSelChange(e) {
   this.isChange = true //..改变了数据避免多次点击
   this.str = e.target.value.split('|') //..........记录当前选择的IMEI号
-
   this.activeIMEI = this.str[0];
   var img = this.str[1];
 
@@ -588,7 +595,7 @@ function guijiHistory(path) { //.........使用历史轨迹坐标做动画
   var marker = BM.marker(path[0]).addTo(map);
   this.markerArr.push(marker)
   var index = 0;
-  setInterval(function () {
+  window.setInterval(function () {
     var c = index % path.length;
     marker.setLatLng(path[c]);
     index++;

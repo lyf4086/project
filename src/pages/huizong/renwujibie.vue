@@ -1,17 +1,17 @@
 <template>
   <div class="wrap">
-    <div class="num-icon" id="num-icon">
+    <div class="num-icon" id="num-icon" v-if="upShow">
       <div class="item" v-for="(item,index) in iconList" :key="index" @click="toList(item)">
         <p>{{item.name}}</p>
         <div class="num">{{item.number}}</div>
         <p>环比{{item.ratio}}%</p>
       </div>
     </div>
-    <div class="echarts-wrap">
+    <div class="echarts-wrap" v-if="dataRight&&dataRight">
       <div class="title">本单位出勤任务类型</div>
       <div class="title">枪支借出各类型占比</div>
-      <div id="chart1" @click="toXiangQingChart1">1</div>
-      <div id="chart2" @click="toXiangQingChart2">2</div>
+      <div id="chart1" @click="toXiangQingChart1" ></div>
+      <div id="chart2" @click="toXiangQingChart2" ></div>
     </div>
   </div>
 </template>
@@ -21,6 +21,8 @@ import { setInterval, clearInterval, setTimeout, clearTimeout } from "timers";
 export default {
   data() {
     return {
+      upShow:false,
+      loading:null,
       leftT: "",
       max: 0,
       timermove: null,
@@ -66,12 +68,15 @@ export default {
   },
   methods: {
     toXiangQingChart1(ev) {
+      if(!this.leftT&&!this.mid)return
       this.$router.push({
         name: "Item7XQ",
         params: { tt: this.leftT, mid: this.mid, ip_id: this.ipId }
       });
     },
     toXiangQingChart2() {
+      if(!this.leftT&&!this.mid)return
+      
       this.$router.push({
         name: "Item8XQ",
         params: { tt: this.leftT, mid: this.mid, ip_id: this.ipId }
@@ -254,6 +259,7 @@ export default {
       });
     },
     getData_up() {
+     
       let objs = {};
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
@@ -270,12 +276,14 @@ export default {
         data: params
       })
         .then(data => {
+
           if (data.status == 200) {
+            this.upShow=true
             this.iconList = data.data.data;
             this.time = data.data.time;
             this.timermove = setTimeout(() => {
               this.zuodonghua();
-            }, 3000);
+            }, 5000);
           }
         })
         .catch(error => {
@@ -299,6 +307,7 @@ export default {
         data: params
       })
         .then(data => {
+          
           // console.log("333", data);
           this.leftT = data.data.tt;
           this.mid = data.data.mid;
@@ -314,8 +323,7 @@ export default {
             };
           });
 
-          Object.assign(this.chart1Data, obj);
-
+          this.chart1Data=Object.assign(this.chart1Data, obj);
           this.chart1();
         })
         .catch(error => {
@@ -340,6 +348,7 @@ export default {
       })
         .then(data => {
           if(data.status==200){
+            
             let list = data.data.data.map((item, index) => {
               return {
                 value: item.number,
@@ -358,10 +367,12 @@ export default {
     },
     zuodonghua() {     
       let main = $(".num-icon")[0];
+      if(!main)return
       let list = document.querySelectorAll("#num-icon .item");
       let num = -1;
       this.timer1 = setInterval(donghua, 2000);
       function donghua() {
+        if(!list.length)return
         num++;
         num %= 4;
         for (let i = 0; i < 4; i++) {

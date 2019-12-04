@@ -10,27 +10,21 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/proxy': {
-        target: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=login&a=loginpro',
-        "secure": true,
-        "changeOrigin": true,
-        "pathRewrite": {
-          "^/proxy": ""
-        }
-      },
-      '/tt': {
-        target: 'https://api.growingio.com/v2/901182035193a2e0/web/action?stm=1543418266879',
-        "secure": true,
-        "changeOrigin": true,
-        "pathRewrite": {
-          "^/tt": ""
-        }
-      }
-    },
+    // proxyTable: {
+    //   '/proxy': {
+    //     target: 'http://s.tronl.cn/weixin/project/index.php?m=home&c=login&a=loginpro',
+    //     "secure": true,
+    //     "changeOrigin": true,
+    //     "pathRewrite": {
+    //       "^/proxy": ""
+    //     }
+    //   }
+    
+    // },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    // host: 'localhost', // can be overwritten by process.env.HOST
+    host:'localhost',
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

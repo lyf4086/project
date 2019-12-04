@@ -37,7 +37,7 @@
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
-    <div class="page-index"  v-show="pageTotal">
+    <div class="page-index" v-show="pageTotal">
       <el-pagination
         :page-size="keshihua?9:19"
         :pager-count="9"
@@ -81,9 +81,9 @@
         <span><i>枪锁位：</i>{{item.gposition || '无'}}</span>
         <span><i>枪瞄编号：</i>{{item.jm}}</span>
         <span><i>持枪警员：</i>{{item.policeuser_name ||"暂无"}}</span>
-      </div> -->
+      </div>-->
       <div class="list-title" v-show="activeDataList.length">
-        <input type="checkbox" v-model="checkAll">
+        <input type="checkbox" v-model="checkAll" />
         <span>枪支编号</span>
         <span>枪支类型</span>
         <span>所属机构</span>
@@ -91,9 +91,10 @@
         <span>枪锁位</span>
         <span>枪瞄编号</span>
         <span>持枪警员</span>
+        <span>解除绑定</span>
       </div>
       <div class="list-item" v-for="(item,index) in activeDataList" :key="index">
-        <input type="checkbox" v-model="item.checked">
+        <input type="checkbox" v-model="item.checked" />
         <span>{{item.gun_code}}</span>
         <span>{{item.gtype||"暂无"}}</span>
         <span>{{item.mechanism_name}}</span>
@@ -101,9 +102,11 @@
         <span>{{item.gposition || '无'}}</span>
         <span>{{item.IMEI}}</span>
         <span>{{item.policeuser_name ||"暂无"}}</span>
+        <span v-if="!item.IMEI" style="cursor:pointer" @click="bangding(item)">绑定</span>
+        <span v-if="item.IMEI" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
       </div>
     </div>
-    <div class="alert" v-show="alert||xiugai">
+    <div class="alert" v-show="alert||xiugai||bindalert">
       <div class="text-wrap" v-show="alert">
         <div class="text-title">新增枪支</div>
         <div class="text-content">
@@ -168,7 +171,31 @@
 
         <button class="sub-wrap" @click="subChange">确认修改</button>
       </div>
+      <div class="bingbox" v-show="bindalert">
+      <button class="close" @click="bindclose">X</button>
+      <p style="display:none">{{activeJigouId}}</p>
+      <input
+        type="text"
+        class="text"
+        placeholder="请输入枪瞄ID"
+        v-model="activeMiaoId"
+        @input="putChange"
+      />
+      <div class="m-item-wrap">
+        <div class="no-data" v-if="allMiaoList.length==0">该机构下暂时没有枪瞄数据</div>
+        <div
+          class="m-item"
+          v-for="(item,index) in allMiaoList"
+          :key="index"
+          :style="{'opacity':item.opacity}"
+        >
+          <span @click="miaoSpanClick(item,index)" title="IMEI">{{item.IMEI}}</span>
+        </div>
+      </div>
+      <button class="sub" @click="subBind">确认绑定</button>
     </div>
+    </div>
+    
   </div>
 </template>
 <style scoped>
@@ -183,6 +210,11 @@ export default {
   components: { LeftNav, Content, breadNav },
   data() {
     return {
+      activeGunId:'',
+      bindalert:false,
+      activeMiaoId:'',
+      activeJigouId:'',
+      allMiaoList:[],
       hasData: false,
       alert: false,
       treeData: "",
@@ -214,40 +246,114 @@ export default {
       noCheckPerson: false,
       allPersonList: "",
       isRemoving: false,
-      sync: 0 ,//判断动静态，默认静态
-      keshihua:'',
-      loading:null,
-      zhankai:[]
+      sync: 0, //判断动静态，默认静态
+      keshihua: "",
+      loading: null,
+      zhankai: []
     };
   },
-  computed:{
-    checkAll:{
-      get(){
-        return this.activeDataList.every(e=>e.checked)
+  computed: {
+    checkAll: {
+      get() {
+        return this.activeDataList.every(e => e.checked);
       },
-      set(b){
-        return this.activeDataList.forEach(e=>e.checked=b)
+      set(b) {
+        return this.activeDataList.forEach(e => (e.checked = b));
       }
     }
   },
   methods: {
-
-    changeShowType(n){
-      this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
-
-       this.activeDataList=[]
-      if(n===1){
-        this.keshihua=true
-      }else{
-        this.keshihua=false
+    bindclose(){
+      this.bindalert=false
+      this.allMiaoList.forEach(e => (e.opacity = "0.3"))
+    },
+    subBind(){
+      //...............确认绑定枪支和枪瞄
+      let gun_id = this.activeGunId;
+      let miao_id = this.activeMiaoId;
+      // console.log(this.allMiaoList,this.activeMiaoId)
+      // return
+      let bl = this.allMiaoList.find(e => e.gunaiming_id == this.activeMiaoId);
+      if (!bl) {
+        this.$message.error("没有该枪瞄，请重新输入");
+        return;
       }
-      localStorage.setItem('setKeShiHua',this.keshihua)
-      this.getDataList(this.activeJiGouId, 1)
+      // console.log(gun_id, miao_id)
+      this.bind(gun_id, miao_id);
+      setTimeout(()=>{
+        this.updataView()
+        this.bindalert=false
+        this.getMiaoList(this.activeJiGouId)
+      },1000)
+    },
+    bangding(item) {
+      // console.log("绑定",item);
+      this.activeGunId=item.gun_id
+      this.bindalert=true
+    },
+    miaoSpanClick(item, index) {
+      this.activeMiaoId = item.gunaiming_id;
+      this.allMiaoList.forEach(e => (e.opacity = "0.3"));
+      this.allMiaoList[index].opacity = "1";
+    },
+    putChange(e) {
+      //..........绑定枪瞄输入框输入事件
+
+      var val = e.target.value;
+      var list = this.allMiaoList;
+      // console.log(list)
+      this.blys(val, list);
+    },
+    blys(val, list) {
+      var v = val;
+      for (let i = 0; i < list.length; i++) {
+        var ind = list[i]["gunaiming_id"].indexOf(v);
+        if (ind == -1) {
+          //  this.list[i]['opacity']='0.3';
+          // console.log('不包含')
+          this.allMiaoList[i]["opacity"] = "0.3";
+        } else {
+          // this.list[i]['opacity']='1';
+          this.allMiaoList[i]["opacity"] = "1";
+          // console.log('包含啦')
+        }
+      }
+    },
+    jiebang(item) {
+      let that = this;
+      this.$confirm("您正在解除绑定关系, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          that.unbind(item.gun_id, item.gunaiming_id);
+          that.updataView();
+          that.getMiaoList(that.activeJiGouId)
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消解绑"
+          });
+        });
+    },
+    changeShowType(n) {
+      // this.loading = this.$loading({
+      //   lock: true,
+      //   text: "Loading",
+      //   spinner: "el-icon-loading",
+      //   background: "rgba(0, 0, 0, 0.7)"
+      // });
+
+      this.activeDataList = [];
+      if (n === 1) {
+        this.keshihua = true;
+      } else {
+        this.keshihua = false;
+      }
+      localStorage.setItem("setKeShiHua", this.keshihua);
+      this.getDataList(this.activeJiGouId, 1);
       this.$refs.page.internalCurrentPage = 1;
     },
     change11(e) {},
@@ -276,7 +382,7 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-       this.activeDataList=[]
+      this.activeDataList = [];
       this.active_yema = n;
       this.getDataList(this.activeJiGouId, n);
     },
@@ -296,6 +402,71 @@ export default {
       });
       this.search(1, this.putValue);
     },
+    getMiaoList(jigou_id = 1, p = 1, ps = 1000) {
+      //.............................获取枪瞄列表数据函数
+      var key = this.$store.state.key;
+      var objs = { mechanism_id: jigou_id, p: p, ps: ps, isbind: 1 };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("mechanism_id", objs.mechanism_id);
+      params.append("p", objs.p);
+      params.append("ps", objs.ps);
+      params.append("isbind", objs.isbind);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=gunaiming&a=gunaimings",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          let newArr = data.data.data.list.map(e => {
+            return {
+              ...e,
+              opacity: 1,
+              checked: false
+            };
+          });
+          this.allMiaoList = newArr; //.............返回数据之后赋值给allMiaoList
+          // console.log("allMiaoList", this.allMiaoList);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    unbind(gun_id, miao_id) {
+      //....................解除绑定
+      var key = this.$store.state.key;
+      var objs = { gun_id: gun_id, gunaiming_id: miao_id };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("gun_id", objs.gun_id);
+      params.append("gunaiming_id", objs.gunaiming_id);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=gunaiming&a=unbind",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          // console.log('解除绑定关系',data)
+          if (data.data.code == 200) {
+            this.$message({ message: "解除绑定成功", type: "success" });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }, //..........................解绑end
     getOptionStr() {
       var objs = {};
       var token = this.$gscookie.getCookie("gun");
@@ -358,7 +529,7 @@ export default {
           this.selValue = "";
           this.putValue = "";
           this.pageTotal = null;
-          this.loading.close()
+          this.loading.close();
         })
         .catch(error => {
           console.log(error);
@@ -526,13 +697,14 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      this.activeDataList=[]
+      this.activeDataList = [];
       this.$refs.page.internalCurrentPage = 1;
       this.currentNodeKey = item.mechanism_id;
       this.active_jigou = item;
       this.activeJiGouId = item.mechanism_id;
       this.active_title = item.mechanism_name;
       this.getDataList(item.mechanism_id);
+      this.getMiaoList(item.mechanism_id)
     },
     getTreeData(isCreate = true) {
       // ......................该组件默认加载树形菜单数据
@@ -555,10 +727,10 @@ export default {
         data: params
       })
         .then(data => {
-          this.zhankai.push(data.data.data.list[0].id)
-          this.zhankai.push(data.data.data.list[0].child[0].id || "")
-          if(data.data.data.list[0].child[0].child){
-            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+          this.zhankai.push(data.data.data.list[0].id);
+          this.zhankai.push(data.data.data.list[0].child[0].id || "");
+          if (data.data.data.list[0].child[0].child) {
+            this.zhankai.push(data.data.data.list[0].child[0].child[0].id);
           }
           this.treeData = data.data.data.list;
           // console.log(data.data.data.list);
@@ -576,9 +748,18 @@ export default {
     },
     getDataList(jigou_id, active_p = 1) {
       //................获取列表信息函数
-
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       var key = this.$store.state.key;
-      var objs = { mechanism_id: jigou_id, p: active_p, ps: this.keshihua ?9:19  };
+      var objs = {
+        mechanism_id: jigou_id,
+        p: active_p,
+        ps: this.keshihua ? 9 : 19
+      };
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -596,8 +777,8 @@ export default {
         data: params
       })
         .then(data => {
-          if(data.data.code==200){
-            this.loading.close()
+          this.loading.close();
+          if (data.data.code == 200) {
             let dataArr = data.data.data.list.map(e => {
               return {
                 ...e,
@@ -758,30 +939,39 @@ export default {
     } //..........................解绑end
   },
   created() {
-    let keshi=localStorage.getItem('setKeShiHua')
-      this.keshihua=JSON.parse(keshi) 
-    this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+    let keshi = localStorage.getItem("setKeShiHua");
+    this.keshihua = JSON.parse(keshi);
+
+    let treeData = JSON.parse(sessionStorage.getItem("tree-list"));
+    this.zhankai.push(treeData[0].id);
+    if (!!treeData[0].child.length) {
+      this.zhankai.push(treeData[0].child[0].id || "");
+      if (!!treeData[0].child[0].child) {
+        this.zhankai.push(treeData[0].child[0].child[0].id);
+      }
+    }
+    this.treeData = treeData;
+    this.active_title = treeData[0].mechanism_name;
+    this.active_jigou = treeData[0];
+    this.hasData = true;
+    this.currentNodeKey = treeData[0].id;
+    this.getDataList(this.active_jigou.id, 1);
+
     this.getOptionStr();
     this.sync = this.$gscookie.getCookie("sync");
     this.activeJiGouId = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");
-      let zaixian=this.$store.state.zaixian
+    let zaixian = this.$store.state.zaixian;
     if (item.role_id == 3) {
-      if(zaixian){
+      if (zaixian) {
         this.$router.push({
           name: "GuiJi"
         });
-      }else{
+      } else {
         this.$router.push({
           name: "Map"
         });
       }
-      
     }
 
     let jiGouId = this.$store.state.jiGouId;
@@ -799,20 +989,16 @@ export default {
       this.getTreeData(false);
       this.getDataList(jiGouId, yeMa);
       this.$store.commit("emptyNumber");
-    } else {
-      this.getTreeData();
-      this.getDataList(this.activeJiGouId, 1);
     }
   },
-   mounted() {
-     
-    this.$store.commit('setStr',{
-      str1:'枪支列表',
-      str2:'情况汇总'
-    })
-  },
-  destroyed(){
-    this.$store.commit('huanyuanStr')
-  }
+  mounted() {
+    this.$store.commit("setStr", {
+      str1: "枪支列表",
+      str2: "情况汇总"
+    });
+  },
+  destroyed() {
+    this.$store.commit("huanyuanStr");
+  }
 };
 </script>

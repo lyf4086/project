@@ -25,6 +25,10 @@
     position: relative;
     width:100%;
     height:76/@vh;
+    .back{
+        width:600/@vw;
+        height:100%;
+    }
     .time{
         position: absolute;
         right:10/@vw;
@@ -373,13 +377,15 @@
             height:555/@vh;
             margin: 0 auto;
             .nav{
+                
                 position: absolute;
                 top:70/@vh;
-                left:30/@vw;
-                width:50/@vw;
+                left:0/@vw;
+                width:100/@vw;
                 height:400/@vh;
                 // background: rgba(128, 236, 19,0.1);
                 .up{
+                    margin-left: 25%;
                     width:50/@vw;
                     height:30/@vh;
                     background: url(../../assets/img/fangxiang-icon.png)no-repeat center center;
@@ -387,6 +393,7 @@
                     transform: rotate(90deg);
                 }
                 .down{
+                    margin-left: 25%;
                     width:50/@vw;
                     height:30/@vh;
                     background: url(../../assets/img/fangxiang-icon.png)no-repeat center center;
@@ -394,7 +401,7 @@
                     transform: rotate(-90deg);
                 }
                 .list{
-                   width:50/@vw;
+                   width:100/@vw;
                    height:340/@vh;
                    overflow-x: hidden;
                    overflow-y: auto;
@@ -405,6 +412,9 @@
                        font-size: 14/@vw;
                        text-align: center;
                        cursor: pointer;
+                       overflow: hidden;
+                       white-space: nowrap;
+                       text-overflow: ellipsis;
                    }
                    .active{
                        color:#fff
@@ -433,12 +443,49 @@
                 
             }
             #main{
+                position: relative;
                 margin:20/@vh 0 0 120/@vw;
                 width:550/@vw;
                 height:500/@vh;
                 animation-delay: 1s;
-                background: url(../../assets/img/loading.gif)no-repeat;
-                background-size: 100% 100%;
+                // background: url(../../assets/img/loading.gif)no-repeat;
+                background: url(../../assets/img/yancheng2.png) no-repeat center;
+                background-size: auto 100%;
+                @keyframes shanshuo {
+                    from{
+                        transform: scale(0) ;
+                        box-shadow: inset 0 0 0px  red;
+                    }
+                    to{
+                        transform: scale(9);
+                        box-shadow: inset 0 0 1px  red;
+                    }
+                }
+                .dian{
+                    position: absolute;
+                    top:296/@vh;
+                    left:276/@vw;
+                    width: 5/@vw;
+                    height:5/@vw;
+                    border-radius: 50%;
+                    // background: red;
+                    transform: scale(9);
+                    box-shadow: inset 0 0 1px  red;
+                    animation: shanshuo 1s linear infinite;
+                    .dian2{
+                        position: absolute;
+                        top:0;
+                        right:0;
+                        bottom:0;
+                        left:0;
+                        margin: auto;
+                        width:3/@vw;
+                        height:3/@vw;
+                        border-radius: 50%;
+                        transform: scale(11);
+                        background: rgba(231, 118, 118, 0.3);
+                    }
+                }
             }
        }
     }
@@ -737,3 +784,14 @@
 }
 
 
+.mapwrap{
+    position: fixed;
+    z-index: 9;
+    top:0;
+    right: 0;
+    bottom:0;
+    left:0;
+    margin:auto;
+    width:900px;
+    height:500px;
+}

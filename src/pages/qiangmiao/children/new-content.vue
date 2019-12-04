@@ -53,7 +53,7 @@
             v-if="item.gun_id>0"
             class="jiebang"
             @click="jiebang(item)"
-            style="color:red;"
+
             :title="`所绑枪支编号:${item.gun_code || '暂无'}`"
           >解绑</span>
         </div>
@@ -567,8 +567,6 @@ export default {
       this.active_qiangmiao = "";
     },
     jiebang(item) {
-      // if (!confirm("确定要解除绑定吗？")) return;
-
       this.$confirm("确定要解除绑定吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -602,7 +600,6 @@ export default {
         data: params
       })
         .then(data => {
-          console.log(data);
           this.dianliangData1 = data.data.data.map(e => e.created);
           this.dianliangData2 = data.data.data.map(e => e.elec);
           this.dianlianglist = data.data.datas;
@@ -678,7 +675,7 @@ export default {
   },
   created(){
     this.sync = this.$gscookie.getCookie("sync");
-    console.log(this.sync)
+    // console.log(this.sync)
   },
   mounted() {
     this.$nextTick(() => {

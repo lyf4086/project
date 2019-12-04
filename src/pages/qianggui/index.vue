@@ -278,8 +278,8 @@ export default {
            this.zhankai.push(data.data.data.list[0].id)
            this.zhankai.push(data.data.data.list[0].child[0].id || "")
            if(data.data.data.list[0].child[0].child){
-            this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
-          }
+              this.zhankai.push(data.data.data.list[0].child[0].child[0].id)
+            }
             this.treeListData = data.data.data.list;
          }
           
@@ -363,6 +363,18 @@ export default {
     }
   },
   created() {
+    //公用树形菜单数据
+    let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
+     this.zhankai.push(treeData[0].id)
+     if(!!treeData[0].child.length){
+       this.zhankai.push(treeData[0].child[0].id || "")
+       if(!!treeData[0].child[0].child){
+          this.zhankai.push(treeData[0].child[0].child[0].id)
+        }
+     }
+      
+      
+      this.treeListData = treeData;
     this.loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -378,7 +390,7 @@ export default {
         name: "GuiJi"
       });
     }
-    this.getTreeList();
+    // this.getTreeList();//放弃树形菜单请求函数，优化
     this.getDataList();
     let str = this.$gscookie.getCookie("gun");
     if (JSON.stringify(str) == "{}") {
@@ -388,8 +400,6 @@ export default {
     if (obj.guncabinet_id) {
       this.qiangguishow = true;
       this.fromQiangZhi = true;
-      // this.xiangqingindex=obj
-
       this.getXiangQing(obj.guncabinet_id);
     }
   },

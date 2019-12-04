@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div class="main">
+        <div class="main" >
             <button class="close" @click="cl"></button>
             <div class="item1" id="item4-chart">
                
@@ -27,7 +27,9 @@
 @import url(./child4.css);
 </style>
 <script>
+import ShowAllMarkerLiXian from '@/components/show-allmarker-lixian.vue'
 export default {
+    components:{ShowAllMarkerLiXian},
     props:{
         child4Data:{
             type:Object,
@@ -40,6 +42,9 @@ export default {
         }
     },
     methods:{
+        close(){
+           this.cl() 
+        },
         cl(){
             this.$emit('close')
         },
@@ -216,9 +221,9 @@ export default {
        
     },
     mounted(){
+        console.log('child4打开')
         this.chart()
-        // this.listMove()
-        console.log(this.child4Data.datas)
+        this.listMove()
     }
 }
 </script>

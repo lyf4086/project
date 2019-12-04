@@ -548,6 +548,7 @@ export default {
     }
   },
   created() {
+
     this.loading = this.$loading({
         lock: true,
         text: "Loading",

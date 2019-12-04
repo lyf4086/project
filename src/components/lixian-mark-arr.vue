@@ -23,9 +23,11 @@ export default {
         },
         mapInit() {
             let that = this;
-            BM.Config.HTTP_URL = this.$store.state.lixianStr           
-            var map = BM.map("map", "bigemap.ap8r91ep", {
-                center: [39.9, 116.32],
+            BM.Config.HTTP_URL = this.$store.state.lixianStr  
+             let liXianMapKey=this.$store.state.liXianMapKey;
+            let lixianMapCenter=this.$store.state.lixianMapCenter;         
+            var map = BM.map("map", liXianMapKey, {
+                center: lixianMapCenter,
                 zoom: 1,
                 zoomControl: true
             });

@@ -16,9 +16,9 @@ function GetDistance(lng1, lat1, lng2, lat2) { //..计算两坐标点之间的�
 
 function personMoveing() {
   let that = this
-  clearInterval(this.moveTimer)
-  this.moveTimer = setInterval(() => {
-    console.log('请求最新位置了', this.moveingPersonList.length,this.$refs.alarmSelect.value)
+  window.clearInterval(this.moveTimer)
+  this.moveTimer = window.setInterval(() => {
+    console.log('请求最新位置了,人数：', this.moveingPersonList.length,'sel-id:',this.$refs.alarmSelect.value)
     that.getNewPosition(this.$refs.alarmSelect.value)
   }, movingTime)
 }
@@ -51,8 +51,8 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     changeOrigin: true,
     data: params
   }).then((data) => {
-    // console.log(data)
     this.loading.close()
+    this.paixuarr=data.data.data.list.map(e=>e.IMEI)   
     let that = this
     this.isChange = false //避免多次点击
     this.hasPerson = true;
@@ -119,7 +119,13 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     //地图自适应显示
 
     this.map.fitBounds(arr)
-    this.noClick = false
+    let mes=this.$gscookie.getCookie("message_obj");
+    if(mes.role_id==3){
+      this.noClick = true
+    }else{
+      this.noClick = false
+    }
+    
     this.personMoveing() //.执行动画
   }).catch((error) => {
     console.log(error)
@@ -887,6 +893,7 @@ function getNewPosition(id) {
   }).then((data) => {
 
     if (data.data.code == 200) {
+      console.log('获取了最新定位',data.data.data.list)
       let newArr=[]
       this.paixuarr.forEach(item=>{
         newArr.push(data.data.data.list.find(e=>e.IMEI==item))
@@ -953,7 +960,7 @@ function overArea(id) { //..区域内是否存在超出区域的报警
         return
       }
       let state = data.data.state
-      console.log('是否存在报警state', state)
+      console.log('是否存在报警state:', state)
       this.polygon.remove()
       this.setPolyGon(this.quyuArr, state)
 

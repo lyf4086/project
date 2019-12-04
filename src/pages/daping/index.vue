@@ -2,6 +2,7 @@
     <div class="wrap">
         <div class="cover" v-show="automovetimer !=null"></div>
         <div class="top">
+            <div class="back" @click="goBack"></div>
             <div class="time" @click="starAutoMove">
                 <div class="l">{{timestr}}</div>
                 <div class="r">
@@ -71,10 +72,9 @@
                     <div class="item2 animateobj animated" @click="toDanYAo">
                         <div class="number">
                             <span v-for="(item,index) in qdtj.nCount" :key="index">{{item}}</span>
-                    
                         </div>
                         <div class="t">弹药总量</div>
-                        <p>在库数 <i>{{qdtj.zCount}}</i>把 &nbsp;&nbsp;&nbsp;出库数<i>{{qdtj.xCount}}</i>把</p>
+                        <p>在库数 <i>{{qdtj.zCount}}</i>发 &nbsp;&nbsp;&nbsp;出库数<i>{{qdtj.xCount||0}}</i>发</p>
                     </div>
                 </div>
                 <div class="left-bg"></div>
@@ -92,7 +92,9 @@
                         <div class="down" id="down"></div>
                     </div>
                     <div id="main">
-                        
+                        <div class="dian">
+                            <div class="dian2"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="right-bg"></div>
@@ -190,6 +192,7 @@
         <Child5 v-if="top5Show" @close="closeTop5" :activeid="activeID" :dataObj="top5Xiangqing"/>
         <!-- <ShowAllMarkerGaoDe/> -->
         <!-- <ShowAllMarkerLiXian/> -->
+        
     </div>
 </template>
 <style scoped>
@@ -214,7 +217,7 @@ export default {
     components:{Yuan,Child1,Child2,Child3,Child4,Child5,ShowAllMarkerGaoDe,ShowAllMarkerLiXian},
     data(){
         return {
-            activeCity:"全国",
+            activeCity:"",
             activeID:'',
             cityData:[],
             danyaoShow:false,
@@ -272,6 +275,9 @@ export default {
     methods:{
         ...echartsmethods,
         ...getMethods,
+        goBack(){
+            this.$router.go(-1)
+        },
         starAutoMove(){//开启自动播放
             if(this.automovetimer)return
             if(this.noclick){
@@ -355,9 +361,8 @@ export default {
             this.renwuxiangqingShow=false
         },
         openrenwuxiangqing(obj){
-            console.log(obj)
             this.renwukey=obj
-            // this.renwuliebiao('', obj.Id ,obj.sid)
+            this.renwuliebiao('', obj.ID ,obj.sid)
             clearInterval(this.automovetimer)
             this.automovetimer=null
             this.renwutongjiShow=false
@@ -470,20 +475,20 @@ export default {
                 this.baojingtop5(e.id)
             }
             // console.log(e,this.cityData)
-            let num=this.cityData.findIndex(item=>item[0].name==e.cname)
-            let a=0
-            this.initMap(num)
-            clearInterval(this.changeCityTimer)
-            this.changeCityTimer=null
-            this.changeCityTimer=setInterval(() => {
-                ++a;
-                if(a<this.cityData.length){
-                    this.initMap(a)
+            // let num=this.cityData.findIndex(item=>item[0].name==e.cname)
+            // let a=0
+            // this.initMap(num)
+            // clearInterval(this.changeCityTimer)
+            // this.changeCityTimer=null
+            // this.changeCityTimer=setInterval(() => {
+            //     ++a;
+            //     if(a<this.cityData.length){
+            //         this.initMap(a)
                     
-                }else{
-                    a=0
-                }
-            }, 5000);
+            //     }else{
+            //         a=0
+            //     }
+            // }, 5000);
            
         },
         starMove(){

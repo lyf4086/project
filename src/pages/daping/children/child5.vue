@@ -501,7 +501,7 @@ export default {
         }
     },
     mounted(){
-        
+        console.log('child5打开')
         this.titlearr=["单位",...this.dataObj.tasks]
         this.list=this.dataObj.data
         let citys=this.dataObj.data.map(e=>e.cname)

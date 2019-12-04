@@ -10,7 +10,7 @@
             <router-link
               v-for="(item,index) in list"
               :to="item.road"
-              :key="index"
+              :key="index" 
               class="item"
               tag="div"
             >
@@ -27,7 +27,7 @@
               tag="span"
             ></router-link>
             <!--  v-show="mes.role_id!=3 && sync==1" -->
-            <span title="同步数据" @click="tongbu" v-show="false"></span>
+            <span title="同步数据" @click="tongbu" v-if="false"></span>
 
             <router-link
               title="人员管理"
@@ -146,6 +146,7 @@
 
 <script>
 import { setInterval, clearInterval, setTimeout } from "timers";
+
 export default {
   data() {
     return {
@@ -167,7 +168,11 @@ export default {
           name: "数据汇总",
           en: "DATACOLLECTION"
         },
-        轨迹追踪: { road: "/indexg/guiji", name: "轨迹追踪", en: "TRAJECTORY" },
+        轨迹追踪: { 
+          road:'/indexg/guiji', 
+          name: "轨迹追踪", 
+          en: "TRAJECTORY" 
+        },
         枪瞄管理: {
           road: "/indexg/qiangmiao",
           name: "枪瞄管理",
@@ -214,7 +219,7 @@ export default {
   },
   methods: {
     toBigScreem(){
-      // return
+      return
       this.$router.push('/daping')
     },
     tongbu() {
@@ -260,7 +265,6 @@ export default {
           });
         });
 
-      return;
     },
     itemClick(item) {
       if (this.$route.name == "BaoJing") {
@@ -629,6 +633,7 @@ export default {
     this.userId.id = this.mes.id;
   },
   mounted() {
+    this.navList['轨迹追踪'].road=this.$store.state.zaixian?'/indexg/guiji':'/indexg/map'
     this.tishi(); //...执行提示函数
     // isFullscreenForNoScroll(); //...判断是否全屏
     // window.onresize = function() {

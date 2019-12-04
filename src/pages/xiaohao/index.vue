@@ -239,6 +239,17 @@ export default {
     }
   },
   created() {
+    let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
+    this.zhankai.push(treeData[0].id)
+
+    if(!!treeData[0].child.length){
+            this.zhankai.push(treeData[0].child[0].id || "")
+            if(!!treeData[0].child[0].child){
+                this.zhankai.push(treeData[0].child[0].child[0].id)
+              }
+          }
+    this.treeListData = treeData;
+
     this.loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -254,7 +265,7 @@ export default {
         name: "GuiJi"
       });
     }
-    this.getTreeList();
+    // this.getTreeList();
     this.getDataList();
     let str = this.$gscookie.getCookie("gun");
     if (JSON.stringify(str) == "{}") {

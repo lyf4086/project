@@ -12,7 +12,7 @@
       <span>上传人</span>
       <span>上传时间</span>
     </div>
-    <div class="none-data" v-if="!dataArr.length">暂时没有数据......</div>
+    <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
     <ul class="list" v-if="dataArr.length">
       <li class="item" v-for="(item,index) in dataArr" :key="item.id">
         <span>

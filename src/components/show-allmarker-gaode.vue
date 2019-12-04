@@ -1,21 +1,50 @@
 <template>
+  <div class="wrap">
     <div id="map-wrap">
         高德地图
     </div>
+    <button @click="closeSelf">X</button>
+  </div>
+    
 </template>
 <style lang="less" scoped>
 @rem:100rem;
 @vw:19.2vw;
+@vh:10.8vh;
+.wrap{
+  position: fixed;
+  width:100vw;
+  height:100vh;
+  top:0;
+  left: 0;
+  button{
+      position: absolute;
+      z-index: 10;
+      top:8/@vw;
+      right:6/@vw;
+      width:40/@vw;
+      height:40/@vw;
+      text-align: center;
+      line-height: 40/@vw;
+      background: cornflowerblue;
+      color:#fff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+}
 #map-wrap{
-    position: fixed;
+    position: absolute;
     top:0;
     left:0;
+    right: 0;
+    bottom:0;
+    margin:auto;
     z-index: 9;
-    width:100%;
-    height:100%;
-    background: pink;
+    width:1608/@vw;
+    height:926/@vh;
+    
 }
-.marker-route {
+/deep/.marker-route {
     position: relative;
     width: 40/@rem;
     height: 46/@rem;
@@ -28,13 +57,14 @@
       filter: grayscale(90%);
     }
   }
-  .marker-route .cover {
-    // position: relative;
-     
+  /deep/.marker-route .cover {
+    position: relative;
+     z-index: 11;
     width: 100%;
     height: 100%;
     background: url(../assets/img/tou.png) no-repeat;
     background-size: 100% 100%;
+    overflow: hidden;
     .warningtype{
       position: absolute;
       right:0;
@@ -48,14 +78,16 @@
     }
   }
 
-  .marker-route .img_wrap {
+  /deep/.marker-route .img_wrap {
+    position: absolute;
+    top:1px;
+    left:1px;
     width: 38/@rem;
     height: 38/@rem;
     margin-top: 1/@rem;
     margin-left: 0/@rem;
     border-radius: 50%;
     overflow: hidden;
-   box-shadow: 0 0 20px red;
     img {
       width: 102%;
     }
@@ -85,52 +117,54 @@
 </style>
 <script>
 export default {
+  props:['arr'],
     data(){
         return {
 
         }
     },
     methods:{
-        mapInit(obj) {
-            //  console.log(this.title,this.arr)
-            //  let a=this.arr[0]>this.arr[1]?[this.arr[0],this.arr[1]]:[this.arr[1],this.arr[0]]
+      closeSelf(){
+         this.$emit('close')
+      },
+        mapInit() {
             let map = new AMap.Map("map-wrap", {
                 center: [116.397428, 39.90923],
-                // center:a,
                 resizeEnable: true,
                 zoom: 13
             }); 
             this.map=map 
-            this.setMarker()         
+            this.setMarker(this.arr)         
         },
         setMarker(arr) {
+          if(!this.arr.length)return
             let that=this
-            let a=arr||[{lnglat:[116.397428, 39.90923]}]
             let activeImg = require("@/assets/img/head-icon.png")
-           let markerArr=a.map((item,index)=>{
+           let markerArr=arr.map((item,index)=>{
                return new AMap.Marker({
                    content: `<div class="marker-route is_lixian">
                                 <div class="cover"></div>
                                 <div class="img_wrap">
-                                <img src="" />
+                                <img src="${activeImg}" />
                                 </div>
                                 <div class="set-type litao-s"></div>
                             </div>`,
-                   position:new AMap.LngLat(...item.lnglat),
-                   title:"8888"
+                   position:new AMap.LngLat(...item.latlng),
+                   title:item.name
                })
            })
-            this.map.add(...markerArr);
+            this.map.add(markerArr);
             this.map.setFitView([...markerArr]);
-            markerArr.forEach(item=>{
+            markerArr.forEach((item,index)=>{
                 item.on('click',function (){
-                    const h = that.$createElement;
+                  const h = that.$createElement;
+                  let list=[]
+                  for(let i in arr[index].message){
+                    list.push(h('p',null,`${i}：${arr[index].message[i]}`))
+                  }
                     that.$message({
                         type:"info",
-                        message:h('div',{style:"font-size:12px"},[
-                            h('p',null,`所属机构：xxx`),
-                            h('p',null,`报警类型：xxx`)
-                        ]),
+                        message:h('div',{style:"font-size:16px;line-height:30px"},list),
                         duration:4000
                     })
                 })

@@ -360,7 +360,7 @@ export default {
           label: "黄金糕"
         }
       ],
-      value: "",
+      value: "1",
       optionsStr: "",
       hasPerson: false,
       clickTrue: true,
@@ -380,6 +380,7 @@ export default {
       jigouname: "",
       loading:null,
       paixuarr:[],//用来排序的imei号
+      timer2:null
     };
   },
   computed: {
@@ -510,16 +511,18 @@ export default {
     mapInit() {
       let that = this;
       BM.Config.HTTP_URL = this.$store.state.lixianStr;
+      let liXianMapKey=this.$store.state.liXianMapKey;
+      let lixianMapCenter=this.$store.state.lixianMapCenter;
       if (this.map) {
         this.map.remove();
       }
-      var map = BM.map("map", "bigemap.ap8r91ep", {
-        center: [39.9, 116.32],
+      var map = BM.map("map", liXianMapKey, {
+        center: lixianMapCenter,
         zoom: 1,
         zoomControl: true
       });
 
-      map.setZoom(10);
+      map.setZoom(12);
 
       this.BM = BM;
       this.map = map;
@@ -547,6 +550,7 @@ export default {
       this.quyuArr = arr; //记录当前显示的区域的坐标点
       let polygon = BM.polygon(arr, { color: color }).addTo(map);
       this.polygon = polygon;
+       map.fitBounds(arr)//地图自适应位置
       return polygon;
     },
     newShuaXinMap() {
@@ -570,6 +574,30 @@ export default {
         this.shangyigequyu.remove();
       }
     },
+   hasWarning() { //..区域内是否存在报警
+      var objs = {};
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie('gun')
+      var params = new URLSearchParams();
+      params.append('sign', sign);
+      params.append('token', token)
+      this.$axios({
+        url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=alarm&a=isalarm',
+        method: 'POST',
+        changeOrigin: true,
+        data: params
+      }).then((data) => {
+
+        if (data.data.code == 200) {
+          // console.log('hasWarning 10秒钟一次')
+          // return
+
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
     
   },
   created() {
@@ -577,17 +605,49 @@ export default {
     this.getAlarmList();
   },
   mounted() {
+    this.timer2 = setInterval(() => {
+      this.hasWarning();
+    }, 10000);
     this.mapInit();
     $(".bigemap-control-zoom").css("display", "none");
     $(".bigemap-control-attribution").css("display", "none");
+    let mes=this.$gscookie.getCookie("message_obj");
+    this.role_id=mes.role_id
+ 
+  },
+  activated(){
+    if(this.areaTimer){
+      window.setTimeout(()=>{
+        this.overArea(this.$refs.alarmSelect.value);
+      },50)
+      window.clearInterval(this.areaTimer)
+      this.areaTimer=window.setInterval(()=>{
+        this.overArea(this.$refs.alarmSelect.value);
+      },10000)
+    }
+    if(this.moveTimer){
+      window.setTimeout(()=>{
+        this.getNewPosition(this.$refs.alarmSelect.value)
+      },50)
+       window.clearInterval(this.moveTimer)
+       this.moveTimer=window.setInterval(()=>{
+         this.getNewPosition(this.$refs.alarmSelect.value)
+       },10000)
+    }
   },
   deactivated(){
     this.loading ? this.loading.close():null
     this.$store.commit('huanyuanStr')
+  },
+  beforeRouteLeave(to,from,next){    
+    if(this.areaTimer){
+      window.clearInterval(this.areaTimer)
+    }
+    if(this.moveTimer){
+      window.clearInterval(this.moveTimer)
+    }
+    next()
   }
-  // beforeRouteLeave(to,from,next){
-  //   console.log('页面将要离开',to,from,next)
-  // }
 };
 </script>
 

@@ -4,7 +4,9 @@
             <router-link to="/loginput" tag="button" >动态登陆</router-link>
         </div>
         <div class="btn2">
-            <button>静态登陆</button>
+            <a href="http://50.144.192.35/fjlocker">
+                <button>静态登陆</button>
+            </a>
         </div>
 
     </div>

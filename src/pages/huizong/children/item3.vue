@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap" @click="toXiangQing">
+  <div class="wrap" >
     <div class="left" v-if="personList">
       <div class="item" v-for="(item,index) in personList" :key="index">
         <div class="tou">
@@ -18,7 +18,7 @@
     </div>
     <div class="right">
       <p>重要任务枪支出口总量</p>
-      <h3>{{total}}支</h3>
+      <h3 @click="toXiangQing">{{total}}支</h3>
       <div class="bg1"></div>
       <div class="bg2"></div>
     </div>
@@ -84,18 +84,15 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log(data)
           if (data.status == 200) {
             this.personList = data.data.data;
-            // console.log("personlist", data.data);
             this.total = data.data.total;
           }
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    move() {}
+    }
   },
   created() {
     this.getData();

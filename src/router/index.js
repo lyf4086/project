@@ -66,8 +66,10 @@ let router = new Router({
     children: [{
       path: 'huizong',
       name: 'HuiZong',
-      component: HuiZong
-
+      component: HuiZong,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: 'jigouguanli',

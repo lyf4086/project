@@ -123,7 +123,8 @@ import Content from './children/content'
         components:{breadNav,Content},
           data() {
           return {
-            URL:this.$store.state.baseURL+"/weixin/project/index.php?m=Home&c=Video&a=upload",
+            // URL:this.$store.state.baseURL+"/weixin/project/index.php?m=Home&c=Video&a=upload",//原地址
+            URL:this.$store.state.baseURL+"/weixin/project/index.php?m=Home&c=Uploads&a=upload",//盐城地址
             dataList:[],
             currentNodeKey:'',
             pageTotal:0,
@@ -213,7 +214,6 @@ import Content from './children/content'
             this.messageData.org_id=objs.org_id
             this.messageData.vname=objs.vname
             this.messageData.t_policeuser_id=objs.t_policeuser_id
-
             // var params = new URLSearchParams();
             // params.append('sign', sign);
             // params.append('token', token);
@@ -236,7 +236,6 @@ import Content from './children/content'
               }
           },
           uploadVideoProcess(event, file, fileList){
-           
               this.videoFlag = true;
               this.videoUploadPercent = file.percentage.toFixed(0);
               this.videoUploadPercent-=0
@@ -337,6 +336,12 @@ import Content from './children/content'
 
             },
              getDataList(jigou_id,active_p=1){   //................获取持录音录像列表信息函数
+              this.loading = this.$loading({
+                lock: true,
+                text: "Loading",
+                spinner: "el-icon-loading",
+                background: "rgba(0, 0, 0, 0.7)"
+              });
                 if(!jigou_id){
                   jigou_id=this.$gscookie.getCookie('mechanism_id')
                 }
@@ -485,7 +490,6 @@ import Content from './children/content'
                 })
             },
             handleNodeClick(item){//树形菜单点击
-            console.log(item)
               this.loading = this.$loading({
                 lock: true,
                 text: "Loading",
@@ -508,12 +512,22 @@ import Content from './children/content'
             }
         },
         created(){
-          this.loading = this.$loading({
-            lock: true,
-            text: "Loading",
-            spinner: "el-icon-loading",
-            background: "rgba(0, 0, 0, 0.7)"
-          });
+          //使用公用树形菜单数据
+          let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
+          this.zhankai.push(treeData[0].id)
+          if(!!treeData[0].child.length){
+            this.zhankai.push(treeData[0].child[0].id || "")
+            if(!!treeData[0].child[0].child){
+                this.zhankai.push(treeData[0].child[0].child[0].id)
+              }
+          }
+          this.treeListData=treeData
+          
+          this.$nextTick(()=>{
+            this.handleNodeClick(this.treeListData[0])
+          })
+
+          
           let item =this.$gscookie.getCookie("message_obj");
           this.t_policeuser_id=item.id
           this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
@@ -522,8 +536,7 @@ import Content from './children/content'
                 name:'GuiJi'
               })
             }
-          this.getTreeList()
-          // this.getDataList()
+          
             let str=this.$gscookie.getCookie('gun')
             if(JSON.stringify(str)=="{}"){
                 this.$router.push("/loginput")

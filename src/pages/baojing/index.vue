@@ -415,7 +415,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
-      this.hasData = true;
+
     },
     getAlarmXY(aid){
       var key = this.$store.state.key;
@@ -451,6 +451,12 @@ export default {
     },
     getDataList(mechanismId, p = 1, ps = 8, selValue, putValue, state,tid="") {
       // ......................获取报警列表
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       if (!mechanismId) {
         mechanismId = this.$gscookie.getCookie("mechanism_id");
       }
@@ -554,16 +560,11 @@ export default {
         .catch(error => {
           console.log(error);
         });
-      this.hasData = true;
+
     },
     handleNodeClick(item) {
       //树形菜单点击
-      this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+      
       this.list=[]
       this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
       this.activeMechanismId = item.mechanism_id;
@@ -613,12 +614,35 @@ export default {
     }
   },
   created() {
-    this.loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+    let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
+    this.zhankai.push(treeData[0].id)
+
+    if(!!treeData[0].child.length){
+            this.zhankai.push(treeData[0].child[0].id || "")
+            if(!!treeData[0].child[0].child){
+                this.zhankai.push(treeData[0].child[0].child[0].id)
+              }
+          }
+    this.treeListData = treeData;
+    this.rootId = treeData[0].root_id;
+    this.activeItem =treeData[0];
+    let keshi=localStorage.getItem('setKeShiHua')
+      this.keshihua=JSON.parse(keshi) 
+    let num=this.keshihua?8:17
+    this.getDataList(this.activeItem.id, 1, num);
+
+
+
+
+
+
+
+    // this.loading = this.$loading({
+    //     lock: true,
+    //     text: "Loading",
+    //     spinner: "el-icon-loading",
+    //     background: "rgba(0, 0, 0, 0.7)"
+    //   });
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let obj = this.$route.params;
     let str = this.$gscookie.getCookie("gun");
@@ -668,12 +692,11 @@ export default {
       this.subSearch();
      
     } else {
-      this.getTreeList();
+      // this.getTreeList();
     }
   },
   mounted() {
-    let keshi=localStorage.getItem('setKeShiHua')
-      this.keshihua=JSON.parse(keshi) 
+    
     this.$store.commit('setStr',{
       str1:'报警列表',
       str2:'情况汇总'
