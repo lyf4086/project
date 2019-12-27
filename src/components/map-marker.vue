@@ -50,14 +50,13 @@ export default {
                 if(!that.mes)return
                 that.$message({
                     type:'none',
-                    message:`所属机构：${that.mes.mechanism_name}`
+                    message:`${that.mes.mechanism_name}`
                 })
             })         
             map.fitBounds([a]);           
         }
     },
     mounted(){
-        
         this.mapInit()        
     }
 }

@@ -97,7 +97,7 @@ export default {
             let d;
             for (let i = 0; i < c.length; i++) {
               if (c[i].axisIndex === 0) {
-                d = c[i].axisValue + " : " + c[i].data + "%";
+                d = c[i].axisValue + " : " + c[i].data + "";
               }
             }
             return d;

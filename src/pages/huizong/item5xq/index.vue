@@ -42,6 +42,7 @@
         </div>
       </div>
     </div>
+    <div class="cover" v-if="coverShow">12321232123</div>
   </div>
 </template>
 <style >
@@ -55,7 +56,8 @@ export default {
       dataList: [],
       isshow: true,
       timer: null,
-      loading:null
+      loading:null,
+      coverShow:false
     };
   },
   methods: {
@@ -194,10 +196,14 @@ export default {
 
       markerArr.forEach(item => {
         AMap.event.addListener(item, "click", function(ev) {
+          that.coverShow=true;
+          setTimeout(()=>{
+            that.coverShow=false;
+          },3000)
           const h = that.$createElement;
           that.$message({
             type:'none',
-            duration:5000,
+            duration:3000,
             message: h('div', {style:'font-size:18px;line-height:30px;'}, [
                 h('p', null, `警员姓名：${item.Ge.title}`),
                  h('p', null, `所属机构：${item.Ge.mechanism_name}`),

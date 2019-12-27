@@ -72,6 +72,7 @@
         @updataView="updataView"
         :activefujigou="active_fujigou"
         :activeyema="active_yema"
+        @getAllGun="getAllGun"
       ></newContent>
     </div>
     <div class="change_type">
@@ -88,7 +89,7 @@
         <span>枪瞄状态</span>
         <span>枪瞄类型</span>
         <span>剩余电量</span>
-        <span>绑定枪支</span>
+        <span>绑定枪支编号</span>
         <span>充电状态</span>
         <span>最后定位时间</span>
         <span>绑定/解绑</span>
@@ -99,7 +100,7 @@
         <span>{{item.policeuser_name || '暂无'}}</span>
         <span>{{item.heart==1 ? "在线":"离线"}}</span>
         <span>{{item.gtypes_name}}</span>
-        <span>{{item.electricity}}%</span>
+        <span style="cursor:pointer;text-decoration:underline" @click="dianLiang(item)">{{item.electricity}}%</span>
         <span>{{item.gun_code || '暂无'}}</span>
         <span>{{item.ischarging}}</span>
         <span>{{item.created}}</span>
@@ -107,13 +108,40 @@
         <span v-if="item.gun_id>0" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
       </div>
     </div>
-    <div class="cover" v-show="alert||xiugai||tan3">
+    <div class="cover" v-show="alert||xiugai||tan3||tan2">
       <div class="text-wrap" v-show="alert">
         <div class="text-title">新增枪瞄</div>
         <div class="text-content">
           
-          IMEI:<input type="number" v-model="formLabelAlign.iemi"><br/>
-          枪瞄类型：<el-select v-model="value" placeholder="请选择">
+          <div class="floor">
+            <span>IMEI:</span><input type="number" v-model="formLabelAlign.iemi"><br/>
+          </div>
+          <div class="floor">
+            <span>枪瞄类型：</span>
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in types"
+                  :key="item.id"
+                  :label="item.gtypes"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+          </div>
+        </div>
+        <div class="submit" @click="subAddQiangMiao">确认</div>
+        <i @click="del">X</i>
+      </div>
+      <div v-show="xiugai" class="xiugai">
+        <div class="title">修改枪瞄</div>
+        <button class="del" @click="xiugai=false">X</button>
+        <div class="floor"><span>原名字：</span><span>{{xiugaiData.IMEI}}</span></div>
+        <div class="floor">
+          <span>新名字：</span>
+          <input type="text" v-model="xiugaiStr" />
+        </div>
+        <div class="floor"><span>类型：</span><span>{{xiugaiData.gtypes_name}}</span></div>
+        <div class="floor"><span>修改类型：</span>
+                  <el-select v-model="changeValue" placeholder="请选择">
                     <el-option
                       v-for="item in types"
                       :key="item.id"
@@ -121,16 +149,7 @@
                       :value="item.id">
                     </el-option>
                   </el-select>
-        </div>
-        <div class="submit" @click="subAddQiangMiao">确认</div>
-        <i @click="del">X</i>
-      </div>
-      <div v-show="xiugai" class="xiugai">
-        <button class="del" @click="xiugai=false">X</button>
-        <div>原名字：{{xiugaiData.IMEI}}</div>
-        <div>
-          新名字：
-          <input type="text" v-model="xiugaiStr" />
+       
         </div>
         <button class="sub" @click="subChange">确认修改</button>
       </div>
@@ -147,7 +166,36 @@
         </div>
         <input type="submit" class="btn" @click="submitBt" value="确认绑定" />
       </div>
+      <div class="alert2" v-show="tan2">
+        <div class="del" @click="close2" >X</div>
+        <div class="t1">电池信息</div>
+        <div id="dianchi11"></div>
+        <div class="message" >
+          <p>剩余电量：{{active_dianliang}}%</p>
+          <p>枪瞄编号：{{showMessage.IMEI}}</p>
+          <p>当前携带警员：{{showMessage.policeuser_name}}</p>
+        </div>
+        <div class="t">电量趋势图</div>
+        <div id="chart33">
+        </div>
+        <div class="title">
+          <span>电量 %</span>
+          <span>时间</span>
+          
+        </div>
+        <div class="listwrap">
+          <div class="list" id="dianlianglist11">
+            <div class="item" v-for="(item,index) in dianlianglist" :key="index">
+              
+              <span>{{item.elec}}</span>
+              <span>{{item.created}}</span>
+            </div>
+          </div>
+        </div>
+        <button class="close" @click="close2">取消</button>
+      </div>
     </div>
+    <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" :mes="alertMessage" title="" @closeMap="close"/>
     <MapMarker @closeMap="close" v-if="liXianMapShow" :arr="liXianLngLat" :title="liXianTitle" :mes="liXianMes"/>
   </div>
 </template>
@@ -156,16 +204,22 @@
 </style>
 <script>
 import MapMarker from '@/components/map-marker.vue' 
+import GaoDeMap from '@/components/mapalertgaode.vue'
 import breadNav from "@/components/breadnav";
 import newContent from "./children/new-content";
 export default {
-  components: { breadNav, newContent ,MapMarker},
+  components: { breadNav, newContent ,MapMarker,GaoDeMap},
   data() {
     return {
+      changeValue:'',
       tan3:false,
+      tan2:false,
       xuanZhongGunId:'',
       liXianMapShow:false,
+      alertMessage:{},
+      gaodeshow:false,
       liXianLngLat:[40.2,116.37],
+      gaodeArr:[116.37,40.2],
       liXianMes:{"mechanism_name":'2123223'},
       liXianTitle:'',
       alert: false,
@@ -202,7 +256,14 @@ export default {
       currentPage:0,
       keshihua:true,
       loading:null,
-      zhankai:[]
+      zhankai:[],
+      showMessage:{},
+      showMessage:'',
+      dianliangData1:'',
+      dianliangData2:'',
+      dianlianglist:[],
+      active_dianliang:'',
+      moveListTimer1:null
     };
   },
   computed:{
@@ -216,10 +277,320 @@ export default {
     }
   },
   methods: {
+    dianLiang(item){
+      this.tan2=true
+       this.showMessage=item;
+      this.active_dianliang = item.electricity;
+     
+      this.dianchi(item.electricity);
+      this.getDianliang(item.IMEI);
+      setTimeout(()=>{
+        if(this.dianlianglist.length>3){
+          
+          window.clearInterval(this.moveListTimer1)
+          this.moveListTimer1=window.setTimeout(() => {
+            
+            this.$methods.listMove("#dianlianglist11", 3000);
+            console.log('99999999999')
+          }, 300);
+        }
+      },2000)
+    },
+    close2(){
+      this.tan2=false
+    },
+    getDianliang(IMEI) {
+      var key = this.$store.state.key;
+      var objs = { IMEI };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("IMEI", objs.IMEI);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Gunaiming&a=elec",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          this.dianliangData1 = data.data.data.map(e => e.created);
+          this.dianliangData2 = data.data.data.map(e => e.elec);
+          this.dianlianglist = data.data.datas;
+          this.chart2();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+     chart2() {
+       
+      let that = this;
+      let box = document.getElementById("chart33");
+      let Echart = this.$echarts.init(box, true);
+      let option = {
+        // backgroundColor: "#0E204A",
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            lineStyle: {
+              color: {
+                type: "linear",
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "rgba(255,255,255,0)" // 0% 处的颜色
+                  },
+                  {
+                    offset: 0.5,
+                    color: "rgba(255,255,255,1)" // 100% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(255,255,255,0)" // 100% 处的颜色
+                  }
+                ],
+                global: false // 缺省为 false
+              }
+            }
+          }
+        },
+        grid: {
+          top: "18%",
+          left: "1%",
+          right: "1%",
+          bottom: "25%"
+          // containLabel: true
+        },
+        xAxis: [
+          {
+            type: "category",
+            boundaryGap: true,
+            axisLine: {
+              //坐标轴轴线相关设置。数学上的x轴
+              show: true,
+              lineStyle: {
+                color: "rgba(255,255,255,0.4)"
+              }
+            },
+            axisLabel: {
+              //坐标轴刻度标签的相关设置
+              textStyle: {
+                color: "#d1e6eb",
+                margin: 15
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            data: that.dianliangData1
+          }
+        ],
+        yAxis: [
+          {
+            type: "value",
+            min: 0,
+            // max: 140,
+            splitNumber: 4,
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: "rgba(255,255,255,0.1)"
+              }
+            },
+            axisLine: {
+              show: false
+            },
+            axisLabel: {
+              show: false,
+              margin: 20,
+              textStyle: {
+                color: "#d1e6eb"
+              }
+            },
+            axisTick: {
+              show: false
+            }
+          }
+        ],
+        series: [
+          {
+            name: "注册总量",
+            type: "line",
+            // smooth: true, //是否平滑曲线显示
+            // 			symbol:'circle',  // 默认是空心圆（中间是白色的），改成实心圆
+            showAllSymbol: true,
+            // symbol: 'image://./static/images/guang-circle.png',
+            symbolSize: 8,
+            lineStyle: {
+              normal: {
+                color: "#53fdfe" // 线条颜色
+              },
+              borderColor: "#f0f"
+            },
+            label: {
+              show: true,
+              position: "top",
+              textStyle: {
+                color: "#fff"
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: "rgba(255,255,255,1)"
+              }
+            },
+            tooltip: {
+              show: false
+            },
+            areaStyle: {
+              //区域填充样式
+              normal: {
+                //线性渐变，前4个参数分别是x0,y0,x2,y2(范围0~1);相当于图形包围盒中的百分比。如果最后一个参数是‘true’，则该四个值是绝对像素位置。
+                color: new this.$echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+                      color: "rgba(0,150,239,0.3)"
+                    },
+                    {
+                      offset: 1,
+                      color: "rgba(0,253,252,0)"
+                    }
+                  ],
+                  false
+                ),
+                shadowColor: "rgba(53,142,215, 0.9)", //阴影颜色
+                shadowBlur: 20 //shadowBlur设图形阴影的模糊大小。配合shadowColor,shadowOffsetX/Y, 设置图形的阴影效果。
+              }
+            },
+            data: that.dianliangData2
+          }
+        ]
+      };
+      Echart.setOption(option);
+    },
+     dianchi(n) {
+      let that = this;
+      let box = document.getElementById("dianchi11");
+      let Echart = this.$echarts.init(box, true);
+      var data = n; //数值大小
+      var max = 100; //满刻度大小
+      let option = {
+        // title: {
+        //     text: '-AQI-',
+        //     top:'38%',
+        //     left:'center',
+        //     textStyle:{
+        //         color: '#fff',
+        //         fontSize: 18
+        //     }
+        // },
+        // backgroundColor: 'orange',
+
+        color: ["rgb(0,0,200)", "rgba(255,255,255,.2)"],
+        series: [
+          {
+            type: "pie",
+            center: ["40%", "50%"],
+            radius: ["78%", "70%"],
+            hoverAnimation: false,
+            data: [
+              {
+                name: "",
+                value: data,
+                label: {
+                  show: true,
+                  position: "center",
+                  color: "#fff",
+                  fontSize: 38,
+                  fontWeight: "bold",
+                  formatter: function(o) {
+                    return data+'%';
+                  }
+                }
+              },
+              {
+                //画剩余的刻度圆环
+                name: "",
+                value: max - data,
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                }
+              }
+            ]
+          },
+          {
+            type: "pie",
+            center: ["99%", "99%"],
+            radius: ["47%", "69%"],
+            hoverAnimation: false,
+            data: [
+              {
+                name: "",
+                value: data,
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                },
+                itemStyle: {
+                  color: "rgba(0,0,0,0)"
+                }
+              },
+              {
+                //画中间的图标
+                name: "",
+                value: 0,
+                label: {
+                  position: "inside",
+                  backgroundColor: {},
+                  padding: 10
+                }
+              },
+              {
+                name: "",
+                value: max - data,
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                },
+                itemStyle: {
+                  color: "rgba(0,0,0,0)"
+                }
+              }
+            ]
+          }
+        ]
+      };
+      Echart.setOption(option);
+    },
+    getAllGun(){
+      // console.log('getAllGun')
+      this.getAllGunList(this.active_fujigou);
+    },
     bangding(item){
 
       this.tan3=true
       this.active_qiangmiao=item.gunaiming_id
+      this.getAllGunList(this.active_fujigou);
     },
     jiebang(item){
       this.$confirm("确定要解除绑定吗？", "提示", {
@@ -279,14 +650,31 @@ export default {
     
     close(){
       this.liXianMapShow=false
+      this.gaodeshow=false
     },
     showMap(item){
+      if(!item.latitude||!item.longitude){
+        this.$message({
+          type:'warning',
+          message:"定位信息不全"
+        })
+        return
+      }
       let zaixian=this.$store.state.zaixian
-      if(zaixian)return
-      this.liXianMapShow=true
-      this.liXianLngLat=[item.latitude-0,item.longitude-0]
-      this.liXianMes={"mechanism_name":item.mechanism_name}
-      this.liXianTitle=item.policeuser_name
+      if(zaixian){
+        // console.log(item)
+        this.gaodeArr=[item.longitude-0,item.latitude-0]
+        this.alertMessage=`姓名：${item.policeuser_name || "暂无"} ，时间：${item.created}`
+
+        this.gaodeshow=true
+      }else{
+        this.liXianMapShow=true
+        this.liXianLngLat=[item.latitude-0,item.longitude-0]
+        let name=item.policeuser_name?item.policeuser_name:'无'
+        this.liXianMes={"mechanism_name":'所属人：'+name+'，枪瞄类型：'+item.gtypes_name}
+        this.liXianTitle=item.policeuser_name
+      }
+      
 
     },
     changeShowType(n){
@@ -321,7 +709,7 @@ export default {
     },
     updataView() {
       this.getDataList(this.active_fujigou, this.active_yema);
-      this.getAllGunList(this.active_fujigou);
+      // this.getAllGunList(this.active_fujigou);//暂时弃用
     },
 
     changeOneDataZhuangTai(n) {},
@@ -412,8 +800,8 @@ export default {
       this.active_fujigou = item.mechanism_id; //...........更新当前激活的active_fujigou
       this.getDataList(this.active_fujigou); //.............获取枪瞄数据
       this.active_title = item.mechanism_name;
-      this.getAllGunList(this.active_fujigou); //.............获取当前机构下所有枪支
-
+      // this.getAllGunList(this.active_fujigou); //弃用.............获取当前机构下所有枪支
+      this.allGunList=[]
       this.ishand = true;
     },
     add() {
@@ -428,6 +816,7 @@ export default {
     openMap() {
       this.mapIsShow = true;
     },
+    
     addQiangMiao(imei,gtypes) {
       var key = this.$store.state.key;
       var objs = { IMEI: imei, mechanism_id: this.active_fujigou ,gtypes:gtypes}; //mechanism_id是机构id
@@ -639,21 +1028,26 @@ export default {
       }
       this.xiugai = true;
       this.xiugaiData = modifyArr[0];
+      this.changeValue=modifyArr[0].gtypes
     },
     subChange() {
       if (!this.xiugaiStr) {
         this.$message.error("修改后不能为空");
         return;
       }
-      this.modify(this.xiugaiStr, this.xiugaiData.gunaiming_id);
+      
+      this.modify(this.xiugaiStr,this.changeValue, this.xiugaiData.gunaiming_id);
     },
-    modify(imei, id) {
+    modify(imei,changeValue, id) {
       var key = this.$store.state.key;
       var objs = {
         IMEI: imei,
         mechanism_id: this.active_fujigou,
         gunaiming_id: id
       }; //mechanism_id是机构id
+      if(!!changeValue){
+        objs.gtypes=changeValue
+      }
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -662,7 +1056,9 @@ export default {
       params.append("gunaiming_id", objs.gunaiming_id);
       params.append("sign", sign);
       params.append("token", token);
-
+      if(!!changeValue){
+        params.append("gtypes", objs.gtypes);
+      }
       this.$axios({
         url:
           this.$store.state.baseURL +
@@ -674,7 +1070,10 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.$message({ message: "修改枪瞄成功", type: "success" });
+            this.updataView()
             this.xiugai = false;
+            this.xiugaiStr=''
+            this.changeValue=''
             this.qiangmiaoData.find(e => {
               if (e.IMEI == this.xiugaiData.IMEI) {
                 // alert(999)
@@ -782,6 +1181,7 @@ export default {
             };
           });
           this.allGunList = dataArr;
+          console.log(dataArr.length)
         })
         .catch(error => {
           console.log(error);

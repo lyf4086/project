@@ -31,7 +31,7 @@ export default {
         // { value: 1548, name: "搜索引擎" }
       ],
       timeObj: null,
-      mid:''
+      mid: ""
     };
   },
   methods: {
@@ -40,17 +40,23 @@ export default {
       let Echart = this.$echarts.init(box1);
       let option = {
         title: {
-          //   text: "堆叠区域图"
+          // text: "报警取视图"
         },
-        // tooltip: {
-        //   trigger: "axis",
-        //   axisPointer: {
-        //     type: "cross",
-        //     label: {
-        //       backgroundColor: "#6a7985"
-        //     }
-        //   }
-        // },
+        tooltip: {
+          position: ['150%', '0%'],
+          align: "right",
+          trigger: "item",
+          textStyle: {
+            align: "left"
+          },
+          
+          axisPointer: {
+            type: "cross",
+            label: {
+              backgroundColor: "#6a7985"
+            }
+          }
+        },
         // legend: {
         //   data: this.echar1_names,
         //   selected: this.selected
@@ -81,6 +87,7 @@ export default {
         yAxis: [
           {
             type: "value",
+            minInterval: 1,
             axisLine: {
               lineStyle: {
                 color: "#fff"
@@ -104,11 +111,11 @@ export default {
         //   trigger: "item",
         //   formatter: "{a} <br/>{b} : {c} ({d}%)"
         // },
-        // legend: {
-        //   orient: "vertical",
-        //   bottom: "bottom",
-        //   data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
-        // },
+        legend: {
+          orient: "vertical",
+          bottom: "bottom",
+          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+        },
         series: [
           {
             name: "访问来源",
@@ -164,9 +171,9 @@ export default {
         data: params
       })
         .then(data => {
-          if(data.status==200){
+          if (data.status == 200) {
             this.timeObj = data.data.time;
-            this.mid=data.data.mid
+            this.mid = data.data.mid;
             this.echar1_date = data.data.data.days;
             this.echar1_num = data.data.data.value;
             this.list = data.data.data.series;
@@ -196,8 +203,13 @@ export default {
         data: params
       })
         .then(data => {
-          if(data.status==200){
-            this.echart2_data = data.data.data;
+          if (data.status == 200) {
+            this.echart2_data = data.data.data.map(item => {
+              return {
+                ...item,
+                name: `${item.name} ( ${item.value} )`
+              };
+            });
             this.char2();
           }
         })
@@ -208,20 +220,20 @@ export default {
     chart1XiangQing() {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
-      if(!this.timeObj){
-        return
+      if (!this.timeObj) {
+        return;
       }
-      
+
       this.$router.push({
         name: "NewXiangQing",
-        params: {timeObj:this.timeObj,mid:this.mid}
+        params: { timeObj: this.timeObj, mid: this.mid }
       });
     },
     chart2XiangQing() {
       let roleId = this.$store.state.role_id;
       if (roleId == 3) return;
-      if(!this.timeObj){
-        return
+      if (!this.timeObj) {
+        return;
       }
       this.$router.push({
         name: "Item1Right",

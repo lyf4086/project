@@ -49,16 +49,10 @@ export default {
             this.map.setFitView([...marker]);
             
             marker.on('click',function (){
-                const h = that.$createElement;
-                console.log(that.mes)
+    
                that.$message({
                    type:"none",
-                   message:h('div',{style:"font-size:12px;line-height:22px"},[
-                       h('p',null,`所属机构：${that.mes.mechanism_name}`),
-                       h('p',null,`报警类型：${that.mes.type}`),
-                       h('p',null,`所属机构：${that.mes.mechanism_name}`),
-                       h('p',null,`枪瞄编号：${that.mes.IMEI}`)
-                   ]),
+                   message:that.mes,
                    duration:4000
                })
             })

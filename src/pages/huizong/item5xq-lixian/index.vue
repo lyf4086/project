@@ -42,6 +42,7 @@
         </div>
       </div>
     </div>
+    <div class="cover" v-if="coverShow"></div>
   </div>
 </template>
 <style >
@@ -57,7 +58,8 @@ export default {
       timer: null,
       map:null,
       BM:null,
-      loading:null
+      loading:null,
+      coverShow:false
     };
   },
   methods: {
@@ -160,7 +162,7 @@ export default {
           const h = that.$createElement;
           that.$message({
             type:'none',
-            duration:6000,
+            duration:3000,
             message: h('div', {style:'font-size:0.18rem;line-height:0.32rem'}, [
               h('h1', null, `警员姓名：${arr[index].policeName}`),
               h('p', {  }, `所属机构：${arr[index].mechanism_name}`),
@@ -169,6 +171,10 @@ export default {
               h('p', { }, `定位时间：${arr[index].created}`)
             ])
           });
+          that.coverShow=true;
+          setTimeout(()=>{
+            that.coverShow=false;
+          },3000)
         })
       })
     },

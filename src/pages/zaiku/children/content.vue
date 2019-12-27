@@ -54,6 +54,7 @@
           </div>
         </div>
         <button class="close" @click="close">取消</button>
+        <button class="del" @click="close">X</button>
       </div>
     </div>
   </div>

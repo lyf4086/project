@@ -108,7 +108,7 @@ export default {
           } else {
             this.$message({
               type: "warning",
-              message: "用户名或密码错误，请重新输入"
+              message: res.data.msg
             });
           }
         })

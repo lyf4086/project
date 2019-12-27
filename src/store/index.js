@@ -20,6 +20,9 @@ let store = new Vuex.Store({
     // baseURL:'http://192.168.1.149',//公司离线服务器
     // lixianStr:'http://192.168.1.149:9002',//公司离线地图服务器
 
+    // baseURL:'http://192.168.1.100',//临时离线服务器
+    // lixianStr:'http://192.168.1.100:9002',//临时离线地图服务器
+
     baseURL:'http://s.tronl.cn',//公司在线服务器    
     zaixian:true,//默认是在线状态，关于地图的都走在线地图
     // liXianMapKey:'bigemap.05n2uuzz',//地图key,盐城

@@ -187,10 +187,15 @@
   line-height: 1rem;
 }
 .guiji .left_mes .main_mes .right_btn span {
+  box-sizing: border-box;
   width: 85%;
   height: 20%;
-  background: #26769b;
+  line-height: 0.38rem;
+  font-size: 0.14rem;
+  text-indent: 0.22rem;
+  border: 0.01rem solid #2b83b7;
   border-radius: 0.05rem;
+  cursor: pointer;
 }
 .guiji .left_mes .main_mes .right_btn p {
   font-size: 0.16rem;
@@ -205,21 +210,24 @@
   background: url(../../assets/img/fangxiang-icon.png);
   background-size: 100% 100%;
 }
-.guiji .left_mes .main_mes .right_btn span:nth-child(1) {
-  background: #26769b url(../../assets/img/gj-icon1.png) no-repeat center center;
-  background-size: 0.3rem;
+.guiji .left_mes .main_mes .right_btn .span1 {
+  background: url(../../assets/img/gj-icon1.png) no-repeat 0.08rem center;
+  background-size: 0.24rem;
 }
-.guiji .left_mes .main_mes .right_btn span:nth-child(2) {
-  background: #26769b url(../../assets/img/guiji-icon2.png) no-repeat center center;
-  background-size: 0.26rem;
+.guiji .left_mes .main_mes .right_btn .span2 {
+  background: url(../../assets/img/guiji-icon2.png) no-repeat 0.08rem center;
+  background-size: 0.2rem;
 }
-.guiji .left_mes .main_mes .right_btn span:nth-child(3) {
-  background: #26769b url(../../assets/img/guiji-icon3.png) no-repeat center center;
-  background-size: 0.26rem;
+.guiji .left_mes .main_mes .right_btn .span3 {
+  background: url(../../assets/img/guiji-icon3.png) no-repeat 0.08rem center;
+  background-size: 0.2rem;
 }
-.guiji .left_mes .main_mes .right_btn span:nth-child(4) {
-  background: #26769b url(../../assets/img/baojing.png) no-repeat center center;
-  background-size: 0.26rem;
+.guiji .left_mes .main_mes .right_btn .span4 {
+  background: url(../../assets/img/baojing.png) no-repeat 0.08rem center;
+  background-size: 0.22rem;
+}
+.guiji .left_mes .main_mes .right_btn span.active {
+  background-color: #2b83b7;
 }
 .guiji .left_mes .main_mes .right_btn .lookmore {
   color: #333;
@@ -526,10 +534,10 @@
 }
 .guiji .cover .sel_time .del {
   position: absolute;
-  top: 0.1rem;
-  right: 0.1rem;
-  width: 0.4rem;
-  height: 0.4rem;
+  top: 0.15rem;
+  right: 0.15rem;
+  width: 0.3rem;
+  height: 0.3rem;
   font-size: 0.2rem;
   border-radius: 50%;
   background: #e24d4d;
@@ -871,7 +879,8 @@ div.info-bottom img {
   transform: rotate(-90deg);
 }
 .change-type .btn-wrap {
-  background: #45a4ca;
+  background: #0a5377;
+  box-shadow: 0 0 0 1px #6cd0f7;
   border-radius: 0.26041667vw;
   padding: 0.15625vw;
   margin-top: 0.26041667vw;
@@ -891,7 +900,7 @@ div.info-bottom img {
   width: 1.97916667vw;
   height: 2.55208333vw;
   font-size: 0.625vw;
-  color: #346d9d;
+  color: #fff;
   text-align: center;
   cursor: pointer;
 }
@@ -899,45 +908,47 @@ div.info-bottom img {
   width: 1.875vw;
   height: 1.66666667vw;
   background: url(../../assets/img/hh.png);
-  background-size: 100% 100%;
+  background-size: 80% 80%;
   text-align: center;
   border-radius: 0.15625vw;
 }
 .change-type .btn-wrap .list .item1 .icon {
-  background: url(../../assets/img/hh.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/hh.png) no-repeat center center;
+  background-size: 80% 80%;
 }
 .change-type .btn-wrap .list .item2 .icon {
-  background: url(../../assets/img/bd.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/bd.png) no-repeat center center;
+  background-size: 70% 70%;
 }
 .change-type .btn-wrap .list .item3 .icon {
-  background: url(../../assets/img/jz.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/jz.png) no-repeat center center;
+  background-size: 80% 70%;
 }
 .change-type .btn-wrap .list .item4 .icon {
-  background: url(../../assets/img/wf.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/wf.png) no-repeat center center;
+  background-size: 80% 70%;
 }
 .change-type .btn-wrap .list .active {
-  background: #3873a4;
-  color: #fff;
+  box-sizing: border-box;
+  border: 1px solid #6cd0f7;
+  border-radius: 0.26041667vw;
+  color: #6cd0f7;
 }
 .change-type .btn-wrap .list .item1.active .icon {
-  background: url(../../assets/img/hh-a.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/hh.png) no-repeat center center;
+  background-size: 80% 80%;
 }
 .change-type .btn-wrap .list .item2.active .icon {
-  background: url(../../assets/img/bd-a.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/bd.png) no-repeat center center;
+  background-size: 70% 70%;
 }
 .change-type .btn-wrap .list .item3.active .icon {
-  background: url(../../assets/img/jz-a.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/jz.png) no-repeat center center;
+  background-size: 80% 70%;
 }
 .change-type .btn-wrap .list .item4.active .icon {
-  background: url(../../assets/img/wf-a.png);
-  background-size: 100% 100%;
+  background: url(../../assets/img/wf.png) no-repeat center center;
+  background-size: 80% 70%;
 }
 .isjiupian {
   position: absolute;

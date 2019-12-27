@@ -180,7 +180,7 @@
     </div>
     <!-- 所有报警区域列表 -->
     <div class="alarm_list" v-show="role_id!=3">
-      <select name id class="sel" v-html="allAlarmSelectStr" ref="alarmSelect" @change="showOne"></select>
+      <select name id class="sel" v-model="alarmSel" v-html="allAlarmSelectStr" ref="alarmSelect" @change="showOne"></select>
       <div>
         <strong>报警类型：</strong>
         <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.type}}</p>
@@ -199,7 +199,7 @@
       </button>
     </div>
     <!-- 所有报警区域列表 -->
-    <div class="cover" v-show="checkTime || setAreaTime">
+    <div class="cover" v-show="checkTime || setAreaTime ||showtols">
       <div class="sel_time" v-show="checkTime">
         <input type="submit" class="del" value="X" @click="checkTime=false" />
         <h6>请选择起止时间</h6>
@@ -215,7 +215,7 @@
       </div>
 
       <div class="sel_time" v-show="setAreaTime">
-        <input type="submit" class="del" value="X" @click="stopSetArea" v-if="false"/>
+        <input type="submit" class="del" value="X" @click="stopSetArea"/>
         <h6>请选择起止时间</h6>
         <div class="put_wrap">
           <span>报警类型：</span>
@@ -280,6 +280,23 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
+    <div class="isjiupian"  v-show="oldOrNew=='old'">
+      <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
+        <i class="fangxiang"></i>
+      </div>
+      <div class="list" v-show="!checkTypeIsShow">
+        <p>请选择轨迹模式</p>
+        <div class="i" :class="{active:!jiupian}" @click="jiupianhou">
+          <span></span>
+          <p>历史定位</p>
+        </div>
+        <div class="i" :class="{active:jiupian}" @click="weijiupian">
+          <span></span>
+          <p>可能路径</p>
+        </div>
+      </div>
+      
+    </div>
   </div>
 </template>
 <style scoped>
@@ -297,6 +314,7 @@ export default {
   components: { Tag },
   data() {
     return {
+      alarmSel:'',
       BM: null,
       map: null,
       moveTimer: null,
@@ -380,7 +398,12 @@ export default {
       jigouname: "",
       loading:null,
       paixuarr:[],//用来排序的imei号
-      timer2:null
+      last_time_arr:[],//用以存放每个人员的最后定位时间
+      newType:[],//当前显示的人员的最新定位类型
+      newIsOnline:[],//当前显示人员的最新在线状态
+      timer2:null,
+      showtols:false,
+      jiupian:false,
     };
   },
   computed: {
@@ -404,6 +427,18 @@ export default {
   methods: {
     ...meth,
     ...fns,
+    changeTypeHandle() {
+      // 1.混合定位，2.北斗定位，3.基站定位。4，wifi定位
+      this.checkTypeIsShow = !this.checkTypeIsShow;
+    },
+    jiupianhou(){
+      this.jiupian=false
+      this.searchByTime()
+    },
+    weijiupian(){
+      this.jiupian=true
+      this.searchByTime()
+    },
     /* 跨机构编组新增*/
     clickOneTab(n) {
       this.jigouSelIndex = n;

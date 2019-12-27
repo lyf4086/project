@@ -292,7 +292,7 @@
   background-size: 100% 100%;
   animation: round2 6s linear infinite;
 }
-.danyao-xiaohao .xiangqing-wrap .xiangqing button {
+.danyao-xiaohao .xiangqing-wrap .xiangqing .close {
   position: absolute;
   right: 1.5rem;
   bottom: 0.06rem;
@@ -301,6 +301,19 @@
   font-size: 0.18rem;
   background: none;
   color: #f3ebeb;
+  cursor: pointer;
+}
+.danyao-xiaohao .xiangqing-wrap .xiangqing .del {
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  color: #f8f4f4;
+  border-radius: 50%;
+  background: #646262;
   cursor: pointer;
 }
 .none-data {

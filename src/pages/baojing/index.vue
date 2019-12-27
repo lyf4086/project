@@ -71,6 +71,7 @@
         
     </div>
     <div class="content2" v-show="!keshihua" >
+      <div class="none-data" v-if="!list.length">暂时没有数据</div>
       <div class="title-child" v-show="list.length">
         <span><input type="checkbox" v-show="false"/></span>
         <span>姓名</span>
@@ -83,9 +84,10 @@
         <span>是否处理</span>
         <span>最新位置</span>
         <span>报警位置</span>
+        <span>详情</span>
       </div>
       <div class="item-child" v-for="(item,index) in list" :key="index">
-        <span><input type="checkbox" v-model="item.checked" :disabled="!!item.desc" /></span>
+        <span><input type="checkbox" v-model="item.checked" :disabled="!!item.desc ||item.types=='001'" /></span>
         <span>{{item.policeuser.policeuser_name}}</span>
         <span>{{item.policeuser.police_number}}</span>
         <span>{{item.mechanism_name}}</span>
@@ -96,6 +98,7 @@
         <span>{{item.desc? "已处理" : "未处理"}}</span>
         <span @click="showNew(item)">最新位置</span>
         <span @click="showAlert({id:item.alarm_info_id,name:item.policeuser.policeuser_name,type:item.type})">报警位置</span>
+        <span @click="showMore(item)">详情 </span>
       </div>
     </div>
     <div class="check_type">
@@ -134,10 +137,40 @@
       <GaoDeMap v-if="gaodeshow" :arr="gaodeArr" :mes="this.alertMessage" title="" @closeMap="closeMap"/>
       <GaoDeMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
     </div>
+    <div class="cover" v-if="mes.IMEI">
+      <div class="alert" v-if="mes.IMEI">
+         <button class="close" @click="closeXiangqing">取消</button>
+        <div class="del"  @click="closeXiangqing">X</div>
+        <button class="chuli" v-show="mes.desc=='无'"  @click="kaishichuli">处理</button>
+        <div class="txt">
+          <div class="text">{{mes.mname}}</div>
+          <div class="text imei" :title="mes.IMEI">{{mes.IMEI}}</div>
+          <div class="text">{{mes.policeuser_name}}</div>
+          <div class="text">{{mes.mobile}}</div>
+          <div class="text">{{mes.gun_code}}</div>
+          <div class="text">{{mes.gtype}}</div>
+          <div class="text">{{mes.police_number}}</div>
+          <div class="text">{{mes.type}}</div>
+          <div class="text">{{mes.created}}</div>
+          <div class="text" :class="`${mes.desc=='无'?' red':' green'}`">{{mes.desc=='无'?"未处理":"已处理"}}</div>
+          <div class="yijian">
+            <p class="tit" v-if="mes.desc=='极速处理' ||mes.desc!='无'">{{mes.desc}}</p>
+            <input  v-if="mes.desc=='无'" type="text" v-model="titleStr" placeholder="请输入处理标题" />
+          </div>
+          <div class="biaoti">
+            <!-- /v-if="content" -->
+            <p >{{mes.content}}</p>
+            <textarea v-if="mes.desc=='无'" v-model="textarea"  
+              placeholder="请输入处理意见"  cols="24" rows="2"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
     <div v-if="!this.$store.state.zaixian">
       <!-- 离线地图 -->
       <LiXianMarkers v-if="alarmMarkArr" :arr="alarmArr" :title="alarmMarkTitle" @closeMap="closeMap"/>
-      <MapMarker v-if="gaodeshow" :arr="gaodeArr" :mes="this.alertMessage" title="" @closeMap="closeMap"/>
+      <MapMarker v-if="gaodeshow" :arr="gaodeArr" :mes="this.alertMessage" :title="alarmMarkTitle" @closeMap="closeMap"/>
     </div>
   </div>
 </template>
@@ -155,6 +188,8 @@ export default {
   components: { breadNav, Item ,GaoDeMap,MapMarker,GaoDeMarkers,LiXianMarkers},
   data() {
     return {
+      titleStr:'',
+      textarea:'',
       currentNodeKey: "",
       rootId: "",
       treeListData: [],
@@ -191,9 +226,27 @@ export default {
       zhankai:[],
       alertMessage:null,
       keshihua:'',
+      xiangqing:false,
+      mes:{}
     };
   },
   methods: {
+    closeXiangqing(){
+      this.mes={}
+    },
+    kaishichuli(){
+      if(this.titleStr.trim()&&this.textarea.trim()){
+        let id=[this.message.id];
+        let desc=this.titleStr
+        let content=this.textarea
+        this.chuLi(id, desc, content)
+      }else{
+        this.$message({
+          type:'error',
+          message:'请输入完整'
+        })
+      }
+    },
     changeTime(timestamp) {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
       var Y = date.getFullYear() + "-";
@@ -253,7 +306,8 @@ export default {
       this.getDataList(this.activeItem.mechanism_id, yeMa, num,this.warningType);
     },
     showNew(item){
-      this.alertMessage={type:item.type,mechanism_name:item.mechanism_name,...item}
+      this.alarmMarkTitle=item.policeuser.policeuser_name
+      this.alertMessage=`报警类型：${item.type}`
       this.gaodeArr=[item.nlongitude-0,item.nlatitude-0]
       this.gaodeshow=true
     },
@@ -264,6 +318,46 @@ export default {
     showAlert(obj){
      this.alarmMarkTitle=obj.name
       this.getAlarmXY(obj.id)
+    },
+    showMore(item){
+      if(item.types=='001'){
+        this.$message({
+          type:"error",
+          message:"预期报警不支持查看详情"
+        })
+        return
+      }
+      this.getXiangqing(item.alarm_info_id)
+      
+    },
+    getXiangqing(id){
+      var key = this.$store.state.key;
+      var objs = {
+        alarm_info_id:id
+      };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+     params.append("alarm_info_id", objs.alarm_info_id);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=alarm&a=info",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+      .then(data => {
+        if (data.status == 200) {
+          this.xiangqing=true;
+          this.mes=data.data
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
     },
     currentChange(n) {
       //页码点击事件

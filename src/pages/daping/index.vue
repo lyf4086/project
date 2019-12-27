@@ -164,8 +164,8 @@
             <div class="item3">
                 <div class="t">监测枪瞄在线情况</div>
                 <div class="txt">
-                    <p>在线<i>{{zaixian.zai}}</i>台</p>
-                    <p>离线<i>{{zaixian.nozai}}</i>台</p>
+                    <p>在线<i>{{zaixian.zai||0}}</i>台</p>
+                    <p>离线<i>{{zaixian.nozai||0}}</i>台</p>
                 </div>
                 <div class="chart">
                     <div class="bg">

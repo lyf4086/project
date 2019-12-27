@@ -84,14 +84,14 @@
         <div class="message" v-if="showMessage">
           <p>剩余电量：{{active_dianliang}}%</p>
           <p>枪瞄编号：{{showMessage.IMEI}}</p>
-          <p>所属警员：{{showMessage.policeuser_name}}</p>
+          <p>当前携带警员：{{showMessage.policeuser_name}}</p>
         </div>
         <div class="t">电量趋势图</div>
         <div id="chart2">
           
         </div>
         <div class="title">
-          <span>电量</span>
+          <span>电量 %</span>
           <span>时间</span>
           
         </div>
@@ -120,7 +120,7 @@
         <input type="submit" class="btn" @click="submitBt" value="确认绑定" />
       </div>
     </div>
-    <MapMarker v-if="mapShow" :arr="mapLngLat" @closeMap="closeMap"/>
+    <MapMarker v-if="mapShow" :arr="mapLngLat" :title="liXianTitle" @closeMap="closeMap" :mes="liXianMes"/>
   </div>
 </template>
 <style scoped>
@@ -159,6 +159,8 @@ export default {
   },
   data() {
     return {
+      liXianTitle:'6666',
+      liXianMes:{"mechanism_name":'2123223'},
       tan1: false,
       tan2: false,
       tan3: false,
@@ -222,7 +224,7 @@ export default {
                   fontSize: 38,
                   fontWeight: "bold",
                   formatter: function(o) {
-                    return data;
+                    return data+'%';
                   }
                 }
               },
@@ -479,6 +481,8 @@ export default {
           //打开谷歌离线地图
           this.mapShow=true
           this.mapLngLat=[item.latitude-0,item.longitude-0]
+          this.liXianTitle=item.opoliceuser_name
+           this.liXianMes={"mechanism_name":'所属人：'+item.opoliceuser_name+'，枪瞄类型：'+item.gtypes_name}
         }
     },
     mapInit(obj) {
@@ -501,19 +505,22 @@ export default {
       this.OneMessage = this.data[n];
     },
     tanchuang2(item) {
-      console.log(item)
       this.showMessage=item;
       this.active_dianliang = item.electricity;
       this.tan1 = false;
       this.tan2 = true;
       this.tan3 = false;
       this.dianchi(item.electricity);
-
       this.getDianliang(item.IMEI);
-      clearTimeout(this.moveListTimer)
-      this.moveListTimer=setTimeout(() => {
-        this.$methods.listMove("#dianlianglist", 3000);
-      }, 300);
+      setTimeout(()=>{
+        if(this.dianlianglist.length>3){
+          window.clearInterval(this.moveListTimer)
+          this.moveListTimer=window.setTimeout(() => {
+            this.$methods.listMove("#dianlianglist", 3000);
+          }, 300);
+        }
+      },2000)
+      
     },
     tanchuang3(item) {
       //.......绑定枪瞄弹窗
@@ -521,6 +528,7 @@ export default {
       this.tan2 = false;
       this.tan3 = true;
       this.active_qiangmiao = item.gunaiming_id;
+      this.$emit('getAllGun')
     },
     close1() {
       this.tan1 = false;

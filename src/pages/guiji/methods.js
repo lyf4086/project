@@ -73,6 +73,8 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     data: params
   }).then((data) => {
     this.last_time_arr=data.data.data.list.map(e=>e.created)
+    this.newType= data.data.data.list.map(e=>e.ptype)
+    this.newIsOnline=data.data.data.list.map(e=>e.heart)
     this.loading.close()
     this.xunxuindex=data.data.data.list.map(e=>e.IMEI)
     let that = this
@@ -443,8 +445,8 @@ function creatInfoBox(item, res) {
   content.push(`<div class="tou_wrap"><img alt="头像" src='${item.Ge.src}' style="width:1rem;"></div>`)
   content.push(`<div class="map_txt_wrap">所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`); 
   content.push(`枪支编号:${item.Ge.positions}`);
-  content.push(`是否在线:${item.Ge.heart == 1 ? "在线" : "不在线"}`);
-  content.push(`定位类型:${item.Ge.ptype}`);
+  content.push(`是否在线:${that.newIsOnline[res] == 1 ? "在线" : "不在线"}`);
+  content.push(`定位类型:${that.newType[res]}`);
   content.push(`枪瞄编号:${item.Ge.IMEI}`);
   content.push(`最后定位时间:<span class="last_time">${that.last_time_arr[res]}</span></div>`);
 // 测试弹窗
@@ -548,9 +550,13 @@ function getPersonAndGunStr(id) {
       if (data.data.arr) {
         this.allMechanismData = data.data.arr
         let strArr = data.data.arr.map(item => {
-          return `<option value="${item.id}|${item.ip_id}" >${item.mechanism_name}</option>`
+          let str=''
+          for(let i=0;i<item.index;i++){
+            str+='&nbsp;'
+          }
+          return `<option value="${item.id}|${item.ip_id}" >${str} ${item.mechanism_name}</option>`
         })
-        strArr.unshift(`<option value="" disabled selected >请选择</option>`)
+        strArr.unshift(`<option value="" disabled selected >请选择机构</option>`)
         this.allMechanism = strArr.join()
         
       } else {
@@ -569,8 +575,8 @@ function getPersonAndGunStr(id) {
         this.activeIMEI = ''
         this.$message({
           type: "warning",
-          message: '该机构未建立绑定关系',
-          duration:5000
+          message: '当前没有枪支借出',
+          duration:3000
         })
         return
       }
@@ -778,6 +784,7 @@ function setWarningRange() {
     type: 'warning'
   }).then(() => {
     this.setWarning = true
+    this.spanActive=4
   }).catch(() => {
     this.$message({
       type: 'info',
@@ -802,6 +809,7 @@ function setMarker(ev) {
 }
 
 function startSetArea() {
+  console.log('this.clickTrue',this.clickTrue)
   if (!this.clickTrue) return;
   this.clickTrue = false
   let map = this.map;
@@ -811,6 +819,13 @@ function startSetArea() {
 }
 
 function confirmSetArea() {
+  if(this.markerArr.length<3){
+    this.$message({
+      type:'error',
+      message:"至少选三个标记点"
+    })
+    return
+  }
   this.clickTrue = true
   let map = this.map
   let that = this
@@ -845,6 +860,7 @@ function confirmSetArea() {
 
 
   this.setWarning = false
+  this.spanActive=0
 }
 
 function resetArea() {
@@ -919,7 +935,7 @@ function shezhiquyu(gun_ids, ip_ids, pointsArr, policeuser_id, stime, etime, tex
 
       window.setTimeout(() => {
         // this.$router.go(0)
-
+        this.alarmSel=this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id
         this.showOne(null,this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id)
       }, 2000)
       
@@ -984,6 +1000,8 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
     if (data.data.code == 200) {
       this.xunxuindex=data.data.data.list.child.map(e=>e.IMEI)
       this.last_time_arr=data.data.data.list.child.map(e=>e.created)
+      this.newType= data.data.data.list.child.map(e=>e.ptype)
+    this.newIsOnline=data.data.data.list.child.map(e=>e.heart)
       let state = data.data.data.list.state
       let id = this.$refs.alarmSelect.value
       this.shuaXinMap()
@@ -992,7 +1010,6 @@ function getOneAlarmArea(id) { //.....获取一个报警区域
       this.oneAlarmPersonList = data.data.data.list.child
       this.moveingPersonList = this.oneAlarmPersonList
       this.oneAlarmMessage = data.data.data.arr
-      // console.log(data.data.data.arr)
       this.personMoveing()
     }else{
       // this.$message({
@@ -1159,7 +1176,10 @@ function getNewPosition(id) {
         xinarr.push(data.data.data.list.find(e=>e.IMEI==item))
         
       })
+      console.log(xinarr)
       this.last_time_arr=xinarr.map(i=>i.created)
+      this.newType= xinarr.map(i=>i.ptype)
+      this.newIsOnline=xinarr.map(i=>i.heart)
       this.unifromSpeedMoveing(data.data.data.list)
     }
   }).catch((error) => {

@@ -33,10 +33,10 @@
             <div class="right_btn">
               <div class="no_click" v-if="noClick"></div>
               <div class="yongqiangyuan" v-if="yongqiangyuan"></div>
-              <span @click="bianZuList" v-show="oldOrNew !='old'" title="人员编组"></span>
-              <span title="查看历史轨迹" @click="toHistory"></span>
-              <span @click="toBaoJing" title="报警信息"></span>
-              <span @click="setWarningRange" v-show="oldOrNew !='old'" title="开始设置报警区域"></span>
+              <span @click="bianZuList" class="span1" :class="{'active':spanActive==1}" v-show="oldOrNew !='old'" title="人员编组">人员编组</span>
+              <span title="查看历史轨迹" class="span2" :class="{'active':spanActive==2}" @click="toHistory">历史轨迹</span>
+              <span @click="toBaoJing" class="span3" :class="{'active':spanActive==3}" title="报警信息">报警信息</span>
+              <span @click="setWarningRange" class="span4" :class="{'active':spanActive==4}" v-show="oldOrNew !='old'" title="开始设置报警区域">报警区域</span>
               <p class="lookmore" @click="toOnePersonData">查看更多>></p>
             </div>
           </div>
@@ -178,7 +178,7 @@
     </div>
     <!-- 所有报警区域列表 -->
     <div class="alarm_list">
-      <select  class="sel" v-html="allAlarmSelectStr" ref="alarmSelect" @change="showOne"></select>
+      <select  class="sel" v-html="allAlarmSelectStr" ref="alarmSelect" v-model="alarmSel" @change="showOne"></select>
       <div>
         <strong>报警类型：</strong>
         <p v-if="oneAlarmMessage.datetime">{{oneAlarmMessage.type}}</p>
@@ -213,7 +213,7 @@
       </div>
 
       <div class="sel_time" v-show="setAreaTime">
-        <input type="submit" class="del" value="X" @click="stopSetArea" v-show="false" />
+        <input type="submit" class="del" value="X" @click="stopSetArea"  />
         <h6>请选择起止时间</h6>
         <div class="put_wrap">
           <span>报警类型：</span>
@@ -316,6 +316,8 @@ export default {
   components: { Tag },
   data() {
     return {
+      spanActive:0,
+      alarmSel:'',
       map: "",
       moveTimer: null,
       moveingPersonList: [],
@@ -400,7 +402,9 @@ export default {
       markerArrLinShi: [],
       jiupian:false,
       loading:null,
-      last_time_arr:[],
+      last_time_arr:[],//最新定位时间
+      newType:[],//最新定位类型
+      newIsOnline:[],//最新在线状态
       xunxuindex:[],//排序索引数组
     };
   },
@@ -600,11 +604,19 @@ export default {
       this.oneAlarmPersonListBox = !this.oneAlarmPersonListBox;
     },
     stopSetArea() {
-      this.setAreaTime = false;
-
-      this.polygon.hide();
-      this.markerArr.length = 0;
-      // console.log(this.markerArr)
+      this.$confirm('此操作将放弃设置区域并刷新当前页面, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$router.go(0)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });          
+      });
+      
     },
     showOne(ev,val) {
       this.hasPerson = false;
@@ -681,7 +693,6 @@ export default {
       let gun_ids11 = newArr1.map(e => e.gun_id);
 
       let ip_ids = newArr1.map(item => item.ip_id);
-
       let pointsArr11 = this.markerArr.map(
         e => `${e.Ge.position.lng}|${e.Ge.position.lat}`
       );
@@ -909,6 +920,7 @@ export default {
       //.....根据时间搜索历史轨迹
       let t1 = this.startTime.replace("T", " ");
       let t2 = this.endTime.replace("T", " ");
+      let that=this
       if (!t1 || !t2) {
         this.$message({
           message: "请选择时间",
@@ -916,6 +928,26 @@ export default {
         });
         return;
       }
+       let s1=new Date(t1).getTime()
+        let s2=new Date(t2).getTime()
+        if(s2-s1>604800000){
+   
+          this.$confirm('您所选时间周期比较长，数据量比较大，查询时间很长, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            that.shuaXinMap();
+            if(that.jiupian){
+              that.searchHistory(that.activeIMEI, t1, t2); //通过起止时间搜索历史轨迹
+            }else{
+              that.getBujiupian(that.activeIMEI, t1, t2)//不纠偏的历史轨迹
+            }
+          }).catch(() => {
+                
+          });
+          return
+        }
       if(new Date(t1).getTime()>new Date(t2).getTime()){
         this.$message({
           message: "时间选择有误，请重新选择",
@@ -966,7 +998,6 @@ export default {
       this.shuaXinMap(); //......刷新地图
       this.$refs.alarmSelect.value = "";
       this.setWarning = false; //..........关闭设置报警区域
-
       // this.IMEI_img[this.activeIMEI] = this.activeIMEI['']['img'] ;
       this.IMEI_img = [];
       this.IMEI_img[this.activeIMEI] = this.aaimg;
@@ -1011,6 +1042,7 @@ export default {
       //....选择编组人员列表
 
       // this.bianzu_list_show=true
+      this.spanActive==1?this.spanActive=0:this.spanActive=1
       this.bianzu_list_show = !this.bianzu_list_show;
       this.checked_person_show = false;
     },
@@ -1049,7 +1081,7 @@ export default {
         let fillterPersonIMEI = fillterPerson.map(e => e.IMEI);
         let IMEIList = [...fillterPersonIMEI, ...arrIMEI];
         console.log(IMEIList);
-
+        this.clickTrue=true
         this.shuaXinMap(); //..刷新地图
         this.getIMEI(IMEIList);
         // this.getIMEI(arrIMEI); //....................................
@@ -1254,8 +1286,7 @@ return
     // clearInterval(this.moveTimer);
   },
   updated() {
-    document.querySelector(".amap-logo").style.display = "none";
-    document.querySelector(".amap-copyright").style.opacity = "0";
+    
   },
   activated() {
     let obj = this.$route.params;

@@ -213,7 +213,13 @@ export default {
       this.xiangqing=false;
     },
     showMore(item){
-      // console.log(item.alarm_info_id)
+      if(item.types=='001'){
+        this.$message({
+          type:"error",
+          message:"逾期报警不支持查看详情"
+        })
+        return
+      }
       this.getXiangqing(item.alarm_info_id)
       
     },

@@ -183,7 +183,6 @@ i {
   right: -0.52083333vw;
   width: 1.30208333vw;
   height: 1.30208333vw;
-  background: red;
 }
 .marker-route11 .cover11 {
   position: absolute;
@@ -224,4 +223,12 @@ i {
 .bigemap-div-icon {
   width: 0px !important;
   height: 0px !important;
+}
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
 }

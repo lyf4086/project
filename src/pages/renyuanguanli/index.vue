@@ -27,8 +27,6 @@
           <option value="uname">警员名称</option>
           <option value="robcode">持枪证号</option>
           <option value="police_number">警号</option>
-          <option value="id_number">身份证号</option>
-          <option value="mobile">电话号码</option>
         </select>
         <input
           type="text"

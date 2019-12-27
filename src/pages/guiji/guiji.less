@@ -228,10 +228,16 @@
         }
 
         span {
+          box-sizing: border-box;
           width: 85%;
           height: 20%;
-          background: #26769b;
+          line-height: 38/@rem;
+          font-size: 14/@rem;
+          text-indent: 22/@rem;
+          border:1/@rem solid rgb(43, 131, 183);
+          // background: #26769b;
           border-radius: 5/@rem;
+          cursor: pointer;
         }
 
         p {
@@ -249,26 +255,28 @@
           }
         }
 
-        span:nth-child(1) {
-          background: #26769b url(../../assets/img/gj-icon1.png) no-repeat center center;
-          background-size: 30/@rem;
+        .span1 {
+          background:  url(../../assets/img/gj-icon1.png) no-repeat 8/@rem center;
+          background-size: 24/@rem;
         }
 
-        span:nth-child(2) {
-          background: #26769b url(../../assets/img/guiji-icon2.png) no-repeat center center;
-          background-size: 26/@rem;
+        .span2 {
+          background:  url(../../assets/img/guiji-icon2.png) no-repeat 8/@rem center;
+          background-size: 20/@rem;
         }
 
-        span:nth-child(3) {
-          background: #26769b url(../../assets/img/guiji-icon3.png) no-repeat center center;
-          background-size: 26/@rem;
+        .span3 {
+          background:  url(../../assets/img/guiji-icon3.png) no-repeat 8/@rem center;
+          background-size: 20/@rem;
         }
 
-        span:nth-child(4) {
-          background: #26769b url(../../assets/img/baojing.png) no-repeat center center;
-          background-size: 26/@rem;
+        .span4 {
+          background:  url(../../assets/img/baojing.png) no-repeat 8/@rem center;
+          background-size: 22/@rem;
         }
-
+        span.active{
+          background-color: rgb(43, 131, 183);
+        }
         .lookmore {
           color: #333;
           background: #6bcff7;
@@ -643,10 +651,10 @@
 
       .del {
         position: absolute;
-        top: 10/@rem;
-        right: 10/@rem;
-        width: 40/@rem;
-        height: 40/@rem;
+        top: 15/@rem;
+        right: 15/@rem;
+        width: 30/@rem;
+        height: 30/@rem;
         font-size: 20/@rem;
         border-radius: 50%;
         background: rgb(226, 77, 77)
@@ -1070,7 +1078,8 @@ div.info-bottom img {
     transform: rotate(-90deg)
   }
   .btn-wrap{
-    background: #45a4ca;
+    background: rgb(10, 83, 119);
+    box-shadow: 0 0 0 1px rgb(108,208,247);
     border-radius: 5/@vw;
     padding:3/@vw;
     margin-top: 5/@vw;
@@ -1089,53 +1098,57 @@ div.info-bottom img {
         width:38/@vw;
         height:49/@vw;
         font-size: 12/@vw;
-        color:#346d9d;
+        color:#fff;
         text-align: center;
         cursor: pointer;
         .icon{
           width:36/@vw;
           height:32/@vw;
           background: url(../../assets/img/hh.png);
-          background-size: 100% 100%;
+          background-size: 80% 80%;
           text-align: center;
           border-radius: 3/@vw;
         }
       }
       .item1 .icon{
-        background: url(../../assets/img/hh.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/hh.png) no-repeat center center;
+        background-size: 80% 80%;
       }
       .item2 .icon{
-        background: url(../../assets/img/bd.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/bd.png) no-repeat center center;
+        background-size: 70% 70%;
       }
       .item3 .icon{
-        background: url(../../assets/img/jz.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/jz.png) no-repeat center center;
+        background-size: 80% 70%;
       }
       .item4 .icon{
-        background: url(../../assets/img/wf.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/wf.png) no-repeat center center;
+        background-size: 80% 70%;
       }
       .active{
-        background: #3873a4;
-        color:#fff;
+        box-sizing: border-box;
+        border:1px solid rgb(108,208,247);
+        // background: #3873a4;
+        border-radius: 5/@vw;
+        color:rgb(108,208,247);
+        // color:#fff;
       }
       .item1.active .icon{
-        background: url(../../assets/img/hh-a.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/hh.png) no-repeat center center;
+        background-size: 80% 80%;
       }
       .item2.active .icon{
-        background: url(../../assets/img/bd-a.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/bd.png) no-repeat center center;
+        background-size:  70% 70%;
       }
       .item3.active .icon{
-        background: url(../../assets/img/jz-a.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/jz.png) no-repeat center center;
+        background-size:  80% 70%;
       }
       .item4.active .icon{
-        background: url(../../assets/img/wf-a.png);
-        background-size: 100% 100%;
+        background: url(../../assets/img/wf.png) no-repeat center center;
+        background-size:  80% 70%;
       }
     }
   }

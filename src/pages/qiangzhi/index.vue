@@ -91,7 +91,8 @@
         <span>枪锁位</span>
         <span>枪瞄编号</span>
         <span>持枪警员</span>
-        <span>解除绑定</span>
+        <span>绑定/解绑</span>
+        <span>详情</span>
       </div>
       <div class="list-item" v-for="(item,index) in activeDataList" :key="index">
         <input type="checkbox" v-model="item.checked" />
@@ -101,12 +102,13 @@
         <span>{{item.guncabinet_code||'无'}}</span>
         <span>{{item.gposition || '无'}}</span>
         <span>{{item.IMEI}}</span>
-        <span>{{item.policeuser_name ||"暂无"}}</span>
+        <span @click="toPersonMessage(item)" style="cursor:pointer">{{item.policeuser_name ||"暂无"}}</span>
         <span v-if="!item.IMEI" style="cursor:pointer" @click="bangding(item)">绑定</span>
         <span v-if="item.IMEI" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
+        <span style="cursor:pointer;text-decoration:underline" @click="showXiangQing(item)">详情</span>
       </div>
     </div>
-    <div class="alert" v-show="alert||xiugai||bindalert">
+    <div class="alert" v-show="alert||xiugai">
       <div class="text-wrap" v-show="alert">
         <div class="text-title">新增枪支</div>
         <div class="text-content">
@@ -171,31 +173,99 @@
 
         <button class="sub-wrap" @click="subChange">确认修改</button>
       </div>
-      <div class="bingbox" v-show="bindalert">
-      <button class="close" @click="bindclose">X</button>
-      <p style="display:none">{{activeJigouId}}</p>
-      <input
-        type="text"
-        class="text"
-        placeholder="请输入枪瞄ID"
-        v-model="activeMiaoId"
-        @input="putChange"
-      />
-      <div class="m-item-wrap">
-        <div class="no-data" v-if="allMiaoList.length==0">该机构下暂时没有枪瞄数据</div>
-        <div
-          class="m-item"
-          v-for="(item,index) in allMiaoList"
-          :key="index"
-          :style="{'opacity':item.opacity}"
-        >
-          <span @click="miaoSpanClick(item,index)" title="IMEI">{{item.IMEI}}</span>
+      <!--  <div class="bingbox" v-show="bindalert">
+        <button class="close" @click="bindclose">X</button>
+        <p style="display:none">{{activeJigouId}}</p>
+        <input
+          type="text"
+          class="text"
+          placeholder="请输入枪瞄ID"
+          v-model="activeMiaoId"
+          @input="putChange"
+        />
+        <div class="m-item-wrap">
+          <div class="no-data" v-if="allMiaoList.length==0">该机构下暂时没有枪瞄数据</div>
+          <div
+            class="m-item"
+            v-for="(item,index) in allMiaoList"
+            :key="index"
+            :style="{'opacity':item.opacity}"
+          >
+            <span @click="miaoSpanClick(item,index)" title="IMEI">{{item.IMEI}}</span>
+          </div>
+        </div>
+        <button class="sub" @click="subBind">确认绑定</button>
+      </div>-->
+    </div>
+    <!-- 详情弹窗 -->
+    <div class="cover" v-if="tan4">
+      <div class="alert alert4" v-if="tan4">
+        <div class="del" @click="close4">X</div>
+        <button class="close" @click="close4">取消</button>
+        <div class="content">
+          <div class="t t1">机构名称:{{guns.mechanism_name}}</div>
+          <div class="t t2">用枪人:{{guns.policeName}}</div>
+          <div class="t t3">枪支类型:{{guns.gname}}</div>
+          <div class="t t4">枪柜编号:{{guns.guncabinet_code}}</div>
+          <div class="t t5">枪锁位：{{guns.gposition}}</div>
+          <div class="t t6" title="枪瞄编号">{{guns.IMEI}}</div>
+          <div class="t t7">枪支编号：{{guns.gun_code}}</div>
+          <div class="t t8" @click="showList">历史记录</div>
+          <div class="r1"></div>
+          <div class="r2"></div>
+        </div>
+        <div class="m-list" v-show="listShow">
+          <div class="text" v-if="xiangqingList.length">
+            <div class="title">
+              <span></span>
+              <span>用枪人</span>
+              <span>警员编号</span>
+              <span>枪支类型</span>
+              <span>借出时间</span>
+              <span>归还时间</span>
+              <span>用途类型</span>
+            </div>
+            <div class="list_wrap">
+              <div class="list" v-for="(item,index) in xiangqingList" :key="index">
+                <span>{{index+1}}</span>
+                <span>{{item.usrename}}</span>
+                <span>{{item.policeNum}}</span>
+                <span>{{item.gtype}}</span>
+                <span>{{item.oprtime}}</span>
+                <span>{{item.planTime}}</span>
+                <span>{{item.tasktype}}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <button class="sub" @click="subBind">确认绑定</button>
+      
     </div>
-    </div>
-    
+    <div class="bind-cover" v-if="bindalert">
+        <div class="bingbox" v-show="bindalert">
+          <button class="close" @click="bindclose">X</button>
+          <p style="display:none">{{activeJigouId}}</p>
+          <input
+            type="text"
+            class="text"
+            placeholder="请输入枪瞄ID"
+            v-model="activeMiaoId"
+            @input="putChange"
+          />
+          <div class="m-item-wrap">
+            <div class="no-data" v-if="allMiaoList.length==0">该机构下暂时没有枪瞄数据</div>
+            <div
+              class="m-item"
+              v-for="(item,index) in allMiaoList"
+              :key="index"
+              :style="{'opacity':item.opacity}"
+            >
+              <span @click="miaoSpanClick(item,index)" title="IMEI">{{item.IMEI}}</span>
+            </div>
+          </div>
+          <button class="sub" @click="subBind">确认绑定</button>
+        </div>
+      </div>
   </div>
 </template>
 <style scoped>
@@ -210,11 +280,11 @@ export default {
   components: { LeftNav, Content, breadNav },
   data() {
     return {
-      activeGunId:'',
-      bindalert:false,
-      activeMiaoId:'',
-      activeJigouId:'',
-      allMiaoList:[],
+      activeGunId: "",
+      bindalert: false,
+      activeMiaoId: "",
+      activeJigouId: "",
+      allMiaoList: [],
       hasData: false,
       alert: false,
       treeData: "",
@@ -249,7 +319,10 @@ export default {
       sync: 0, //判断动静态，默认静态
       keshihua: "",
       loading: null,
-      zhankai: []
+      zhankai: [],
+      tan4: false,
+      listShow: false,
+      xiangqingList: [1, 2]
     };
   },
   computed: {
@@ -263,33 +336,81 @@ export default {
     }
   },
   methods: {
-    bindclose(){
-      this.bindalert=false
-      this.allMiaoList.forEach(e => (e.opacity = "0.3"))
+    showXiangQing(item) {
+      this.xiangqing(item.gun_id);
     },
-    subBind(){
+    close4() {
+      this.tan4 = false;
+      this.listShow = false;
+    },
+    showList() {
+      this.listShow = !this.listShow;
+    },
+    toPersonMessage(item) {
+      if (!item.policeuser_id) return;
+      this.$store.commit("setPoliceId", {
+        policeuser_id: item.policeuser_id,
+        yeMa: this.active_yema || 1,
+        jiGouId: this.activeJiGouId
+      });
+      this.$router.push({
+        name: "PersonMessage"
+      });
+    },
+    bindclose() {
+      this.bindalert = false;
+      this.allMiaoList.forEach(e => (e.opacity = "0.3"));
+    },
+    subBind() {
       //...............确认绑定枪支和枪瞄
       let gun_id = this.activeGunId;
       let miao_id = this.activeMiaoId;
-      // console.log(this.allMiaoList,this.activeMiaoId)
-      // return
       let bl = this.allMiaoList.find(e => e.gunaiming_id == this.activeMiaoId);
       if (!bl) {
         this.$message.error("没有该枪瞄，请重新输入");
         return;
       }
-      // console.log(gun_id, miao_id)
       this.bind(gun_id, miao_id);
-      setTimeout(()=>{
-        this.updataView()
-        this.bindalert=false
-        this.getMiaoList(this.activeJiGouId)
-      },1000)
+      setTimeout(() => {
+        this.updataView();
+        this.bindalert = false;
+        this.getMiaoList(this.activeJiGouId);
+      }, 1000);
+    },
+    xiangqing(gun_id) {
+      var key = this.$store.state.key;
+      var objs = { id: gun_id };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("id", objs.id);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Gun&a=gun_info",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.data.code == 200) {
+            console.log(data);
+            this.xiangqingList = data.data.history;
+            this.guns = data.data.guns;
+            // console.log(data.data.guns);
+            this.tan4 = true;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     bangding(item) {
-      // console.log("绑定",item);
-      this.activeGunId=item.gun_id
-      this.bindalert=true
+      this.activeGunId = item.gun_id;
+      this.bindalert = true;
+      this.getMiaoList(this.activeJiGouId);
     },
     miaoSpanClick(item, index) {
       this.activeMiaoId = item.gunaiming_id;
@@ -329,7 +450,7 @@ export default {
         .then(() => {
           that.unbind(item.gun_id, item.gunaiming_id);
           that.updataView();
-          that.getMiaoList(that.activeJiGouId)
+          that.getMiaoList(that.activeJiGouId);
         })
         .catch(() => {
           this.$message({
@@ -704,7 +825,7 @@ export default {
       this.activeJiGouId = item.mechanism_id;
       this.active_title = item.mechanism_name;
       this.getDataList(item.mechanism_id);
-      this.getMiaoList(item.mechanism_id)
+      // this.getMiaoList(item.mechanism_id)//弃用，影响速度
     },
     getTreeData(isCreate = true) {
       // ......................该组件默认加载树形菜单数据
@@ -987,7 +1108,7 @@ export default {
       this.activeJiGouId = jiGouId;
       this.currentPage = yeMa - 0;
       this.getTreeData(false);
-      this.getDataList(jiGouId, yeMa);
+      this.getDataList(jiGouId, 1);
       this.$store.commit("emptyNumber");
     }
   },

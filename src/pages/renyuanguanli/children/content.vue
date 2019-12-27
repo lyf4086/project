@@ -21,8 +21,8 @@
 
           <select
             v-show="item.put2show"
-            selected="true"
-            ref="put2"
+            ref="sel"
+            
             v-model="item.role_id"
             @change="put2blur(index)"
           >
@@ -47,12 +47,12 @@
       </div>
       <div class="headpic">
         <img :src="item.icon" v-if="item.icon" alt="no pic" />
-        <img src="../../../assets/img/head-icon.png" v-else="!item.icon" alt="no pic" />
+        <img src="../../../assets/img/head-icon.png" v-if="!item.icon" alt="no pic" />
       </div>
       <button class="xiangqing" @click="lookxiangqing(item)">查看详情</button>
       <div class="btns">
         <span @click="changeperson(index)" v-if="sync !=1">修改人员</span>
-        <span @click="setjuese(index)">设置角色</span>
+        <span @click="setjuese(index,item)">设置角色</span>
         <span @click="setmima(item)">{{item.sta===1?'修改初始密码':'设置初始密码'}}</span>
       </div>
       <button class="del-one" @click="delClick(item)">X</button>
@@ -144,7 +144,7 @@ export default {
       pwd1: "", //...................设置初始密码
       pwd2: "", //................确认初始密码
       active_item: "",
-      fc: false
+      fc: false,
     };
   },
   computed: {},
@@ -183,7 +183,7 @@ export default {
     },
     cl2(e) {
       e.target.parentNode.classList.add("selected");
-      // this.$refs.put2.focus()
+      this.$refs.put2.focus()
     },
     bl2(e) {
       e.target.parentNode.classList.remove("selected");
@@ -215,17 +215,26 @@ export default {
       return Y + M + D + h + m + s;
     },
     changeperson(index) {
-      // console.log(index)
-      // return
+      
       this.list[index].put1show = true;
       this.$nextTick(() => {
         this.$refs.put1[index].focus();
       });
     },
-    setjuese(index) {
+    setjuese(index,item) {
+     let role_id=this.$gscookie.getCookie("message_obj").role_id
+     if(role_id!=1){
+       this.$message({
+         type:"warning",
+         message:"您目前没有权限修改"
+       })
+       return
+     }
+      let that=this
       this.list[index].put2show = true;
       this.$nextTick(() => {
-        this.$refs.put2[index].focus();
+        // console.log(this.$refs.sel[index])
+        this.$refs.sel[index].focus();
       });
     },
     setmima(item) {
@@ -348,6 +357,7 @@ export default {
       //........................................更改角色end
     },
     leftChange(index) {
+      console.log(index)
       this.$confirm("将要更改状态, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -384,7 +394,6 @@ export default {
       };
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
-
       var params = new URLSearchParams();
       params.append("uname", objs.uname);
       params.append("role_id", objs.role_id);
@@ -453,7 +462,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('修改。。。。。。。状态',data)
           if (data.data.code == 200) {
            
             this.$message({
@@ -476,7 +484,7 @@ export default {
     },
     submitToChangePassWord() {
       //........................确认修改初始密码start
-
+      if(this.pwd1.trim()=='')return
       if (this.pwd1 != this.pwd2) {
         this.$message({
           type: "error",

@@ -452,7 +452,282 @@
   text-align: center;
   border-left: 0.05208333vw solid cornflowerblue;
 }
-.bingbox {
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+}
+.alert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 60%;
+  z-index: 1;
+  height: 8rem;
+  background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}
+.alert .del {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.2rem;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 9;
+}
+.alert .close {
+  position: absolute;
+  right: 1.05rem;
+  bottom: 0.06rem;
+  width: 1.7rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  z-index: 99;
+  color: #fff;
+  cursor: pointer;
+}
+.alert p {
+  font-size: 0.5rem;
+}
+@keyframes round1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes round2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.alert4 {
+  width: 50%;
+  height: 7.2rem;
+}
+.alert4 .content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 44.79166667vw;
+  height: 23.95833333vw;
+  background: url(../../assets/img/qiangzhi-alert.png) no-repeat 0 20px;
+  background-size: 100% 95%;
+}
+.alert4 .content .t {
+  position: absolute;
+  width: 9.375vw;
+  height: 1.5625vw;
+  font-size: 0.9375vw;
+  text-align: center;
+  line-height: 1.5625vw;
+}
+.alert4 .content .t1 {
+  left: 3.64583333vw;
+  top: 0vw;
+}
+.alert4 .content .t2 {
+  left: 0.3125vw;
+  top: 4.94791667vw;
+}
+.alert4 .content .t3 {
+  left: 0.20833333vw;
+  top: 16.82291667vw;
+}
+.alert4 .content .t4 {
+  left: 3.64583333vw;
+  top: 21.66666667vw;
+}
+.alert4 .content .t5 {
+  right: 2.60416667vw;
+  top: 0vw;
+}
+.alert4 .content .t6 {
+  right: 0.26041667vw;
+  top: 5vw;
+}
+.alert4 .content .t7 {
+  right: 0.52083333vw;
+  top: 16.82291667vw;
+}
+.alert4 .content .t8 {
+  right: 4.16666667vw;
+  top: 21.35416667vw;
+  color: #fff;
+  cursor: pointer;
+}
+.alert4 .content .r1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 14.0625vw;
+  height: 14.0625vw;
+  border-radius: 50%;
+  background: url(../../assets/img/qiangzhi-r2.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round1 6s linear infinite;
+}
+.alert4 .content .r2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 9.375vw;
+  height: 9.375vw;
+  border-radius: 50%;
+  background: url(../../assets/img/qiangzhi-r1.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round2 2s linear infinite;
+}
+.alert4 .m-list .text {
+  background: #284a77;
+}
+.alert4 .text {
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  width: 100%;
+  height: 3rem;
+  font-size: 0.16rem;
+}
+.alert4 .text .title {
+  width: 96%;
+  height: 0.4rem;
+  margin-left: 2%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 3fr 5fr 5fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 0.03rem;
+  border: 0.01rem solid #3f52c0;
+}
+.alert4 .text .title span {
+  text-align: center;
+  line-height: 0.4rem;
+  border-right: 0.01rem solid #3f52c0;
+}
+.alert4 .text .title span:last-child {
+  border: none;
+}
+.alert4 .text .list {
+  width: 96%;
+  height: 0.4rem;
+  margin-left: 2%;
+  background: rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 3fr  3fr 3fr 5fr 5fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 0.03rem;
+  border: 0.01rem solid #3f52c0;
+  border-top: none;
+}
+.alert4 .text .list span {
+  text-align: center;
+  line-height: 0.4rem;
+  border-right: 0.01rem solid #3f52c0;
+}
+.alert4 .text .list span:last-child {
+  border: none;
+}
+.alert4 .text .list_wrap {
+  max-height: 2.4rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.alert4 .list_wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.alert4 .list_wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.alert4 .list_wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.alert4 .contentwrap {
+  width: 100%;
+  height: 90%;
+  position: relative;
+}
+.alert4 .contentwrap .top {
+  position: absolute;
+  left: 50%;
+  top: 3rem;
+  width: 6rem;
+  height: 3rem;
+  z-index: 1;
+  transform: translateX(-40%);
+  background: url(../../assets/img/gun-xq.png) no-repeat;
+  background-size: 100% 100%;
+}
+.alert4 .contentwrap .bottom {
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 7rem;
+  height: 7rem;
+  transform-origin: center bottom;
+  transform: rotateX(80deg);
+}
+.alert4 .contentwrap .bottom > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.alert4 .contentwrap .up {
+  background: url(../../assets/img/dipan-up.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round1 6s linear infinite;
+}
+.alert4 .contentwrap .down {
+  background: url(../../assets/img/dipan-down.png) no-repeat;
+  background-size: 100% 100%;
+  animation: round2 6s linear infinite;
+}
+.bind-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+}
+.bind-cover .bingbox {
   width: 60%;
   height: 70%;
   box-sizing: border-box;
@@ -468,7 +743,7 @@
   margin: auto;
   font-size: 0.18rem;
 }
-.bingbox .close {
+.bind-cover .bingbox .close {
   position: absolute;
   right: 0.4rem;
   top: 0.4rem;
@@ -479,14 +754,14 @@
   color: #fff;
   cursor: pointer;
 }
-.bingbox .text {
+.bind-cover .bingbox .text {
   width: 3rem;
   height: 0.4rem;
   margin-left: 50%;
   margin-bottom: 0.1rem;
   transform: translateX(-80%);
 }
-.bingbox .m-item-wrap {
+.bind-cover .bingbox .m-item-wrap {
   width: 88%;
   height: 70%;
   display: flex;
@@ -495,7 +770,7 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
-.bingbox .m-item-wrap .m-item {
+.bind-cover .bingbox .m-item-wrap .m-item {
   width: 2rem;
   height: 0.4rem;
   border-radius: 0.06rem;
@@ -505,38 +780,38 @@
   line-height: 0.4rem;
   cursor: pointer;
 }
-.bingbox .m-item-wrap .m-item span {
+.bind-cover .bingbox .m-item-wrap .m-item span {
   width: 100%;
   text-indent: 0.15rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.bingbox .m-item-wrap .no-data {
+.bind-cover .bingbox .m-item-wrap .no-data {
   font-size: 0.18rem;
   line-height: 2rem;
   margin-left: 50%;
   transform: translateX(-50%);
 }
-.bingbox .m-item-wrap::-webkit-scrollbar {
+.bind-cover .bingbox .m-item-wrap::-webkit-scrollbar {
   /*滚动条整体样式*/
   width: 4px;
   /*高宽分别对应横竖滚动条的尺寸*/
   height: 4px;
 }
-.bingbox .m-item-wrap::-webkit-scrollbar-thumb {
+.bind-cover .bingbox .m-item-wrap::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
   border-radius: 5px;
   -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
   background: rgba(34, 3, 117, 0.8);
 }
-.bingbox .m-item-wrap::-webkit-scrollbar-track {
+.bind-cover .bingbox .m-item-wrap::-webkit-scrollbar-track {
   /*滚动条里面轨道*/
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0;
   background: rgba(221, 213, 213, 0.6);
 }
-.bingbox .sub {
+.bind-cover .bingbox .sub {
   padding: 0.03rem 0.06rem;
   border-radius: 0.03rem;
   margin-left: 50%;

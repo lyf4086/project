@@ -41,10 +41,14 @@ function getPersonAndGunStr(id) {
       /**新增获取其他机构人员 */
       if (data.data.arr) {
         this.allMechanismData = data.data.arr
-        let strArr = data.data.arr.map(item => {
-          return `<option value="${item.id}|${item.ip_id}" >${item.mechanism_name}</option>`
+        let strArr = data.data.arr.map((item,index) => {
+          let str='';
+          for(let i=0;i<item.index;i++){
+            str+='&nbsp;'
+          }
+          return `<option value="${item.id}|${item.ip_id}">${str} ${item.mechanism_name}</option>`
         })
-        strArr.unshift(`<option value="" disabled selected >请选择</option>`)
+        strArr.unshift(`<option value="" disabled selected >请选择机构</option>`)
         this.allMechanism = strArr.join()
       } else {
         console.log('无跨机构数据')
@@ -168,10 +172,19 @@ function alarmBoxShowOrHide() {
 }
 
 function stopSetArea() {
-  this.setAreaTime = false;
-  this.polygon.hide()
-  this.markerArr.length = 0
-  
+  this.$confirm('此操作将放弃设置区域并刷新当前页面, 是否继续?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    this.$router.go(0)
+  }).catch(() => {
+    this.$message({
+      type: 'info',
+      message: '已取消删除'
+    });          
+  });
+ 
 }
 
 function showOne(ev,val) {
@@ -329,24 +342,7 @@ function showAllAlarmArea(arr) { //........参数必须为数组
       isenable: item.isenable
     });
   })
-  // polygonArr.forEach(e=>{
-  //   e.on('rightclick',function (ev){
-  //      var contextMenu = new AMap.ContextMenu();
-  //       contextMenu.addItem("删除该区域", function () {
-  //           e.hide()//
-  //           that.delOneAlarmArea(ev.target.G.area_alarm_id)
-  //       }, 0);
-  //       contextMenu.addItem("显示该区域人员", function () {
-  //          console.log('显示该区域人员',ev.target.G.area_alarm_id)
-  //          that.getOneAlarmArea(ev.target.G.area_alarm_id)
-  //       }, 1);
-  //        contextMenu.open(map, ev.lnglat);
-  //         // contextMenuPositon = ev.lnglat;
-
-
-  //   })
-  // })
-
+ 
   this.polygonArr = polygonArr
   map.add(polygonArr)
   this.map.setFitView(polygonArr)
@@ -421,11 +417,29 @@ function toBaoJing() { //去报警管理页面
 function searchByTime() { //.....根据时间搜索历史轨迹
   let t1 = this.startTime.replace("T", " ")
   let t2 = this.endTime.replace("T", " ")
+  let that=this
   if (!t1 || !t2) {
     this.$message({
       message: '请选择时间',
       type: 'warning'
     })
+    return
+  }
+  let s1=new Date(t1).getTime()
+  let s2=new Date(t2).getTime()
+  if(s2-s1>604800000){
+   
+    this.$confirm('您所选时间周期比较长，数据量比较大，查询时间很长, 是否继续?', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      that.newShuaXinMap()
+
+       that.searchHistory(that.activeIMEI, t1, t2) //通过起止时间搜索历史轨迹
+    }).catch(() => {
+           
+    });
     return
   }
   this.newShuaXinMap()
@@ -442,14 +456,12 @@ function searchOnePerson() { //.........搜索人员后弹出该人员信息
     this.polygon = ''
   }
   if (!this.isChange) {
-    console.log('重复点击')
     this.map.fitBounds(this.fitBoundsArr)
     return
   }
   // 跨区域编组新增
   this.jigouSelArr.length = 0;
   this.jigouSelArr.push(this.jigouname);
-  console.log(this.jigouname);
   // 跨区域编组新增
   window.clearInterval(this.areaTimer);
   this.noCheckedList.forEach(e => e.checked = false)
@@ -482,19 +494,20 @@ function searchOnePerson() { //.........搜索人员后弹出该人员信息
     var date = date_now.getDate() < 10 ? "0" + date_now.getDate() : date_now.getDate()
     return str = `${year}-${month}-${date}`
   }
-  let that = this
-
-
 }
 
 function bianZuList() { //....选择编组人员列表
   this.bianzu_list_show = !this.bianzu_list_show
   this.checked_person_show = false
 }
-
 function yijingXuanze() { //.................编组后搜索一组人员
   /**新增跨机构编组 */
+  
+  this.newXianArr.forEach(e=>e.remove())
+  this.polyLineArr.length=0
+  console.log(this.newXianArr.length)
   let fillterPerson = [];
+
   this.allMechanismPersonList.forEach(item => {
     item.forEach(e => {
       if (e.checked) {
@@ -504,12 +517,10 @@ function yijingXuanze() { //.................编组后搜索一组人员
   });
   /**新增跨机构编组 */
   let arrCED = this.noCheckedList.filter(e => e.checked)
-
   if (!arrCED.length) {
     this.$message('请选择编组人员')
     return
   } else {
-
     for (var i = 0; i < arrCED.length; i++) {
       this.IMEI_img[arrCED[i]['IMEI']] = arrCED[i]['policeuser']['img'];
     }
@@ -522,18 +533,12 @@ function yijingXuanze() { //.................编组后搜索一组人员
     this.checkedPersonArr = [...arrCED, ...fillterPerson];
     this.bianzu_list_show = false
     this.checked_person_show = true
-
     let arrIMEI = arrCED.map(e => e.IMEI)
-
     arrIMEI.unshift(this.activeIMEI)
     let fillterPersonIMEI = fillterPerson.map(e => e.IMEI);
     let IMEIList = [...fillterPersonIMEI, ...arrIMEI];
-
     this.newShuaXinMap()
-
-
     this.oldOrNew=''
-
     this.getIMEI(IMEIList) //....................................
   }
 
@@ -554,12 +559,9 @@ function jingyuanSelChange(e) {
 
   let person = this.noCheckedList.filter(e => e.IMEI == this.activeIMEI)
   this.selectedPerson = person[0]
-  // console.log(this.selectedPerson)
 }
 
 function closeToLeft() {
-  //  bianzu_list_show:false,
-  //   checked_person_show:false,
   if (this.bianzu_list_show || this.checked_person_show || this.oneAlarmPersonListBox) {
     this.bianzu_list_show = false
     this.checked_person_show = false
@@ -592,15 +594,38 @@ function guijiHistory(path) { //.........使用历史轨迹坐标做动画
   let that = this
   let BM = this.BM
   let map = this.map
-  var marker = BM.marker(path[0]).addTo(map);
+  let timer=null
+  var marker = BM.marker([path[0].latitude,path[0].longitude]).addTo(map);
   this.markerArr.push(marker)
   var index = 0;
-  window.setInterval(function () {
+  timer=window.setInterval(setMarker,800);
+    function setMarker() {
     var c = index % path.length;
-    marker.setLatLng(path[c]);
+    var myIcon = BM.divIcon({
+          html:`<div class="icon_wrap history " title="${path[c].sname}">
+                  <div class="img_wrap ${path[c].state==2?'wx':''} ${path[c].state==3?'jz':''} ${path[c].state==4?'wf':''}">
+                  </div>
+                  <div class="round_cover"><i></i></div>
+                </div>`
+        })
+    marker.setIcon(myIcon)
+    marker.setLatLng({lat:path[c].latitude,lng:path[c].longitude});
     index++;
-  }, 400);
-  var poly = BM.polyline(path).addTo(map);
+    index>path.length?index=0:null
+  } 
+  marker.on('mouseover',()=>{
+    window.clearInterval(timer)
+  })
+  marker.on('mouseout',()=>{
+    timer=window.setInterval(setMarker,800);
+  })
+  marker.on('click', ()=>{
+    let n=path[index].sname?path[index].sname:'';
+    let t=path[index].time?path[index].time:''
+    this.$message(`定位类型：${n} , 定位时间：${t}`)
+  })
+  let line=path.map(item=>({"lat":item.latitude,"lng":item.longitude}))
+  var poly = BM.polyline(line).addTo(map);
   this.polyLineArr.push(poly)
   map.fitBounds(poly.getBounds());
 

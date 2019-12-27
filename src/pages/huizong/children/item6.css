@@ -30,7 +30,7 @@
   box-sizing: border-box;
 }
 #char-left:hover {
-  transition: .5s;
+  transition: 0.5s;
   transform: scale3d(1, 1, 1) translateX(-10%);
   width: 150%;
   height: 140%;
@@ -48,7 +48,7 @@
 }
 #char-center:hover {
   z-index: 1;
-  transition: .5s;
+  transition: 0.5s;
   transform: scale(1) translateY(-26%);
   background: #3185e6;
 }
@@ -65,7 +65,7 @@
   height: 100%;
   position: relative;
 }
-.itemright .cover {
+.itemright .cover2 {
   position: absolute;
   left: 0;
   top: 0;

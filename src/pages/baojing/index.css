@@ -76,6 +76,7 @@
 .top-nav .check-type {
   width: 10%;
   height: 100%;
+  text-align: right;
 }
 .top-nav .check-type select {
   height: 100%;
@@ -84,6 +85,7 @@
   background: #20364e;
   color: #fff;
   border: 1px solid #55affd;
+  border-right: none;
 }
 .top-nav .search-wrap {
   width: 40%;
@@ -486,4 +488,153 @@
 }
 .change_type .active {
   border-color: #50b5f8;
+}
+.cover {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1);
+}
+.cover .alert {
+  position: absolute;
+  width: 50%;
+  height: 34.89583333vw;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
+  background-size: 100% 100%;
+}
+.cover .alert .del {
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  font-size: 0.2rem;
+  color: #fff;
+  border: 0.01rem solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.cover .alert .close {
+  position: absolute;
+  right: 0.95rem;
+  bottom: 0.04rem;
+  width: 0.9rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.cover .alert .chuli {
+  position: absolute;
+  right: 1.85rem;
+  bottom: 0.04rem;
+  width: 0.9rem;
+  height: 0.3rem;
+  font-size: 0.18rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.cover .alert .txt {
+  position: relative;
+  width: 80%;
+  height: 70%;
+  margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  color: #129fdf;
+  background: url(../../assets/img/baojing-bj.png) no-repeat;
+  background-size: 100% 100%;
+}
+.cover .alert .txt .text {
+  width: 5.9375vw;
+  height: 2.60416667vw;
+  line-height: 2.60416667vw;
+  text-align: center;
+  color: #fff;
+  font-size: 0.16rem;
+  margin-top: 10.5%;
+  margin-right: 2.5%;
+}
+.cover .alert .txt .text:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cover .alert .txt .text:nth-child(5) {
+  margin-right: 0;
+  position: relative;
+  top: -3%;
+}
+.cover .alert .txt .text:nth-child(10) {
+  margin-right: 0;
+}
+.cover .alert .txt .red {
+  color: red;
+  transform: translate3d(0, 0, 0);
+}
+.cover .alert .txt .green {
+  color: green;
+}
+.cover .alert .txt .text:nth-child(9) {
+  line-height: 1.04166667vw;
+}
+.cover .alert .txt .text:nth-child(5),
+.cover .alert .txt .text:nth-child(6),
+.cover .alert .txt .text:nth-child(7),
+.cover .alert .txt .text:nth-child(8),
+.cover .alert .txt .text:nth-child(9),
+.cover .alert .txt .text:nth-child(10) {
+  margin-top: 13%;
+}
+.cover .alert .txt .yijian {
+  width: 12.5vw;
+  height: 3.64583333vw;
+  margin: 5vw 0 0 -0.83333333vw;
+  box-sizing: border-box;
+  font-size: 0.16rem;
+  padding: 0.26041667vw;
+  line-height: 1.04166667vw;
+  color: #fff;
+  overflow: auto;
+}
+.cover .alert .txt .yijian input {
+  width: 80%;
+  height: 60%;
+  background: none;
+  border: 0.05208333vw solid #129fdf;
+  text-indent: 0.78125vw;
+  color: #129fdf;
+}
+.cover .alert .txt .biaoti {
+  width: 12.5vw;
+  height: 3.64583333vw;
+  box-sizing: border-box;
+  padding: 0.26041667vw;
+  margin: 5vw 7.91666667vw 0 0vw;
+  line-height: 1.04166667vw;
+  overflow: auto;
+}
+.cover .alert .txt .biaoti textarea {
+  box-sizing: border-box;
+  padding: 0.20833333vw;
+  border: 1px solid #129fdf;
+  background: none;
+  margin-top: -0.26041667vw;
+  color: #129fdf;
+  text-indent: 0.83333333vw;
+  font-size: 0.72916667vw;
+  resize: none;
 }

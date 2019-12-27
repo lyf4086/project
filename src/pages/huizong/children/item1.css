@@ -30,7 +30,7 @@
   transform: scale(0.5);
 }
 #char1:hover {
-  transition: .5s;
+  transition: 0.5s;
   z-index: 1;
   transform: scale(1);
   background: #3185e6;
@@ -44,7 +44,7 @@
   transform: scale(0.4);
 }
 #char2:hover {
-  transition: .5s;
+  transition: 0.5s;
   z-index: 22;
   transform: scale(1);
   background: #3185e6;

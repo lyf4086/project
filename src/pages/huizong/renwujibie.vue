@@ -370,7 +370,9 @@ export default {
       if(!main)return
       let list = document.querySelectorAll("#num-icon .item");
       let num = -1;
-      this.timer1 = setInterval(donghua, 2000);
+     window.clearInterval(this.timer1);
+      this.timer1 = window.setInterval(donghua, 2000);
+      // console.log(this.timer1)
       function donghua() {
         if(!list.length)return
         num++;
@@ -384,11 +386,14 @@ export default {
         for (let i = 0; i < 4; i++) {
           list[i].classList.remove("active");
         }
-        clearInterval(this.timer1);
+        // console.log(this.timer1)
+          window.clearInterval(this.timer1);
+          // this.timer1=null
+        
       };
-      main.onmouseout = function() {
-        this.timer1 = setInterval(donghua, 2000);
-      };
+      // main.onmouseout = function() {
+      //   this.timer1 = window.setInterval(donghua, 2000);
+      // };
     }
   },
   created() {

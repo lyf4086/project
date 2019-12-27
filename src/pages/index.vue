@@ -214,12 +214,12 @@ export default {
       warningBoxIsShow: true,
       tb: false,
       sync: "",
-      loading:null
+      loading:null,
+      timer11:null
     };
   },
   methods: {
     toBigScreem(){
-      return
       this.$router.push('/daping')
     },
     tongbu() {
@@ -419,6 +419,7 @@ export default {
         });
     },
     subChange() {
+      if(this.pwd1.trim()=='')return
       if (!this.pwd1 || !this.pwd2) {
         this.$message({
           message: "有必填选项未填！",
@@ -458,13 +459,18 @@ export default {
         data: params
       })
         .then(data => {
+          this.loading.close()
           if (data.data.code == 200) {
-            this.loading.close()
             this.$message({
               message: "修改成功",
               type: "success"
             });
             this.pasShow=false
+          }else{
+            this.$message({
+              type:'error',
+              message:data.data.msg
+            })
           }
         })
         .catch(error => {
@@ -623,6 +629,27 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    setTimer(){
+       var objs = {};
+      var key = this.$store.state.key;
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url: this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Gunlibrary&a=hand",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   created() {
@@ -633,8 +660,11 @@ export default {
     this.userId.id = this.mes.id;
   },
   mounted() {
+    this.timer11=setInterval(() => {
+      this.setTimer()
+    }, 1000000);
     this.navList['轨迹追踪'].road=this.$store.state.zaixian?'/indexg/guiji':'/indexg/map'
-    this.tishi(); //...执行提示函数
+    // this.tishi(); //暂时弃用...执行提示函数
     // isFullscreenForNoScroll(); //...判断是否全屏
     // window.onresize = function() {
     //   isFullscreenForNoScroll();

@@ -9,7 +9,7 @@
       <div id="char-center"></div>
     </div>
     <div class="itemright">
-      <div class="cover"></div>
+      <div class="cover2"></div>
       <p>逾期报警</p>
       <div class="dianwrap">
         <div class="line"></div>
@@ -392,7 +392,7 @@ export default {
           }
         },
         tooltip: {
-          show: false,
+          show: true,
           trigger: "item"
         },
         legend: {

@@ -52,7 +52,11 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
     data: params
   }).then((data) => {
     this.loading.close()
-    this.paixuarr=data.data.data.list.map(e=>e.IMEI)   
+    this.paixuarr=data.data.data.list.map(e=>e.IMEI)
+    console.log(data.data.data.list)
+    this.last_time_arr= data.data.data.list.map(e=>e.created) 
+    this.newType= data.data.data.list.map(e=>e.ptype)
+    this.newIsOnline=data.data.data.list.map(e=>e.heart)
     let that = this
     this.isChange = false //避免多次点击
     this.hasPerson = true;
@@ -103,16 +107,22 @@ function getIMEI(IMEIArr) { //..........通过IMEI获取经纬度,参数为数�
           const h = that.$createElement;
           that.$message({
             type:'none',
-            duration:6000,
+            duration:3000,
             message: h('div', {style:'font-size:16px;line-height:30px;'}, [
+              h('p', null, `警员姓名：${that.checkedPersonArr[i].policeuser_name}`),
               h('p', null, `所属机构：${that.checkedPersonArr[i].mechanism_name}`),
               h('p', null, `枪支类型：${that.checkedPersonArr[i].gtype}`),
               h('p', null, `枪支编号：${that.checkedPersonArr[i].gun_code}`),
-              h('p', null, `是否在线：${data.data.data.list[i].heart == 1 ? "在线" : "不在线"}`),
-              h('p', null, `定位类型：${data.data.data.list[i].ptype}`),
-              h('p', null, `枪瞄编号：${that.checkedPersonArr[i].IMEI}`)
+              h('p', null, `是否在线：${that.newIsOnline[i] == 1 ? "在线" : "不在线"}`),
+              h('p', null, `定位类型：${that.newType[i]}`),
+              h('p', null, `枪瞄编号：${that.checkedPersonArr[i].IMEI}`),
+              h('p',null,`最后定位时间：${that.last_time_arr[i]}`)
             ])
           });
+          that.showtols=true;
+          setTimeout(()=>{
+            that.showtols=false;
+          },3000)
         })
     });
     this.fitBoundsArr = arr
@@ -207,32 +217,33 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
   params.append('sign', sign);
   params.append('token', token)
   this.$axios({
-    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=position',
+    // url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=position',
+    url: this.$store.state.baseURL + '/weixin/project/index.php?m=home&c=position&a=rec_position',
     method: 'POST',
     changeOrigin: true,
     data: params
   }).then((data) => {
     this.loading.close()
-    if (data.data.code == '200') {
+    if (data.status == '200') {
       this.oldOrNew = 'old'
       this.checkTime = false
-      // console.log('119',data.data.data.list)
-      if (!data.data.data.list.length) {
+      if (!data.data) {
         this.$message('暂时没有轨迹数据')
         this.checkTime = false
       } else {
-
+        
         let that = this
-        let lineArrAndBaoJing = data.data.data.list.filter(e => e.alarm)
-        let lineArr = data.data.data.list.map((e) => {
-          return {
-            "lat": e.latitude - 0,
-            "lng": e.longitude - 0
-          }
-        })
-
-        this.guijiHistory(lineArr)
-
+        // let lineArr = data.data.data.list.map((e) => {
+        //   return {
+        //     "alarm":e.alarm||null,
+        //     "lat": e.latitude - 0,
+        //     "lng": e.longitude - 0
+        //   }
+        // })
+        //弃用
+        // this.guijiHistory(lineArr)
+      
+        this.guijiHistory(data.data)
 
 
       }
@@ -244,7 +255,6 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
 }
 
 function creatInfoBox(tit = '李业锋', jingweidu, item, ...res) {
-  // console.log('911',item)
   function toTxet(n) {
     if (n == 1) {
       return '92式'
@@ -552,7 +562,13 @@ function setDian(e) {
 }
 
 function confirmSetArea() {
-
+  if(this.polyLineArr.length<3){
+    this.$message({
+      type:"error",
+      message:"至少选择三个点"
+    })
+    return
+  }
   let map = this.map
   let that = this
   let BM = this.BM
@@ -645,8 +661,8 @@ function shezhiquyu(gun_ids, pointsArr, policeuser_id, stime, etime, text, IMEIS
       //刷新当前页面
             
       setTimeout(() => {
-        // this.$router.go(0)
         console.log('两秒钟之后')
+        this.alarmSel=this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id
         this.showOne(null,this.allAlarmAreaList[this.allAlarmAreaList.length-1].area_alarm_id)
       }, 2000)
     }
@@ -754,7 +770,6 @@ function showOneAreaAllMarker(data) { //显示一个区域的人员标记
   if (this.markerArr.length) {
     this.markerArr.forEach(e => e.remove())
   }
-console.log(data.child)
   let that = this
   this.filterMessage.uname = data.policeuser_name
   this.filterMessage.bianhao = data.police_number
@@ -765,6 +780,9 @@ console.log(data.child)
 
   let paixuarr=data.child.map(e=>e.IMEI)
   this.paixuarr=paixuarr
+  this.last_time_arr=data.child.map(e=>e.created)
+  this.newType=data.child.map(e=>e.ptype) 
+    this.newIsOnline=data.child.map(e=>e.heart) 
   // this.setMarker(dianArr)
 
   let noimg = require('@/assets/img/head-icon.png')
@@ -806,30 +824,26 @@ console.log(data.child)
   map.fitBounds(dianArr);
   this.markerArr = markerArr;
   markerArr.forEach((e, i) => {
-   /*  e.bindPopup(`警员姓名：${data.child[i].policeuser_name} \</br>
-      所属机构：${data.child[i].mechanism.mechanism_name}\</br>
-      枪支类型：${data.child[i].gtype} \</br>
-      枪支编号：${data.child[i].gun_code} \</br>
-      是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"} \</br>
-      定位类型：${data.child[i].ptype} \</br>
-      枪瞄编号：${data.child[i].IMEI} \</br>
-      `); */
-
-      e.on('click',function (){
-       
+      e.on('click',function (){       
         const h = that.$createElement;
           that.$message({
             type:'none',
-            duration:6000,
+            duration:3000,
             message: h('div', {style:'font-size:16px;line-height:30px'}, [
+              h('p', null, `警员姓名：${data.child[i].policeuser_name}`),
               h('p', null, `所属机构：${data.child[i].mechanism.mechanism_name}`),
               h('p', null, `枪支类型：${data.child[i].gtype}`),
               h('p', null, `枪支编号：${data.child[i].gun_code}`),
-              h('p', null, `是否在线：${data.child[i].heart == 1 ? "在线" : "不在线"}`),
-              h('p', null, `定位类型：${data.child[i].ptype}`),
-              h('p', null, `枪瞄编号：${data.child[i].IMEI}`)
+              h('p', null, `是否在线：${that.newIsOnline[i] == 1 ? "在线" : "不在线"}`),
+              h('p', null, `定位类型：${that.newType[i]}`),
+              h('p', null, `枪瞄编号：${data.child[i].IMEI}`),
+              h('p',null,`最后定位时间：${that.last_time_arr[i]}`)
             ])
           });
+          that.showtols=true;
+          setTimeout(()=>{
+            that.showtols=false;
+          },3000)
       })
 
     });
@@ -898,6 +912,9 @@ function getNewPosition(id) {
       this.paixuarr.forEach(item=>{
         newArr.push(data.data.data.list.find(e=>e.IMEI==item))
       })
+      this.last_time_arr=newArr.map(e=>e.created)
+      this.newType=newArr.map(e=>e.ptype) 
+      this.newIsOnline=newArr.map(e=>e.heart) 
       newArr.length&&newArr.forEach((item,index)=>{//每10秒更新状态
         if(item.heart==1){//判断是否离线
           $(`.${item.IMEI}`).removeClass('is_lixian')
@@ -975,7 +992,6 @@ function getAllJiGouName(mechanism_id, ip_id) {
     "mechanism_id": mechanism_id,
     "ip_id": ip_id
   };
-  // console.log(objs)
   var key = this.$store.state.key;
   var sign = this.$methods.mkSign(objs, key);
   var token = this.$gscookie.getCookie('gun')
@@ -991,8 +1007,6 @@ function getAllJiGouName(mechanism_id, ip_id) {
     data: params
   }).then((data) => {
     if (data.data.code == 200) {
-      console.log(data.data.data.list)
-
       this.allMechanismPersonList.push(data.data.data.list)
     }
   }).catch((error) => {
@@ -1021,7 +1035,7 @@ export {
   delOneAlarmArea,
   showOneAreaAllMarker,
   showOneAlarmPolygon,
-  getNewPosition,
+  getNewPosition,//获取一组人最新定位数据
   setDian,
   overArea,
   getAllJiGouName

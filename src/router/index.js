@@ -56,6 +56,7 @@ let GlobalScreem =()=>import('../pages/globalscreem/index.vue')
 let DaPing =()=>import('../pages/daping/index.vue')
 let PeiZhi = ()=>import('../pages/peizhi')
 
+let mapMarkers =()=>import('../pages/mapmarkers')
 
 let router = new Router({
   // mode:'history',
@@ -280,6 +281,12 @@ let router = new Router({
       component:PeiZhi
     }
     ]
+  },
+  
+  {
+    path:'/mapmarkers',
+    name:"mapMarkers",
+    component:mapMarkers
   },
   {
     path:'/globalscreem',
