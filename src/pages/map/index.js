@@ -79,7 +79,7 @@ function getPersonAndGunStr(id) {
     function optionStr(arr) {
       let str = ''
       if (!arr.length) {
-        return str = `<option >暂时没有数据</option>`
+        return str = `<option  value="" disabled>暂时没有数据</option>`
       }
       arr.forEach(e => {
         if (!e.policeuser.img) e.policeuser.img = "123";
@@ -485,6 +485,7 @@ function searchOnePerson() { //.........搜索人员后弹出该人员信息
 
   // this.IMEI_img[this.activeIMEI] = this.activeimg ;
   this.active_person_show = true;
+  this.alarmSel=''
   this.getIMEI([this.activeIMEI]) //..............搜索一个人员
   function nowTime() { //...获取当前时间串
     let str = ''
@@ -497,6 +498,7 @@ function searchOnePerson() { //.........搜索人员后弹出该人员信息
 }
 
 function bianZuList() { //....选择编组人员列表
+  this.spanActive==1?this.spanActive=0:this.spanActive=1
   this.bianzu_list_show = !this.bianzu_list_show
   this.checked_person_show = false
 }
@@ -545,6 +547,7 @@ function yijingXuanze() { //.................编组后搜索一组人员
 }
 
 function binaZuBack() {
+  this.spanActive=0
   this.bianzu_list_show=false
   this.checked_person_show = !this.checked_person_show
 }

@@ -363,6 +363,7 @@ export default {
     }
   },
   created() {
+
     //公用树形菜单数据
     let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
      this.zhankai.push(treeData[0].id)
@@ -372,7 +373,6 @@ export default {
           this.zhankai.push(treeData[0].child[0].child[0].id)
         }
      }
-      
       
       this.treeListData = treeData;
     this.loading = this.$loading({
@@ -408,6 +408,7 @@ export default {
       str1:'各机构',
       str2:'枪柜列表'
     })
+
   },
   destroyed(){
     this.$store.commit('huanyuanStr')

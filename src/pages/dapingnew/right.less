@@ -1,0 +1,254 @@
+
+@vw:38.4vw;
+@vh:21.6vh;
+
+.left{
+    box-sizing: border-box;
+    padding: 60/@vh 0 0 0;
+    width:927/@vw;
+    height:100%;
+    // background: #777;
+    .title{
+        width:470/@vw;
+        height:90/@vh;
+        // background: #999;
+        font-size: 40/@vh;
+        line-height: 60/@vh;
+        font-size: 40/@vw;
+        color:#fff;
+        &::before{
+            content:''; 
+            display: inline-block;
+            width:20/@vw;
+            height:40/@vh;
+            background: #3aecfd;
+            border-radius: 5/@vw;
+            margin-right: 24/@vw;
+            position: relative;
+            top:6/@vh
+        }
+    }
+    .item1{
+        width: 100%;
+        height:830/@vh;
+        .chartwrap{
+            box-sizing: border-box;
+            padding:20/@vh 0;
+            width:800/@vw;
+            height:316/@vh;
+            margin-bottom: 40/@vh;
+            background: url(../../assets/sucai/renwutj.png)no-repeat center;
+            background-size: 100% 100%;
+            color:#aeffff;
+            font-size: 30/@vw;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-around;
+            .item{
+                box-sizing: border-box;
+                padding:0 10/@vw;
+                width: 100%;
+                height:130/@vh;
+                color:#AEFFFF;
+                border: 2/@vw solid transparent;
+                .txt{
+                    width: 100%;
+                    font-size: 35/@vw;
+                    line-height: 80/@vh;
+                    display: flex;
+                    font-size: 30/@vw;
+                    justify-content: space-between;
+                    span:nth-child(2){
+                        font-size: 48/@vw;
+                        font-weight: bold;
+                    }
+                }
+                .bar{
+                    width:100%;
+                    height: 50/@vh;
+                }
+            }
+            .item:hover{
+                cursor: pointer;
+                background: rgba(47,128,237,0.2);
+                border-color: #0c8ed3;
+                box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
+            }
+        }
+        .itemwrap{
+            width:886/@vw;
+            height:290/@vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-content: space-around;
+            .item{
+                box-sizing: border-box;
+                width:438/@vw;
+                height:130/@vh;
+                border: 2/@vw solid transparent;
+                border-radius: 5/@vw;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                font-size: 30/@vw;
+                color:#fff;
+                
+                .icon{
+                    width: 108/@vw;
+                     height:108/@vw;
+
+                     display: flex;
+                     justify-content: space-around;
+                     align-items: center;
+                     background: url(../../assets/sucai/dongtu/zbk_2.png)no-repeat center;
+                    background-size: 100% 100%;
+                    span{
+                        width:70%;
+                        height:70%;
+                        margin-top: 5px;
+                        background:url(../../assets/sucai/renwu_icon1.png)no-repeat center;
+                        background-size: 100% 100%;
+                    }
+                }
+                
+                .text{
+                    height:116/@vh;
+                    width: 286/@vw;
+                    box-sizing: border-box;
+                    padding-top: 2%;
+                    div{
+                        font-size: 48/@vw;
+                        font-weight: bold;
+                        line-height: 60/@vw;
+                        padding-left: 24/@vw;
+                    }
+                    span{
+                        font-size: 30/@vw;
+                        padding-left: 24/@vw;
+                    }
+                }
+            }
+            .item:hover{
+                cursor: pointer;
+                background: rgba(47,128,237,0.2);
+                border-color: #0c8ed3;
+                box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
+            }
+            .item:nth-child(2){
+                .icon>span{
+                    background-image: url(../../assets/sucai/renwu_icon2.png);
+                }
+            }
+            .item:nth-child(3){
+                .icon>span{
+                    background-image: url(../../assets/sucai/renwu_icon3.png);
+                }
+            }
+            .item:nth-child(4){
+                .icon>span{
+                    background-image: url(../../assets/sucai/renwu_icon4.png);
+                }
+            }
+        }
+    }
+    .item2{
+        width: 100%;
+        height:506/@vh;
+        .itemwrap{
+            width:870/@vw;
+            height:310/@vh;
+            margin-top: 30/@vh;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-around;
+            .item{
+                width:269/@vw;
+                height:111/@vh;
+                background: url(../../assets/sucai/danyao.png) no-repeat;
+                background-size: 100% 100%;
+                margin-right: 18/@vw;
+                box-sizing: border-box;
+                padding-left: 65/@vw;
+                padding-top: 18/@vh;
+                color:#85e3ff;
+                p:nth-child(1){
+                    font-size: 26/@vw;
+                    line-height: 40/@vh;
+                }
+                p:nth-child(2){
+                    font-size: 34/@vw;
+                    line-height: 56/@vh;
+                }
+            }
+            .item:hover{
+                cursor: pointer;
+                color:#ffbc5b;
+                background-image: url(../../assets/sucai/danyao_hover.png);
+                background-size: 126% 163%;
+                background-position: 46% 50%;
+            }
+        }
+    }
+    .item3{
+
+        .list{
+            width:815/@vw;
+            height:440/@vh;
+            font-size: 35/@vw;
+            color:#51a4e4;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-around;
+            .item{
+                box-sizing: border-box;
+                padding:0 100/@vw 0 25/@vw;
+                width:100%;
+                height:71/@vh;
+                border-radius: 5/@vw;
+                background: rgba(30,63,103,0.3);
+                border-bottom: 1/@vh solid #1e3c59;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                span:nth-child(1){
+                    width:45/@vw;
+                    height:45/@vw;
+                    color:#fff;
+                    text-align: center;
+                    line-height: 45/@vw;
+                    background: #51a4e4;
+                    border-radius: 50%;
+                }
+                span:nth-child(2){
+                    width:460/@vw;
+                }
+            }
+            .item:nth-child(1){
+                color:#f2305d;
+                span:nth-child(1){
+                    background: #f76179;
+                }
+            }
+            .item:nth-child(2){
+                color:#ffd08d;
+                span:nth-child(1){
+                    background: #e6a953;
+                }
+            }
+            .item:nth-child(3){
+                color:#32b8b5;
+                span:nth-child(1){
+                    background: #32b8b5;
+                }
+            }
+            .item:hover{
+                cursor: pointer;
+                background: rgba(47,128,237,0.2);
+                border-color: transparent;
+                box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
+            }
+        }
+        
+    }
+}

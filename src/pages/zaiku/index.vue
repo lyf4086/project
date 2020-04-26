@@ -172,6 +172,7 @@ export default {
       if (jigou_id) {
         params.append("id", objs.id);
       }
+
       params.append("page", objs.page);
       params.append("sign", sign);
       params.append("token", token);

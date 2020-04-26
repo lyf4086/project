@@ -1,9 +1,13 @@
 @vw:19.2vw;
 @vh:10.8vh;
 @rem:100rem;
+@vw2:38.4vw;
+@vh2:21.6vh;
 .wrap{
     width:100%;
     height:100%;
+    position: relative;
+    overflow: hidden;
     .cover{
       position: fixed;
       top:0;
@@ -162,4 +166,64 @@
           background: url('../../assets/img/leader3.png') no-repeat;
           background-size: 100% 100%;
       }
+}
+
+.container{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 99;
+  width: 1530/@vw2;
+  height:1580/@vh2;
+  box-sizing: border-box;
+  padding:60/@vh2 60/@vw2;
+}
+
+.put2{
+  width:300px;
+}
+.input-with-select{
+  box-shadow: 0 0 20px rgba(54, 46, 46,.5);
+}
+.pic1{
+  width: 845/@vw2;
+  height:730/@vh2;
+  margin-top: 40/@vh2;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(54, 46, 46,.5);
+}
+.pic2{
+  width: 845/@vw2;
+  height:510/@vh2;
+  margin-top: 40/@vh2;
+  border-radius: 10px;
+  background:#fff;
+  box-shadow: 0 0 20px rgba(54, 46, 46,.4);
+}
+
+.goback{
+  transition: 0.3s;
+  position: absolute;
+  top:126/@vh2;
+  right:0;
+  z-index: 99;
+  width:80/@vw2;
+  height:345/@vh2;
+  background: url(../../assets/sucai/toback.png) no-repeat;
+  background-size: 100% 100%;
+
+}
+.goback.hidden{
+  right: -80/@vw2;
+}
+.task-list{
+  transition: 0.3s;
+  position: absolute;
+  top:126/@vh2;
+  right:25/@vw2;
+  z-index: 99;
+}
+.task-list.hidden{
+  right: -1240/@vw2;
 }

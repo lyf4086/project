@@ -278,8 +278,8 @@
           background-color: rgb(43, 131, 183);
         }
         .lookmore {
-          color: #333;
-          background: #6bcff7;
+          color: #fff;
+          // background: #6bcff7;
           border-radius: 3/@rem;
           padding: 3/@rem;
           transform: scale(0.8);
@@ -603,21 +603,20 @@
         margin-bottom: -6/@rem;
         margin-right: 6/@rem;
       }
-
       span:nth-child(1)::before {
-        background: url(../../assets/img/litao-i.png) no-repeat;
-        background-size: 100% 100%;
+        background: url(../../assets/img/litao-i.png) no-repeat center;
+        background-size: 90% 90%;
       }
 
       span:nth-child(2)::before {
-        background: url(../../assets/img/rutao-i.png) no-repeat;
-        background-size: 100% 100%;
+        background: url(../../assets/img/rutao-i.png) no-repeat center;
+        background-size: 100% 60%;
       }
 
       span:nth-child(3)::before {
-        height: 28/@rem;
+        height: 23/@rem;
         margin-bottom: -6/@rem;
-        background: url(../../assets/img/fanwei-i.png) no-repeat;
+        background: url(../../assets/img/fanwei-i.png) no-repeat center;
         background-size: 100% 100%;
       }
 
@@ -847,7 +846,10 @@ div.info-bottom img {
   top: 50%;
   transform: translateY(-50%);
   font-size: 16/@rem;
-
+  .sel{
+    box-sizing: border-box;
+    border:1/@rem solid #0198dd;
+  }
   .del-area {
     width: 105/@rem;
     height: 36/@rem;
@@ -1112,7 +1114,7 @@ div.info-bottom img {
       }
       .item1 .icon{
         background: url(../../assets/img/hh.png) no-repeat center center;
-        background-size: 80% 80%;
+        background-size: 70% 80%;
       }
       .item2 .icon{
         background: url(../../assets/img/bd.png) no-repeat center center;
@@ -1120,11 +1122,11 @@ div.info-bottom img {
       }
       .item3 .icon{
         background: url(../../assets/img/jz.png) no-repeat center center;
-        background-size: 80% 70%;
+        background-size: 70% 70%;
       }
       .item4 .icon{
         background: url(../../assets/img/wf.png) no-repeat center center;
-        background-size: 80% 70%;
+        background-size: 70% 70%;
       }
       .active{
         box-sizing: border-box;
@@ -1136,7 +1138,7 @@ div.info-bottom img {
       }
       .item1.active .icon{
         background: url(../../assets/img/hh.png) no-repeat center center;
-        background-size: 80% 80%;
+        background-size: 70% 80%;
       }
       .item2.active .icon{
         background: url(../../assets/img/bd.png) no-repeat center center;
@@ -1144,11 +1146,11 @@ div.info-bottom img {
       }
       .item3.active .icon{
         background: url(../../assets/img/jz.png) no-repeat center center;
-        background-size:  80% 70%;
+        background-size:  70% 70%;
       }
       .item4.active .icon{
         background: url(../../assets/img/wf.png) no-repeat center center;
-        background-size:  80% 70%;
+        background-size:  70% 70%;
       }
     }
   }

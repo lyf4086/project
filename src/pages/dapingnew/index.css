@@ -1,0 +1,305 @@
+#wrap {
+  width: 100%;
+  height: 100%;
+  background: url('../../assets/sucai/bg.png') no-repeat center;
+  background-size: 100% 100%;
+}
+.top {
+  position: relative;
+  width: 100%;
+  height: 7.22222222vh;
+  background: url('../../assets/sucai/top.png') no-repeat center;
+  background-size: 100% 100%;
+}
+.top button {
+  position: absolute;
+  left: 0.52083333vw;
+  top: 0.52083333vw;
+  font-size: 0.78125vw;
+  background: #5184c5;
+  padding: 0.26041667vw 0.52083333vw;
+  border-radius: 0.26041667vw;
+  opacity: 0;
+}
+.top button:hover {
+  opacity: 1;
+}
+.content {
+  width: 100%;
+  height: 92.77777778vh;
+  display: flex;
+}
+.content .left {
+  box-sizing: border-box;
+  padding: 2.77777778vh 0 0 1.5625vw;
+  width: 24.140625vw;
+  height: 100%;
+}
+.content .left .title {
+  width: 9.63541667vw;
+  height: 4.16666667vh;
+  font-size: 1.85185185vh;
+  line-height: 2.77777778vh;
+  font-size: 1.04166667vw;
+  color: #fff;
+}
+.content .left .title::before {
+  content: '';
+  display: inline-block;
+  width: 0.52083333vw;
+  height: 1.85185185vh;
+  background: #3aecfd;
+  border-radius: 0.13020833vw;
+  margin-right: 0.625vw;
+  position: relative;
+  top: 0.27777778vh;
+}
+.content .left .item1 {
+  width: 100%;
+  height: 13.88888889vh;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.content .left .item1 .btns {
+  width: 12.76041667vw;
+  height: 4.16666667vh;
+  white-space: nowrap;
+}
+.content .left .item1 .btns button {
+  font-size: 1.2962963vh;
+  color: #fff;
+  width: 6.14583333vw;
+  height: 3.7037037vh;
+  background: url(../../assets/sucai/left_button.png) no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.content .left .item1 .btns button:hover {
+  color: #0A2846;
+  background: url(../../assets/sucai/left_button_hover.png) no-repeat;
+  background-size: 100% 100%;
+}
+.content .left .item1 .bar {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0.46296296vh 0.49479167vw;
+  width: 10.41666667vw;
+  height: 6.01851852vh;
+  display: flex;
+  flex-wrap: wrap;
+  border: 0.05208333vw solid transparent;
+  border-radius: 0.13020833vw;
+}
+.content .left .item1 .bar > div:nth-child(1) {
+  width: 100%;
+  font-size: 0.65104167vw;
+  display: flex;
+  justify-content: space-between;
+}
+.content .left .item1 .bar > div:nth-child(1) span:nth-child(1) {
+  height: 2.77777778vh;
+  line-height: 2.77777778vh;
+  font-size: 1.2962963vh;
+  color: #fff;
+}
+.content .left .item1 .bar > div:nth-child(1) span:nth-child(2) {
+  height: 2.77777778vh;
+  line-height: 2.77777778vh;
+  font-size: 2.22222222vh;
+  color: #e58022;
+}
+.content .left .item1 .bar .chart {
+  width: 10.05208333vw;
+  height: 1.11111111vh;
+}
+.content .left .item1 .bar:hover {
+  background: rgba(47, 128, 237, 0.2);
+  border-color: #0c8ed3;
+  box-shadow: 0 1px 20px 0 rgba(58, 236, 253, 0.32), inset 0 0 13px 0 rgba(58, 236, 253, 0.3);
+}
+.content .left .item2 {
+  width: 100%;
+  height: 41.01851852vh;
+}
+.content .left .item2 .item-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+.content .left .item2 .item-wrap .item {
+  width: 25%;
+  height: 15.74074074vh;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.content .left .item2 .item-wrap .item .icon {
+  width: 5.88541667vw;
+  height: 6.66666667vw;
+  background: url(../../assets/sucai/tj_icon.png) no-repeat center;
+  background-size: 80% 80%;
+  margin-top: 0.92592593vh;
+}
+.content .left .item2 .item-wrap .item .name {
+  width: 100%;
+  height: 1.85185185vh;
+  line-height: 1.85185185vh;
+  font-size: 1.2962963vh;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  top: -0.74074074vh;
+}
+.content .left .item2 .item-wrap .item .num {
+  width: 100%;
+  height: 2.31481481vh;
+  line-height: 2.31481481vh;
+  font-size: 1.85185185vh;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  top: -0.74074074vh;
+}
+.content .left .item2 .item-wrap .item:hover .icon {
+  width: 5.88541667vw;
+  height: 6.58854167vw;
+  background: url(../../assets/sucai/tj_icon_hover.png) no-repeat center;
+  background-size: 129% 120%;
+  margin-top: 1.11111111vh;
+}
+.content .left .item2 .item-wrap .item:hover .name,
+.content .left .item2 .item-wrap .item:hover .num {
+  color: #e58022;
+}
+.content .left .item3 .list-wrap {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 26.85185185vh;
+}
+.content .left .item3 .list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.content .left .item3 .list .item {
+  width: 22.55208333vw;
+  height: 5.37037037vh;
+  border: 0.02604167vw solid #194a66;
+  box-sizing: border-box;
+  padding: 0 0.625vw;
+  justify-content: flex-start;
+  font-size: 0.703125vw;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content .left .item3 .list .item .l {
+  width: 1.71875vw;
+  height: 4.62962963vh;
+  display: flex;
+  justify-content: space-around;
+}
+.content .left .item3 .list .item .l i {
+  width: 0.88541667vw;
+  height: 0.88541667vw;
+  background: url(../../assets/sucai/red_y.png) no-repeat center;
+  background-size: 100% 100%;
+  margin-top: 0.52083333vw;
+}
+.content .left .item3 .list .item .c {
+  box-sizing: border-box;
+  padding-top: 0.26041667vw;
+  line-height: 1.09375vw;
+  padding-right: 2.60416667vw;
+  width: 20.05208333vw;
+}
+.content .left .item3 .list .item .c span {
+  margin-right: 0.65104167vw;
+}
+.content .left .item3 .list .item .c span:nth-child(2) {
+  color: #3AECFD;
+}
+.content .left .item3 .list .item .c span:nth-child(4) {
+  color: #ff6e6e;
+}
+.content .left .item3 .list .item:hover {
+  cursor: pointer;
+  background: rgba(47, 128, 237, 0.2);
+  border-color: #0c8ed3;
+  box-shadow: 0 1px 20px 0 rgba(58, 236, 253, 0.32), inset 0 0 13px 0 rgba(58, 236, 253, 0.3);
+}
+.content .center {
+  width: 51.40625vw;
+  height: 100%;
+}
+.content .right {
+  width: 24.453125vw;
+  height: 100%;
+}
+.cover {
+  position: absolute;
+  z-index: 888;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+.dialog {
+  box-sizing: border-box;
+  border: 0.13020833vw solid #14568c;
+  border-radius: 0.26041667vw;
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 49.73958333vw;
+  height: 52.59259259vh;
+  padding: 0 1.97916667vw 0;
+  background: rgba(6, 37, 70, 0.9);
+}
+.dialog .del {
+  position: absolute;
+  right: 0.9375vw;
+  top: 1.66666667vh;
+  border: none;
+  background: none;
+  width: 0.78125vw;
+  height: 0.78125vw;
+  color: #93a0af;
+  font-size: 0.9375vw;
+}
+.dialog .title {
+  width: 45.72916667vw;
+  height: 6.94444444vh;
+  font-size: 1.30208333vw;
+  color: #fff;
+  border-bottom: 0.09259259vh solid #14568c;
+  line-height: 6.94444444vh;
+  text-align: center;
+  background: url(../../assets/sucai/line.png) no-repeat center top;
+  background-size: 29.42708333vw 0.55555556vh;
+}
+.dialog .content {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  padding-top: 6.94444444vh;
+  width: 45.72916667vw;
+  height: 100%;
+  color: #fff;
+  font-size: 0.78125vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

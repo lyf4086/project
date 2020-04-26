@@ -8,6 +8,7 @@
                     :props="defaultProps"
                     :highlight-current="true"
                     node-key="id"
+                    accordion
                      :current-node-key="currentNodeKey"
                     @node-click="handleNodeClick"
                     :default-expanded-keys="zhankai"
@@ -49,11 +50,16 @@
             <button @click="del">删除</button>
         </div>
         <div class="content" >
-            <Content :dataArr="dataList" @changeAll="changeAll"/>
+            <Content :dataArr="dataList" @dbc="dbc" @changeAll="changeAll"/>
+        </div>
+        <div class="cover" v-show="video">
+          <button class="colse11" @click="closeVideo">X</button>
+          <video autoplay="true" controls="true" id="video" :src="vsrc"></video>
         </div>
         <div class="cover" v-show="upDataShow">
+            
           <div class="alert">
-            <div class="content">
+            <div class="content" v-show="upDataShow">
               <!-- <el-form-item label="视频上传" prop="Video"> -->
                 <!-- action必选参数, 上传的地址 -->
                 <div class="floor">
@@ -123,8 +129,7 @@ import Content from './children/content'
         components:{breadNav,Content},
           data() {
           return {
-            // URL:this.$store.state.baseURL+"/weixin/project/index.php?m=Home&c=Video&a=upload",//原地址
-            URL:this.$store.state.baseURL+"/weixin/project/index.php?m=Home&c=Uploads&a=upload",//盐城地址
+            URL:this.$store.state.baseURL+"/weixin/project/index.php?m=Home&c=Uploads&a=upload",
             dataList:[],
             currentNodeKey:'',
             pageTotal:0,
@@ -153,18 +158,35 @@ import Content from './children/content'
             shipingName:'',
             t_policeuser_id:'',
             loading:null,
-            zhankai:[]
+            zhankai:[],
+            video:false,
+            vsrc:''
           };
         },
         methods: {
+          dbc(n){
+            
+            let filterDate=this.dataList[n]
+            this.vsrc=filterDate.vurl
+            this.video=true
+          },
+          closeVideo(){
+            this.video=false
+             this.vsrc=''
+          },
           downloadVidio(){
+            
             let filterDate=this.dataList.filter(e=>e.checked)
             if(!filterDate.length){
               this.$message('请选择要预览的视频')
             }else if(filterDate.length>1){
               this.$message('请单个预览')
+              return
             }else{
-              console.log(filterDate[0].vurl)
+              this.video=true
+              this.vsrc=filterDate[0].vurl
+              //改为播放器预览
+              // return
               var link = document.createElement('a');
               link.href=filterDate[0].vurl
               // link.href = window.URL.createObjectURL(filterDate[0].vurl);
@@ -182,6 +204,7 @@ import Content from './children/content'
             this.qiangzhiSel='';
             this.shipingName='';
             this.videoForm.Video=''
+            this.video=false
           },
           yanzheng(ev){
              this.$message({

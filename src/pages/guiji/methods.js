@@ -435,19 +435,20 @@ function searchHistory(IMEI, stime, etime, ps = 999) { //......获取历史轨�
 }
 
 function creatInfoBox(item, res) {
+  console.log('item',item)
   window.setTimeout(() => { //如果没有手动关闭，20秒之后自动关闭
     closeInfoWindow()
   }, 15000)
   let that = this
   let map = this.map
-  var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item.Ge.title || "暂无"}</span>`,
+  var title = `警员姓名：<span style="font-size:11px;color:#F00;">${item[this.fuckName].title || "暂无"}</span>`,
     content = [];
-  content.push(`<div class="tou_wrap"><img alt="头像" src='${item.Ge.src}' style="width:1rem;"></div>`)
-  content.push(`<div class="map_txt_wrap">所属机构：${item.Ge.jigou}<br/>枪支类型：${item.Ge.gtype}`); 
-  content.push(`枪支编号:${item.Ge.positions}`);
+  content.push(`<div class="tou_wrap"><img alt="头像" src='${item[this.fuckName].src}' style="width:1rem;"></div>`)
+  content.push(`<div class="map_txt_wrap">所属机构：${item[this.fuckName].jigou}<br/>枪支类型：${item[this.fuckName].gtype}`); 
+  content.push(`枪支编号:${item[this.fuckName].positions}`);
   content.push(`是否在线:${that.newIsOnline[res] == 1 ? "在线" : "不在线"}`);
   content.push(`定位类型:${that.newType[res]}`);
-  content.push(`枪瞄编号:${item.Ge.IMEI}`);
+  content.push(`枪瞄编号:${item[this.fuckName].IMEI}`);
   content.push(`最后定位时间:<span class="last_time">${that.last_time_arr[res]}</span></div>`);
 // 测试弹窗
   var infoWindow = new AMap.InfoWindow({
@@ -795,21 +796,16 @@ function setWarningRange() {
 }
 
 function setMarker(ev) {
-
   let map = this.map
   var marker = new AMap.Marker({
-    position: new AMap.LngLat(ev.lnglat.Q, ev.lnglat.P)
+    position: new AMap.LngLat(ev.lnglat.lng, ev.lnglat.lat)
 
   });
-
   this.markerArr.push(marker)
-
   map.add(marker)
-
 }
 
 function startSetArea() {
-  console.log('this.clickTrue',this.clickTrue)
   if (!this.clickTrue) return;
   this.clickTrue = false
   let map = this.map;
@@ -829,7 +825,8 @@ function confirmSetArea() {
   this.clickTrue = true
   let map = this.map
   let that = this
-  let arr = this.markerArr.map(e => e.Ge.position)
+  console.log(this.markerArr)
+  let arr = this.markerArr.map(e => e[this.fuckName].position)
 
   //.....................下面式设置带背景色区域，暂时不会清除这个区域
   var polygon = new AMap.Polygon({
@@ -968,7 +965,7 @@ function getAlarmList() { //.....获取报警区域列表
       this.value = data.data.ltype[0].id
       this.allAlarmAreaList = data.data.data
 
-      let s1 = `<option value="" disabled selected >请选择</option>`
+      let s1 = `<option value="" disabled selected >请选择报警区域</option>`
       let str = this.allAlarmAreaList.map(item => {
         return `<option value="${item.area_alarm_id}">${item.area_alarm_name}</option>`
       })
@@ -1052,7 +1049,8 @@ function showOneAlarmPolygon(arr, id, state = 0) {
     var contextMenu = new AMap.ContextMenu();
     contextMenu.addItem("删除该区域", function () {
       polygon.hide()
-      that.delOneAlarmArea(ev.target.Ge.area_alarm_id)
+      console.log(ev.target)
+      that.delOneAlarmArea(ev.target[that.fuckName].area_alarm_id)
       that.shuaXinMap()
       that.filterMessage.uname = ''
     }, 0);
@@ -1192,15 +1190,16 @@ function unifromSpeedMoveing(newPositionArr) { //匀速运动
   //   console.log(this.setWarning)
   //   return
   // }
+  
   let that = this
   this.oldPositionArr = this.markerArr.map(item => {
     return {
-      "IMEI": item.Ge.IMEI,
+      "IMEI": item[this.fuckName].IMEI,
       "astate":"",
       "das":[],
       "heart":"",//是否在线。默认不在线
-      "lng": item.Ge.position.lng - 0,
-      "lat": item.Ge.position.lat - 0
+      "lng": item[this.fuckName].position.lng - 0,
+      "lat": item[this.fuckName].position.lat - 0
     }
   })
   

@@ -20,10 +20,16 @@ let gscookie={
     // }
 
     setCookie(key,value){ //....................这里并不是cookie
+      // console.log('存session',key,JSON.stringify(value))
       sessionStorage.setItem(key,JSON.stringify(value))
+     
     },
     getCookie(key){
-      return JSON.parse(sessionStorage.getItem(key))||{}
+      if(sessionStorage.getItem(key)){
+        return JSON.parse(sessionStorage.getItem(key))
+      }else{
+        return {}; 
+      }
     }
 
 

@@ -693,7 +693,7 @@ function getAlarmList() { //.....获取报警区域列表
       this.options = data.data.ltype
       this.optionsStr = data.data.ltype.map(item => `<option value=${item.id}>${item.loca_name}</option>`)
       this.value = data.data.ltype[0].id
-      let s1 = `<option value="" disabled selected >请选择</option>`
+      let s1 = `<option value="" disabled selected >请选择报警区域</option>`
       let str = this.allAlarmAreaList.map(item => {
         return `<option value="${item.area_alarm_id}">${item.area_alarm_name}</option>`
       })

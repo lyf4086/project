@@ -13,6 +13,14 @@ Vue.use(ElementUI)
 // import AMap from 'vue-amap'
 // Vue.use(AMap);
 
+// import VueSocketIO from 'vue-socket.io'
+// Vue.use(new VueSocketIO({
+//     debug: true,
+//     connection: '',  //
+// }))
+
+
+
 import axios from 'axios';
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
@@ -38,13 +46,13 @@ Vue.use(gscookie)
 // Vue.use(md5)
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
+import 'echarts/map/js/china'
 import 'echarts-gl';
 
-import 'echarts/theme/macarons.js'
+// import 'echarts/theme/macarons.js'
 
 Vue.config.productionTip = false
-
-
+// Vue.prototype.$key='4678245fdf468c45d961a77b842e7f19'
 
 /* eslint-disable no-new */
 new Vue({

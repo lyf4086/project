@@ -244,6 +244,7 @@ export default {
   mounted() {
     this.getData();
     this.getData_chart2();
+    
   }
 };
 </script>

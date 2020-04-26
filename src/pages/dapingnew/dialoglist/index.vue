@@ -1,0 +1,170 @@
+<template>
+    <div class="dialog">
+         <i class="el-icon-close del" @click="close"></i>
+        <div class="title">
+            <div>任务列表</div>
+            <div>查看全部位置</div>
+        </div>
+        <div class="content">
+            <div class="item" v-for="e in 8">
+                <span></span>
+                <span>警卫国庆</span>
+                <span>张明达</span>
+                <span>带队</span>
+                <span><i>10</i>人</span>
+                <span><i>10</i>把枪</span>
+                <span><i>100</i>发子弹</span>
+                <span>详情</span>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    data(){
+        return {
+
+        }
+    },
+    methods:{
+        close(){
+            this.$emit('close')
+        }
+    }
+}
+</script>
+<style lang="less" scoped>
+@vw:38.4vw;
+@vh:21.6vh;
+.dialog{
+    box-sizing: border-box;
+    border:5/@vw solid #14568c;
+    border-radius: 10/@vw;
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width:1910/@vw;
+    height:1140/@vh;
+    padding: 0 76/@vw 0;
+    background: rgba(6,37,70,0.9);
+    .del{
+        position: absolute;
+        right:36/@vw;
+        top:36/@vh;
+        border:none;
+        background: none;
+        width:30/@vw;
+        height:30/@vw;
+        color:#93a0af;
+        font-size: 36/@vw;
+    }
+    .title{
+        width:100%;
+        height:150/@vh;
+        font-size: 45/@vw;
+        font-weight: bold;
+        color:#fff;
+        border-bottom: 2/@vh solid #14568c;
+        line-height: 150/@vh;
+        text-align: center;
+        background: url(../../../assets/sucai/line.png) no-repeat center top;
+        background-size: 1130/@vw 12/@vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &>div:nth-child(1){
+            &::before{
+                display: inline-block;
+                content:"";
+                width: 54/@vw;
+                height:50/@vh;
+                background: url(../../../assets/sucai/gou1.png) no-repeat;
+                background-size: 100% 100%;
+                margin:0 30/@vw 0;
+            }
+        }
+        &>div:nth-child(2){
+            font-size: 30/@vw;
+            width: 235/@vw;
+            height:80/@vh;
+            line-height: 80/@vh;
+            margin-right: 30/@vw;
+            background: url(../../../assets/sucai/left_button.png) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+    .content{
+        width:100%;
+        height:930/@vh;
+        box-sizing: border-box;
+        padding:50/@vh 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: space-between;
+        .item{
+            box-sizing: border-box;
+            font-size: 26/@vw;
+            color:#fff;
+            width:100%;
+            height:80/@vh;
+            border:2/@vw solid #165483;
+            background: #0d3863;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span:nth-child(1){
+                width: 36/@vw;
+                height:36/@vw;
+                background: url(../../../assets/sucai/red_y.png) no-repeat;
+                background-size: 100% 100%;
+                margin: 0 35/@vw;
+            }
+            span:nth-child(2){
+                width:238/@vw
+            }
+            span:nth-child(3){
+                 width:190/@vw;
+                 color:#3aecfd;
+            }
+            span:nth-child(4){
+                width:125/@vw
+            }
+            span:nth-child(5){
+                width:175/@vw;
+                i{
+                    color: #3ead68;
+                    margin-right: 15/@vw;
+                }
+            }
+            span:nth-child(6){
+                width:205/@vw;
+                i{
+                    color:#3aecfd;
+                    margin-right: 15/@vw;
+                }
+            }
+            span:nth-child(7){
+                width:540/@vw;
+                i{
+                    color:#ff6e6e;
+                    margin-right: 15/@vw;
+                }
+            }
+            span:nth-child(8){
+                width:160/@vw;
+                color: #54a9ea;
+            }
+        
+        }
+        .item:hover{
+            cursor: pointer;
+                background: rgba(47,128,237,0.2);
+                border-color: transparent;
+                box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
+        }
+    }
+}
+</style>

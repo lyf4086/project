@@ -21,7 +21,7 @@
         <span>{{item.policeName}}</span>
         <span>{{item.policeNum}}</span>
         <span>{{item.gun_code}}</span>
-        <span>{{item.vname}}</span>
+        <span class="db" @click="dbc(index)">{{item.vname}}</span>
         <span>{{item.org_name}}</span>
         <span>{{item.cname}}</span>
         <span>{{item.creatime}}</span>
@@ -84,6 +84,9 @@ export default {
     }
   },
   methods: {
+    dbc(index){
+      this.$emit('dbc',index)
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },

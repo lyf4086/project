@@ -281,7 +281,7 @@ export default {
             this.upShow=true
             this.iconList = data.data.data;
             this.time = data.data.time;
-            this.timermove = setTimeout(() => {
+            this.timermove = window.setTimeout(() => {
               this.zuodonghua();
             }, 5000);
           }
@@ -405,8 +405,8 @@ export default {
     
   },
   beforeDestroy() {
-    clearTimeout(this.timermove);
-    clearInterval(this.timer1);
+    window.clearTimeout(this.timermove);
+    window.clearInterval(this.timer1);
   }
 };
 </script>

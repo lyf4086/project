@@ -4,7 +4,6 @@
         :data="data"
         :props="defaultProps"
         accordion
-        accordion
         node-key="id"
         current-node-key="248"
         default-expand-all

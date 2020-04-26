@@ -141,6 +141,7 @@
     <div class="tixing">
       <div id="warning">这里是枪支归还提醒</div>
     </div>
+    <!-- <audio controls="controls" src='https://www.w3school.com.cn/i/horse.ogg' ref="audio"></audio> -->
   </div>
 </template>
 
@@ -148,8 +149,10 @@
 import { setInterval, clearInterval, setTimeout } from "timers";
 
 export default {
+  
   data() {
     return {
+      audioSrc:'',
       baseURL:this.$store.state.baseURL,
       uploadImgURL:this.$store.state.baseURL+"/weixin/project/index.php?m=home&c=Policeuser&a=upload",
       moveTimer: null,
@@ -215,12 +218,18 @@ export default {
       tb: false,
       sync: "",
       loading:null,
-      timer11:null
+      timer11:null,
+      timerTishi:null
     };
   },
   methods: {
+    playAudio(){
+      let audio=document.querySelector('audio')
+       audio.currentTime = 0; //从头开始播放提示音
+      audio.play(); //播放
+    },
     toBigScreem(){
-      this.$router.push('/daping')
+      this.$router.push('/dapingnew')
     },
     tongbu() {
       let that = this;
@@ -659,7 +668,16 @@ export default {
     this.mes = this.$gscookie.getCookie("message_obj");
     this.userId.id = this.mes.id;
   },
+  beforeDestroy(){
+    clearInterval(this.timerTishi)
+  },
   mounted() {
+    
+    this.timerTishi=setInterval(()=>{
+      // console.log('开始播放')
+      this.$store.commit('playAudio','long')
+    },60000)
+    //提示音
     this.timer11=setInterval(() => {
       this.setTimer()
     }, 1000000);

@@ -70,9 +70,9 @@ function getBujiupian(IMEI,stime,etime){
               })
       
               function creatInfoBox(item) {
-                var title = `定位类型：<span style="font-size:11px;color:#F00;">${item.Ge.type}</span>`,
+                var title = `定位类型：<span style="font-size:11px;color:#F00;">${item[that.fuckName].type}</span>`,
                   content = [];
-              content.push(`定位时间：${item.Ge.time}`);
+              content.push(`定位时间：${item[that.fuckName].time}`);
                 content.push("<br/>");      
                 var infoWindow = new AMap.InfoWindow({
                   isCustom: true, //使用自定义窗体

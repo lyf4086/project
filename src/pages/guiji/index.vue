@@ -316,6 +316,7 @@ export default {
   components: { Tag },
   data() {
     return {
+      fuckName:this.$store.state.fuckName,//高德地图经常变化的经纬度对象名称
       spanActive:0,
       alarmSel:'',
       map: "",
@@ -693,8 +694,9 @@ export default {
       let gun_ids11 = newArr1.map(e => e.gun_id);
 
       let ip_ids = newArr1.map(item => item.ip_id);
-      let pointsArr11 = this.markerArr.map(
-        e => `${e.Ge.position.lng}|${e.Ge.position.lat}`
+      let pointsArr11 = this.markerArr.map(e => {
+          return `${e[this.fuckName].position.lng}|${e[this.fuckName].position.lat}`
+        }
       );
       let policeuser_id = this.selectedPerson.policeuser_id;
       let s_t = this.startTime.replace("T", " ");
@@ -735,7 +737,7 @@ export default {
       // console.log('247',arr,id)
       let map = this.map;
       let that = this;
-      let arr2 = arr.map(e => e.Ge.position);
+      let arr2 = arr.map(e => e[that.fuckName].position);
       var polygon = new AMap.Polygon({
         path: arr2,
         fillColor: "rgba(165,233,170,0.5)", // 多边形填充颜色
@@ -750,7 +752,7 @@ export default {
           "删除该区域",
           function() {
             polygon.hide();
-            that.delOneAlarmArea(ev.target.Ge.area_alarm_id);
+            that.delOneAlarmArea(ev.target[that.fuckName].area_alarm_id);
           },
           0
         );
@@ -822,7 +824,7 @@ export default {
             "删除该区域",
             function() {
               e.hide(); //
-              that.delOneAlarmArea(ev.target.Ge.area_alarm_id);
+              that.delOneAlarmArea(ev.target[this.fuckName].area_alarm_id);
             },
             0
           );
@@ -830,7 +832,7 @@ export default {
             "显示该区域人员",
             function() {
               // console.log("显示该区域人员", ev.target.Ge.area_alarm_id);
-              that.getOneAlarmArea(ev.target.Ge.area_alarm_id);
+              that.getOneAlarmArea(ev.target[this.fuckName].area_alarm_id);
             },
             1
           );
@@ -994,7 +996,7 @@ export default {
       this.checkedPersonArr.length = 0;
       //清除循环请求是否超出区域的定时器
       window.clearInterval(this.areaTimer);
-
+      this.alarmSel='' //把选择框数据清空
       this.shuaXinMap(); //......刷新地图
       this.$refs.alarmSelect.value = "";
       this.setWarning = false; //..........关闭设置报警区域
@@ -1088,6 +1090,7 @@ export default {
       }
     },
     binaZuBack() {
+      this.spanActive=0
       this.bianzu_list_show=false
       this.checked_person_show = !this.checked_person_show;
     },
@@ -1261,24 +1264,20 @@ return
     this.role_id = this.$gscookie.getCookie("message_obj").role_id;
   },
   mounted() {
-    
-     
     //调用报警方法，
     this.timer2 = setInterval(() => {
       this.hasWarning();
     }, 10000);
-
     document.addEventListener("click", function(ev) {
       if (ev.target.className == "to_xiangqing") {
         console.log(ev.target.dataset.d);
       }
     });
-
     let that = this;
     this.shuaXinMap();
-
-    document.querySelector(".amap-logo").style.display = "none";
-    document.querySelector(".amap-copyright").style.opacity = "0";
+    //这里是报错根源
+    // document.querySelector(".amap-logo").style.display = "none";
+    // document.querySelector(".amap-copyright").style.opacity = "0";
   },
   beforeDestroy() {
     // console.log('this.timer销毁前')

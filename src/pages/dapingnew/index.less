@@ -1,0 +1,331 @@
+
+@vw:38.4vw;
+@vh:21.6vh;
+
+
+
+#wrap{
+    width:100%;
+    height:100%;
+    background: url('../../assets/sucai/bg.png') no-repeat center;
+    background-size:  100% 100%;
+}
+.top{
+    position: relative;
+    width:100%;
+    height:156/@vh;
+    background: url('../../assets/sucai/top.png') no-repeat center;
+    background-size:  100% 100%;
+    button{
+        position: absolute;
+        left: 20/@vw;
+        top:20/@vw;
+        font-size: 30/@vw;
+        background: rgb(81, 132, 197);
+        padding:10/@vw 20/@vw;
+        border-radius: 10/@vw;
+        opacity: 0;
+    }
+    button:hover{
+        opacity: 1;
+    }
+}
+.content{
+    width:100%;
+    height:2004/@vh;
+    // background: pink;
+    display: flex;
+    .left{
+        box-sizing: border-box;
+        padding: 60/@vh 0 0 60/@vw;
+        width:927/@vw;
+        height:100%;
+        // background: #777;
+        .title{
+            width:370/@vw;
+            height:90/@vh;
+            font-size: 40/@vh;
+            line-height: 60/@vh;
+            font-size: 40/@vw;
+            color:#fff;
+            &::before{
+                content:'';
+                display: inline-block;
+                width:20/@vw;
+                height:40/@vh;
+                background: #3aecfd;
+                border-radius: 5/@vw;
+                margin-right: 24/@vw;
+                position: relative;
+                top:6/@vh
+            }
+        }
+        .item1{
+            width: 100%;
+            height:300/@vh;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            
+            .btns{
+                width:490/@vw;
+                height:90/@vh;
+                white-space: nowrap;
+                button{
+                    font-size: 28/@vh;
+                    color:#fff;
+                    width:236/@vw;
+                    height:80/@vh;
+                    background: url(../../assets/sucai/left_button.png) no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                button:hover{
+                    color:#0A2846;
+                    background: url(../../assets/sucai/left_button_hover.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+            .bar{
+                cursor: pointer;
+                box-sizing: border-box;
+                padding: 10/@vh 19/@vw;
+                width:400/@vw;
+                height:130/@vh;
+                display: flex;
+                flex-wrap: wrap;
+                border:2/@vw solid transparent;
+                border-radius: 5/@vw;
+                &>div:nth-child(1){
+                    width: 100%;
+                    font-size: 25/@vw;
+                    display: flex;
+                    justify-content: space-between;
+                    span:nth-child(1){
+                        // width: 50%;
+                        height:60/@vh;
+                        line-height: 60/@vh;
+                        font-size: 28/@vh;
+                        color: #fff;
+                    }
+                    span:nth-child(2){
+                        // width: 50%;
+                        height:60/@vh;
+                        line-height: 60/@vh;
+                        font-size: 48/@vh;
+                        color: #e58022;
+                    }
+                }
+                .chart{
+                    width:386/@vw;
+                    height:24/@vh;
+                    // background: #30edff;
+                }
+            }
+            .bar:hover{
+                background: rgba(47,128,237,0.2);
+                border-color: #0c8ed3;
+                box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
+            }
+        }
+        .item2{
+            width: 100%;
+            height:886/@vh;
+            .item-wrap{
+                width:100%;
+                height:100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-content: flex-start;
+                .item{
+                    width:25%;
+                    height:340/@vh;
+                    display: flex;
+                    justify-content: space-around;
+                    flex-wrap: wrap;
+                    align-content: flex-start;
+                    .icon{
+                        width: 226/@vw;
+                        height:256/@vw;
+                        background: url(../../assets/sucai/tj_icon.png) no-repeat center;
+                        background-size: 80% 80%;
+                        margin-top: 20/@vh;
+                    }
+                    .name{
+                        width:100%;
+                        height:40/@vh;
+                        line-height: 40/@vh;
+                        font-size: 28/@vh;
+                        color:#fff;
+                        text-align: center;
+                        position: relative;
+                        top:-16/@vh
+                    }
+                    .num{
+                        width:100%;
+                        height:50/@vh;
+                        line-height: 50/@vh;
+                        font-size: 40/@vh;
+                        font-weight: bold;
+                        color:#fff;
+                        text-align: center;
+                        position: relative;
+                        top:-16/@vh
+                    }
+                }
+                .item:hover{
+                    .icon{
+                        width: 226/@vw;
+                        height:253/@vw;
+                        background: url(../../assets/sucai/tj_icon_hover.png) no-repeat center;
+                        background-size: 129% 120%;
+                        margin-top: 24/@vh;
+                    }
+                    .name,.num{
+                        color:#e58022
+                    }
+                }
+            }
+        }
+        .item3{
+            .list-wrap{
+                overflow: hidden;
+                position: relative;
+                width:100%;
+                height:580/@vh;
+            }
+            .list{
+                position: absolute;
+                top:0;
+                left:0;
+                width:100%;
+                .item{
+                    width:866/@vw;
+                    height:116/@vh;
+                    box-sizing: border-box;
+                    border: 1/@vw solid #194a66;
+                    box-sizing: border-box;
+                    padding:0 24/@vw;
+                    display: flex;
+                    justify-content: flex-start;
+                    font-size: 27/@vw;
+                    color: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                    .l{
+                        width:66/@vw;
+                        height:100/@vh;
+                        display: flex;
+                        justify-content: space-around;
+                        
+                        i{
+                            width:34/@vw;
+                            height:34/@vw;
+                            background: url(../../assets/sucai/red_y.png) no-repeat center;
+                            background-size: 100% 100%;
+                            margin-top: 20/@vw;
+                        }
+                    }
+                    .c{
+                        box-sizing: border-box;
+                        padding-top: 10/@vw;
+                        line-height: 42/@vw;
+                        padding-right: 100/@vw;
+                        width: 770/@vw;
+                        span{
+                            margin-right: 25/@vw;
+                        }
+                        span:nth-child(1){
+                            
+                        }
+                        span:nth-child(2){
+                            color: #3AECFD;
+                        }
+                        span:nth-child(3){
+                            
+                        }
+                        span:nth-child(4){
+                            color: #ff6e6e;
+                        }
+                    }
+                    
+                }
+                .item:hover{
+                    cursor: pointer;
+                    background: rgba(47,128,237,0.2);
+                    border-color: #0c8ed3;
+                    box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
+                }
+            }
+        }
+    }
+    .center{
+        width:1974/@vw;
+        height:100%;
+    }
+    .right{
+        width:939/@vw;
+        height:100%;
+    }
+}
+.cover{
+    position: absolute;
+    z-index: 888;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background: rgba(0,0,0,0.5);
+}
+.dialog{
+    box-sizing: border-box;
+    border:5/@vw solid #14568c;
+    border-radius: 10/@vw;
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width:1910/@vw;
+    height:1136/@vh;
+    padding: 0 76/@vw 0;
+    background: rgba(6,37,70,0.9);
+    .del{
+        position: absolute;
+        right:36/@vw;
+        top:36/@vh;
+        border:none;
+        background: none;
+        width:30/@vw;
+        height:30/@vw;
+        color:#93a0af;
+        font-size: 36/@vw;
+    }
+    .title{
+        width:1756/@vw;
+        height:150/@vh;
+        font-size: 50/@vw;
+        color:#fff;
+        border-bottom: 2/@vh solid #14568c;
+        line-height: 150/@vh;
+        text-align: center;
+        background: url(../../assets/sucai/line.png) no-repeat center top;
+        background-size: 1130/@vw 12/@vh;
+    }
+    .content{
+        box-sizing: border-box;
+        position: absolute;
+        top:0;
+        padding-top: 150/@vh;
+        width:1756/@vw;
+        height:100%;
+        color:#fff;
+        font-size: 30/@vw;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+}

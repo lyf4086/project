@@ -1,0 +1,143 @@
+
+@vw:38.4vw;
+@vh:21.6vh;
+
+.up{
+    width:100%;
+    height:350/@vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 40/@vh;
+    color:#fff;
+    box-sizing: border-box;
+    padding: 0 160/@vw;
+    .number_wrap{
+        width:465/@vw;
+        height:290/@vh;
+        box-sizing: border-box;
+        border: 2/@vw solid transparent;
+        border-radius: 5/@vw;
+        padding: 40/@vh 30/@vw;
+        &>div{
+            width:98%;
+            text-align: center;
+        }
+
+        .name{
+            line-height: 60/@vh;
+            // white-space: nowrap;
+            // overflow: hidden;
+            // text-overflow: ellipsis;
+            &::before{
+                display: inline-block;
+                content:"";
+                width:40/@vw;
+                height:40/@vw;
+                background: red;
+                margin-right: 20/@vw;
+                margin-bottom: -6/@vh;
+            }
+        }
+        .num{
+            font-size: 90/@vh;
+            line-height: 110/@vh;
+            font-weight: 500;
+        }
+        .chart{
+            width:350/@vw;
+            height:50/@vh;
+            margin:0 auto;
+            background: url('../../assets/sucai/dongtu/bar.png') no-repeat center;
+            background-size: 100% 100%;
+        }
+    }
+    .number_wrap:nth-child(1){
+        .name::before{
+
+            background: url('../../assets/sucai/center_icon1.png') no-repeat center;
+            background-size: 100% 100%;
+        }
+        .num{
+            color:#14b1ff
+        }
+    }
+    .number_wrap:nth-child(2){
+        .name::before{
+
+            background: url('../../assets/sucai/center_icon2.png') no-repeat center;
+            background-size: 100% 100%;
+        }
+        .num{
+            color:#e58022
+        }
+    }
+    .number_wrap:nth-child(3){
+        .name::before{
+
+            background: url('../../assets/sucai/center_icon3.png') no-repeat center;
+            background-size: 100% 100%;
+        }
+        .num{
+            color:#32b8b5
+        }
+    }
+    .number_wrap:hover{
+        background: rgba(47,128,237,0.2);
+        border-color: #0c8ed3;
+        box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
+    }
+}
+
+.down{
+    widows: 100% ;
+    height:1650/@vh;
+    position: relative;
+    #chart{
+        position: absolute;
+        top:50/@vh;
+        left: 0;
+        right:0;
+        margin:auto;
+        z-index: 1;
+        width:100%;
+        height:85%;
+        // background: pink;
+        // height:1500/@vh;
+
+        // background: url(../../assets/sucai/map.png) no-repeat ;
+        background-size: 100% 100%;
+    }
+    .dipan{
+        position: absolute;
+        bottom: 0;
+        left:0;
+        width:100%;
+        height:480/@vh;
+        background: url(../../assets/sucai/dongtu/map_yuan.png) no-repeat ;
+        background-size: 100% 100%;
+    }
+    .mianbao{
+        box-sizing: border-box;
+        padding:0 50/@vw;
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: 11;
+        width: 800/@vw;
+        height:100/@vh;
+        line-height: 100/@vh;
+        font-size: 36/@vw;
+        font-size: 50/@vw;
+        color:#fff;
+        background: rgba(224, 230, 231, 0.1);
+        button{
+            margin:0;
+            padding:2/@vh 20/@vw;
+            border-radius: 10/@vw;
+            font-size: 30/@vw;
+            background: rgba(91, 118, 207,0.4);
+            color:#fff
+        }
+    }
+}

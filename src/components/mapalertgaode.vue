@@ -44,12 +44,9 @@ export default {
                 // position: new AMap.LngLat(obj.longitude, obj.latitude), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
                 title: this.title
             });
-           
             this.map.add(marker);
             this.map.setFitView([...marker]);
-            
             marker.on('click',function (){
-    
                that.$message({
                    type:"none",
                    message:that.mes,

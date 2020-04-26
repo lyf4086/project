@@ -39,6 +39,10 @@
   grid-template-columns: 1fr repeat(7, 5fr);
   grid-template-rows: 1fr;
 }
+.shangchuan .list .item .db {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .shangchuan .list .item span {
   text-align: center;
   border: 0.01rem solid #328dc3;

@@ -30,10 +30,10 @@
             </div>
             <div class="right_btn">
               <div class="no_click" v-if="noClick"></div>
-              <span @click="bianZuList" v-show="oldOrNew !='old'" title="人员编组"></span>
-              <span title="查看历史轨迹" @click="toHistory"></span>
-              <span @click="toBaoJing" title="报警信息"></span>
-              <span @click="setWarningRange" v-show="oldOrNew !='old'" title="开始设置报警区域"></span>
+              <span class="span1" @click="bianZuList" :class="{'active':spanActive==1}" v-show="oldOrNew !='old'" title="人员编组">人员编组</span>
+              <span class="span2" title="查看历史轨迹" :class="{'active':spanActive==2}" @click="toHistory">历史轨迹</span>
+              <span class="span3" @click="toBaoJing" :class="{'active':spanActive==3}" title="报警信息">报警信息</span>
+              <span class="span4" @click="setWarningRange" :class="{'active':spanActive==4}" v-show="oldOrNew !='old'" title="开始设置报警区域">报警区域</span>
               <p class="lookmore" @click="toOnePersonData">查看更多>></p>
             </div>
           </div>
@@ -152,7 +152,7 @@
         <select v-model="oldOrNew" @change="changeGuiJiType">
           <option value disabled selected>请选择轨迹类型</option>
           <option value="old">历史轨迹</option>
-          <option value="new">最新轨迹</option>
+          <option value="new">最新定位</option>
         </select>
       </div>
       <button @click="searchOnePerson" v-show="activeIMEI">查找</button>
@@ -314,6 +314,7 @@ export default {
   components: { Tag },
   data() {
     return {
+      spanActive:0,
       alarmSel:'',
       BM: null,
       map: null,

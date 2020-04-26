@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="cover" v-if="coverShow">12321232123</div>
+    <div class="cover" v-if="coverShow"></div>
   </div>
 </template>
 <style >
@@ -57,7 +57,8 @@ export default {
       isshow: true,
       timer: null,
       loading:null,
-      coverShow:false
+      coverShow:false,
+      fuckName:this.$store.state.fuckName
     };
   },
   methods: {
@@ -205,13 +206,13 @@ export default {
             type:'none',
             duration:3000,
             message: h('div', {style:'font-size:18px;line-height:30px;'}, [
-                h('p', null, `警员姓名：${item.Ge.title}`),
-                 h('p', null, `所属机构：${item.Ge.mechanism_name}`),
-                h('p', null, `枪瞄编号：${item.Ge.IMEI}`),
-                h('p', {  }, `枪支编号：${item.Ge.gun_code ||""}`),
-                h('p', {  }, `是否在线：${item.Ge.heart==0?"不在线":"在线"}`),
-                h('p', {  }, `所属机构：${item.Ge.mechanism_name}`),
-                h('p', {  }, `定位类型：${item.Ge.ptype}`)
+                h('p', null, `警员姓名：${item[that.fuckName].title}`),
+                 h('p', null, `所属机构：${item[that.fuckName].mechanism_name}`),
+                h('p', null, `枪瞄编号：${item[that.fuckName].IMEI}`),
+                h('p', {  }, `枪支编号：${item[that.fuckName].gun_code ||""}`),
+                h('p', {  }, `是否在线：${item[that.fuckName].heart==0?"不在线":"在线"}`),
+                h('p', {  }, `所属机构：${item[that.fuckName].mechanism_name}`),
+                h('p', {  }, `定位类型：${item[that.fuckName].ptype}`)
               ])
             });
           });

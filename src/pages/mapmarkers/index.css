@@ -1,6 +1,8 @@
 .wrap {
   width: 100%;
   height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 .wrap .cover {
   position: fixed;
@@ -148,4 +150,60 @@
   height: 0.9rem;
   background: url('../../assets/img/leader3.png') no-repeat;
   background-size: 100% 100%;
+}
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 39.84375vw;
+  height: 73.14814815vh;
+  box-sizing: border-box;
+  padding: 2.77777778vh 1.5625vw;
+}
+.put2 {
+  width: 300px;
+}
+.input-with-select {
+  box-shadow: 0 0 20px rgba(54, 46, 46, 0.5);
+}
+.pic1 {
+  width: 22.00520833vw;
+  height: 33.7962963vh;
+  margin-top: 1.85185185vh;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(54, 46, 46, 0.5);
+}
+.pic2 {
+  width: 22.00520833vw;
+  height: 23.61111111vh;
+  margin-top: 1.85185185vh;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(54, 46, 46, 0.4);
+}
+.goback {
+  transition: 0.3s;
+  position: absolute;
+  top: 5.83333333vh;
+  right: 0;
+  z-index: 99;
+  width: 2.08333333vw;
+  height: 15.97222222vh;
+  background: url(../../assets/sucai/toback.png) no-repeat;
+  background-size: 100% 100%;
+}
+.goback.hidden {
+  right: -2.08333333vw;
+}
+.task-list {
+  transition: 0.3s;
+  position: absolute;
+  top: 5.83333333vh;
+  right: 0.65104167vw;
+  z-index: 99;
+}
+.task-list.hidden {
+  right: -32.29166667vw;
 }

@@ -57,7 +57,7 @@ let DaPing =()=>import('../pages/daping/index.vue')
 let PeiZhi = ()=>import('../pages/peizhi')
 
 let mapMarkers =()=>import('../pages/mapmarkers')
-
+let EchartMap=()=>import('../pages/echarts-map')
 let router = new Router({
   // mode:'history',
   linkActiveClass: 'active',
@@ -280,6 +280,11 @@ let router = new Router({
       name:'PeiZhi',
       component:PeiZhi
     }
+    // {
+    //   path:'echartsmap',
+    //   name:'EchartMap',
+    //   component:EchartMap
+    // }
     ]
   },
   
@@ -297,6 +302,11 @@ let router = new Router({
     path:'/daping',
     name:'DaPing',
     component:DaPing
+  },
+  {
+    path:'/dapingnew',
+    name:'DaPingnew',
+    component:()=>import('@/pages/dapingnew/index.vue')
   },
   {
     path: '/login',

@@ -49,6 +49,7 @@
         <div class="floor">
             <button @click="submitSet">提交</button>
         </div>
+        
     </div>
 </template>
 <script>
