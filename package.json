@@ -17,7 +17,7 @@
     "echarts": "^4.2.0-rc.2",
     "echarts-gl": "^1.1.1",
     "element-ui": "^2.4.11",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "js-md5": "^0.7.3",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
