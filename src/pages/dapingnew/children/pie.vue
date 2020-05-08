@@ -7,11 +7,17 @@
 </template>
 <script>
 export default {
+  props:{
+    data1:{
+      type:Object,
+      required:true
+    }
+  },
   data() {
     return {};
   },
   methods: {
-    init() {
+    init(data) {
       let box1 = document.getElementById("pie");
       let myChart = this.$echarts.init(box1);
       let option = {
@@ -23,19 +29,24 @@ export default {
                 fontSize: 14,
             },
         },
+        tooltip: {
+            trigger: 'item',
+            formatter: " <br/>{b}: {c} ({d}%)"
+        },
         series: [
           {
             type: "pie",
-            data: [
-              {
-                name: "国内",
-                value: 60
-              },
-              {
-                name: "国外",
-                value: 40
-              }
-            ],
+            data: data.data1,
+            // [
+            //   {
+            //     name: "国内",
+            //     value: 60
+            //   },
+            //   {
+            //     name: "国外",
+            //     value: 40
+            //   }
+            // ],
             label: {
               position: "inside"
             },
@@ -49,28 +60,29 @@ export default {
           },
           {
             type: "pie",
-            data: [
-              {
-                name: "北京",
-                value: 20
-              },
-              {
-                name: "天津",
-                value: 20
-              },
-              {
-                name: "上海",
-                value: 20
-              },
-              {
-                name: "广州",
-                value: 20
-              },
-              {
-                name: "深圳",
-                value: 20
-              }
-            ],
+            data: data.data2,
+            // [
+            //   {
+            //     name: "北京",
+            //     value: 20
+            //   },
+            //   {
+            //     name: "天津",
+            //     value: 20
+            //   },
+            //   {
+            //     name: "上海",
+            //     value: 20
+            //   },
+            //   {
+            //     name: "广州",
+            //     value: 20
+            //   },
+            //   {
+            //     name: "深圳",
+            //     value: 20
+            //   }
+            // ],
             label: {
               position: "inside"
             },
@@ -87,8 +99,13 @@ export default {
       myChart.setOption(option)
     }
   },
+  created(){
+
+  },
   mounted(){
-      this.init()
+      setTimeout(()=>{
+        this.init(this.data1)
+      },100)
   }
 };
 </script>
@@ -102,7 +119,7 @@ export default {
   height: 90%;
 }
 #pie {
-  width:100%;
+  width:300px;
   height: 100%;
 }
 </style>

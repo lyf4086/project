@@ -210,3 +210,22 @@ export function xiaohao_rank(par={}) {
         data: params
     })
 }
+//枪弹药类型
+export function qiangdan_types(par={}) {
+    var key=this.$store.state.key;
+    var sign = this.$methods.mkSign(par, key);
+    var token = this.$gscookie.getCookie("gun");
+    var params = new URLSearchParams();
+    params.append("sign", sign);
+    params.append("token", token);
+    for(let item in par){
+        params.append(item, par[item]);
+    }
+    return this.$axios({
+        url:this.$store.state.baseURL +
+            "/weixin/project/index.php?m=home&c=Page&a=arm_type",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+    })
+}

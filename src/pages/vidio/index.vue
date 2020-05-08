@@ -186,12 +186,9 @@ import Content from './children/content'
               this.video=true
               this.vsrc=filterDate[0].vurl
               //改为播放器预览
-              // return
               var link = document.createElement('a');
               link.href=filterDate[0].vurl
-              // link.href = window.URL.createObjectURL(filterDate[0].vurl);
               link.target="_blank"
-              // link.download = ' '
               link.click();
             }
           },

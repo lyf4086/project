@@ -1,30 +1,27 @@
 <template>
   <div>
     <div class="up">
-      <div class="number_wrap" @click="openDialog">
-        <div class="name nowrap">全国枪支总量</div>
+      <div class="number_wrap" @click="openDialog" :title="`${cityName}枪支总量`">
+        <div class="name nowrap">{{cityName}}枪支总量</div>
         <div class="num">{{numbers.toal||0}}</div>
         <div class="chart"></div>
       </div>
-      <div class="number_wrap" @click="openDialog">
-        <div class="name nowrap">全国在库枪支总量</div>
+      <div class="number_wrap" @click="openDialog" :title="`${cityName}在库枪支总量`">
+        <div class="name nowrap">{{cityName}}在库枪支总量</div>
         <div class="num">{{numbers.zaiwei||0}}</div>
         <div class="chart"></div>
       </div>
-      <div class="number_wrap" @click="openDialog">
-        <div class="name nowrap">全国出库枪支总量</div>
+      <div class="number_wrap" @click="openDialog" :title="`${cityName}出库枪支总量`">
+        <div class="name nowrap">{{cityName}}出库枪支总量</div>
         <div class="num">{{numbers.nowei||0}}</div>
         <div class="chart"></div>
       </div>
     </div>
     <div class="down">
        
-      <div id="chart" style="width:100%;height:85%;"></div>
+      <div id="chart" @click="downClick" style="width:100%;height:85%;"></div>
       <div class="dipan"></div>
-       <div class="mianbao">
-           <!-- <i class="el-icon-arrow-right"></i> -->
-           <button @click="mapBack">全国</button> &gt; <button v-show="next">{{next}}</button>
-       </div>
+       
     </div>
   </div>
 </template>
@@ -90,39 +87,24 @@ let GEO={
     河南,
     四川
 }
+import {cityNames} from './apis'
 export default {
     props:{
         numbers:{
             type:Object,
             required:true
         },
-        citylist:{
-            type:Array,
+        cityName:{
+            type:String,
             required:true
         }
     },
   data() {
     return {
         next:'',
-        timer:true
-    };
-  },
-  methods: {
-      mapBack(){
-          if(this.next=='')return
-          this.next=''
-        //   this.initchart()
-        this.initchart('china','',this.citylist);
-      },
-     openDialog(){
-         this.$emit('openDialog','dialog11')
-     },
-     initchart(mapName='china',JSON) {//暂时省份用死数据
-        let that=this
-      let box1 = document.getElementById("chart");
-      let myChart = this.$echarts.init(box1);
-    //   var mapName = mapName
-      var data = [
+        timer:true,
+        clickMap:false,
+        citylist:[
           {name:"北京",value:199,a:2,b:2},
           {name:"天津",value:42},
           {name:"河北",value:102},
@@ -154,8 +136,47 @@ export default {
           {name:"广东",value:123},
           {name:"广西",value:59},
           {name:"海南",value:14},
-          ];
-          
+          ],
+          activeCity:'',
+          isQuanguo:true,//默认式全国状态
+    };
+  },
+  methods: {
+      cityNames,
+      downClick(){
+          setTimeout(()=>{
+              if(this.clickMap){
+                  console.log('点击地图了',this.activeCity)
+                  if(!this.activeCity)return
+                  this.isQuanguo=false
+                let name=this.activeCity
+                let city=this.citylist.find(item=>item.name==name)
+                this.$emit('changeCity',{name:city.name,id:city.id})
+              }else{
+                  console.log('没有点击地图')
+
+                //避免多次点击
+                this.activeCity=''
+                  this.initchart('china','');
+                  if(!this.isQuanguo){
+                      this.$emit('changeCity',{name:'全国',id:''})
+                     this.isQuanguo=true
+                  }
+                  
+              }
+              this.clickMap=false
+          },200)
+      },
+      
+     openDialog(){
+         this.$emit('openDialog','dialog11')
+     },
+     initchart(mapName='china',JSON) {//暂时省份用死数据
+        let that=this
+      let box1 = document.getElementById("chart");
+      let myChart = this.$echarts.init(box1);
+   
+      var data =this.citylist
       var geoCoordMap = {};
       var toolTipData = [ 
         //   {name:"北京",value:[{name:"科技人才总数",value:95},{name:"理科",value:82}]},
@@ -211,6 +232,7 @@ export default {
           minSize4Pin = 20;
 
       var convertData = function(data) {
+          
           var res = [];
           for (var i = 0; i < data.length; i++) {
               var geoCoord = geoCoordMap[data[i].name];
@@ -297,7 +319,7 @@ export default {
                   emphasis: {
                       areaColor: '#33a0ea',
                       shadowColor: '#e79c6e',
-                      shadowOffsetY: 3,
+                      shadowOffsetY: 5,
                       shadowOffsetX: 3
                   }
               }
@@ -403,33 +425,38 @@ export default {
       }
       myChart.setOption(option);
       myChart.on('click',(ev)=>{
+          that.clickMap=true
           if(!that.timer)return
-          if(!ev.name)return
-            //   console.log('centermap click',ev)
-            //   this.$router.push({
-            //       name:'mapMarkers'
-            //   })
-            // console.log(GEO[ev.name])
+          if(!ev.name){
+              return
+          }
+          
+            this.activeCity=ev.name
+            this.$emit('changeCity',{name:ev.name})
             that.initchart('',GEO[ev.name]);
-            that.next=ev.name
             that.timer=false
-            setTimeout(()=>{
+            setTimeout(()=>{//避免地图多次渲染
                 that.timer=true
-                
             },2000)
          
       })
     }
   },
-  
+  created(){
+      this.cityNames().then(res=>{
+            if(res.status==200){
+               this.citylist=res.data
+                this.initchart('china','');
+            }
+        })
+  },
   mounted() {
-      console.log('this.citylist',this.citylist)
-    this.initchart('china','',this.citylist);
-    
+     
     window.onresize = () => {
         let barchart = this.$echarts.getInstanceByDom(document.getElementById('chart'));
         barchart.resize();
     }
+    
   },
   
 };

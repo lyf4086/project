@@ -3,33 +3,57 @@
          <i class="el-icon-close del" @click="close"></i>
         <div class="title">
             <div>任务列表</div>
-            <div>查看全部位置</div>
+            <div @click="look">查看全部位置</div>
         </div>
         <div class="content">
-            <div class="item" v-for="e in 8">
+            <div class="item" v-for="(item,index) in list" :key="index">
                 <span></span>
-                <span>警卫国庆</span>
-                <span>张明达</span>
+                <span>{{item.vtask}}</span>
+                <span>{{item.pname}}</span>
                 <span>带队</span>
-                <span><i>10</i>人</span>
-                <span><i>10</i>把枪</span>
-                <span><i>100</i>发子弹</span>
+                <span><i>{{item.num}}</i>人</span>
+                <span><i>{{item.guns}}</i>把枪</span>
+                <span><i>{{item.bulletCount}}</i>发子弹</span>
                 <span>详情</span>
+                
             </div>
         </div>
     </div>
 </template>
 <script>
+import {tasklist} from '../apis'
 export default {
+    props:{
+        sid:{
+            type:String,
+            required:true
+        },
+        tid:{
+            type:String,
+            required:true
+        }
+    },
     data(){
         return {
-
+            list:[]
         }
     },
     methods:{
+        tasklist,
         close(){
             this.$emit('close')
+        },
+        look(){
+            this.$router.push({name:'mapMarkers'})
         }
+    },
+    created(){
+        this.tasklist({tid:this.tid,sid:this.sid}).then(res=>{
+            if(res.status==200){
+                console.log(res.data.data)
+                this.list=res.data.data||[]
+            }
+        })
     }
 }
 </script>
@@ -97,7 +121,8 @@ export default {
     }
     .content{
         width:100%;
-        height:930/@vh;
+        max-height:930/@vh;
+        overflow: auto;
         box-sizing: border-box;
         padding:50/@vh 0;
         display: flex;
@@ -115,6 +140,7 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 5px;
             span:nth-child(1){
                 width: 36/@vw;
                 height:36/@vw;
@@ -165,6 +191,20 @@ export default {
                 border-color: transparent;
                 box-shadow: 0 1px 20px 0 rgba(58,236,253,0.32),inset 0 0 13px 0 rgba(58,236,253,0.3);
         }
+    }
+    .content::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+    }
+    .content::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+    background: rgba(34, 3, 117, 0.8);
+    }
+    .content::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(221, 213, 213, 0.6);
     }
 }
 </style>

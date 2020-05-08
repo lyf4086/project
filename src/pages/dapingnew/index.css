@@ -1,8 +1,9 @@
 #wrap {
   width: 100%;
   height: 100%;
-  background: url('../../assets/sucai/bg.png') no-repeat center;
-  background-size: 100% 100%;
+  background: url(../../assets/sucai/bg1.png) no-repeat, url(../../assets/sucai/bg2.png) no-repeat, url(../../assets/sucai/bg3.png) no-repeat, url(../../assets/sucai/bg4.png) no-repeat, url(../../assets/sucai/bg5.png) no-repeat, url(../../assets/sucai/bg6.png) no-repeat, url(../../assets/sucai/bg7.png) no-repeat, url(../../assets/sucai/bg8.png) no-repeat;
+  background-size: 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh;
+  background-position: left top, 12.5vw top, 25vw top, 37.5vw top, 50vw top, 62.5vw top, 75vw top, 87.5vw top;
 }
 .top {
   position: relative;
@@ -36,12 +37,12 @@
   height: 100%;
 }
 .content .left .title {
-  width: 9.63541667vw;
+  width: 14.84375vw;
   height: 4.16666667vh;
   font-size: 1.85185185vh;
   line-height: 2.77777778vh;
   font-size: 1.04166667vw;
-  color: #fff;
+  color: #fdfcfc;
 }
 .content .left .title::before {
   content: '';
@@ -60,6 +61,9 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+.content .left .item1 .title {
+  width: 9.63541667vw;
 }
 .content .left .item1 .btns {
   width: 12.76041667vw;
@@ -283,7 +287,7 @@
   width: 45.72916667vw;
   height: 6.94444444vh;
   font-size: 1.30208333vw;
-  color: #fff;
+  color: #fcf9f9;
   border-bottom: 0.09259259vh solid #14568c;
   line-height: 6.94444444vh;
   text-align: center;
@@ -301,5 +305,12 @@
   font-size: 0.78125vw;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: top;
+}
+.nodata {
+  width: 100%;
+  line-height: 100px;
+  text-align: center;
+  font-size: 20px;
+  color: #555;
 }

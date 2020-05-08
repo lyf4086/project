@@ -7,8 +7,9 @@
 #wrap{
     width:100%;
     height:100%;
-    background: url('../../assets/sucai/bg.png') no-repeat center;
-    background-size:  100% 100%;
+    background: url(../../assets/sucai/bg1.png) no-repeat,url(../../assets/sucai/bg2.png) no-repeat,url(../../assets/sucai/bg3.png) no-repeat,url(../../assets/sucai/bg4.png) no-repeat,url(../../assets/sucai/bg5.png) no-repeat,url(../../assets/sucai/bg6.png) no-repeat,url(../../assets/sucai/bg7.png) no-repeat,url(../../assets/sucai/bg8.png) no-repeat;
+    background-size:480/@vw 2160/@vh,480/@vw 2160/@vh,480/@vw 2160/@vh,480/@vw 2160/@vh,480/@vw 2160/@vh,480/@vw 2160/@vh,480/@vw 2160/@vh,480/@vw 2160/@vh;
+    background-position: left top,480/@vw top,960/@vw top,1440/@vw top,1920/@vw top,2400/@vw top,2880/@vw top,3360/@vw top;
 }
 .top{
     position: relative;
@@ -42,12 +43,12 @@
         height:100%;
         // background: #777;
         .title{
-            width:370/@vw;
+            width:570/@vw;
             height:90/@vh;
             font-size: 40/@vh;
             line-height: 60/@vh;
             font-size: 40/@vw;
-            color:#fff;
+            color:rgb(253, 252, 252);
             &::before{
                 content:'';
                 display: inline-block;
@@ -60,13 +61,16 @@
                 top:6/@vh
             }
         }
+        
         .item1{
             width: 100%;
             height:300/@vh;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            
+            .title{
+                width: 370/@vw;
+            }
             .btns{
                 width:490/@vw;
                 height:90/@vh;
@@ -138,6 +142,7 @@
                 flex-wrap: wrap;
                 justify-content: flex-start;
                 align-content: flex-start;
+                
                 .item{
                     width:25%;
                     height:340/@vh;
@@ -308,7 +313,7 @@
         width:1756/@vw;
         height:150/@vh;
         font-size: 50/@vw;
-        color:#fff;
+        color:rgb(252, 249, 249);
         border-bottom: 2/@vh solid #14568c;
         line-height: 150/@vh;
         text-align: center;
@@ -326,6 +331,14 @@
         font-size: 30/@vw;
         display: flex;
         justify-content: space-around;
-        align-items: center;
+        align-items: top;
     }
+}
+
+.nodata{
+    width: 100%;
+    line-height: 100px;
+    text-align: center;
+    font-size: 20px;
+    color: #555;
 }

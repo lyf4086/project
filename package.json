@@ -25,6 +25,7 @@
     "vue": "^2.5.2",
     "vue-amap": "^0.5.8",
     "vue-router": "^3.0.1",
+    "vue-socket.io": "^3.0.7",
     "vuex": "^3.0.1",
     "wqr-amap": "^1.0.3"
   },

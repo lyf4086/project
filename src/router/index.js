@@ -52,8 +52,8 @@ let Item10XQ = () => import('../pages/huizong/item10xq/index.vue')
 let Item14XQ = () => import('../pages/huizong/item14xq/index.vue')
 let CenterXQ = () => import('../pages/huizong/centerxq/index.vue')
 
-let GlobalScreem =()=>import('../pages/globalscreem/index.vue')
-let DaPing =()=>import('../pages/daping/index.vue')
+// let GlobalScreem =()=>import('../pages/globalscreem/index.vue')
+// let DaPing =()=>import('../pages/daping/index.vue')
 let PeiZhi = ()=>import('../pages/peizhi')
 
 let mapMarkers =()=>import('../pages/mapmarkers')
@@ -293,16 +293,16 @@ let router = new Router({
     name:"mapMarkers",
     component:mapMarkers
   },
-  {
-    path:'/globalscreem',
-    name:'GlobalScreem',
-    component:GlobalScreem
-  },
-  {
-    path:'/daping',
-    name:'DaPing',
-    component:DaPing
-  },
+  // {
+  //   path:'/globalscreem',
+  //   name:'GlobalScreem',
+  //   component:GlobalScreem
+  // },
+  // {
+  //   path:'/daping',
+  //   name:'DaPing',
+  //   component:DaPing
+  // },
   {
     path:'/dapingnew',
     name:'DaPingnew',
