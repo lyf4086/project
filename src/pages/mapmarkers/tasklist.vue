@@ -4,42 +4,66 @@
             <h3>任务列表</h3>
             <span @click="shouqi">收起</span>
         </div>
-        <div class="itemwrap" v-for="e in 3">
-            <div class="title">
-                <span></span>
-                <span>警卫国庆</span>
-                <span>张明达</span>
-                <span>带队</span>
-                <span><span class="num1">10</span>人</span>
-                <span><span class="num2">10</span>把枪</span>
-                <span><span class="num3">100</span>发弹</span>
-                <i :class="openNum==e?'el-icon-arrow-down':'el-icon-arrow-right'" 
-                @click="openOrclose(e)"></i>
-            </div>
-            <div class="list" :class="openNum==e?'isopen':''">
-                <div class="item" v-for="e in 5">
-                    <span>队员1</span>
-                    <span>王三秦</span>
-                    <span><span>10</span>把枪</span>
-                    <span><span>100</span>发弹</span>
+        <div class="list">
+            <div class="itemwrap" v-for="(item,index) in list" :key="index">
+                <div class="title">
+                    <span></span>
+                    <span>{{item.vtask}}</span>
+                    <span>{{item.pname}}</span>
+                    <span>带队</span>
+                    <span><span class="num1">{{item.num}}</span>人</span>
+                    <span><span class="num2">{{item.guns}}</span>把枪</span>
+                    <span><span class="num3">{{item.bulletCount}}</span>发弹</span>
+                    <i :class="openNum==index?'el-icon-arrow-down':'el-icon-arrow-right'" 
+                    @click="openOrclose(index)"></i>
+                </div>
+                <div class="list11" :class="openNum==index?'isopen':''">
+                    <div class="item"  v-for="(obj,index) in item.child" :key="obj.policeid">
+                        <span>队员{{index+1}}</span>
+                        <span>{{obj.policeName}}</span>
+                        <span><span>{{obj.nums}}</span>把枪</span>
+                        <span><span>{{obj.bulletCounts}}</span>发弹</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import {tasklist } from '../dapingnew/apis'
 export default {
     data(){
         return {
-           openNum:1
+           openNum:1,
+           list:[]
         }
     },
     methods:{
+        tasklist,
         shouqi(){
             this.$emit('shouqi')
         },
         openOrclose(n){
             this.openNum==n?this.openNum=-1:this.openNum=n
+        }
+    },
+    created(){
+        let ids=JSON.parse(localStorage.getItem('mapMarkers_ids'))
+        if(ids.tid){
+            
+            this.tasklist({tid:ids.tid,sid:ids.sid}).then(res=>{
+                if(res.status==200){
+                    console.log(res)
+                    this.list=res.data.data||[]
+                    this.list=this.list.map(item=>{
+                        return {
+                            ...item,
+                            open:false
+                        }
+                    })
+                    console.log(this.list)
+                }
+            })
         }
     }
 }
@@ -51,7 +75,7 @@ export default {
     box-sizing: border-box;
     padding: 30/@vw;
     width:1140/@vw;
-    height:810/@vh;
+    height:960/@vh;
     border-radius: 20/@vw;
     background: #fff;
     box-shadow: 0 0 10px 0 rgba(54, 46, 46,.6);
@@ -81,6 +105,11 @@ export default {
                 border-color: transparent transparent transparent #448fe6;
             }
         }
+    }
+    .list{
+       max-height:810/@vh;
+        // max-height:1910/@vh;
+        overflow-y: auto;
     }
     .itemwrap{
         box-sizing: border-box;
@@ -125,7 +154,7 @@ export default {
             }
             
         }
-        .list{
+        .list11{
             box-sizing: border-box;
             width: 100%;
             height: 0;
@@ -145,7 +174,7 @@ export default {
                     text-align: center;
                 }
                 span:nth-child(2){
-                    width: 100/@vw;
+                    min-width: 200/@vw;
                     text-align: center;
                     color: #51a4e4;
                 }
@@ -177,5 +206,19 @@ export default {
     .thired{
         background-color: #32b8b5;
     }
+}
+.wrap::-webkit-scrollbar {/*滚动条整体样式*/
+width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+height: 4px;
+}
+.wrap::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+border-radius: 5px;
+-webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+background: rgba(34, 3, 117, 0.8);
+}
+.wrap::-webkit-scrollbar-track {/*滚动条里面轨道*/
+-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+border-radius: 0;
+background: rgba(221, 213, 213, 0.6);
 }
 </style>

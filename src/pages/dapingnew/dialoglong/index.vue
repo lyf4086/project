@@ -13,7 +13,7 @@
                        <span>二级任务</span>
                        <span>三级任务</span>
                        <span>四级任务</span> -->
-                       <span>操作</span>
+                       <!-- <span>操作</span> -->
                    </div>
                    <div class="list">
                        <div class="item" v-for="item in leftList" :key="item.sid">
@@ -23,7 +23,7 @@
                             <!-- <span>34332</span>
                             <span>5454</span>
                             <span>654544</span> -->
-                            <span>任务列表</span>
+                            <!-- <span>任务列表</span> -->
                         </div>
                    </div>
                    <div class="bottom-chart" id="chart-left"></div>
@@ -59,19 +59,19 @@
                    <div class="top">
                        <span>单位</span>
                        <span>消耗总数</span>
-                       <span>A类型</span>
-                       <span>B类型</span>
+                       <span v-for="item in rightTags" :key="item.vDXingHao">{{item.vDXingHao}}</span>
+                       <!-- <span>B类型</span>
                        <span>C类型</span>
-                       <span>D类型</span>
+                       <span>D类型</span> -->
                    </div>
                    <div class="list">
-                       <div class="item" v-for="e in 10">
-                            <span>浙江</span>
-                            <span>213</span>
-                            <span>12334</span>
-                            <span>34332</span>
+                       <div class="item" v-for="item in rightList" :key="item.sid">
+                            <span>{{item.cname}}</span>
+                            <span>{{item.total}}</span>
+                            <span v-for="(i,j) in item.number" :key="j">12334</span>
+                            <!-- <span>34332</span>
                             <span>5454</span>
-                            <span>654544</span>
+                            <span>654544</span> -->
                         </div>
                    </div>
                    <div class="bottom-chart" id="chart-right"></div>

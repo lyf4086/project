@@ -14,8 +14,16 @@
                 <span><i>{{item.num}}</i>人</span>
                 <span><i>{{item.guns}}</i>把枪</span>
                 <span><i>{{item.bulletCount}}</i>发子弹</span>
-                <span>详情</span>
-                
+                <span @click="item.open=!item.open">详情
+                    <i :class="item.open?'el-icon-arrow-down':'el-icon-arrow-right'"></i>
+                </span>
+                <div class="info" :style="{'height':item.open?'auto':''}">
+                    <div class="i" v-for="obj in item.child" :key="obj.policeid">
+                        <span>警员姓名：{{obj.policeName}}</span>
+                        <span>枪支数量：{{obj.nums}}</span>
+                        <span>子弹数量：{{obj.bulletCounts}}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -44,6 +52,9 @@ export default {
             this.$emit('close')
         },
         look(){
+            let sid=this._props.sid
+            let tid=this._props.tid
+            localStorage.setItem('mapMarkers_ids',JSON.stringify({sid,tid}))
             this.$router.push({name:'mapMarkers'})
         }
     },
@@ -52,6 +63,12 @@ export default {
             if(res.status==200){
                 console.log(res.data.data)
                 this.list=res.data.data||[]
+                this.list=this.list.map(item=>{
+                    return {
+                        ...item,
+                        open:false
+                    }
+                })
             }
         })
     }
@@ -134,53 +151,77 @@ export default {
             font-size: 26/@vw;
             color:#fff;
             width:100%;
-            height:80/@vh;
+            min-height:80/@vh;
             border:2/@vw solid #165483;
             background: #0d3863;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
-            span:nth-child(1){
+            &>span{
+                line-height: 80/@vh;
+            }
+            .info{
+                width: 100%;
+                height:0px;
+                overflow: hidden;
+                .i{
+                    box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.2);
+                    box-sizing: border-box;
+                    padding: 0 100/@vw;
+                     width:100%;
+                    height:80/@vh;
+                    line-height: 80/@vh;
+                    display: flex;
+                    justify-content: space-around;
+                    span{
+                        width: 33%;
+                        text-align: center;
+                    }
+                }
+
+            }
+            &>span:nth-child(1){
                 width: 36/@vw;
                 height:36/@vw;
                 background: url(../../../assets/sucai/red_y.png) no-repeat;
                 background-size: 100% 100%;
                 margin: 0 35/@vw;
             }
-            span:nth-child(2){
+            &>span:nth-child(2){
                 width:238/@vw
             }
-            span:nth-child(3){
+            &>span:nth-child(3){
                  width:190/@vw;
                  color:#3aecfd;
             }
-            span:nth-child(4){
+            &>span:nth-child(4){
                 width:125/@vw
             }
-            span:nth-child(5){
+            &>span:nth-child(5){
                 width:175/@vw;
                 i{
                     color: #3ead68;
                     margin-right: 15/@vw;
                 }
             }
-            span:nth-child(6){
+            &>span:nth-child(6){
                 width:205/@vw;
                 i{
                     color:#3aecfd;
                     margin-right: 15/@vw;
                 }
             }
-            span:nth-child(7){
+            &>span:nth-child(7){
                 width:540/@vw;
                 i{
                     color:#ff6e6e;
                     margin-right: 15/@vw;
                 }
             }
-            span:nth-child(8){
-                width:160/@vw;
+            &>span:nth-child(8){
+                width:140/@vw;
                 color: #54a9ea;
             }
         

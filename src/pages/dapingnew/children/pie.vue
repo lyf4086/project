@@ -104,6 +104,7 @@ export default {
   },
   mounted(){
       setTimeout(()=>{
+        console.log(this.data1)
         this.init(this.data1)
       },100)
   }

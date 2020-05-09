@@ -183,7 +183,7 @@
   color: #51a4e4;
   display: flex;
   flex-wrap: wrap;
-  align-content: space-around;
+  align-content: flex-start;
 }
 .left .item3 .list .item {
   box-sizing: border-box;
@@ -196,6 +196,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.69444444vh;
 }
 .left .item3 .list .item span:nth-child(1) {
   width: 1.171875vw;

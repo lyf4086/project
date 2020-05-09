@@ -2,26 +2,30 @@
     <div class="wrap">
         <div class="title">
             <span>单位</span>
-            <span>弹药总量</span>
-            <span>在库数量</span>
-            <span>出库数量</span>
+            <span>{{type==='danyao'?'弹药':'枪支'}}总量</span>
+            <span>{{type==='danyao'?'在库':'在位'}}数量</span>
+            <span>{{type==='danyao'?'出库':'不在位'}}数量</span>
         </div>
         <div class="list">
             <div class="item11" v-for="(item,index) in list" :key="index">
-                 <span>{{item.sname}}</span>
-                <span>{{item.total}}</span>
-                <span>{{item.zaiku}}</span>
-                <span>{{item.chuku}}</span>
+                 <span>{{type==='danyao'?item.sname:item.mechanism_name}}</span>
+                <span>{{type==='danyao'?item.total:item.toal}}</span>
+                <span>{{type==='danyao'?item.zaiku:item.zaiwei}}</span>
+                <span>{{type==='danyao'?item.chuku:item.nowei}}</span>
                
             </div>
         </div>
     </div>
 </template>
 <script>
-import {danyaoxiangqing} from '../apis'
+import {danyaoxiangqing,qiangxingxiangqing} from '../apis'
 export default {
     props:{
         id:{
+            type:String,
+            required:true
+        },
+        type:{
             type:String,
             required:true
         }
@@ -32,14 +36,25 @@ export default {
         }
     },
     methods:{
-        danyaoxiangqing
+        danyaoxiangqing,
+        qiangxingxiangqing
     },
     created(){
-        this.danyaoxiangqing({server_id:this.id}).then(res=>{
+        if(this.type=='danyao'){
+            this.danyaoxiangqing({server_id:this.id}).then(res=>{
+                if(res.status==200){
+                    this.list=res.data.data
+                }
+            })
+        }else{
+            this.qiangxingxiangqing({server_id:this.id}).then(res=>{
+                console.log(res)
             if(res.status==200){
                 this.list=res.data.data
             }
         })
+        }
+        
     }
 }
 </script>

@@ -27,7 +27,7 @@ export default {
         getData(){
             this.task_rank().then(res=>{
                 if(res.status==200){
-                    console.log('task_rank',res)
+                    // console.log('task_rank',res)
                     this.leftList=res.data.data
                     this.leftTags=res.data.tasks
                     let leftChartData=res.data.data.map(e=>e.total)
@@ -36,7 +36,7 @@ export default {
             })
             this.alarm_rank().then(res=>{
                 if(res.status==200){
-                    console.log('alarm_rank',res)
+                    // console.log('alarm_rank',res)
                     this.centerList=res.data.data
                     this.centerTags=res.data.type
                     let centerChartData=res.data.data.map(e=>{
@@ -50,9 +50,9 @@ export default {
             })
             this.xiaohao_rank().then(res=>{
                 if(res.status==200){
-                    console.log('xiaohao_rank',res)
-                    // this.rightList=res.data.data
-                    // this.rightTags=res.data.type
+                    // console.log('xiaohao_rank',res)
+                    this.rightList=res.data.data
+                    this.rightTags=res.data.type
                     let nameList=res.data.data.map(e=>e.cname)
                     let dataList=res.data.data.map(e=>e.total)
                     this.rightChart(nameList,dataList)

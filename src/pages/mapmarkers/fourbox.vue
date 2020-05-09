@@ -3,28 +3,45 @@
         <div class="item item1">
             <div class="icon"></div>
             <p>该单位全部枪支数</p>
-            <strong>1098</strong>
+            <strong>{{guntotal}}</strong>
         </div>
         <div class="item item2">
             <div class="icon"></div>
             <p>出库枪支数</p>
-            <strong>1098</strong>
+            <strong>{{nowei}}</strong>
         </div>
         <div class="item item3">
             <div class="icon"></div>
             <p>全部弹药数</p>
-            <strong>1098</strong>
+            <strong>{{nCount}}</strong>
         </div>
         <div class="item item4">
             <div class="icon"></div>
             <p>出库弹药数</p>
-            <strong>1098</strong>
+            <strong>{{xCount}}</strong>
         </div>
     </div>
 </template>
 <script>
 export default {
-    
+    props:{
+        guntotal:{
+            type:String,
+            required:true
+        },
+        nowei:{
+            type:String,
+            required:true
+        },
+        nCount:{
+            type:String,
+            required:true
+        },
+        xCount:{
+            type:String,
+            required:true
+        },
+    }
 }
 </script>
 <style lang="less" scoped>

@@ -72,6 +72,25 @@ export function danyaoxiangqing(par={}) {
         data: params
     })
 }
+//枪型详情 筛选条件server_id  :机构id
+export function qiangxingxiangqing(par={}) {
+    var key=this.$store.state.key;
+    var sign = this.$methods.mkSign(par, key);
+    var token = this.$gscookie.getCookie("gun");
+    var params = new URLSearchParams();
+    params.append("sign", sign);
+    params.append("token", token);
+    for(let item in par){
+        params.append(item, par[item]);
+    }
+    return this.$axios({
+        url:this.$store.state.baseURL +
+            "/weixin/project/index.php?m=home&c=Page&a=gtype_infos",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+    })
+}
 
 //报警情况//  筛选条件server_id  :机构id
 export function baojing(par={}) {
@@ -114,6 +133,7 @@ export function renwujibie(par={}) {
 }
 //任务列表//  tid :任务id  sid:省份id
 export function tasklist(par={}) {
+    console.log(par)
     var key=this.$store.state.key;
     var sign = this.$methods.mkSign(par, key);
     var token = this.$gscookie.getCookie("gun");

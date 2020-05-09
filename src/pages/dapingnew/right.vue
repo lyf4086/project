@@ -7,19 +7,19 @@
           <div class="item" :title="`数量：${zanbiData.dt_total||0}，占比：${zanbiData.roid||0}%`">
               <div class="txt">
                   <span>{{cityName}}当日任务</span>
-                  <span>{{zanbiData.totals}}</span>
+                  <span>{{zanbiData.roid}}%</span>
               </div>
               <div class="bar">
                   <jindu2 :num="zanbiData.roid"></jindu2>
               </div>
           </div>
-          <div class="item">
+          <div class="item" :title="`出勤率：${parseInt((numbers.nowei)/(numbers.toal)*100)||0}%`">
               <div class="txt">
-                  <span>{{cityName}}枪支总量</span>
-                  <span>1813</span>
+                  <span>{{cityName}}持枪出勤率</span>
+                  <span>{{parseInt((numbers.nowei)/(numbers.toal)*100)||0}}%</span>
               </div>
               <div class="bar">
-                  <jindu2 :num="38"></jindu2>
+                  <jindu2 :num="(numbers.nowei)/(numbers.toal)*100||0"></jindu2>
               </div>
           </div>
       </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="item3" @click="linshi3">
-      <div class="title">{{cityName}}任务TOP5</div>
+      <div class="title">{{cityName}}今日任务TOP5</div>
       <div class="list">
           
           <div class="item" v-for="(item,i) in top5" :key="item.cname">
@@ -85,7 +85,11 @@ export default {
         zanbiData:{
             type:Object,
             required:true
-        }
+        },
+        numbers:{
+            type:Object,
+            required:true
+        },
     },
     components:{jindu2},
     methods:{

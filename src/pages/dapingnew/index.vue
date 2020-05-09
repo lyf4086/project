@@ -11,13 +11,13 @@
                     <button @click="play1">全部位置</button>
                     <button @click="play2">热力分布</button>
                 </div>
-                <div class="bar">
+                <div class="bar" @click="item1childclick">
                     <div><span>{{cityName}}弹药消耗统计 </span><span>{{qiangdanTJ.xCount}}</span></div>
                     <div class="chart">
                         <jindu :num="xiaohaozanbi"></jindu>
                     </div>
                 </div>
-                <div class="bar">
+                <div class="bar" @click="item1childclick">
                     <div><span>{{cityName}}弹药在库统计 </span><span>{{qiangdanTJ.zCount}}</span></div>
                     <div class="chart">
                         <jindu :num="zaikuzanbi"></jindu>
@@ -59,12 +59,13 @@
         
         <div class="dialog"  v-if="dialog11">
             <button class="del" @click="closeDialog">X</button>
-            <div class="title">枪弹药详情</div>
+            <div class="title">{{activeType=='danyao'?'弹药':'枪支'}}详情</div>
             <div class="content">
-                <list11 :id="activeAreaID"></list11>
+                <list11 :id="activeAreaID" :type="activeType"></list11>
                 <pie :data1="chart1Data"></pie>
             </div>
         </div>
+        
         <dialoglong v-if="dialoglongShow" @close="closeDialog"></dialoglong>
         <dialoglist v-if="dialoglistShow" @close="closeDialog" :sid="activeAreaID" :tid="tsakTypeID"></dialoglist>
         <dialogtongji v-if="dialogtongjiShow" @close="closeDialog"></dialogtongji>
@@ -77,6 +78,7 @@
         <right class="right" @openDialog="openDialog"
             :tasklist="renwujibielist" :top5="top5" :zanbiData="zanbiData"
             :cityName="cityName" :qiangdan_typelist="qiangdan_typelist"
+             :numbers="qiangdanTJ"
         ></right>
     </div>
     <div class="cover" v-show="dialog11||dialoglongShow||dialoglistShow||dialogtongjiShow||hotshow"></div>
@@ -125,7 +127,8 @@ export default {
             activeAreaID:'',//当前显示哪个区域
             chart1Data:{},
             zanbiData:{},
-            tsakTypeID:'11',//任务类型id
+            tsakTypeID:'1',//任务类型id
+            activeType:''
         }
     },
     computed:{
@@ -159,6 +162,9 @@ export default {
         },
         openDialog(name){
             if(typeof name=='string'){
+                if(name==='dialog11'){
+                    this.item2childclick()
+                }
                 this[name]=true
             }else{
                 this[name.name]=true
@@ -177,6 +183,10 @@ export default {
             this.$methods.listMove("#list-wrap11",3000)      
         },
         play1(){
+            
+            let sid=this.activeAreaID//当前显示哪个区域
+            let tid=this.tsakTypeID//任务类型id
+            localStorage.setItem('mapMarkers_ids',JSON.stringify({sid,tid}))
             // this.$store.commit('playAudio','sort')
             this.$router.push({name:'mapMarkers'})
         },
@@ -184,27 +194,54 @@ export default {
             this.hotshow=true
             // this.$store.commit('playAudio','long')
         },
-        item2childclick(){
-            this.dialog11=true;
+        item1childclick(){
+            console.log('弹药详情')
             this.danyaoxiangqing({server_id:this.activeAreaID}).then(res=>{
-            if(res.status==200){
-                let arr1=res.data.data.map(item=>item.zaiku).join('+')
-                let zaiku=eval(arr1)
-                let arr2=res.data.data.map(item=>item.chuku).join('+')
-                let chuku=eval(arr2)
-                let list=res.data.data.map(item=>{
-                    return {
-                        name:item.sname,
-                        value:item.total
+                if(res.status==200){
+                    let arr1=res.data.data.map(item=>item.zaiku).join('+')
+                    let zaiku=eval(arr1)
+                    let arr2=res.data.data.map(item=>item.chuku).join('+')
+                    let chuku=eval(arr2)
+                    let list=res.data.data.map(item=>{
+                        return {
+                            name:item.sname,
+                            value:item.total
+                        }
+                    })
+                    let data1=[{name:'在库',value:zaiku},{name:'出库',value:chuku}]
+                    let data2=list
+                    this.chart1Data={
+                        data1,data2
                     }
-                })
-                let data1=[{name:'在库',value:zaiku},{name:'出库',value:chuku}]
-                let data2=list
-                this.chart1Data={
-                    data1,data2
+                    this.activeType='danyao'
+                    this.dialog11=true;
                 }
-            }
-        })
+            })
+        },
+        item2childclick(){
+            console.log('枪型详情')
+            this.qiangxingxiangqing({server_id:this.activeAreaID}).then(res=>{
+                if(res.status==200){
+                    let arr1=res.data.data.map(item=>item.zaiwei).join('+')
+                    let zaiku=eval(arr1)
+                    let arr2=res.data.data.map(item=>item.nowei).join('+')
+                    let chuku=eval(arr2)
+                    let list=res.data.data.map(item=>{
+                        return {
+                            name:item.mechanism_name,
+                            value:item.toal
+                        }
+                    })
+                    let data1=[{name:'在位',value:zaiku},{name:'不在位',value:chuku}]
+                    let data2=list
+                    this.chart1Data={
+                        data1,data2
+                    }
+                    this.activeType='qiangxing'
+                    this.dialog11=true;
+                }
+            })
+            
         },
         getAlldata(server_id=''){
             let load=this.$loading({background:'rgba(0,0,0,0.8)'})

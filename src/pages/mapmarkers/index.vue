@@ -28,7 +28,7 @@
         <el-button slot="append" icon="el-icon-search"></el-button>
       </el-input>
       <div class="pic1">
-        <fourbox></fourbox>
+        <fourbox :guntotal="guntotal" :nowei="nowei" :nCount="nCount" :xCount="xCount"></fourbox>
       </div>
       <div class="pic2">
         <taskbox :total="total" :task="task"></taskbox>
@@ -56,9 +56,11 @@
 </style>
 <script>
 import * as meths from "./methods.js";
+import * as apis from './apis'
 import fourbox from './fourbox'
 import taskbox from './taskbox'
 import tasklist from './tasklist'
+
 export default {
   components:{fourbox,taskbox,tasklist},
   data() {
@@ -80,11 +82,16 @@ export default {
       input3:'',
       select:'',
       fuckName:this.$store.state.fuckName,
-      hidden:false
+      hidden:false,
+      guntotal:'',
+      nowei:'',
+      nCount:'',
+      xCount:''
     };
   },
   methods: {
     ...meths,
+    ...apis,
     initMap() {
       let zaixian = this.$store.state.zaixian;
       if (zaixian) {
@@ -289,6 +296,10 @@ export default {
           let zaixian = this.$store.state.zaixian;
           if (res.status == 200) {
             this.loading.close();
+            this.guntotal=res.data.data.toal
+            this.nowei=res.data.data.nowei
+            this.nCount=res.data.data.nCount
+            this.xCount=res.data.data.xCount
             this.total=res.data.data.task[0]
               this.task=res.data.data.task.slice(1)
             if (zaixian) {
