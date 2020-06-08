@@ -190,6 +190,8 @@
   background-size: 100% 100%;
 }
 .content {
+  box-sizing: border-box;
+  padding-top: 0.3rem;
   width: 88.9%;
   height: 95%;
   position: absolute;
@@ -215,7 +217,7 @@
     transform: rotate(360deg);
   }
 }
-.alert {
+.alert1 {
   position: fixed;
   z-index: 99;
   width: 100%;
@@ -227,7 +229,7 @@
   margin: auto;
   background: rgba(0, 0, 0, 0.5);
 }
-.alert .map_wrap {
+.alert1 .map_wrap {
   position: absolute;
   top: 0;
   left: 0;
@@ -239,7 +241,7 @@
   background: url(../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
 }
-.alert #map-content {
+.alert1 #map-content {
   width: 98%;
   height: 88%;
   position: absolute;
@@ -249,7 +251,7 @@
   left: 0;
   margin: auto;
 }
-.alert .del {
+.alert1 .del {
   position: absolute;
   right: 1.05rem;
   bottom: 0.06rem;
@@ -260,7 +262,7 @@
   color: #fff;
   cursor: pointer;
 }
-.alert .del2 {
+.alert1 .del2 {
   position: absolute;
   right: 0.3rem;
   top: 0.14rem;
@@ -274,7 +276,7 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.alert .check-time {
+.alert1 .check-time {
   position: absolute;
   z-index: 99999;
   top: 0;
@@ -286,7 +288,7 @@
   height: 70%;
   background: rgba(0, 0, 0, 0.5);
 }
-.alert .check-time .sel_time {
+.alert1 .check-time .sel_time {
   position: absolute;
   top: 0;
   right: 0;
@@ -302,7 +304,7 @@
   background: url(../../assets/img/changepass.png) no-repeat;
   background-size: 100% 100%;
 }
-.alert .check-time .sel_time .del {
+.alert1 .check-time .sel_time .del {
   position: absolute;
   top: 0.1rem;
   right: 0.1rem;
@@ -312,28 +314,28 @@
   border-radius: 50%;
   background: #e24d4d;
 }
-.alert .check-time .sel_time h6 {
+.alert1 .check-time .sel_time h6 {
   width: 100%;
   font-size: 0.18rem;
   color: #fff;
   text-align: center;
 }
-.alert .check-time .sel_time .put_wrap {
+.alert1 .check-time .sel_time .put_wrap {
   font-size: 0.16rem;
   width: 3.8rem;
   height: 0.3rem;
   margin: 0.2rem auto;
   display: flex;
 }
-.alert .check-time .sel_time .put_wrap span {
+.alert1 .check-time .sel_time .put_wrap span {
   flex: 1;
   line-height: 0.3rem;
   color: #fff;
 }
-.alert .check-time .sel_time .put_wrap input {
+.alert1 .check-time .sel_time .put_wrap input {
   flex: 3;
 }
-.alert .check-time .sel_time button {
+.alert1 .check-time .sel_time button {
   position: absolute;
   font-size: 0.16rem;
   bottom: 0.1rem;
@@ -341,6 +343,192 @@
   height: 0.3rem;
   border-radius: 0.05rem;
   left: 45%;
+}
+.alert {
+  position: absolute;
+  z-index: 11;
+  width: 57.29166667vw;
+  height: 31.25vw;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: url(../../assets/img/renyuan-a.png) no-repeat;
+  background-size: 100% 100%;
+}
+.alert .del {
+  position: absolute;
+  top: 1.5625vw;
+  right: 0.52083333vw;
+  width: 1.875vw;
+  height: 1.875vw;
+  border-radius: 50%;
+  line-height: 1.875vw;
+  font-size: 1.04166667vw;
+  background: none;
+  border: 0.05208333vw solid #fff;
+  color: #fff;
+  cursor: pointer;
+}
+.alert .leftwrap {
+  position: absolute;
+  left: 4.16666667vw;
+  top: 4.47916667vw;
+  width: 15.10416667vw;
+  height: 22.91666667vw;
+  display: flex;
+}
+.alert .leftwrap .box-l {
+  width: 38%;
+  height: 100%;
+}
+.alert .leftwrap .box-l .imgwrap {
+  position: absolute;
+  left: 1.82291667vw;
+  top: 2.55208333vw;
+  width: 2.08333333vw;
+  height: 2.08333333vw;
+  background: #00b2fc;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.alert .leftwrap .box-l .imgwrap img {
+  width: 100%;
+}
+.alert .leftwrap .box-l .btnwrap {
+  box-sizing: border-box;
+  position: absolute;
+  top: 6.09375vw;
+  left: 0.52083333vw;
+  width: 30%;
+  height: 5.20833333vw;
+  display: flex;
+  justify-content: space-around;
+  align-content: space-between;
+  flex-wrap: wrap;
+}
+.alert .leftwrap .box-l .btnwrap button {
+  width: 100%;
+  height: 1.14583333vw;
+  line-height: 1.14583333vw;
+  font-size: 0.625vw;
+  background: none;
+  color: #fff;
+}
+.alert .leftwrap .box-l .btnwrap button:nth-child(3) {
+  color: red;
+}
+.alert .leftwrap .box-l .iconwrap1 {
+  position: absolute;
+  top: 14.01041667vw;
+  left: 0.52083333vw;
+  width: 17%;
+  height: 1.5625vw;
+}
+.alert .leftwrap .box-l .iconwrap2 {
+  position: absolute;
+  top: 18.17708333vw;
+  left: 0.52083333vw;
+  width: 17%;
+  height: 1.5625vw;
+}
+.alert .leftwrap .box-r {
+  width: 62%;
+  height: 100%;
+  font-size: 0.72916667vw;
+  color: #fff;
+}
+.alert .leftwrap .box-r > div {
+  box-sizing: border-box;
+}
+.alert .leftwrap .box-r .text1 {
+  height: 5.20833333vw;
+  margin-top: 1.04166667vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.alert .leftwrap .box-r .text1 p {
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.alert .leftwrap .box-r .text1 p i:nth-child(1) {
+  flex: 1;
+}
+.alert .leftwrap .box-r .text1 p i:nth-child(2) {
+  flex: 2.6;
+}
+.alert .leftwrap .box-r .text2 {
+  height: 5.20833333vw;
+  margin-top: 1.04166667vw;
+  color: #03cbfe;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.alert .leftwrap .box-r .text2 p {
+  width: 100%;
+  display: flex;
+}
+.alert .leftwrap .box-r .text2 p i:nth-child(1) {
+  flex: 1.2;
+}
+.alert .leftwrap .box-r .text2 p i:nth-child(2) {
+  flex: 2;
+}
+.alert .leftwrap .box-r .text3 {
+  height: 3.125vw;
+  margin-top: 0.83333333vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.alert .leftwrap .box-r .text3 p {
+  width: 100%;
+}
+.alert .leftwrap .box-r .text4 {
+  height: 3.125vw;
+  margin-top: 0.83333333vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.alert .leftwrap .box-r .text4 p {
+  width: 100%;
+}
+.alert .mes {
+  position: absolute;
+  width: 8.85416667vw;
+  height: 3.64583333vw;
+  font-size: 0.625vw;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  box-sizing: border-box;
+  padding: 0.52083333vw 0;
+}
+.alert .mes p {
+  width: 100%;
+}
+.alert .mes p i:nth-child(2) {
+  color: #cc713c;
+}
+.alert .mes1 {
+  top: 8.125vw;
+  left: 25vw;
+}
+.alert .mes2 {
+  top: 19.21875vw;
+  left: 25vw;
+}
+.alert .mes3 {
+  top: 8.85416667vw;
+  left: 45.46875vw;
 }
 .none-data {
   width: 50%;
@@ -351,4 +539,123 @@
   background: rgba(0, 0, 0, 0.2);
   margin: 1rem auto;
   border-radius: 0.2rem;
+}
+.change_type {
+  width: 2rem;
+  height: 0.4rem;
+  position: absolute;
+  top: 3.7037037vh;
+  left: 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.change_type button {
+  border: 0.01rem solid rgba(129, 126, 126, 0.3);
+  color: #fff;
+  width: 0.36rem;
+  height: 0.36rem;
+  line-height: 0.2rem;
+  padding: 0.05rem 0.1rem;
+  border-radius: 0.05rem;
+  cursor: pointer;
+}
+.change_type button:nth-child(1) {
+  background: url(../../assets/img/keshihua.png) no-repeat;
+  background-size: 100% 100%;
+}
+.change_type button:nth-child(2) {
+  background: url(../../assets/img/leibiao.png) no-repeat;
+  background-size: 100% 100%;
+}
+.change_type .active {
+  border-color: #50b5f8;
+}
+.content2 {
+  width: 88.9%;
+  height: 88%;
+  position: absolute;
+  right: 0;
+  top: 0.83rem;
+  font-size: 0.16rem;
+}
+.content2 .none-data {
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 0.2rem;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 1rem auto;
+  border-radius: 0.2rem;
+}
+.content2 .list-title {
+  width: 100%;
+  height: 5.1%;
+  display: flex;
+  align-items: center;
+  border-width: 0.05208333vw 0;
+  border-style: solid;
+  border-color: cornflowerblue;
+}
+.content2 .list-title input {
+  flex: 1;
+}
+.content2 .list-title span {
+  height: 100%;
+  line-height: 3.33333333vh;
+  flex: 3;
+  text-align: center;
+  border-left: 0.05208333vw solid cornflowerblue;
+}
+.content2 .list-title span:last-child {
+  flex: 4;
+}
+.content2 .list-item {
+  box-sizing: border-box;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  border-width: 0 0 0.05208333vw;
+  border-style: solid;
+  border-color: cornflowerblue;
+}
+.content2 .list-item input {
+  flex: 1;
+}
+.content2 .list-item span {
+  height: 100%;
+  line-height: 3.33333333vh;
+  font-size: 0.72916667vw;
+  color: #fff;
+  flex: 3;
+  text-align: center;
+  border-left: 0.05208333vw solid cornflowerblue;
+}
+.content2 .list-item span:last-child {
+  flex: 4;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.content2 .list-item button {
+  float: right;
+  margin-right: 0.03rem;
+  right: 0;
+  padding: 0rem 0.05rem;
+  border-radius: 0.03rem;
+  border: 0.01rem solid #00b2fc;
+  color: #fff;
+  background: linear-gradient(to top, #00b2fc, #00b2fc, transparent);
+  cursor: pointer;
+}
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
 }

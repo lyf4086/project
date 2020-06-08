@@ -1,0 +1,134 @@
+.wrap {
+  position: relative;
+  font-size: 0.9375vw;
+  color: #fff;
+}
+.cover {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+.up-pic {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  margin: auto;
+  width: 9rem;
+  height: 6rem;
+  font-size: 0.16rem;
+  background: url(../../assets/img/qiangku.png) no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+}
+.up-pic img {
+  max-width: 3rem;
+  max-height: 3rem;
+}
+.up-pic .sub {
+  position: absolute;
+  bottom: 0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.up-pic .del {
+  position: absolute;
+  width: 0.4rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  text-align: center;
+  border-radius: 50%;
+  top: 0.26rem;
+  right: 0.26rem;
+  background: red;
+  color: #fff;
+  cursor: pointer;
+}
+.el-icon-plus {
+  font-size: 1rem;
+  line-height: 1.6rem;
+}
+.table-header {
+  background: red;
+}
+.cell-header {
+  width: 100%;
+  height: 2.08333333vw;
+  font-size: 0.72916667vw;
+  border: 0.05208333vw solid #55affd;
+  font-weight: bold;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.cell-header span {
+  width: 100%;
+  height: 100%;
+  line-height: 2.08333333vw;
+  text-align: center;
+  border-right: 0.05208333vw solid #55affd;
+}
+.cell-header span:nth-last-child(1) {
+  border-right: none;
+}
+.list-item {
+  width: 100%;
+  height: 2.08333333vw;
+  font-size: 0.72916667vw;
+  display: grid;
+  border: 0.05208333vw solid #55affd;
+  border-top: none;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.list-item span {
+  width: 100%;
+  height: 100%;
+  line-height: 2.08333333vw;
+  text-align: center;
+  border-right: 0.05208333vw solid #55affd;
+}
+.list-item span:nth-last-child(1) {
+  border-right: none;
+}
+.imgwrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 60%;
+  height: 60%;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.imgwrap img {
+  max-width: 90%;
+  max-height: 100%;
+}
+.imgwrap .del {
+  position: absolute;
+  width: 0.4rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  text-align: center;
+  border-radius: 50%;
+  top: 0.26rem;
+  right: 0.26rem;
+  background: red;
+  color: #fff;
+  cursor: pointer;
+}

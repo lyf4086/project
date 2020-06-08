@@ -39,7 +39,7 @@
   font-size: 0.16rem;
   border-bottom: 0.01rem solid rgba(255, 255, 255, 0.6);
   display: grid;
-  grid-template-columns: 3fr 1.5fr  2fr 2fr 4fr;
+  grid-template-columns: 3fr 1.5fr 2fr 2fr 4fr;
   grid-template-rows: 1fr;
   font-size: 0.12rem;
   color: #f5f6f8;

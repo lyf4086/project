@@ -1,0 +1,87 @@
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 0.26041667vw 1.04166667vw;
+}
+.wrap > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 9fr 1fr;
+  grid-template-areas: 'a b' 'c c';
+  justify-items: center;
+  align-items: center;
+}
+.wrap .imgwrap {
+  position: relative;
+  width: 4.6875vw;
+  height: 4.6875vw;
+  background: url(../../../assets/homepic/center_iconbottom.png) no-repeat;
+  background-size: 100% 100%;
+}
+@keyframes doudong {
+  0% {
+    transform: translateY(-30%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+.wrap .imgwrap .icon {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 1.5625vw;
+  height: 1.5625vw;
+  background: url(../../../assets/homepic/s_center_icon1.png) no-repeat;
+  background-size: 100% 100%;
+  animation: doudong 1.3s linear infinite alternate;
+}
+.wrap .text {
+  box-sizing: border-box;
+  padding-top: 0.52083333vw;
+  width: 100%;
+  height: 100%;
+  color: #b1dbff;
+}
+.wrap .text strong {
+  font-size: 0.83333333vw;
+  line-height: 2.23958333vw;
+}
+.wrap .text div {
+  display: flex;
+}
+.wrap .text div b {
+  display: inline-block;
+  max-width: 4.42708333vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.30208333vw;
+}
+.wrap .text div i {
+  font-size: 0.78125vw;
+  line-height: 1.30208333vw;
+  padding-left: 0.26041667vw;
+}
+.wrap .bar {
+  width: 100%;
+  height: 100%;
+  grid-area: c;
+  background: url(../../../assets/homepic/s_center_bottom.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .item:nth-child(2) .icon {
+  background: url(../../../assets/homepic/s_center_icon3.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .item:nth-child(3) .icon {
+  background: url(../../../assets/homepic/s_center_icon2.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .item:nth-child(4) .icon {
+  background: url(../../../assets/homepic/s_center_icon4.png) no-repeat;
+  background-size: 100% 100%;
+}

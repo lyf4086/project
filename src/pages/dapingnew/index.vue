@@ -33,6 +33,7 @@
                         <div class="name">{{item.vQXingHao}}</div>
                         <div class="num">{{item.number}}</div>
                     </div>
+                    
                 </div>
             </div>
             <div class="item3">
@@ -66,9 +67,9 @@
             </div>
         </div>
         
-        <dialoglong v-if="dialoglongShow" @close="closeDialog"></dialoglong>
+        <dialoglong v-if="dialoglongShow" @close="closeDialog" :sid="activeAreaID"></dialoglong>
         <dialoglist v-if="dialoglistShow" @close="closeDialog" :sid="activeAreaID" :tid="tsakTypeID"></dialoglist>
-        <dialogtongji v-if="dialogtongjiShow" @close="closeDialog"></dialogtongji>
+        <dialogtongji v-if="dialogtongjiShow" @close="closeDialog" :sid="activeAreaID"></dialogtongji>
         <hot v-if="hotshow" @close="closeDialog"></hot>
         <center class="center" @colseDialog="closeDialog"
             @openDialog="openDialog" :numbers="qiangdanTJ"
@@ -184,9 +185,9 @@ export default {
         },
         play1(){
             
-            let sid=this.activeAreaID//当前显示哪个区域
-            let tid=this.tsakTypeID//任务类型id
-            localStorage.setItem('mapMarkers_ids',JSON.stringify({sid,tid}))
+            // let sid=this.activeAreaID//当前显示哪个区域
+            // let tid=this.tsakTypeID//任务类型id
+            localStorage.setItem('mapMarkers_ids',JSON.stringify({sid:'',tid:''}))
             // this.$store.commit('playAudio','sort')
             this.$router.push({name:'mapMarkers'})
         },
@@ -247,13 +248,13 @@ export default {
             let load=this.$loading({background:'rgba(0,0,0,0.8)'})
             this.qiangdan({server_id}).then(res=>{
                 if(res.status==200){
-                    console.log('qiangdan',res.data.data)
+                    // console.log('qiangdan',res.data.data)
                     this.qiangdanTJ=Object.assign(this.qiangdanTJ,res.data.data)
                 }
             })
             this.qiangxing({server_id}).then(res=>{
                 if(res.status==200){
-                    this.qiangxinglist=res.data.data||[]
+                    this.qiangxinglist=res.data.data.splice(0,8)||[]
                 }
             })
             this.baojing({server_id}).then(res=>{

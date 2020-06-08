@@ -1,6 +1,7 @@
 <template>
   <div class="sixitem">
-    <div v-for="(item,index) in this.dataList" :key="index" :class="{'dou':del}">
+
+    <div v-show="keshihua" v-for="(item,index) in this.dataList" :key="index" class="one" :class="{'dou':del}">
       <div class="text deltext">
         <p>
           <span>机构名称：</span>
@@ -30,6 +31,20 @@
       <button v-if="sync===0" class="change" @click="xiuGaiOneData(item)">修改机构</button>
       <button class="del" v-show="del" @click="queren(item)">X</button>
     </div>
+    <div class="content2" v-show="!keshihua">
+      <div class="list-title" >
+        <span>机构名称</span>
+        <span>创建时间</span>
+        <span>机构编号</span>
+      </div>
+      <div class="list_wrap">
+        <div class="list-item" v-for="(item,index) in this.dataList" :key="index" >
+          <span>{{item.mechanism_name}}</span>
+          <span>{{item.date}}</span>
+          <span>{{item.code}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -47,6 +62,10 @@ export default {
       default: function() {
         return [];
       }
+    },
+    keshihua:{
+      type:Boolean,
+      required:true
     }
   },
   data() {

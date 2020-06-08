@@ -17,22 +17,23 @@ let store = new Vuex.Store({
     // baseURL: "http://50.144.192.33",//盐城服务器
     // lixianStr:"http://50.144.192.33:9002",//盐城地图服务器
 
-    baseURL:'http://192.168.1.109',//公司离线服务器
-    lixianStr:'http://192.168.1.149:9002',//公司离线地图服务器
+    // baseURL:'http://192.168.1.109',//公司离线服务器
+    // lixianStr:'http://192.168.1.149:9002',//公司离线地图服务器
 
     // baseURL:'http://192.168.1.100',//临时离线服务器
     // lixianStr:'http://192.168.1.100:9002',//临时离线地图服务器
 
-    baseURL:'http://s.tronl.cn',//公司在线服务器    
+    baseURL:'http://s.tronl.cn',//公司在线服务器  
+    // baseURL:'http://192.168.1.120',//测试服务器 
     zaixian:true,//默认是在线状态，关于地图的都走在线地图
 
-    liXianMapKey:'bigemap.ap8r91ep',//地图key，北京  149
-    lixianMapCenter:[40.2,116.37],//北京,昌平区   149
+    // liXianMapKey:'bigemap.ap8r91ep',//地图key，北京  149
+    // lixianMapCenter:[40.2,116.37],//北京,昌平区   149
 
     // liXianMapKey:'bigemap.05n2uuzz',//地图key,盐城
     // lixianMapCenter:[33.3253895,120.2956706],//盐城
     audio:null,
-    fuckName:'De',//该死的高德
+    fuckName:'w',//该死的高德
   },
   mutations: {
     setMapKey(state,payload){//动态设置地图key
@@ -66,7 +67,8 @@ let store = new Vuex.Store({
       }
       state.audio.src=audio[payload]
       state.audio.play()
-    }
+    },
+    
   },
   actions: {
     createAudio({state,commit},payload){

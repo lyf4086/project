@@ -1,7 +1,7 @@
 <template>
   <div class="renyuan" ref="renyuan">
     <div class="none-data" v-if="!list.length">暂无时没有数据</div>
-    <div class="item" v-for="(item,index) in list" :key="index" :class="{'dou':isRemoving}">
+    <div class="item" v-show="keshihua" v-for="(item,index) in list" :key="index" :class="{'dou':isRemoving}">
       <div class="text">
         <p>用户名：</p>
         <p class="put-wrap">
@@ -46,8 +46,8 @@
         </p>
       </div>
       <div class="headpic">
-        <img :src="item.icon" v-if="item.icon" alt="no pic" />
-        <img src="../../../assets/img/head-icon.png" v-if="!item.icon" alt="no pic" />
+        <img :src="item.icon" v-if="item.icon" alt="" />
+        <img src="../../../assets/img/head-icon.png" v-if="!item.icon" alt="" />
       </div>
       <button class="xiangqing" @click="lookxiangqing(item)">查看详情</button>
       <div class="btns">
@@ -57,7 +57,50 @@
       </div>
       <button class="del-one" @click="delClick(item)">X</button>
     </div>
-    <div class="zhezhao" v-show="changeShow||xiangqing">
+    <div class="content2" v-show="!keshihua">
+      <div class="list-title"  v-if="list.length">
+        <span>用户名</span>
+        <span>角色名</span>
+        <span>创建时间</span>
+        <span>状态</span>
+        <span>操作</span>
+      </div>
+      <div class="list_wrap">
+        <div class="list-item" v-for="(item,index) in list" :key="index" >
+          <span>{{item.policeuser_name}}</span>
+          <span>{{item.role_name}}</span>
+          <span>{{changeTime(item.created)}}</span>
+          <span>{{item.ishow | typename}}</span>
+          <span class="btns">
+            <i @click="lookxiangqing(item)">查看详情</i>
+            <i v-if="item.ishow==0" @click="leftChange(index)">启用</i>
+            <i v-if="item.ishow==1" @click="rightChange(index)">禁用</i>
+            <i @click="changeperson(index)" v-if="sync !=1">修改人员</i>
+            <i @click="setjuese22(index,item)">设置角色</i>
+            <i @click="setmima(item)">修改密码</i>
+          </span>
+        </div>
+        
+      </div>
+      
+    </div>
+    <div class="zhezhao" v-show="changeShow||xiangqing||changejuese">
+      
+      <div class="changepsd" v-show="changejuese">
+        <i>用户：{{changing}} 设置角色</i>
+        <select
+            ref="sel"
+            v-model="role_id"
+          >
+            <option :value="item.id" v-for="(item,index) in roles" :key="index">{{item.name}}</option>
+           
+          </select>
+          
+        <p>
+          <button @click="submitChangejuese">确认</button>
+          <button @click="changejuese=false">取消</button>
+        </p>
+      </div>
       <div class="changepsd" v-show="changeShow">
         <i>用户：{{changing}} 设置或修改初始密码</i>
         <div class="putwrap">
@@ -134,9 +177,12 @@
 </style>
 <script>
 export default {
-  props: ["list", "isRemoving", "activeYeMa", "activeTreeId", "sync","roles"],
+  props: ["list", "isRemoving", "activeYeMa", "activeTreeId", "sync","roles","keshihua"],
   data() {
     return {
+      baseURL:this.$store.state.baseURL,
+      role_id:'',
+      changejuese:false,
       changeShow: false,
       xiangqing: false,
       changing: "",
@@ -145,9 +191,16 @@ export default {
       pwd2: "", //................确认初始密码
       active_item: "",
       fc: false,
+      index:0
     };
   },
   computed: {},
+  filters:{
+    typename:function(val){
+      let name=val==1?'启用':'禁用'
+      return name
+    }
+  },
   methods: {
     juese(n) {
       if (n == "1") {
@@ -160,9 +213,15 @@ export default {
         return "领导";
       }
     },
-    // selChange(ev){
-    //   console.log(ev)
-    // },
+    setjuese22(index,item){
+      this.changejuese=true
+      this.role_id=item.role_id
+      this.index=index
+    },
+    submitChangejuese(){
+      let role_id=this.role_id
+      this.put2blur(this.index,role_id)
+    },
     lookxiangqing(item) {
       this.$store.commit("setPoliceId", {
         policeuser_id: item.policeuser_id,
@@ -197,6 +256,7 @@ export default {
     },
     deleteMsg() {
       this.xiangqing = false;
+      this.changejuese=false
     },
     changeTime(timestamp) {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -233,7 +293,6 @@ export default {
       let that=this
       this.list[index].put2show = true;
       this.$nextTick(() => {
-        // console.log(this.$refs.sel[index])
         this.$refs.sel[index].focus();
       });
     },
@@ -246,8 +305,7 @@ export default {
       //.............................修改名字star失焦后发数据请求更改用户名 传字段policeuser_id为修改
 
       this.list[index].put1show = false;
-      // console.log(this.list[index])
-      // return
+      
       var token = this.$gscookie.getCookie("gun");
       var objs = {
         uname: this.list[index].policeuser_name,
@@ -287,7 +345,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('修改人员',data)
           if (data.data.code == "200") {
             this.$message({
               message: "修改成功",
@@ -301,13 +358,13 @@ export default {
 
       //..........................................更改用户名end
     },
-    put2blur(index) {
+    put2blur(index,role_id) {
       //................................................更改角色star
       this.list[index].put2show = false;
       var token = this.$gscookie.getCookie("gun");
       var objs = {
         uname: this.list[index].policeuser_name,
-        role_id: this.list[index].role_id,
+        role_id:role_id?role_id: this.list[index].role_id,
         policeuser_id: this.list[index].policeuser_id,
         mobile: this.list[index].mobile,
         sex: this.list[index].sex,
@@ -343,6 +400,7 @@ export default {
                 type:'success',
                 message:'修改角色成功'
               })
+              this.changejuese=false
           }else{
             this.$message({
               type:'error',
@@ -357,7 +415,6 @@ export default {
       //........................................更改角色end
     },
     leftChange(index) {
-      console.log(index)
       this.$confirm("将要更改状态, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -529,7 +586,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log("修改初始密码", data);
           if (data.data.code == "200") {
             this.changeShow = false;
             this.pwd1 = this.pwd2 = "";
@@ -556,7 +612,6 @@ export default {
 
     this.$nextTick(() => {
       this.$refs.renyuan.addEventListener("click", function(e) {
-        // console.log(e.target.className)
         if (e.target.className != "del-one") {
           that.$emit("quxiaoshanchu");
         }

@@ -2,7 +2,7 @@
     <div class="dialog">
          <i class="el-icon-close del" @click="close"></i>
         <div class="title">
-            <div>任务列表</div>
+            <div @click="close">任务列表</div>
             <div @click="look">查看全部位置</div>
         </div>
         <div class="content">

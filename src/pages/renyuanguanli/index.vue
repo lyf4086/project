@@ -40,7 +40,7 @@
     </div>
     <div class="page-index" v-show="pageTotal">
       <el-pagination
-        :page-size="6"
+        :page-size="pageSize"
         :pager-count="9"
         :current-page="currentPage"
         layout="total,prev, pager, next"
@@ -57,6 +57,10 @@
       <button @click="delOneData">删除人员</button>
     </div>
     <div class="check-type" v-if="0">同步数据</div>
+    <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
     <div class="content">
       <Content
         :list="itemList"
@@ -69,7 +73,9 @@
         :sync="sync"
         :roles="roles"
         @shuaxin="shuaxin"
+        :keshihua="keshihua"
       />
+      
     </div>
     <div class="alert" v-show="alert">
       <div class="text-wrap">
@@ -129,6 +135,7 @@ export default {
   components: { LeftNav, Content, breadNav },
   data() {
     return {
+      keshihua:true,
       hasData: false,
       alert: false,
       currentNodeKey: "",
@@ -153,6 +160,7 @@ export default {
         //    mechanism_id:'164'
       },
       pageTotal: null,
+      pageSize:6,
       isRemoveimg: false, //记录是不是在删除操作
       selValue: "",
       putValue: "",
@@ -165,6 +173,21 @@ export default {
     };
   },
   methods: {
+    changeShowType(n){
+      this.itemList.length=0
+      if(n===1){
+        this.keshihua=true
+        this.pageSize=6
+        this.clickTree(this.activeItem.id, 1);
+      }else{
+        this.keshihua=false
+        this.pageSize=19
+        this.clickTree(this.activeItem.id, 1);
+      }
+      localStorage.setItem('setKeShiHua',this.keshihua)
+      
+      this.$refs.page.internalCurrentPage = 1;
+    },
     shuaxin(){
       let yema=this.active_yema||1
       this.clickTree(this.activeItem.mechanism_id,yema );
@@ -382,7 +405,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       var key = this.$store.state.key;
-      var objs = { mechanism_id: mechanismId, p: p, ps: 6 };
+      var objs = { mechanism_id: mechanismId, p: p, ps: this.pageSize };
       var sign = this.$methods.mkSign(objs, key);
       // var token=this.$store.state.token;
       var token = this.$gscookie.getCookie("gun");
@@ -528,10 +551,13 @@ export default {
     let treeData=JSON.parse(sessionStorage.getItem('tree-list'))
     this.treeListData = treeData;
     this.zhankai.push(treeData[0].id)
+    let keshi=localStorage.getItem('setKeShiHua')
+     this.keshihua=JSON.parse(keshi) 
+     this.pageSize=this.keshihua?6:19
 
     if(!!treeData[0].child.length){
       this.zhankai.push(treeData[0].child[0].id || "")
-      if(!!treeData[0].child[0].child){
+      if(!!treeData[0].child[0].child.length){
           this.zhankai.push(treeData[0].child[0].child[0].id)
         }
     }
@@ -573,6 +599,7 @@ export default {
         this.focus();
       }
     };
+    
     this.$store.commit('setStr',{
       str1:'各机构',
       str2:'人员列表'

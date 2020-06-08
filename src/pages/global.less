@@ -1,5 +1,5 @@
 @rem: 100rem;
-
+@vw:19.2vw;
 @keyframes move {
   from {
     transform: translateY(0)
@@ -115,12 +115,25 @@
     justify-content: flex-end;
 
     span {
+      position: relative;
       width: 49/@rem;
       height: 49/@rem;
       transition: 0.1s;
       margin: 10/@rem;
       border-radius: 50%;
       cursor: pointer;
+      background: url(../assets/img/icon5.png) no-repeat;
+        background-size: 100% 100%;
+      .icon{
+        position: absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        margin:auto;
+        width: 24/@rem;
+        height:24/@rem;
+      }
     }
 
 
@@ -134,37 +147,51 @@
     }
     span:nth-last-child(6){
       background: url('../assets/img/tongbu.png');
-      background-size: cover;
+        background-size: 100% 100%;
+     
     }
     span:nth-last-child(6):hover {
       animation: zhuan 3s linear infinite;
     }
 
     span:nth-last-child(5) {
-      background: url('../assets/img/icon6.png');
-      background-size: cover;
+         background: url('../assets/img/icon1.png');
+        background-size: 100% 100%;
+      // .icon{
+      //   background: url('../assets/homepic/menu_icon1.png');
+      //   background-size: 100% 100%;
+      // }
 
     }
   
    
     span:nth-last-child(4){
-      background: url('../assets/img/icon22.png');
-      background-size: cover
+      .icon{
+        background: url('../assets/homepic/menu_icon2.png');
+        background-size: 100% 100%;
+      }
     }
    
     span:nth-last-child(3){
-      background: url('../assets/img/icon2.png');
-      background-size: cover
+      .icon{
+        background: url('../assets/homepic/menu_icon3.png');
+        background-size: 100% 100%;
+      }
     }
    
     span:nth-last-child(2){
-      background: url('../assets/img/mine.png');
-      background-size: cover
+      .icon{
+        background: url('../assets/homepic/menu_icon4.png');
+        background-size: 100% 100%;
+      }
     }
 
     span:nth-last-child(1){
-      background: url('../assets/img/icon5.png');
-      background-size: cover
+      
+      .icon{
+        background: url('../assets/homepic/menu_icon5.png');
+        background-size: 100% 100%;
+      }
     }
  
     span:hover {
@@ -664,4 +691,18 @@
     background-size: 100% 100%;
     animation: zhuan 4s linear infinite;
   }
+}
+
+/deep/.el-input{
+  width:100%;
+  input{
+    height: 39/@vw;
+    border-color: rgb(85, 175, 253);
+      background: transparent;
+      color:#fff;
+  }
+}
+/deep/.el-button--mini.is-circle{
+  width: 35/@vw;
+  height:35/@vw;
 }

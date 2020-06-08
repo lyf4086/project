@@ -37,15 +37,24 @@
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
-    <div class="page-index" v-show="false">
-      <el-pagination :page-size="20" :pager-count="11" layout="prev, pager, next" :total="1000"></el-pagination>
+    <div class="page-index" >
+      <el-pagination
+        :page-size="pageSize"
+        :pager-count="9"
+        layout="total,prev, pager, next"
+        @current-change="currentChange"
+        :total="pageTotal"
+        ref="page"
+      ></el-pagination>
     </div>
-
-    <div class="content">
-      <!-- <Content/> -->
+    <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
+    <div class="content" v-show="keshihua">
       <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
       <div class="qianggui-content" v-if="dataArr.length">
-        <div class="title">弹柜总量：{{dataArr.length}}</div>
+        <div class="title">弹柜总量：{{pageTotal}}</div>
         <div class="wrap">
           <div class="list">
             <div class="item" v-for="(item,index) in dataArr" :key="index">
@@ -58,7 +67,29 @@
             </div>
           </div>
         </div>
-        <div class="xiangqing-wrap" v-show="qiangguishow || vidio">
+      
+      </div>
+    </div>
+    <div class="content2" v-show="!keshihua">
+      <div class="none-data"  v-if="!dataArr.length">暂时没有数据</div>
+      <div class="list-title"  v-if="dataArr.length">
+        <span>单位</span>
+        <span>枪柜类型</span>
+        <span>枪柜名称</span>
+        <span>操作</span>
+      </div>
+      <div class="list_wrap">
+        <div class="list-item"  v-for="item in dataArr" :key="item.id">
+          <span >{{item.org_name}}</span>
+          <span>{{item.vtype}}</span>
+          <span>{{item.vdevSN}}</span>
+          <span style="cursor:pointer;text-decoration: underline;"  @click="look(item)">查看详情</span>
+        </div>
+        
+      </div>
+      
+    </div>
+    <div class="xiangqing-wrap" v-show="qiangguishow || vidio">
           <div class="xiangqing" v-show="qiangguishow">
             <div class="del" @click="close">X</div>
             <button class="close" @click="close">取消</button>
@@ -72,8 +103,15 @@
                 :key="index"
               >
                 <p>类型：{{item.gtype}}</p>
-                <div class="bg"></div>
-                <div class="text" v-if="item.child">
+                <div class="bg">
+                  <img class="bgImg" v-show="item.src" :src="urlBase+item.src" alt="">
+                  <div class="nopic" v-show="!item.src">空</div>
+                </div>
+                <!-- <div class="text">
+                  <div class="a">aaa</div>
+                  <div class="b">bbb</div>
+                </div> -->
+                <!-- <div class="text" v-if="item.child">
                   <div class="a" title="警号">{{item.child.police_number}}</div>
                   <div class="b" title="持枪人">{{item.child.uname ? item.child.uname :''}}</div>
                   <div class="c" title="枪支证号" v-show="item.gun_code">{{item.gun_code}}</div>
@@ -82,8 +120,10 @@
                     title="手机号"
                     v-show="item.child.mobile"
                   >{{item.child.mobile ?item.child.mobile:''}}</div>
+                </div> -->
+                <div class="data">{{item.nStauts==1? "在位 ":"不在位 "}}
+                  <span>,&nbsp;锁位：{{item.vLabel}}号</span>
                 </div>
-                <div class="data">{{item.nStauts==1? "在位":"不在位"}}</div>
               </div>
             </div>
           </div>
@@ -91,8 +131,6 @@
             <button class="close" @click="closeVidio">关闭</button>
           </div>
         </div>
-      </div>
-    </div>
     <div class="alert" style="display:none">
       <div class="text-wrap">
         <div class="text-title">新增人员</div>
@@ -130,6 +168,8 @@ export default {
   components: { breadNav },
   data() {
     return {
+      urlBase:this.$store.state.baseURL,
+      keshihua:false,
       active_title: "",
       activeMechanismId: "",
       currentNodeKey: "",
@@ -148,10 +188,34 @@ export default {
       fromQiangZhi: false,
       vidio: false,
       loading: null,
-      zhankai:[]
+      zhankai:[],
+      pageTotal:0,
+      page:1,
+      pageSize:0
     };
   },
   methods: {
+    currentChange(n){
+      this.getDataList(this.activeItem.id,n,this.pageSize);
+    },
+    changeShowType(n){
+     
+      
+      this.dataArr.length=0
+      if(n===1){
+        this.keshihua=true
+        this.pageSize=10
+        this.getDataList(this.activeItem.id, 1,10);
+      }else{
+        this.keshihua=false
+        this.pageSize=19
+        this.getDataList(this.activeItem.id, 1,19);
+      }
+      localStorage.setItem('setKeShiHua',this.keshihua)
+      
+      this.$refs.page.internalCurrentPage = 1;
+     
+    },
     juese(n) {
       if (n == 1) {
         return "系统管理员";
@@ -169,7 +233,6 @@ export default {
     },
     closeVidio() {
       this.vidio = false;
-      //
     },
     subSearch() {
       if (!this.selValue) {
@@ -181,10 +244,19 @@ export default {
       }
       this.search(this.activeMechanismId);
     },
-    getDataList(id) {
+    getDataList(id,page=1,ps=this.pageSize) {
       //................获取枪柜列表信息函数
+      console.log(ps)
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       var objs = {
-        state: 1
+        state: 1,
+        page,
+        ps
       };
       if (id) {
         objs.id = id;
@@ -196,6 +268,8 @@ export default {
       if (id) {
         params.append("id", objs.id);
       }
+      params.append("page", objs.page);
+      params.append("ps", objs.ps);
       params.append("sign", sign);
       params.append("token", token);
       params.append("state", objs.state);
@@ -209,8 +283,10 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            console.log( data.data.data)
             this.dataArr = data.data.data;
             this.loading.close();
+            this.pageTotal = data.data.total - 0;
           }
         })
         .catch(error => {
@@ -300,7 +376,7 @@ export default {
       this.activeMechanismId = item.id;
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.active_title = item.mechanism_name;
-      this.getDataList(item.id);
+      this.getDataList(item.id,1,this.pageSize);
     },
     look(index) {
       this.loading = this.$loading({
@@ -311,7 +387,6 @@ export default {
       });
       // this.qiangguishow=true
       this.xiangqingindex = index;
-      // console.log(index.id)
       this.getXiangQing(index.id);
     },
     close() {
@@ -347,8 +422,8 @@ export default {
         .then(data => {
           if (data.data.code == 200) {
             this.loading.close();
-            this.xiangqingData = data.data.data;
-            console.log(data.data.data);
+            this.xiangqingData = data.data.data.sort((a,b)=>a.vLabel-b.vLabel);
+            console.log( this.xiangqingData)
             if (!this.xiangqingData.length) {
               this.$message("暂无数据");
               this.qiangguishow = false;
@@ -369,7 +444,7 @@ export default {
      this.zhankai.push(treeData[0].id)
      if(!!treeData[0].child.length){
        this.zhankai.push(treeData[0].child[0].id || "")
-       if(!!treeData[0].child[0].child){
+       if(!!treeData[0].child[0].child.length){
           this.zhankai.push(treeData[0].child[0].child[0].id)
         }
      }
@@ -391,7 +466,7 @@ export default {
       });
     }
     // this.getTreeList();//放弃树形菜单请求函数，优化
-    this.getDataList();
+    
     let str = this.$gscookie.getCookie("gun");
     if (JSON.stringify(str) == "{}") {
       this.$router.push("/loginput");
@@ -404,6 +479,11 @@ export default {
     }
   },
   mounted() {
+    let keshi=localStorage.getItem('setKeShiHua')
+     this.keshihua=JSON.parse(keshi) 
+    
+     this.pageSize=this.keshihua?10:19
+     this.getDataList(null,1,this.pageSize);
     this.$store.commit('setStr',{
       str1:'各机构',
       str2:'枪柜列表'

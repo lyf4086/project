@@ -1,0 +1,101 @@
+@vw:38.4vw;
+@vh:21.6vh;
+
+.wrap{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10/@vw 40/@vw;
+    &>div{
+        
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 9fr 1fr;
+        grid-template-areas: 'a b'
+                            'c c';
+        justify-items: center;
+        align-items: center;
+    }
+    .imgwrap{
+        position: relative;
+        width: 180/@vw;
+        height:180/@vw;
+
+        background: url(../../../assets/homepic/center_iconbottom.png) no-repeat;
+        background-size: 100% 100%;
+        @keyframes doudong {
+            0%{
+                transform: translateY(-30%);
+            }
+            100%{
+                transform: translateY(0%);
+            }
+        }
+        .icon{
+            position: absolute;
+            top:30%;
+            right:0;
+            // bottom:0;
+            left:0;
+            margin: auto;
+            width: 60/@vw;
+            height:60/@vw;
+            background: url(../../../assets/homepic/s_center_icon1.png) no-repeat;
+            background-size: 100% 100%;
+            animation: doudong 1.3s linear infinite alternate;
+        }
+    }
+    .text{
+        box-sizing: border-box;
+        padding-top: 20/@vw;
+        width: 100%;
+        height: 100%;
+        color: #b1dbff;
+        strong{
+            font-size: 32/@vw;
+            line-height: 86/@vw;
+        }
+        div{
+            display: flex;
+            b{
+                display: inline-block;
+                max-width: 170/@vw;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 50/@vw;
+            }
+            i{
+                font-size: 30/@vw;
+                line-height: 50/@vw;
+                padding-left: 10/@vw;
+            }
+        }
+    }
+    .bar{
+        width: 100%;
+        height: 100%;
+        grid-area: c;
+        background: url(../../../assets/homepic/s_center_bottom.png) no-repeat;
+        background-size: 100% 100%; 
+       
+    }
+    .item:nth-child(2){
+        .icon{
+            background: url(../../../assets/homepic/s_center_icon3.png) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+    .item:nth-child(3){
+        .icon{
+            background: url(../../../assets/homepic/s_center_icon2.png) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+    .item:nth-child(4){
+        .icon{
+            background: url(../../../assets/homepic/s_center_icon4.png) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+}

@@ -68,7 +68,7 @@
                        <div class="item" v-for="item in rightList" :key="item.sid">
                             <span>{{item.cname}}</span>
                             <span>{{item.total}}</span>
-                            <span v-for="(i,j) in item.number" :key="j">12334</span>
+                            <span v-for="(i,j) in item.number" :key="j">{{i.number||0}}</span>
                             <!-- <span>34332</span>
                             <span>5454</span>
                             <span>654544</span> -->

@@ -113,8 +113,16 @@
   z-index: 0;
   width: 2.60416667vw;
   height: 1.82291667vw;
-  background: url(../../../assets/img/gun-xq.png) no-repeat;
+  /* background: url(../../../assets/img/gun-xq.png) no-repeat; */
   background-size: 100% 100%;
+  display: flex;
+  justify-content: center;/*在主轴上的对齐*/
+  align-items: center;/*在交叉轴上中心点的对齐*/
+}
+.item_list .item_gun .center .gun .gunType{
+  z-index: 0;
+  width: 2.60416667vw;
+  height: auto;
 }
 .item_list .item_gun .center .gun.long {
   z-index: 0;
@@ -319,7 +327,14 @@
   border-radius: 50%;
   background: url(../../../assets/img/qiangzhi-r1.png) no-repeat;
   background-size: 100% 100%;
-  animation: round2 2s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.alert4 .content .r2 .r2Type{
+  width: 9.375vw;
+  height: auto;
 }
 .alert4 .m-list .text {
   background: #284a77;

@@ -24,7 +24,10 @@
         <div class="center">
           <div class="bg"></div>
           <div class="bg2"></div>
-          <div class="gun" :class="{'long':item.gtype=='95式'||item.gtype=='79式'}"></div>
+          <!-- <div  class="gun" :class="{'long':item.gtype=='95式'||item.gtype=='79式'}"> -->
+             <div  class="gun">
+              <img class="gunType" :src="urlBase+item.src" alt="">
+            </div>
         </div>
         <div class="right">
           <div class="btn" title="枪锁位">枪锁位：{{item.gposition || '无'}}</div>
@@ -117,7 +120,9 @@
           <div class="t t7">枪支编号：{{guns.gun_code}}</div>
           <div class="t t8" @click="showList">历史记录</div>
           <div class="r1"></div>
-          <div class="r2"></div>
+          <div class="r2">
+            <img class="r2Type" :src="urlBase+guns.src" alt="">
+          </div>
         </div>
         <div class="m-list" v-show="listShow">
           <div class="text" v-if="xiangqingList.length">
@@ -210,6 +215,7 @@ export default {
   },
   data() {
     return {
+      urlBase:this.$store.state.baseURL,
       tan1: false,
       tan2: false,
       tan3: false,
@@ -283,10 +289,8 @@ export default {
     },
     putChange(e) {
       //..........绑定枪瞄输入框输入事件
-
       var val = e.target.value;
       var list = this.allMiaoList;
-      // console.log(list)
       this.blys(val, list);
     },
     blys(val, list) {
@@ -294,20 +298,13 @@ export default {
       for (let i = 0; i < list.length; i++) {
         var ind = list[i]["gunaiming_id"].indexOf(v);
         if (ind == -1) {
-          //  this.list[i]['opacity']='0.3';
-          // console.log('不包含')
           this.allMiaoList[i]["opacity"] = "0.3";
         } else {
-          // this.list[i]['opacity']='1';
           this.allMiaoList[i]["opacity"] = "1";
-          // console.log('包含啦')
         }
       }
     },
     bindshow(item) {
-      //绑定枪支函数
-
-      // console.log(item)
       this.bindalert = true;
       this.activeGunId = item.gun_id; //.........记录挡墙要绑定的枪支
 
@@ -317,8 +314,6 @@ export default {
       //...............确认绑定枪支和枪瞄
       let gun_id = this.activeGunId;
       let miao_id = this.activeMiaoId;
-      // console.log(this.allMiaoList,this.activeMiaoId)
-      // return
       let bl = this.allMiaoList.find(e => e.gunaiming_id == this.activeMiaoId);
       if (!bl) {
         this.$message.error("没有该枪瞄，请重新输入");
@@ -344,8 +339,7 @@ export default {
             message: "已取消解绑"
           });
         });
-      // if (!confirm("确认要解除绑定吗？请三思")) return;
-      // console.log(item)
+     
     },
     bindclose() {
       this.bindalert = false;
@@ -370,7 +364,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('绑定枪支和枪瞄',data)
           if (data.data.code == 200) {
             this.$message({ message: "绑定成功", type: "success" });
             this.bindalert = false;
@@ -407,7 +400,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('解除绑定关系',data)
           if (data.data.code == 200) {
             this.$message({ message: "解除绑定成功", type: "success" });
             this.$emit("updataView"); //...........通知父级更新视图
@@ -447,7 +439,6 @@ export default {
             };
           });
           this.allMiaoList = newArr; //.............返回数据之后赋值给allMiaoList
-          // console.log("allMiaoList", this.allMiaoList);
         })
         .catch(error => {
           console.log(error);
@@ -474,7 +465,6 @@ export default {
           if (data.data.code == 200) {
             this.xiangqingList = data.data.history;
             this.guns=data.data.guns
-            // console.log(data.data.guns);
             this.tan4 = true;
           }
         })

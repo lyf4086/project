@@ -109,6 +109,7 @@
 }
  /deep/ #new-map .cover {
   position: fixed;
+  z-index: 9;
   top: 0;
   left: 0;
   width: 100vw;
@@ -155,9 +156,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 9;
   width: 39.84375vw;
-  height: 73.14814815vh;
+  height: 9.25925926vh;
   box-sizing: border-box;
   padding: 2.77777778vh 1.5625vw;
 }

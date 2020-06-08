@@ -712,11 +712,11 @@ export default {
     this.zhankai.push(treeData[0].id)
 
     if(!!treeData[0].child.length){
-            this.zhankai.push(treeData[0].child[0].id || "")
-            if(!!treeData[0].child[0].child){
-                this.zhankai.push(treeData[0].child[0].child[0].id)
-              }
-          }
+      this.zhankai.push(treeData[0].child[0].id || "")
+      if(!!treeData[0].child[0].child.length){
+          this.zhankai.push(treeData[0].child[0].child[0].id)
+        }
+    }
     this.treeListData = treeData;
     this.rootId = treeData[0].root_id;
     this.activeItem =treeData[0];

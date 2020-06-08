@@ -7,43 +7,43 @@
         <div class="floor">
             <div class="title">枪瞄在线时间容差值（分钟）</div>
             <div class="content">
-                <input type="text" v-model="txt1" @blur="blur1">
+                <input type="text" v-model.trim="txt1" @blur="blur1">
             </div>
         </div>
         <div class="floor">
             <div class="title">报警位置时间容差值（分钟）</div>
             <div class="content">
-                <input type="text" v-model="txt2" @blur="blur2">
+                <input type="text" v-model.trim="txt2" @blur="blur2">
             </div>
         </div>
         <div class="floor">
             <div class="title">系统名称</div>
             <div class="content">
-                <input type="text" v-model="txt3" @blur="blur3">
+                <input type="text" v-model.trim="txt3" @blur="blur3">
             </div>
         </div>
         <div class="floor">
             <div class="title">系统版权信息</div>
             <div class="content">
-                <input type="text" v-model="txt4" @blur="blur4">
+                <input type="text" v-model.trim="txt4" @blur="blur4">
             </div>
         </div>
         <div class="floor">
             <div class="title">系统描述</div>
             <div class="content">
-                <input type="text" v-model="txt5" @blur="blur5">
+                <input type="text" v-model.trim="txt5" @blur="blur5">
             </div>
         </div>
         <div class="floor">
             <div class="title">系统备案号</div>
             <div class="content">
-                <input type="text" v-model="txt6" @blur="blur6">
+                <input type="text" v-model.trim="txt6" @blur="blur6">
             </div>
         </div>
         <div class="floor">
             <div class="title">混合定位时间容差</div>
             <div class="content">
-                <input type="text" v-model="txt7" @blur="blur7">
+                <input type="text" v-model.trim="txt7" @blur="blur7">
             </div>
         </div>
         <div class="floor">
@@ -76,32 +76,32 @@ export default {
     },
     methods:{
         blur1(){
-            if(this.txt1.trim()==''){
+            if(this.txt1==''){
                 this.txt1=this.btxt1
             }
         },
         blur2(){
-            if(this.txt2.trim()==''){
+            if(this.txt2==''){
                 this.txt2=this.btxt2
             }
         },
         blur3(){
-            if(this.txt3.trim()==''){
+            if(this.txt3==''){
                 this.txt3=this.btxt3
             }
         },
         blur4(){
-            if(this.txt4.trim()==''){
+            if(this.txt4==''){
                 this.txt4=this.btxt4
             }
         },
         blur5(){
-            if(this.txt5.trim()==''){
+            if(this.txt5==''){
                 this.txt5=this.btxt5
             }
         },
         blur6(){
-            if(this.txt6.trim()==''){
+            if(this.txt6==''){
                 this.txt6=this.btxt6
             }
         },
@@ -133,7 +133,6 @@ export default {
                     let {id,banquan,beian,miaoshu,name,url,weizhi,zaixian,dwei}=data.data.data
                     this.id=id
                     this.url=url
-                    // console.log(banquan,beian,miaoshu,name,url,weizhi,zaixian)
                     this.txt1=zaixian;
                     this.txt2=weizhi;
                     this.txt3=name;
@@ -190,7 +189,6 @@ export default {
                 data: params
             })
             .then(data => {
-                // console.log(data)
                 if (data.data.code == 200) {
                     this.$message({
                         type:"success",

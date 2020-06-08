@@ -1,34 +1,6 @@
 <template>
   <div class="main" ref="main">
     <div class="none-data" v-if="!dataList.length">暂时没有数据</div>
-    <!-- 
-    <div class="item_miao" v-for="item in data" :key="item.IMEI" >
-      <div class="content">
-        <div class="item" :title="item.IMEI" @click="showOne(item)">
-          <p>{{item.IMEI}}</p>
-        </div>
-        <div class="item" title="枪瞄状态">{{item.heart==1 ? "在线":"不在线"}}</div>
-        <div class="item" title="电量" @click="tanchuang2(item)">{{item.electricity}}%</div>
-        <div class="item" title="充电状态">{{item.ischarging}}</div>
-        <div class="item" title="所属警员" @click="lookPerson(item)">{{item.policeuser_name || '暂无'}}</div>
-        <div class="item" title="所属机构">
-          <p>{{item.mechanism_name}}</p>
-        </div>
-        <div class="item" title="绑定解绑">
-          <span @click="tanchuang3(item)" v-if="item.gun_id==0">绑定</span>
-          <span
-            v-if="item.gun_id>0"
-            class="jiebang"
-            @click="jiebang(item)"
-            style="color:red;"
-            :title="item.gun_code"
-          >解绑</span>
-        </div>
-        <div class="item" title="最后定位时间">{{item.created}}</div>
-      </div>
-      <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
-    </div>
-     -->
     <div class="one-data"  v-for="item in dataList" :key="item.IMEI" >
       <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
       <div class="left">
@@ -41,7 +13,7 @@
         <div class="down"></div>
         <div class="up"></div>
         <div class="m" :class="{buzaixian:item.heart!=1}">
-          <img :src="`${imgs[item.img]}`" >
+          <img :src="urlBase+item.src" >
         </div>
       </div>
       <div class="right">
@@ -159,6 +131,7 @@ export default {
   },
   data() {
     return {
+      urlBase:this.$store.state.baseURL,
       liXianTitle:'6666',
       liXianMes:{"mechanism_name":'2123223'},
       tan1: false,
@@ -683,15 +656,12 @@ export default {
   },
   created(){
     this.sync = this.$gscookie.getCookie("sync");
-    // console.log(this.sync)
   },
   mounted() {
     this.$nextTick(() => {
       this.$refs.main.addEventListener("mouseover", ev => {
          return
         if (ev.target.className == "") {
-         console.log('移入了')
-        //  return
           ev.target.previousElementSibling.style.display = "block";
           ev.target.onmouseout = function() {
             let b = $(this)[0].querySelector(".check");
@@ -707,7 +677,7 @@ export default {
     });
   },
   updated() {
-    // console.log(this.activefujigou, this.activeyema);
+    
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <div id="wrap">
     <div id="header">
       <div class="logo">
-        <img src="@/assets/img/logo1.png"  @click="toBigScreem"/>
+        <img src="@/assets/img/logo1.png" />
       </div>
       <div class="nav_wrap">
         <div class="nav-btns">
@@ -25,25 +25,31 @@
               title="配置"
               to="/indexg/peizhi"
               tag="span"
-            ></router-link>
+            ><div class="icon"></div></router-link>
             <!--  v-show="mes.role_id!=3 && sync==1" -->
-            <span title="同步数据" @click="tongbu" v-if="false"></span>
+            <span title="同步数据" @click="tongbu" v-if="false"><div class="icon"></div></span>
 
             <router-link
               title="人员管理"
               v-show="mes.role_id==3||mes.role_id==2?false:true"
               to="/indexg/renyuan"
               tag="span"
-            ></router-link>
+            ><div class="icon"></div></router-link>
             <router-link
               title="机构管理"
               v-show="mes.role_id==3||mes.role_id==4||mes.role_id==2?false:true"
               to="/indexg/jigouguanli"
               tag="span"
-            ></router-link>
-            <span title="修改密码" @click="pas"></span>
-            <span title="个人信息" @click="mine" class="mine"></span>
-            <span title="退出登录" @click="logout"></span>
+            ><div class="icon"></div></router-link>
+            <span title="修改密码" @click="pas">
+              <div class="icon"></div>
+            </span>
+            <span title="个人信息" @click="mine" class="mine">
+              <div class="icon mine_btn"></div>
+            </span>
+            <span title="退出登录" @click="logout">
+              <div class="icon"></div>
+            </span>
           </div>
         </div>
         <div class="title">
@@ -56,8 +62,8 @@
           <div class="line3"></div>
           <div class="line4"></div>
           <p class="mine-title">个人信息</p>
-          <div class="imgwrap">
-            <img :src="mes.icon" v-if="mes.icon" alt="head pic" />
+          <div class="imgwrap" @click="toBigScreem">
+            <img :src="imgurl" v-if="mes.icon" alt="head pic" />
             <img src="@/assets/img/head-icon.png" v-if="!mes.icon" alt="head pic" />
           </div>
 
@@ -208,7 +214,8 @@ export default {
           en: "GUNLIBRARY"
         },
         枪库: { road: "/indexg/qiangku", name: "枪库", en: "GUNLIBRARY" },
-        录音录像: { road: "/indexg/vidio", name: "录音录像", en: "VIDEO" }
+        录音录像: { road: "/indexg/vidio", name: "录音录像", en: "VIDEO" },
+        图片管理: { road: "/indexg/images", name: "图片管理", en: "IMAGES" },
       },
       list: [],
       mes: null,
@@ -219,17 +226,19 @@ export default {
       sync: "",
       loading:null,
       timer11:null,
-      timerTishi:null
+      timerTishi:null,
+      imgurl:''
     };
   },
   methods: {
+    
     playAudio(){
       let audio=document.querySelector('audio')
        audio.currentTime = 0; //从头开始播放提示音
       audio.play(); //播放
     },
     toBigScreem(){
-      this.$router.push('/dapingnew')
+      // this.$router.push('/dapingnew')
     },
     tongbu() {
       let that = this;
@@ -447,6 +456,7 @@ export default {
       });
        //............................................................
        let mes=JSON.parse(sessionStorage.getItem('message_obj'))
+       this.imgurl=this.$store.state.baseURL+mes.icon
       var token = this.$gscookie.getCookie("gun");
       var objs = {
         "policeuser_id":mes.id,
@@ -666,6 +676,7 @@ export default {
     this.getAllWarningList();
     this.getNav();
     this.mes = this.$gscookie.getCookie("message_obj");
+    this.imgurl=this.$store.state.baseURL+this.mes.icon
     this.userId.id = this.mes.id;
   },
   beforeDestroy(){
@@ -673,10 +684,10 @@ export default {
   },
   mounted() {
     
-    this.timerTishi=setInterval(()=>{
-      // console.log('开始播放')
-      this.$store.commit('playAudio','long')
-    },60000)
+    // this.timerTishi=setInterval(()=>{
+    //   // console.log('开始播放')
+    //   this.$store.commit('playAudio','long')
+    // },60000)
     //提示音
     this.timer11=setInterval(() => {
       this.setTimer()
@@ -708,8 +719,9 @@ export default {
       if (ev.target.className == "mine-message") {
         that.mineShow = true;
       } else if (ev.target.className == "mine") {
-        // that.mineShow=true
-        that.mineShow = !that.mineShow;
+        that.mineShow =true
+      }else if (ev.target.className.includes('mine_btn')) {
+        that.mineShow =true
       } else if (ev.target.className == "change_pass") {
         that.mineShow = true;
       } else if (ev.target.className == "mine-title") {
@@ -753,4 +765,5 @@ export default {
   transform: translateX(-1rem);
   opacity: 0;
 }
+
 </style>

@@ -68,17 +68,14 @@ export default {
             }
 
             sessionStorage.setItem("sync", JSON.stringify(res.data.data.sync));
-            //  this.$gscookie.setCookie("gun", res.data.data.token);
              sessionStorage.setItem("gun", JSON.stringify(res.data.data.token));//使用原生方法
              this.$store.commit("setPreFix", {
               prefix_on: res.data.data.prefix_on
             });
-            // this.$gscookie.setCookie(
-            //   "mechanism_id",
-            //   res.data.data.mechanism_id
-            // );
+            
             sessionStorage.setItem("mechanism_id", JSON.stringify(res.data.data.mechanism_id));//使用原生方法
             this.$store.state.role_id = res.data.data.role_id;
+            sessionStorage.setItem('role_id',res.data.data.role_id)
             this.$store.state.jigouTreeStr = res.data.data.mechanism_id;
             let message_obj = {
               role_id: res.data.data.role_id,
@@ -90,9 +87,8 @@ export default {
               icon: res.data.data.icon,
               mechanism_id: res.data.data.mechanism_id
             };
-            // this.$gscookie.setCookie("message_obj", message_obj);
             sessionStorage.setItem("message_obj", JSON.stringify(message_obj));//使用原生方法
-            if (res.data.data.role_id == 3) {
+            if (res.data.data.role_id == 3) {//如果是用枪员，只能看轨迹页面
               let zaixian=this.$store.state.zaixian
               if(zaixian){
                 this.$router.push(`/indexg/guiji`);
@@ -100,17 +96,20 @@ export default {
                 this.$router.push(`/indexg/map`);
               }
               
-            } else {
+            } else {//正常情况登录成功跳首页
               this.$router.push(`/indexg/huizong`);
             }
              this.$message({
               type: "success",
               message: "登陆成功！"
             });
-            console.log('登录成功后',res);
+            console.log('登录成功,接下来去首页');
+            this.username = "";
+            this.pwd = "";
           } else {
+            console.log('登录失败原因：',res.data.msg)
             this.$message({
-              type: "warning",
+              type: "error",
               message: res.data.msg
             });
           }
@@ -118,8 +117,7 @@ export default {
         .catch(req => {
           console.log(req);
         });
-      this.username = "";
-      this.pwd = "";
+      
     }
   },
   created() {

@@ -39,7 +39,7 @@
     </div>
     <div class="page-index" v-show="true">
       <el-pagination
-        :page-size="6"
+        :page-size="pageSize"
         :pager-count="9"
         layout="total,prev, pager, next"
         @current-change="currentChange"
@@ -54,6 +54,10 @@
       <button @click="addjigou">新增机构</button>
       <button @click="shanchujigou">删除机构</button>
     </div>
+    <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
     <div class="content" ref="con">
       <sixItem
         :del="deleteShow"
@@ -62,6 +66,7 @@
         :dataList="jigoulist"
         :dataLength="jigoulist.length"
         :sync="sync"
+        :keshihua="keshihua"
       />
     </div>
     <div class="alert" v-show="addShow">
@@ -125,6 +130,8 @@ export default {
   components: { topNav, sixItem, breadNav },
   data() {
     return {
+      keshihua:true,
+      pageSize:6,
       currentNodeKey: "1",
       activeTreeId: "",
       hasData: false,
@@ -163,6 +170,21 @@ export default {
   },
 
   methods: {
+    changeShowType(n){
+     
+      if(n===1){
+        this.keshihua=true
+        this.pageSize=6
+        this.handClick(this.currentNodeKey, 1);
+      }else{
+        this.keshihua=false
+        this.pageSize=19
+        this.handClick(this.currentNodeKey, 1);
+      }
+      localStorage.setItem('setKeShiHua',this.keshihua)
+      
+      this.$refs.page.internalCurrentPage = 1;
+    },
     handleNodeClick(item) {
       this.loading = this.$loading({
         lock: true,
@@ -450,9 +472,10 @@ export default {
       this.deleteShow = false;
       if (!id) return;
       var token = this.$gscookie.getCookie("gun");
-      var objs = { p: n, ps: "6", mechanism_id: id };
+      var objs = { p: n, ps: this.pageSize, mechanism_id: id };
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
+    
       var params = new URLSearchParams();
       params.append("p", objs.p);
       params.append("ps", objs.ps);
@@ -548,7 +571,9 @@ export default {
     }
   },
   created() {
-
+    let keshi=localStorage.getItem('setKeShiHua')
+     this.keshihua=JSON.parse(keshi) 
+     this.pageSize=this.keshihua?6:19
     this.loading = this.$loading({
         lock: true,
         text: "Loading",

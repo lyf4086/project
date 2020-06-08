@@ -1,9 +1,8 @@
 #wrap {
   width: 100%;
   height: 100%;
-  background: url(../../assets/sucai/bg1.png) no-repeat, url(../../assets/sucai/bg2.png) no-repeat, url(../../assets/sucai/bg3.png) no-repeat, url(../../assets/sucai/bg4.png) no-repeat, url(../../assets/sucai/bg5.png) no-repeat, url(../../assets/sucai/bg6.png) no-repeat, url(../../assets/sucai/bg7.png) no-repeat, url(../../assets/sucai/bg8.png) no-repeat;
-  background-size: 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh, 12.5vw 100vh;
-  background-position: left top, 12.5vw top, 25vw top, 37.5vw top, 50vw top, 62.5vw top, 75vw top, 87.5vw top;
+  background: url(../../assets/sucai/bg.png) no-repeat;
+  background-size: 100% 100%;
 }
 .top {
   position: relative;
@@ -128,11 +127,11 @@
 }
 .content .left .item2 .item-wrap {
   width: 100%;
-  height: 100%;
+  height: 86%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-content: flex-start;
+  align-content: space-around;
 }
 .content .left .item2 .item-wrap .item {
   width: 25%;

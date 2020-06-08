@@ -90,7 +90,6 @@ function searchPerson(mid,uid){
         "server_id":mid,
         "uid":uid
     };
-    console.log(objs)
     
     var sign = this.$methods.mkSign(objs, key);
     var token = this.$gscookie.getCookie("gun");

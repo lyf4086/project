@@ -8,6 +8,13 @@
   flex-wrap: wrap;
   position: relative;
 }
+.addtype {
+  width: 1rem;
+  background: #20364e;
+  color: #fff;
+  border: 1px solid #55affd;
+  font-size: 0.14rem;
+}
 .tree-menu {
   width: 11%;
   height: 100%;
@@ -124,7 +131,7 @@
   height: 3.6vh;
   position: absolute;
   right: 0;
-  bottom: -4.6vh;
+  bottom: -0.47rem;
   background: url(../../assets/img/fenye.png) no-repeat;
   background-size: 100% 100%;
   display: flex;

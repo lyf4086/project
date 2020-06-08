@@ -259,6 +259,7 @@ export default {
                 return [point[0]-140, point[1]-200];
               },
               formatter: function(params) {
+                  if(!params.data)return
                   var tipHtml = '';
                   let img1=require('@/assets/sucai/dongtu/map_yuanhuan.png')
                   let img2=require('@/assets/sucai/map_zhushi.png')
@@ -267,14 +268,15 @@ export default {
                   background: url(${img2});background-size: 100% 100%;">
                       <div style="position:absolute;top:18px;left:10px;width: 90px;height:90px;color:#ffd496;
                       background: url(${img1});background-size: 100% 100%;box-sizing:border-box;padding:27px 0 0 32px" >
-                          <p style="padding:0;margin:0;line-height: 20px;">预警</p>
+                          <p style="padding:0;margin:0;line-height: 20px;">区域</p>
                           <p style="padding:0;margin:0;line-height: 20px;">信息</p>
                       </div>
                       <div style="width:160px;height:90px;position: absolute;right:15px;top:20px;color:#ffffff;font-size: 12px;">
-                          <p style="padding:0;margin:0;line-height: 20px;"><span style="font-size: 13px;color:#b8c2cb">预警地区&nbsp; </span><span> ${params.name||'暂无数据'}</span></p>
-                          <p style="padding:0;margin:0;line-height: 20px;"><span style="font-size: 13px;color:#b8c2cb">预警时间&nbsp; </span><span> 2020-01-10</span></p>
-                          <p style="padding:0;margin:0;line-height: 20px;"><span style="font-size: 13px;color:#b8c2cb">预警地点&nbsp; </span><span> ${params.name||'暂无数据'}</span></p>
-                          <p style="padding:0;margin:0;line-height: 20px;"><span style="font-size: 13px;color:#b8c2cb">预警人口&nbsp; </span><span> ${params.value||'暂无数据'}</span></p>
+                          <p style="padding:0;margin:0;line-height: 20px;"><span style="font-size: 13px;color:#b8c2cb">区域名称：&nbsp; </span><span>${params.name||''}</span></p>
+                          <p style="padding:0;margin:0;line-height: 18px;"><span style="font-size: 13px;color:#b8c2cb">一级任务：&nbsp; </span><span>${params.data.value1||0}</span></p>
+                          <p style="padding:0;margin:0;line-height: 18px;"><span style="font-size: 13px;color:#b8c2cb">二级任务：&nbsp; </span><span> ${params.data.value2||0}</span></p>
+                          <p style="padding:0;margin:0;line-height: 18px;"><span style="font-size: 13px;color:#b8c2cb">三级任务：&nbsp; </span><span> ${params.data.value3||0}</span></p>
+                          <p style="padding:0;margin:0;line-height: 18px;"><span style="font-size: 13px;color:#b8c2cb">四级任务：&nbsp; </span><span> ${params.data.value4||0}</span></p>
                       </div>
                   </div>
                   `
@@ -445,10 +447,12 @@ export default {
   created(){
       this.cityNames().then(res=>{
             if(res.status==200){
+                console.log(res,'res')
                this.citylist=res.data
                 this.initchart('china','');
             }
         })
+    
   },
   mounted() {
      

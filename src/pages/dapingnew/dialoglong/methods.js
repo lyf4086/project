@@ -4,6 +4,12 @@ import leftChart from './leftChart'
 import centerChart from './centerChart'
 import rightChart from './rightChart'
 export default {
+    props:{
+        sid:{
+            type:String,
+            default:''
+        }
+    },
     data(){
         return{
             leftList:[],
@@ -25,18 +31,16 @@ export default {
             this.$emit('close')
         },
         getData(){
-            this.task_rank().then(res=>{
+            this.task_rank({"server_id":this.sid}).then(res=>{
                 if(res.status==200){
-                    // console.log('task_rank',res)
                     this.leftList=res.data.data
                     this.leftTags=res.data.tasks
                     let leftChartData=res.data.data.map(e=>e.total)
                     this.leftChart(leftChartData)
                 }
             })
-            this.alarm_rank().then(res=>{
+            this.alarm_rank({"server_id":this.sid}).then(res=>{
                 if(res.status==200){
-                    // console.log('alarm_rank',res)
                     this.centerList=res.data.data
                     this.centerTags=res.data.type
                     let centerChartData=res.data.data.map(e=>{
@@ -48,9 +52,8 @@ export default {
                     this.centerChart(centerChartData)
                 }
             })
-            this.xiaohao_rank().then(res=>{
+            this.xiaohao_rank({"server_id":this.sid}).then(res=>{
                 if(res.status==200){
-                    // console.log('xiaohao_rank',res)
                     this.rightList=res.data.data
                     this.rightTags=res.data.type
                     let nameList=res.data.data.map(e=>e.cname)

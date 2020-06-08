@@ -149,6 +149,7 @@
 }
 .danyao-xiaohao .xiangqing-wrap {
   position: fixed;
+  z-index: 2;
   top: 0;
   left: 0;
   width: 100vw;
@@ -203,6 +204,7 @@
   padding: 0.1rem 0 0 0.16rem;
   width: 100%;
   height: 100%;
+  line-height: 0.19rem;
   background: url(../../../assets/img/text-wrap.png) no-repeat;
   background-size: 100% 100%;
   position: absolute;

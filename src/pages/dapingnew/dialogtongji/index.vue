@@ -1,44 +1,17 @@
 <template>
     <div class="dialog">
          <button class="del" @click="close">X</button>
-        <div class="title">
+        <div class="title" >
             任务统计详情
         </div>
         <div class="content">
             <div class="up">
-                <div class="item">
-                    <div class="t">一级任务</div>
+                <div class="item" v-for="item in list" :key="item.ID">
+                    <div class="t">{{item.vtask}}</div>
                     <div class="list">
-                        <div class="i" v-for="e in 5">
-                            <span>浙江</span>
-                            <span>5</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="t">二级任务</div>
-                    <div class="list">
-                        <div class="i" v-for="e in 5">
-                            <span>浙江</span>
-                            <span>5</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="t">三级任务</div>
-                    <div class="list">
-                        <div class="i" v-for="e in 5">
-                            <span>浙江</span>
-                            <span>5</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="t">四级任务</div>
-                    <div class="list">
-                        <div class="i" v-for="e in 5">
-                            <span>浙江</span>
-                            <span>5</span>
+                        <div class="i" v-for="(val, key, i) in item.child" :key="`${key}${i}`" >
+                            <span>{{key}}</span>
+                            <span>{{val}}</span>
                         </div>
                     </div>
                 </div>
@@ -49,13 +22,29 @@
     </div>
 </template>
 <script>
+import {top5_info} from '../apis'
 export default {
+    props:{
+        sid:{
+            type:String,
+            default:''
+        }
+    },
     data(){
         return {
-
+            list:[]
         }
     },
     methods:{
+        top5_info,
+        getData(){
+            this.top5_info({"server_id":this.sid}).then(res=>{
+                if(res.status==200){
+                    console.log('top5_info',res.data)
+                    this.list=res.data.data
+                }
+            })
+        },
         close(){
             this.$emit('close')
         },
@@ -162,7 +151,8 @@ export default {
         }
     },
     mounted(){
-        this.chartDown()
+        this.chartDown();
+        this.getData()
     }
 }
 </script>

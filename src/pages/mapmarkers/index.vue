@@ -121,10 +121,12 @@ export default {
       let activeImg = require("@/assets/img/head-icon.png"); //引入默认图片
       let markerArr = list.map((item, i) => {
         let xy = [item.longitude, item.latitude];
+         num=num>3?3:num
         let html =
           item.leader && item.leader == 1
             ? `<div class=${"leader" + num}></div>`
             : "";
+           
         let cln = "cover" + num + "" + num;
 
         return new AMap.Marker({
@@ -186,7 +188,6 @@ export default {
       this.map.setFitView([...this.markerList]);
     },
     setMarkerLiXian(arr, num = 0, vtask, headerPerson) {
-      console.log(arr.length);
       let that = this;
       let BM = this.BM;
       let map = this.map;
@@ -202,6 +203,7 @@ export default {
         } else {
           stateName = "";
         }
+        num=num>3?3:num
         let clnColor = "cover" + num + "" + num;
         let html =
           item.leader && item.leader == 1
@@ -264,14 +266,14 @@ export default {
         });
       });
     },
-    getData(server_id) {
+    getData(server_id,tid) {
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      var objs = {};
+      var objs = {tid};
       if (server_id) {
         objs.server_id = server_id;
       }
@@ -279,6 +281,7 @@ export default {
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
+      params.append("tid", objs.tid);
       params.append("sign", sign);
       params.append("token", token);
       if (server_id) {
@@ -296,6 +299,7 @@ export default {
           let zaixian = this.$store.state.zaixian;
           if (res.status == 200) {
             this.loading.close();
+            console.log(res.data)
             this.guntotal=res.data.data.toal
             this.nowei=res.data.data.nowei
             this.nCount=res.data.data.nCount
@@ -335,11 +339,13 @@ export default {
     }
   },
   created() {
-    this.getSelData();
+    // this.getSelData();
   },
   mounted() {
+    let json=JSON.parse(localStorage.getItem('mapMarkers_ids'))
+    console.log(json,'json')
     this.initMap();
-    this.getData();
+    this.getData(json.sid,json.tid);
     this.timer = window.setInterval(() => {
       this.$router.go(0);
     }, 600000); //暂定10分钟刷新一次

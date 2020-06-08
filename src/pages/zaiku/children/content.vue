@@ -2,9 +2,10 @@
   <div class="danyao-zaiku">
     <div class="top-list">
       <div class="title">
-        <p>弹柜总量：{{dataArr.length?dataArr.length:0}}</p>
+        <p>弹柜总量：<slot></slot></p>
       </div>
       <div class="item-wrap">
+        <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
         <div class="item" v-for="(item,index) in dataArr" :key="index">
           <p class="title">单位：{{item.org_name}}</p>
           <img src="../../../assets/img/qingguitest.png" />
@@ -16,13 +17,13 @@
         </div>
       </div>
     </div>
-    <div class="mes">
+    <div class="mes" v-show="false">
       <div class="title">
         <span>弹柜名称</span>
         <span>弹药类型</span>
         <span>弹药数量</span>
       </div>
-      <ul class="list">
+      <ul class="list" v-show="false">
         <li class="item" v-for="(item,index) in list" :key="index">
           <span>{{item.org_name}}</span>
           <span>{{item.bulletType}}</span>

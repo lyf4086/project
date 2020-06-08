@@ -1,3 +1,4 @@
+import { resolve } from 'url';
 <template>
   <div class="wrap">
     <div id="sel">
@@ -205,6 +206,7 @@ export default {
   },
   methods: {
     sub() {
+
       let arr = this.mec.filter(e => e.checked).map(e => e.id);
       let ip_id = this.mec.filter(e => e.checked).map(e => e.ip_id);
       if (!arr.length) {
@@ -809,8 +811,13 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            // console.log(data);
-            this.ip_id = data.data.mec[0].ip_id;
+           
+            if(data.data.mec.length){
+              this.ip_id = data.data.mec[0].ip_id;
+            }else{
+              this.ip_id = ''
+            }
+            
             this.types = data.data.types.map(item => {
               return {
                 ...item,
@@ -857,7 +864,6 @@ export default {
         mid: mid,
         ip_id: ip_id
       };
-      // console.log(objs);
       var token = this.$gscookie.getCookie("gun");
       var key = this.$store.state.key;
       var sign = this.$methods.mkSign(objs, key);
@@ -893,6 +899,7 @@ export default {
           console.log(error);
         });
     },
+    
     getDuiBi(t_mechanism_id, mid, ip_id, tid, time, ntime) {
       let objs = {
         t_mechanism_id, //
@@ -978,6 +985,8 @@ export default {
     let item = this.$gscookie.getCookie("message_obj");
     let obj = this.$route.params;
     this.t_mechanism_id = item.mechanism_id;
+    console.log(item.mechanism_id)
+    // return
     this.getTypes();
   },
   mounted() {

@@ -2,7 +2,9 @@
   <div class="danyao-xiaohao">
     <div class="top-list">
       <div class="title">
-        <p>弹柜总量：{{dataArr.length}}</p>
+        <p>弹柜总量：<slot></slot>
+        </p>
+        
       </div>
       <div class="item-wrap">
         <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
@@ -15,6 +17,7 @@
           <p>弹药数量：{{item.bulletcount}}</p>
           <h6 @click="xiangqing(item)" style="color:#fff;">&nbsp;&nbsp;&nbsp;&nbsp;</h6>
         </div>
+        
       </div>
     </div>
 
@@ -99,8 +102,6 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       this.xiangqingindex = index;
-      // this.xiangqingshow=true
-      // console.log(index.id)
       this.getXiangQing(index.id);
     },
     close() {
@@ -140,7 +141,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.dataArr);
+    
   }
 };
 </script>

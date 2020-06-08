@@ -1,0 +1,172 @@
+
+@vw:19.2vw;
+@vh:10.8vh;
+@rem:100rem;
+.wrap{
+    position: relative;
+    font-size: 18/@vw;
+    color: #fff;
+}
+.cover{
+    position: fixed;
+    z-index: 9;
+    top:0;
+    left:0;
+    width: 100vw;
+    height:100vh;
+    background: rgba(0, 0, 0, 0.5);
+}
+.up-pic {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 50/@rem ;
+    margin: auto;
+    width: 900/@rem;
+    height: 600/@rem;
+    font-size: 16/@rem;
+    background: url(../../assets/img/qiangku.png) no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    
+    img{
+        max-width: 300/@rem;
+        max-height: 300/@rem;
+    }
+    .sub{
+        position: absolute;
+        bottom:20/@rem;
+        left:50%;
+        transform: translateX(-50%);
+    }
+    .del {
+      position: absolute;
+      width: 40/@rem;
+      height: 40/@rem;
+      line-height: 40/@rem;
+      text-align: center;
+      border-radius: 50%;
+      top: 26/@rem;
+      right: 26/@rem;
+      background: red;
+      color: #fff;
+      cursor: pointer;
+    }
+
+
+  }
+  .el-icon-plus{
+      font-size: 100/@rem;
+      line-height: 160/@rem;
+  }
+  .table-header{
+      background: red;
+  }
+  .cell-header{
+      width: 100%;
+      height: 40/@vw;
+      font-size: 14/@vw;
+      border:1/@vw solid rgb(85, 175, 253);
+      font-weight: bold;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+    justify-items: center;
+    align-items: center;
+   span{
+       width: 100%;
+       height: 100%;
+       line-height: 40/@vw;
+       text-align: center;
+       border-right: 1/@vw solid rgb(85, 175, 253);
+   }
+    span:nth-last-child(1){
+        border-right: none;
+    }
+  }
+  .list-item{
+    width: 100%;
+    height: 40/@vw;
+    font-size: 14/@vw;
+    display: grid;
+    border:1/@vw solid rgb(85, 175, 253);
+    border-top: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+      justify-items: center;
+    align-items: center;
+    span{
+        width: 100%;
+        height: 100%;
+        line-height: 40/@vw;
+        text-align: center;
+        border-right: 1/@vw solid rgb(85, 175, 253);
+    }
+     span:nth-last-child(1){
+         border-right: none;
+     }
+  }
+  .imgwrap{
+      position: absolute;
+      top:50%;
+      left:50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 60%;
+      height:60%;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      img{
+          max-width: 90%;
+          max-height: 100%;
+      }
+      .del{
+        position: absolute;
+        width: 40/@rem;
+        height: 40/@rem;
+        line-height: 40/@rem;
+        text-align: center;
+        border-radius: 50%;
+        top: 26/@rem;
+        right: 26/@rem;
+        background: red;
+        color: #fff;
+        cursor: pointer;
+      }
+  }
+
+  .cell{
+      width: 80%;
+      height:50/@vw;
+      margin: 40/@rem auto;
+      display: grid;
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 5fr;
+      align-items: center;
+      input{
+          background: none;
+          border: 1/@rem solid rgb(45, 12, 231);
+          width: 100%;
+          height:100%;
+          text-indent: 20px;
+          color:#fff
+      }
+      select{
+        background: none;
+        border: 1/@rem solid rgb(45, 12, 231);
+        width: 100%;
+        height:100%;
+        color:#fff
+      }
+  }
+
+  .op{
+    width: 100%;
+    color: rgb(39, 19, 221);
+  }
+  

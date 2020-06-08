@@ -1,5 +1,6 @@
 @rem: 100rem;
-
+@vw:19.2vw;
+@vh:10.8vh;
 .marker-route {
   position: relative;
   width: 70/@rem;
@@ -233,6 +234,8 @@
 }
 
 .content {
+  box-sizing: border-box;
+  padding-top: 30/@rem;
   width: 88.9%;
   height: 95%;
   position: absolute;
@@ -266,7 +269,7 @@
   }
 }
 
-.alert {
+.alert1 {
 
   position: fixed;
   z-index: 99;
@@ -409,7 +412,190 @@
   }
 
 }
+.alert{
+  position: absolute;
+  z-index: 11;
+  width:1100/@vw;
+  height:600/@vw;
+  top:0;
+  right:0;
+  bottom: 0;
+  left:0;
+  margin:auto;
+  background: url(../../assets/img/renyuan-a.png) no-repeat;
+  background-size: 100% 100%;
+  .del{
+    position: absolute;
+    top:30/@vw;
+    right:10/@vw;
+    width:36/@vw;
+    height:36/@vw;
+    border-radius: 50%;
+    line-height: 36/@vw;
+    font-size: 20/@vw;
+    background: none;
+    border:1/@vw solid #fff;
+    color:#fff;
+    cursor: pointer;
+  }
+  .leftwrap{
+    position: absolute;
+    left:80/@vw;
+    top:86/@vw;
+    width:290/@vw;
+    height:440/@vw;
+    display: flex;
+    .box-l{
+      width:38%;
+      height:100%;
+      // background: rgba(1, 222, 0, 0.2);
+      .imgwrap{
+        position: absolute;
+        left:35/@vw;
+        top:49/@vw;
+        width:40/@vw;
+        height:40/@vw;
+        background: #00b2fc;
+        border-radius: 50%;
+        overflow: hidden;
+        img{
+          width:100%;
+        }
+      }
+      .btnwrap{
+        box-sizing: border-box;
+        position: absolute;
+        top:117/@vw;
+        left:10/@vw;
+        width:30%;
+        height:100/@vw;
+        display: flex;
+        justify-content: space-around;
+        align-content: space-between;
+        flex-wrap: wrap;
+        button{
+          width: 100%;
+          height:22/@vw;
+          line-height: 22/@vw;
+          font-size: 12/@vw;
+          background: none;
+          color:#fff;
+        }
+        button:nth-child(3){
+          color:red;
+        }
+      }
+      .iconwrap1{
+        position: absolute;
+        top:269/@vw;
+        left:10/@vw;
+        width:17%;
+        height:30/@vw;
+        // border: 1px solid red;
+      }
+      .iconwrap2{
+        position: absolute;
+        top:349/@vw;
+        left:10/@vw;
+        width:17%;
+        height:30/@vw;
+        // border: 1px solid red;
+      }
+    }
+    .box-r{
+      width:62%;
+      height:100%;
+      font-size: 14/@vw;
+      color:#fff;
+      &>div{
+        box-sizing: border-box;
 
+      }
+      .text1{
+        height:100/@vw;
+        margin-top: 20/@vw;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-around;
+        p{
+          width:100%;
+          display: flex;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          i:nth-child(1){
+            flex: 1
+          }
+          i:nth-child(2){
+            flex:2.6
+          }
+        }
+      }
+      .text2{
+        height:100/@vw;
+        margin-top: 20/@vw;
+        color:#03cbfe;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-around;
+        p{
+          width:100%;
+          display: flex;
+          i:nth-child(1){
+            flex: 1.2
+          }
+          i:nth-child(2){
+            flex:2
+          }
+        }
+      }
+      .text3{
+        height:60/@vw;
+        margin-top: 16/@vw;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-around;
+        p{width:100%}
+      }
+      .text4{
+        height:60/@vw;
+        margin-top: 16/@vw;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-around;
+        p{width:100%}
+      }
+    }
+  }
+  .mes{
+    position: absolute;
+    width:170/@vw;
+    height:70/@vw;
+    font-size: 12/@vw;
+    color:#fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    box-sizing: border-box;
+    padding: 10/@vw 0;
+    p{
+      width:100%;
+      i:nth-child(2){color:#cc713c}
+    }
+  }
+  .mes1{
+    top:156/@vw;
+    left:480/@vw;
+  }
+  .mes2{
+    top:369/@vw;
+    left:480/@vw;
+  }
+  .mes3{
+    top:170/@vw;
+    left:873/@vw;
+  }
+}
 .none-data {
   width: 50%;
   height: 300/@rem;
@@ -419,4 +605,130 @@
   background: rgba(0, 0, 0, 0.2);
   margin: 100/@rem auto;
   border-radius: 20/@rem;
+}
+
+.change_type{
+  width: 200/@rem;
+  height: 40/@rem;
+  position: absolute;
+  // top: 36/@rem;
+  top:40/@vh;
+  left: 300/@rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  button{
+    border:1/@rem solid rgba(129, 126, 126,0.3);
+    color:#fff;
+    width:36/@rem;
+    height:36/@rem;
+    line-height: 20/@rem;
+    padding:5/@rem 10/@rem;
+    border-radius: 5/@rem;
+    cursor: pointer;
+  }
+  button:nth-child(1){
+    background: url(../../assets/img/keshihua.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  button:nth-child(2){
+    background: url(../../assets/img/leibiao.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  .active{
+    border-color: #50b5f8;
+  }
+}
+
+.content2{
+  width: 88.9%;
+height: 88%;
+position: absolute;
+right: 0;
+top: 83/@rem;
+font-size: 16/@rem;
+  .none-data{
+  width:50%;
+  height:300/@rem;
+  line-height: 300/@rem;
+  text-align: center;
+  font-size: 20/@rem;
+  background: rgba(0,0,0,0.2);
+  margin:100/@rem auto; 
+  border-radius: 20/@rem;
+}
+.list-title{
+  width:100%;
+  // height:40/@vh;
+  height:5.1%;
+  display: flex;
+  align-items: center;
+  border-width: 1/@vw 0;
+  border-style: solid;
+  border-color: cornflowerblue;
+  input{
+    flex:1
+  }
+  span{
+    height:100%;
+    line-height: 36/@vh;
+    flex:3;
+    text-align: center;
+    border-left: 1/@vw solid cornflowerblue;;
+  }
+  span:last-child{
+    flex: 4;
+  }
+}
+.list-item{
+  box-sizing: border-box;
+  width:100%;
+  // height:38.3/@vh;
+  height:5%;
+  display: flex;
+  align-items: center;
+  border-width:0 0 1/@vw;
+  border-style: solid;
+  border-color: cornflowerblue;
+  input{
+    flex:1
+  }
+  span{
+    height:100%;
+    line-height: 36/@vh;
+    font-size: 14/@vw;
+    color:#fff;
+    flex:3;
+    text-align: center;
+    border-left: 1/@vw solid cornflowerblue;;
+  }
+  span:last-child{
+    flex: 4;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  button {
+    // position: absolute;
+    float: right;
+    margin-right: 3/@rem;
+    right: 0;
+    padding: 0/@rem 5/@rem;
+    border-radius: 3/@rem;
+    border: 1/@rem solid #00b2fc;
+    color: #fff;
+    background: linear-gradient(to top, #00b2fc, #00b2fc, transparent);
+    cursor: pointer;
+  }
+}
+}
+
+.cover{
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 9;
+  width: 100vw;
+  height:100vh;
+  background:rgba(0, 0, 0, 0.8);
 }

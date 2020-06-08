@@ -65,9 +65,33 @@ let router = new Router({
     path: '/indexg',
     component: IndexG,
     children: [{
+      path: 'addmiaotype',
+      name: 'Addmiaotype',
+      component: ()=>import('../pages/addmiaotype'),
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: 'images',
+      name: 'Images',
+      component: ()=>import('../pages/images'),
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: 'home',
+      name: 'Home',
+      component: ()=>import('../pages/home'),
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
       path: 'huizong',
       name: 'HuiZong',
-      component: HuiZong,
+      component: ()=>import('../pages/home'),
       meta: {
         keepAlive: true
       }

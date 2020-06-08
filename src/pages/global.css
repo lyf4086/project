@@ -91,12 +91,25 @@
   justify-content: flex-end;
 }
 #header .btns span {
+  position: relative;
   width: 0.49rem;
   height: 0.49rem;
   transition: 0.1s;
   margin: 0.1rem;
   border-radius: 50%;
   cursor: pointer;
+  background: url(../assets/img/icon5.png) no-repeat;
+  background-size: 100% 100%;
+}
+#header .btns span .icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 0.24rem;
+  height: 0.24rem;
 }
 #header .btns span:nth-last-child(7) {
   background: url('../assets/img/peizhi.png');
@@ -107,30 +120,30 @@
 }
 #header .btns span:nth-last-child(6) {
   background: url('../assets/img/tongbu.png');
-  background-size: cover;
+  background-size: 100% 100%;
 }
 #header .btns span:nth-last-child(6):hover {
   animation: zhuan 3s linear infinite;
 }
 #header .btns span:nth-last-child(5) {
-  background: url('../assets/img/icon6.png');
-  background-size: cover;
+  background: url('../assets/img/icon1.png');
+  background-size: 100% 100%;
 }
-#header .btns span:nth-last-child(4) {
-  background: url('../assets/img/icon22.png');
-  background-size: cover;
+#header .btns span:nth-last-child(4) .icon {
+  background: url('../assets/homepic/menu_icon2.png');
+  background-size: 100% 100%;
 }
-#header .btns span:nth-last-child(3) {
-  background: url('../assets/img/icon2.png');
-  background-size: cover;
+#header .btns span:nth-last-child(3) .icon {
+  background: url('../assets/homepic/menu_icon3.png');
+  background-size: 100% 100%;
 }
-#header .btns span:nth-last-child(2) {
-  background: url('../assets/img/mine.png');
-  background-size: cover;
+#header .btns span:nth-last-child(2) .icon {
+  background: url('../assets/homepic/menu_icon4.png');
+  background-size: 100% 100%;
 }
-#header .btns span:nth-last-child(1) {
-  background: url('../assets/img/icon5.png');
-  background-size: cover;
+#header .btns span:nth-last-child(1) .icon {
+  background: url('../assets/homepic/menu_icon5.png');
+  background-size: 100% 100%;
 }
 #header .btns span:hover {
   box-shadow: 0 0 5px 2px #3e94e4;
@@ -528,4 +541,17 @@
   background: url(../assets/img/round2.png) no-repeat;
   background-size: 100% 100%;
   animation: zhuan 4s linear infinite;
+}
+ /deep/ .el-input {
+  width: 100%;
+}
+ /deep/ .el-input input {
+  height: 2.03125vw;
+  border-color: #55affd;
+  background: transparent;
+  color: #fff;
+}
+ /deep/ .el-button--mini.is-circle {
+  width: 1.82291667vw;
+  height: 1.82291667vw;
 }

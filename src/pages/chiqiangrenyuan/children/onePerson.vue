@@ -110,7 +110,6 @@ export default {
   },
   methods: {
     openalert(item){
-      console.log(item)
       this.getXiangqing(item.id)
       
     },
@@ -136,7 +135,6 @@ export default {
       //................获取持枪人员列表信息函数
       var key = this.$store.state.key;
       var objs = { id: id };
-      console.log(objs)
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
@@ -153,10 +151,9 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            console.log(data)
+            
             this.xiangqingalert=true
             this.xiangqingData=data.data
-            
           }
         })
         .catch(error => {

@@ -257,7 +257,7 @@
     </div>
     <!-- 切换航速据模式 -->
 
-    <div class="change-type" v-show="hasPerson&&oldOrNew=='new'">
+    <div class="change-type" v-if="false" v-show="hasPerson&&oldOrNew=='new'">
       <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
         <i class="fangxiang"></i>
       </div>

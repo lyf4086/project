@@ -21,6 +21,7 @@
         <!--面包屑导航-->
         <breadNav title="枪瞄管理" :next="active_title" />
       </div>
+      <button class="addtype" @click="toAdd">新增类型</button>
       <div class="check-type">
         <select name="" id="" v-model="checkType" @change="typeChange">
           <option value="1">全部</option>
@@ -81,7 +82,6 @@
     </div>
     <div class="content2" v-show="!keshihua">
       <div class="none-data" v-if="!qiangmiaoData.length">暂时没有数据</div>
-      
       <div class="list-title" v-show="qiangmiaoData.length">
         <input type="checkbox" v-model="checkAll"/>
         <span>枪瞄编号</span>
@@ -277,6 +277,9 @@ export default {
     }
   },
   methods: {
+    toAdd(){
+      this.$router.push({name:'Addmiaotype'})
+    },
     dianLiang(item){
       this.tan2=true
        this.showMessage=item;
@@ -286,12 +289,9 @@ export default {
       this.getDianliang(item.IMEI);
       setTimeout(()=>{
         if(this.dianlianglist.length>3){
-          
           window.clearInterval(this.moveListTimer1)
           this.moveListTimer1=window.setTimeout(() => {
-            
             this.$methods.listMove("#dianlianglist11", 3000);
-            console.log('99999999999')
           }, 300);
         }
       },2000)
@@ -583,7 +583,6 @@ export default {
       Echart.setOption(option);
     },
     getAllGun(){
-      // console.log('getAllGun')
       this.getAllGunList(this.active_fujigou);
     },
     bangding(item){
@@ -662,7 +661,6 @@ export default {
       }
       let zaixian=this.$store.state.zaixian
       if(zaixian){
-        // console.log(item)
         this.gaodeArr=[item.longitude-0,item.latitude-0]
         this.alertMessage=`姓名：${item.policeuser_name || "暂无"} ，时间：${item.created}`
 
@@ -702,14 +700,11 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      // console.log(this.checkType,this.active_fujigou)
       this.$refs.page.internalCurrentPage = 1;
-
       this.getDataList(this.active_fujigou, 1,this.checkType)
     },
     updataView() {
       this.getDataList(this.active_fujigou, this.active_yema);
-      // this.getAllGunList(this.active_fujigou);//暂时弃用
     },
 
     changeOneDataZhuangTai(n) {},
@@ -769,6 +764,7 @@ export default {
         data: params
       })
         .then(data => {
+          
           if (data.data.code == 200 && data.data.data.length != 0) {
             this.qiangmiaoData = data.data.data.list;
 
@@ -893,7 +889,6 @@ export default {
               });
               this.qiangmiaoData = newArr; //.............返回数据之后赋值给qiangmiaoData
               this.pageTotal = data.data.data.psum * 1;
-              // console.log(this.qiangmiaoData)
             }
         })
         .catch(error => {
@@ -1181,7 +1176,6 @@ export default {
             };
           });
           this.allGunList = dataArr;
-          console.log(dataArr.length)
         })
         .catch(error => {
           console.log(error);
@@ -1193,7 +1187,7 @@ export default {
     this.zhankai.push(treeData[0].id)
     if(!!treeData[0].child.length){
             this.zhankai.push(treeData[0].child[0].id || "")
-            if(!!treeData[0].child[0].child){
+            if(!!treeData[0].child[0].child.length){
                 this.zhankai.push(treeData[0].child[0].child[0].id)
               }
           }

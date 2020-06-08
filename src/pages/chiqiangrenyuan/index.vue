@@ -39,7 +39,7 @@
     </div>
     <div class="page-index" v-show="pageTotal">
       <el-pagination
-        :page-size="4"
+        :page-size="pageSize"
         :pager-count="9"
         layout="total,prev, pager, next"
         @current-change="currentChange"
@@ -48,7 +48,7 @@
       ></el-pagination>
     </div>
 
-    <div class="content" v-if="dataList">
+    <div class="content" v-if="dataList" v-show="keshihua">
       <div class="none-data" v-if="!dataList.length">暂时没有数据......</div>
       <onePerson
         v-for="item in dataList"
@@ -58,13 +58,100 @@
         @toHistory="toHistory"
       />
     </div>
-    <div class="alert" v-show="mapShow">
+    <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
+    <div class="content2" v-show="!keshihua">
+      <div class="none-data" v-if="!dataList.length">暂时没有数据</div>
+      <div class="list-title" v-show="dataList.length">
+        <span>警员姓名</span>
+        <span>警号</span>
+        <span>持枪证号</span>
+        <span>单位</span>
+        <span>枪支编号</span>
+        <span>持枪类型</span>
+        <span>操作</span>
+      </div>
+      <div class="list-item"  v-for="(item,index) in dataList" :key="index">
+        <span>{{item.policeName}}</span>
+        <span>{{item.policeNum}}</span>
+        <span>{{item.permitid}}</span>
+        <span>{{item.mechanism_name}}</span>
+        <span>{{item.gunNum}}</span>
+        <span>{{item.bulletType}}</span>
+        <span>
+          <i @click="lookXQ(item,index)" style="cursor:pointer;text-decoration:underline">查看详情</i>
+          <i @click="lookLS(item,index)" style="cursor:pointer;text-decoration:underline">历史轨迹</i>
+          <i @click="lookNEW(item,index)" style="cursor:pointer;text-decoration:underline">最新位置</i>
+        
+        </span>
+      </div>
+    </div>
+    <div class="alert1" v-show="mapShow">
       <div class="map_wrap">
         <div id="map-content"></div>
         <button class="del" @click="mapOff">取消</button>
         <div class="del2" @click="mapOff">X</div>
       </div>
     </div>
+    <div class="alert" v-if="xiangqingalert">
+        <button class="del" @click="close">X</button>
+        <div class="leftwrap">
+          <div class="box-l">
+            <div class="imgwrap">
+              <img v-if="oneDate.icon" :src="oneDate.icon" alt="警员" />
+              <img v-if="!oneDate.icon" src="../../assets/img/head-icon.png" alt />
+            </div>
+            <div class="btnwrap">
+              <button @click="toNew(oneDate)">最新轨迹</button>
+              <button @click="toHistory(oneDate)">历史轨迹</button>
+              <button>枪瞄状态{{xiangqingData.heart}}</button>
+            </div>
+            <div class="iconwrap1">
+              
+            </div>
+            <div class="iconwrap2">
+              
+            </div>
+          </div>
+          <div class="box-r">
+            <div class="text1">
+              <p><i>警员</i><i>：{{oneDate.policeName}}</i></p>
+              <p><i>IMEI</i><i>：{{oneDate.IMEI}}</i></p>
+              <p><i>手机号</i><i>：{{oneDate.phoneNum}}</i></p>
+              <p><i>单位</i><i>：{{oneDate.mechanism_name}}</i></p>
+            </div>
+            <div class="text2">
+              <p><i>警号</i><i>：{{oneDate.policeNum}}</i></p>
+              <p><i>持枪证</i><i>：{{oneDate.permitid}}</i></p>
+              <p><i>枪支编号</i><i>：{{oneDate.gunNum}}</i></p>
+              <p><i>枪支类型</i><i>：{{oneDate.bulletType}}</i></p>
+            </div>
+            <div class="text3">
+              <p>本月出勤数量：{{xiangqingData.btoal}}条</p>
+              <p>出勤任务总量：{{xiangqingData.toal}}条</p>
+            </div>
+            <div class="text4">
+              <p>离套报警数量：{{xiangqingData.litao}}条</p>
+              <p>区域报警数量：{{xiangqingData.quyu}}条</p>
+            </div>
+          </div>
+        </div>
+        <div class="mes mes1">
+          <p><i>出库时间：</i><i>{{xiangqingData.optime}}</i></p>
+          <p><i>归还时间：</i><i>{{xiangqingData.planreturntime}}</i></p>
+        </div>
+        <div class="mes mes2">
+          <p><i>所属枪柜：</i><i>{{xiangqingData.guncabinet_code}}</i></p>
+          <p><i>枪锁位：</i><i>{{xiangqingData.gposition}}</i></p>
+        </div>
+        <div class="mes mes3">
+          <p><i>枪支编号：</i><i>{{xiangqingData.gun_code}}</i></p>
+          <p><i>枪支类型：</i><i>{{xiangqingData.gunType}}</i></p>
+        </div>
+      </div>
+    <div class="cover" v-show="xiangqingalert"></div>
     <MapMarker v-if="lixianMap" :arr="lixianArr" :title="lixianTitle"  @closeMap="closeMap"/>
   </div>
 </template>
@@ -80,6 +167,10 @@ export default {
   components: { breadNav, onePerson,MapMarker },
   data() {
     return {
+      oneDate:{},
+      xiangqingData:{},
+      xiangqingalert:false,
+      keshihua:false,
       mapShow: false,
       active_title: "",
       currentNodeKey: "",
@@ -97,10 +188,45 @@ export default {
       lixianArr:[],
       lixianTitle:'',
       loading:null,
-      zhankai:[]
+      zhankai:[],
+      pageSize:4
     };
   },
   methods: {
+    close(){
+      this.xiangqingalert=false
+    },
+    lookXQ(item,index){
+      this.oneDate=item
+      this.getXiangqing(item.id)
+    },
+    lookLS(item,index){
+      this.toHistory(item)
+    },
+    lookNEW(item,index){
+      this.toNew(item)
+    },
+    changeShowType(n){
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.dataList.length=0
+      if(n===1){
+        this.keshihua=true
+        this.pageSize=4
+        this.getDataList(this.activeItem.id, 1,4);
+      }else{
+        this.keshihua=false
+        this.pageSize=19
+        this.getDataList(this.activeItem.id, 1,19);
+      }
+      localStorage.setItem('setKeShiHua',this.keshihua)
+      
+      this.$refs.page.internalCurrentPage = 1;
+    },
     closeMap(){
       this.lixianMap=false
     },
@@ -139,6 +265,34 @@ export default {
           duration:4000
         })
       })
+    },
+    getXiangqing(id) {
+      //................获取持枪人员列表信息函数
+      var key = this.$store.state.key;
+      var objs = { id: id };
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+      params.append("id", objs.id);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=Home&c=Gunlibrary&a=gunlibrary",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.status == 200) {
+            this.xiangqingalert=true
+            this.xiangqingData=data.data
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     mapOff() {
       this.mapShow = false;
@@ -238,21 +392,21 @@ export default {
       this.$refs.page.internalCurrentPage = 1;
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.active_title = item.mechanism_name;
-      this.getDataList(item.id);
+      this.getDataList(item.id,1,this.pageSize);
     },
-    getDataList(jigou_id, active_p = 1) {
+    getDataList(jigou_id, active_p = 1,ps=this.pageSize) {
       //................获取持枪人员列表信息函数
       if (!jigou_id) {
         jigou_id = this.$gscookie.getCookie("mechanism_id");
       }
       var key = this.$store.state.key;
-      var objs = { id: jigou_id, page: active_p };
+      var objs = { id: jigou_id, page: active_p ,ps};
       var sign = this.$methods.mkSign(objs, key);
       var token = this.$gscookie.getCookie("gun");
       var params = new URLSearchParams();
       params.append("id", objs.id);
       params.append("page", objs.page);
-
+      params.append("ps", objs.ps);
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
@@ -324,19 +478,18 @@ export default {
     this.zhankai.push(treeData[0].id)
     if(!!treeData[0].child.length){
        this.zhankai.push(treeData[0].child[0].id || "")
-       if(!!treeData[0].child[0].child){
+       if(!!treeData[0].child[0].child.length){
           this.zhankai.push(treeData[0].child[0].child[0].id)
         }
      }
     this.treeListData = treeData;
-
     this.loading = this.$loading({
         lock: true,
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-    this.getDataList();
+    
     this.currentNodeKey = this.$gscookie.getCookie("mechanism_id");
     let item = this.$gscookie.getCookie("message_obj");
     if (item.role_id == 3) {
@@ -351,6 +504,11 @@ export default {
     }
   },
   mounted() {
+     
+    let keshi=localStorage.getItem('setKeShiHua')
+     this.keshihua=JSON.parse(keshi) 
+     this.pageSize=this.keshihua?4:19
+     this.handleNodeClick( this.treeListData[0],this.pageSize,1)
     this.$store.commit('setStr',{
       str1:'持枪人员',
       str2:'数据列表'

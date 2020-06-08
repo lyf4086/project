@@ -37,12 +37,44 @@
         <button class="sub" @click="subSearch"></button>
       </div>
     </div>
-    <div class="page-index" style="display:none">
-      <el-pagination :page-size="20" :pager-count="11" layout="prev, pager, next" :total="1000"></el-pagination>
+    <div class="page-index">
+      <el-pagination
+        :page-size="pageSize"
+        :pager-count="9"
+        layout="total,prev, pager, next"
+        @current-change="currentChange"
+        :total="pageTotal"
+        ref="page"
+      ></el-pagination>
     </div>
 
-    <div class="content">
-      <Content :dataArr="dataList" :list="liebiao" />
+    <div class="content" v-show="keshihua">
+      <!--  -->
+      <Content :dataArr="dataList" :list="liebiao">{{pageTotal}}</Content>
+    </div>
+     <div class="change_type">
+      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
+      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div>
+    <div class="content2" v-show="!keshihua">
+      <div class="none-data" v-if="!dataList.length">暂时没有数据</div>
+      <div class="list-title" v-if="dataList.length">
+        <span>单位</span>
+        <span>弹柜名称</span>
+        <span>弹柜类型</span>
+        <span>弹柜编号</span>
+        <span>弹药数量</span>
+        <span>操作</span>
+      </div>
+      <div class="list-item" v-for="(item,index) in dataList" :key="index">
+        <span>{{item.org_name}}</span>
+        <span>{{item.vdevSN}}</span>
+        <span>{{item.vtype}}</span>
+        <span>{{item.vCaption}}</span>
+        <span>{{item.bulletcount}}</span>
+        <span style="cursor:pointer;text-decoration:underline" @click="showinfo(item)">详情</span>
+      </div>
+      
     </div>
     <div class="alert" style="display:none">
       <div class="text-wrap">
@@ -69,6 +101,33 @@
         <div class="submit">确认</div>
       </div>
     </div>
+    <div class="xiangqing-wrap" v-show="xiangqingshow">
+      <div class="xiangqing">
+        <p class="title">弹药详情</p>
+        <div class="content">
+          <div class="cabinet">
+            <div class="item" v-for="(item,index) in xiangqingData" :key="index">
+              <div class="text">
+                <p>弹药名称：{{item.bullname}}</p>
+                <p>弹药类型：{{item.bulletType}}</p>
+                <!-- <p>类型代码：{{item.typecode}}</p> -->
+                <p>弹药数量：{{item.bulletcount}}</p>
+
+                <div class="line">
+                  <div class="dian"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chassis">
+            <div class="up"></div>
+            <div class="down"></div>
+          </div>
+        </div>
+        <button class="close" @click="close">取消</button>
+        <button class="del" @click="close">X</button>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -81,6 +140,7 @@ export default {
   components: { breadNav, Content },
   data() {
     return {
+      keshihua:true,
       active_title: "",
       activeMechanismId: "",
       currentNodeKey: "",
@@ -95,10 +155,50 @@ export default {
         label: "mechanism_name"
       },
       zhankai: [],
-      loading: null
+      loading: null,
+      pageSize:1,
+      pageTotal:0,
+      xiangqingshow:false,
+      xiangqingData:{}
     };
   },
   methods: {
+    close() {
+      this.xiangqingshow = false;
+    },
+    showinfo(item){
+      this.getXiangQing(item.id)
+    },
+    currentChange(n){
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.getDataList(this.activeItem.id, n,this.pageSize);
+    },
+    changeShowType(n){
+        this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.dataList.length=0
+      if(n===1){
+        this.keshihua=true
+        this.pageSize=10
+        this.getDataList(this.activeItem.id,1,this.pageSize);
+      }else{
+        this.keshihua=false
+        this.pageSize=19
+        this.getDataList(this.activeItem.id,1,this.pageSize);
+      }
+      localStorage.setItem('setKeShiHua',this.keshihua)
+      
+      this.$refs.page.internalCurrentPage = 1;
+    },
     subSearch() {
       if (!this.selValue) {
         this.$message({ message: "请选择搜索条件", type: "warning" });
@@ -108,6 +208,48 @@ export default {
         return;
       }
       this.search(this.activeMechanismId);
+    },
+    getXiangQing(id) {
+      //................详情信息函数
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      var key = this.$store.state.key;
+      var objs = { vdeid: id };
+
+      var sign = this.$methods.mkSign(objs, key);
+      var token = this.$gscookie.getCookie("gun");
+      var params = new URLSearchParams();
+
+      params.append("vdeid", objs.vdeid);
+      params.append("sign", sign);
+      params.append("token", token);
+      this.$axios({
+        url:
+          this.$store.state.baseURL +
+          "/weixin/project/index.php?m=home&c=Bulletlist&a=index",
+        method: "POST",
+        changeOrigin: true,
+        data: params
+      })
+        .then(data => {
+          if (data.data.code == 200) {
+            this.loading.close()
+            this.xiangqingData = data.data.data;
+            if (!this.xiangqingData.length) {
+              this.$message("暂无数据");
+              this.xiangqingshow = false;
+            } else {
+              this.xiangqingshow = true;
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     getTreeList(id) {
       // ......................该组件默认加载树形菜单数据
@@ -148,12 +290,19 @@ export default {
     },
     handleNodeClick(item) {
       //树形菜单点击
+      this.dataList=[]
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       this.activeItem = item; //记录当前激活的树形菜单子项
       this.activeMechanismId = item.id;
       this.active_title = item.mechanism_name;
-      this.getDataList(item.id);
+      this.getDataList(item.id,1,this.pageSize);
     },
-    getDataList(jigou_id) {
+    getDataList(jigou_id,page=1,ps=this.pageSize) {
       //................弹药在库列表信息函数
       this.loading = this.$loading({
         lock: true,
@@ -162,7 +311,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       var key = this.$store.state.key;
-      var objs = { page: 1 };
+      var objs = {page,ps};
       if (jigou_id) {
         objs.id = jigou_id;
       }
@@ -172,8 +321,8 @@ export default {
       if (jigou_id) {
         params.append("id", objs.id);
       }
-
       params.append("page", objs.page);
+      params.append("ps", objs.ps);
       params.append("sign", sign);
       params.append("token", token);
       this.$axios({
@@ -189,6 +338,7 @@ export default {
           if (data.data.code == 200) {
             this.dataList = data.data.data;
             this.liebiao = data.data.dat;
+            this.pageTotal=data.data.total
           }
         })
         .catch(error => {
@@ -236,7 +386,7 @@ export default {
 
     if (!!treeData[0].child.length) {
       this.zhankai.push(treeData[0].child[0].id || "");
-      if (!!treeData[0].child[0].child) {
+      if (!!treeData[0].child[0].child.length) {
         this.zhankai.push(treeData[0].child[0].child[0].id);
       }
     }
@@ -258,6 +408,9 @@ export default {
     }
   },
   mounted() {
+    let keshi=localStorage.getItem('setKeShiHua')
+     this.keshihua=JSON.parse(keshi) 
+     this.pageSize=this.keshihua?10:19
     this.$store.commit("setStr", {
       str1: "弹药在库",
       str2: "情况汇总"

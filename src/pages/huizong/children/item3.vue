@@ -18,7 +18,7 @@
     </div>
     <div class="right">
       <p>重要任务枪支出口总量</p>
-      <h3 @click="toXiangQing">{{total}}支</h3>
+      <h3 @click="toXiangQing" >{{total}}支</h3>
       <div class="bg1"></div>
       <div class="bg2"></div>
     </div>

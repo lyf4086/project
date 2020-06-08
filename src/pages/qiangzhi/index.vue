@@ -212,7 +212,9 @@
           <div class="t t7">枪支编号：{{guns.gun_code}}</div>
           <div class="t t8" @click="showList">历史记录</div>
           <div class="r1"></div>
-          <div class="r2"></div>
+          <div class="r2">
+              <img class="r2Type" :src="urlBase+guns.src" alt="">
+          </div>
         </div>
         <div class="m-list" v-show="listShow">
           <div class="text" v-if="xiangqingList.length">
@@ -280,6 +282,7 @@ export default {
   components: { LeftNav, Content, breadNav },
   data() {
     return {
+      urlBase:this.$store.state.baseURL,
       activeGunId: "",
       bindalert: false,
       activeMiaoId: "",
@@ -396,10 +399,8 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
-            console.log(data);
             this.xiangqingList = data.data.history;
             this.guns = data.data.guns;
-            // console.log(data.data.guns);
             this.tan4 = true;
           }
         })
@@ -419,10 +420,8 @@ export default {
     },
     putChange(e) {
       //..........绑定枪瞄输入框输入事件
-
       var val = e.target.value;
       var list = this.allMiaoList;
-      // console.log(list)
       this.blys(val, list);
     },
     blys(val, list) {
@@ -430,13 +429,9 @@ export default {
       for (let i = 0; i < list.length; i++) {
         var ind = list[i]["gunaiming_id"].indexOf(v);
         if (ind == -1) {
-          //  this.list[i]['opacity']='0.3';
-          // console.log('不包含')
           this.allMiaoList[i]["opacity"] = "0.3";
         } else {
-          // this.list[i]['opacity']='1';
           this.allMiaoList[i]["opacity"] = "1";
-          // console.log('包含啦')
         }
       }
     },
@@ -460,13 +455,6 @@ export default {
         });
     },
     changeShowType(n) {
-      // this.loading = this.$loading({
-      //   lock: true,
-      //   text: "Loading",
-      //   spinner: "el-icon-loading",
-      //   background: "rgba(0, 0, 0, 0.7)"
-      // });
-
       this.activeDataList = [];
       if (n === 1) {
         this.keshihua = true;
@@ -553,7 +541,6 @@ export default {
             };
           });
           this.allMiaoList = newArr; //.............返回数据之后赋值给allMiaoList
-          // console.log("allMiaoList", this.allMiaoList);
         })
         .catch(error => {
           console.log(error);
@@ -579,7 +566,6 @@ export default {
         data: params
       })
         .then(data => {
-          // console.log('解除绑定关系',data)
           if (data.data.code == 200) {
             this.$message({ message: "解除绑定成功", type: "success" });
           }
@@ -674,9 +660,7 @@ export default {
     },
     subChange() {
       //.......................确定修改枪支信息
-      // console.log(this.changedGtype, "-", this.xiugaiData.gtype);
       let t = this.changedGtype ? this.changedGtype : this.xiugaiData.gtype;
-
       let c = this.changedCode || this.xiugaiData.gun_code;
       let id = this.active_jigou.mechanism_id;
       var key = this.$store.state.key;
@@ -854,13 +838,11 @@ export default {
             this.zhankai.push(data.data.data.list[0].child[0].child[0].id);
           }
           this.treeData = data.data.data.list;
-          // console.log(data.data.data.list);
           this.active_title = data.data.data.list[0].mechanism_name;
           this.active_jigou = data.data.data.list[0];
           this.hasData = true;
           if (isCreate) {
             this.currentNodeKey = data.data.data.list[0].id;
-            // this.getDataList(data.data.data.list[0].id, 1);
           }
         })
         .catch(error => {
@@ -1067,7 +1049,7 @@ export default {
     this.zhankai.push(treeData[0].id);
     if (!!treeData[0].child.length) {
       this.zhankai.push(treeData[0].child[0].id || "");
-      if (!!treeData[0].child[0].child) {
+      if (!!treeData[0].child[0].child.length) {
         this.zhankai.push(treeData[0].child[0].child[0].id);
       }
     }
