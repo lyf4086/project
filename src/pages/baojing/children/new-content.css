@@ -1,0 +1,174 @@
+.wrap {
+  box-sizing: border-box;
+  padding: 1.99074074vh 2.34375vw 1.99074074vh 1.45833333vw;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.wrap .new_main {
+  width: 100%;
+  height: 79.16666667vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+.wrap .new_main .new_item {
+  box-sizing: border-box;
+  padding: 0.23148148vh 0;
+  width: 12.76041667vw;
+  height: 23.51851852vh;
+  border: 0.10416667vw solid rgba(42, 87, 129, 0.7);
+  display: grid;
+  grid-template-rows: 5vh 16.71296296vh;
+  grid-template-columns: 12.08333333vw;
+  justify-content: space-around;
+  align-content: space-around;
+}
+.wrap .new_main .new_item > div {
+  background: rgba(115, 172, 230, 0.1);
+}
+.wrap .new_main .new_item .new_top {
+  position: relative;
+  box-sizing: border-box;
+  padding-left: 0.26041667vw;
+  display: grid;
+  grid-template-columns: 3.125vw 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  color: #fff;
+}
+.wrap .new_main .new_item .new_top .sel_wrap {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0vh;
+  right: 0vw;
+  width: 0.88541667vw;
+  height: 0.88541667vw;
+  border: 0.05208333vw solid #559ad0;
+  border-radius: 0.078125vw;
+}
+.wrap .new_main .new_item .new_top .sel_wrap.selected {
+  background: url(../../../assets/baojing/xuanze_icon.png) no-repeat;
+  background-size: 100% 100%;
+}
+.wrap .new_main .new_item .new_top .img_wrap {
+  position: relative;
+  width: 2.08333333vw;
+  height: 2.08333333vw;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.wrap .new_main .new_item .new_top .img_wrap img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.wrap .new_main .new_item .new_top .text_wrap {
+  font-size: 0.75520833vw;
+}
+.wrap .new_main .new_item .new_top .text_wrap div:nth-child(1) {
+  line-height: 2.08333333vh;
+}
+.wrap .new_main .new_item .new_top .text_wrap div:nth-child(1) i {
+  font-weight: bold;
+  color: #8ecfff;
+  padding-left: 0.26041667vw;
+}
+.wrap .new_main .new_item .new_top .text_wrap div:nth-child(2) {
+  font-size: 0.52083333vw;
+  line-height: 2.08333333vh;
+  color: #adbcc9;
+}
+.wrap .new_main .new_item .new_con {
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 0.92592593vh;
+  font-size: 0.72916667vw;
+  color: #fff;
+}
+.wrap .new_main .new_item .new_con .new_floor {
+  width: 100%;
+  height: 2.31481481vh;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 3.75vw 7.8125vw;
+  justify-content: space-between;
+}
+.wrap .new_main .new_item .new_con .new_floor span:nth-child(1) {
+  text-align: right;
+}
+.wrap .new_main .new_item .new_con .new_floor span:nth-child(2) {
+  font-weight: bold;
+  color: #8ecfff;
+}
+.wrap .new_main .new_item .new_con .new_floor:nth-child(5) span:nth-child(2) {
+  font-weight: bold;
+  color: #6dd400;
+}
+.wrap .new_main .new_item .new_con .btn_wrap {
+  width: 10.41666667vw;
+  height: 2.40740741vh;
+  margin: 0.13888889vh auto 0;
+  display: flex;
+  justify-content: space-around;
+}
+.wrap .new_main .new_item .new_con .btn_wrap button {
+  box-sizing: border-box;
+  padding: 0;
+  line-height: 2.22222222vh;
+  font-size: 0.72916667vw;
+  color: #d2dae2;
+  width: 4.16666667vw;
+  height: 100%;
+  cursor: pointer;
+  border: 0.05208333vw solid rgba(142, 207, 255, 0.5);
+  box-shadow: 0.05208333vw 0 0.078125vw 0 rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, rgba(68, 119, 167, 0.9), transparent);
+}
+.wrap .new_main .new_item .new_con .btn_wrap button:hover {
+  background-color: rgba(54, 146, 201, 0.6);
+  border-color: #8ecfff;
+}
+.wrap .new_main .new_item .new_con .more {
+  position: absolute;
+  right: -0.3125vw;
+  bottom: -0.55555556vh;
+  width: 5.10416667vw;
+  height: 1.99074074vh;
+  background: url(../../../assets/qianggui/xiangqing.png) no-repeat;
+  background-size: 100% 100%;
+  text-indent: 1.51041667vw;
+  font-size: 0.72916667vw;
+  line-height: 1.94444444vh;
+  display: none;
+  cursor: pointer;
+}
+.wrap .new_main .new_item .new_con:hover .more {
+  display: block;
+}
+.wrap .new_main .new_item.selected {
+  border-color: rgba(115, 172, 230, 0.88);
+}
+.wrap::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 0px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.wrap::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(9, 94, 221, 0.945);
+  background: rgba(20, 3, 177, 0.9);
+}
+.wrap::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(12, 203, 209, 0.6);
+  border-radius: 0;
+  background: rgba(9, 247, 207, 0.8);
+}

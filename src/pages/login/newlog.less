@@ -1,0 +1,104 @@
+@vw:19.2vw;
+@vh:10.8vh;
+.login{
+    width:100vw;
+    height:100vh;
+    background:url(../../assets/img/login1.jpg) no-repeat;
+    background-size:100% 100%;
+    position:relative;
+   overflow: hidden;
+    display: grid;
+    grid-template-columns: 325/@vw 325/@vw;
+    grid-template-rows: 580/@vh;
+    justify-content: center;
+    align-content: center;
+    grid-gap: 100/@vw;
+}
+
+.btn1{
+    width:3.3rem;
+    height:5.85rem;
+    background:url(../../assets/img/dongtai.png) no-repeat ;
+    background-size:100% 100%;
+}
+.btn2{
+    position: relative;
+    width:3.3rem;
+    height:5.85rem;
+    background:url(../../assets/img/jingtai.png) no-repeat ;
+    background-size:100% 100%;
+}
+.btn1 button,.btn2 button{
+    position:absolute;
+    left:50%;
+    bottom:0.86rem;
+    transform:translateX(-50%);
+    font-size:0.18rem;
+    padding:0.01rem 0 0.02rem;
+    font-family:'微软雅黑 Bold';
+    color:#e2ebf0;
+    width:2rem;
+    text-indent: -1099900px;
+    background: none;
+    border:none;
+    border-radius:0.05rem;
+    cursor:pointer;
+}
+
+.btn-wrapper {
+    box-shadow: 0 0 10px -10px black;
+}
+.btn {
+    display: block;
+    position: absolute;
+    left:0;
+    bottom: 0;
+    margin-bottom:26.5%;
+    margin-left: 26%;
+    width: 160/@vw;
+    height:30/@vh;
+    z-index: 0;
+    overflow: hidden;
+    cursor: pointer;
+    color: #FFF;
+}
+.btn:after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    background: white;
+    width: 150%;
+    height: 100%;
+    bottom: -80px;
+    right: 40px;
+    transform: rotate(30deg);
+}
+.btn-wrapper:hover {
+    box-shadow: 0 10px 20px -10px black;
+}
+.btn-wrapper:hover a {
+    animation: grow 600ms ease-in-out forwards;
+}
+.btn-wrapper:hover a:after {
+    animation: shine 2s ease-in-out forwards;
+    animation-iteration-count: infinite;
+}
+@keyframes shine {
+    from {
+        transform: translateX(0px) translateY(0px) rotate(30deg);
+        opacity: 0.1;
+    }
+    to {
+        transform: translateX(200px) translateY(-300px) rotate(30deg);
+        opacity: 1;
+    }
+}
+@keyframes grow {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}

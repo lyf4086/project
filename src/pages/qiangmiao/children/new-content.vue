@@ -1,7 +1,7 @@
 <template>
   <div class="main" ref="main">
-    <div class="none-data" v-if="!dataList.length">暂时没有数据</div>
-    <div class="one-data"  v-for="item in dataList" :key="item.IMEI" >
+    <div class="new_nodta" v-if="!dataList.length">暂时没有数据</div>
+    <div class="one-data hvr-float-shadow"  v-for="item in dataList" :key="item.IMEI" >
       <input type="checkbox" id="checkbox" class="check" v-model="item.checked" />
       <div class="left">
         <div class="l1" :title="`枪瞄编号：${item.IMEI}`" @click="showOne(item)">{{item.jm}}</div>
@@ -20,12 +20,12 @@
         <div class="r1" title="所属警员">{{item.policeuser_name || '暂无'}}</div>
         <div class="r2" title="枪瞄类型">{{item.gtypes_name}}</div>
         <div class="r3" title="绑定解绑">
-          <span @click="tanchuang3(item)" v-if="item.gun_id==0">绑定</span>
+          <span v-if="!showBtn">暂无</span>
+          <span @click="tanchuang3(item)" v-if="showBtn&&item.gun_id==0">绑定</span>
           <span
-            v-if="item.gun_id>0"
+            v-if="showBtn&&item.gun_id>0"
             class="jiebang"
             @click="jiebang(item)"
-
             :title="`所绑枪支编号:${item.gun_code || '暂无'}`"
           >解绑</span>
         </div>
@@ -127,6 +127,9 @@ export default {
       default: function() {
         return 1;
       }
+    },
+    showBtn:{
+      type:Boolean
     }
   },
   data() {
@@ -511,6 +514,7 @@ export default {
     },
     close3() {
       this.tan3 = false;
+      this.xuanZhongGunId=''
     },
     putChange(e) {
       var val = e.target.value;

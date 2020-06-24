@@ -1,5 +1,5 @@
 <template>
-  <div class="item-main" v-if="!!item.created">
+  <div class="item-main hvr-float-shadow" v-if="!!item.created">
     <div class="title" style="color:#ffffff">
       <div class="round_wrap">
         <div class="round"></div>
@@ -62,7 +62,7 @@
         @click="changeOne(item.index)"
       ></div>
     </div>
-    <div class="cover" v-if="xiangqing">
+    <div class="cover11" v-if="xiangqing">
       <div class="alert" v-if="message.IMEI">
          <button class="close" @click="closeXiangqing">取消</button>
         <div class="del"  @click="closeXiangqing">X</div>
@@ -213,14 +213,7 @@ export default {
       this.xiangqing=false;
     },
     showMore(item){
-      if(item.types=='001'){
-        this.$message({
-          type:"error",
-          message:"逾期报警不支持查看详情"
-        })
-        return
-      }
-      this.getXiangqing(item.alarm_info_id)
+      this.$emit('showxiangqing',item)
       
     },
     showNew(item){

@@ -49,7 +49,6 @@
             <span>警员姓名</span>
             <span>枪支编号</span>
             <span>枪支类型</span>
-
             <span>借出时间</span>
           </div>
           <div class="awrap">
@@ -58,7 +57,6 @@
                 <span @click="toPerson(item)">{{item.policeName}}</span>
                 <span>{{item.gun_code}}</span>
                 <span>{{item.gunType}}</span>
-
                 <span>{{item.optime}}</span>
               </div>
             </div>
@@ -246,7 +244,6 @@ export default {
           }
         ]
       };
-
       Echart.setOption(option);
     },
     initEchartRight() {
@@ -322,7 +319,7 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            // console.log(data.data.data);
+            console.log(data.data.data);
             this.dataList = data.data.data;
             this.cou = data.data.cou;
             this.date = data.data.gname;
@@ -363,8 +360,6 @@ export default {
     let timeArr = par.tt.split(",");
     this.timeStart = timeArr[0];
     this.timeEnd = timeArr[1];
-
-    // console.log(222);
     this.getData(mes.mechanism_id, par.mid, par.ip_id, par.tt);
   },
   mounted() {

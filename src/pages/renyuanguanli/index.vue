@@ -57,9 +57,13 @@
       <button @click="delOneData">删除人员</button>
     </div>
     <div class="check-type" v-if="0">同步数据</div>
-    <div class="change_type">
+    <!-- <div class="change_type">
       <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
       <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div> -->
+    <div class="new_change_type">
+      <button :class="{'active':keshihua}" @click="changeShowType(1)">视图</button>
+      <button :class="{'active':!keshihua}" @click="changeShowType(2)">列表</button>
     </div>
     <div class="content">
       <Content
@@ -77,6 +81,7 @@
       />
       
     </div>
+    
     <div class="alert" v-show="alert">
       <div class="text-wrap">
         <div class="text-title">新增人员</div>

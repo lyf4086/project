@@ -1,0 +1,186 @@
+@vw:38.4vw;
+@vh:21.6vh;
+@rem:100rem;
+
+.wrap{
+    box-sizing: border-box;
+    padding: 43/@vh 90/@vw 43/@vh 56/@vw;
+   width: 100%;
+   height: 100%;
+   overflow-x: hidden;
+   overflow-y: auto;
+   .new_main{
+       width: 100%;
+       height:1710/@vh;
+       display: grid;
+       grid-template-columns: repeat(5,1fr);
+       grid-template-rows: repeat(3,1fr);
+       justify-items: center;
+       align-items: center;
+       .new_item{
+           box-sizing: border-box;
+           padding: 5/@vh 0;
+           width: 490/@vw;
+           height:508/@vh;
+           border: 4/@vw solid rgba(42,87,129,0.7);
+           display: grid;
+           grid-template-rows: 108/@vh 361/@vh;
+           grid-template-columns: 464/@vw;
+           justify-content: space-around;
+           align-content: space-around;
+            // align-content: center;
+           &>div{
+               background: rgba(115,172,230,0.1);
+           }
+           .new_top{
+               position: relative;
+                box-sizing: border-box;
+                padding-left: 10/@vw;
+                display: grid;
+                grid-template-columns: 120/@vw 1fr;
+                grid-template-rows: 1fr;
+                align-items: center;
+                color:#fff;
+                .sel_wrap{
+                    box-sizing: border-box;
+                    position: absolute;
+                    top:0/@vh;
+                    right:0/@vw;
+                    width: 34/@vw;
+                    height:34/@vw;
+                    border: 2/@vw solid #559ad0;
+                    border-radius: 3/@vw;
+                }
+                .sel_wrap.selected{
+                    background: url(../../../assets/baojing/xuanze_icon.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+                .img_wrap{
+                    position: relative;
+                    width: 80/@vw;
+                    height:80/@vw;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    img{
+                        position: absolute;
+                        top:50%;
+                        left: 50%;
+                        width: 100%;
+                        transform: translateX(-50%) translateY(-50%);
+                    }
+                }
+                .text_wrap{
+                    font-size: 29/@vw;
+                    div:nth-child(1){
+                        line-height: 45/@vh;
+                        i{
+                            font-weight: bold;
+                            color: #8ecfff;
+                            padding-left: 10/@vw;
+                        }
+                    }
+                    div:nth-child(2){
+                        font-size: 20/@vw;
+                        line-height: 45/@vh;
+                        color: #adbcc9;
+                    }
+                }
+           }
+           .new_con{
+            position: relative;
+            box-sizing: border-box;
+            padding-top: 20/@vh;
+            font-size: 28/@vw;
+            color: #fff;
+            .new_floor{
+                width: 100%;
+                height:50/@vh;
+                display: grid;
+                grid-template-rows: 1fr;
+                grid-template-columns: 144/@vw 300/@vw;
+                justify-content: space-between;
+                span:nth-child(1){
+                    text-align: right;
+                }
+                span:nth-child(2){
+                    font-weight: bold;
+                    color: #8ecfff;
+                }
+            }
+            .new_floor:nth-child(5){
+                span:nth-child(2){
+                    font-weight: bold;
+                    color: #6dd400;
+                }
+                
+            }
+            
+            .btn_wrap{
+                width: 400/@vw;
+                height:52/@vh;
+                margin: 3/@vh auto 0;
+                display: flex;
+                justify-content: space-around;
+                button{
+                    box-sizing: border-box;
+                    padding:0;
+                    line-height: 48/@vh;
+                    font-size: 28/@vw;
+                    color: #d2dae2;
+                    width: 160/@vw;
+                    height:100%;
+                    cursor: pointer;
+                    border: 2/@vw solid rgba(142,207,255,0.5);
+                    box-shadow: 2/@vw 0 3/@vw 0 rgba(0,0,0,0.5);
+                    background: linear-gradient(to bottom,rgba(68, 119, 167, 0.9),transparent);
+                    // background-image: linear-gradient(180deg,rgba(73,139,190,0.24) 0%,rgba(32,89,141,0.00) 100%);
+                }
+                button:hover{
+                    background-color: rgba(54,146,201,0.6);
+                    border-color: #8ecfff;
+                }
+            }
+            .more{
+                position: absolute;
+                right: -12/@vw;
+                bottom: -12/@vh;
+                width: 196/@vw;
+                height:43/@vh;
+                background: url(../../../assets/qianggui/xiangqing.png) no-repeat;
+                background-size: 100% 100%;
+                text-indent: 58/@vw;
+                font-size: 28/@vw;
+                line-height: 42/@vh;
+                display: none;
+                cursor: pointer;
+            }
+           }
+           .new_con:hover .more{
+               display: block;
+           }
+       }
+       .new_item.selected{
+           border-color:rgba(115,172,230,0.88) ;
+       }
+   }
+}
+.wrap::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 0px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  
+  .wrap::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(9, 94, 221, 0.945);
+    background: rgba(20, 3, 177, 0.9);
+  }
+  
+  .wrap::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(12, 203, 209, 0.6);
+    border-radius: 0;
+    background: rgba(9, 247, 207, 0.8);
+  }

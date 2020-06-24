@@ -1,5 +1,6 @@
 @rem: 100rem;
 @vw: 19.2vw;
+@vh:10.8vh;
 
 @keyframes round1 {
   from {
@@ -44,6 +45,8 @@
     }
 
     .item-wrap {
+      box-sizing: border-box;
+      padding-top: 10px;
       height: 96%;
       width: 100%;
       display: flex;
@@ -54,10 +57,11 @@
       .item {
 
         width: 18.5%;
-        height: 336/@rem;
+        // height: 336/@rem;
+        height:340/@vh;
         background: rgba(0, 0, 0, 0.1) url(../../../assets/img/zaiku-item.png) no-repeat;
         background-size: 100% 100%;
-        margin: 1% 0.6%;
+        margin: .1% 0.6%;
         // margin:17/@rem 20/@rem 0 0;
         font-size: 16/@rem;
         line-height: 26/@rem;
@@ -73,7 +77,10 @@
         img {
           width: 90/@rem;
           margin-left: 25%;
-          margin-top: 20/@rem ;
+          margin-top: 10/@vh;
+        }
+        p{
+          line-height: 26/@vh;
         }
 
         h6 {

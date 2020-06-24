@@ -49,44 +49,48 @@
     </div>
 
     <div class="content" v-if="dataList" v-show="keshihua">
-      <div class="none-data" v-if="!dataList.length">暂时没有数据......</div>
+      <div class="new_nodta" v-if="!dataList.length">暂时没有数据</div>
       <onePerson
         v-for="item in dataList"
         :key="item.id"
         :oneDate="item"
         @toNew="toNew"
         @toHistory="toHistory"
+        @openalert="openalert"
       />
     </div>
-    <div class="change_type">
-      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
-      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    
+    <div class="new_change_type" >
+      <button :class="{'active':keshihua}" @click="changeShowType(1)">视图</button>
+      <button :class="{'active':!keshihua}" @click="changeShowType(2)">列表</button>
     </div>
-    <div class="content2" v-show="!keshihua">
-      <div class="none-data" v-if="!dataList.length">暂时没有数据</div>
-      <div class="list-title" v-show="dataList.length">
-        <span>警员姓名</span>
-        <span>警号</span>
-        <span>持枪证号</span>
-        <span>单位</span>
-        <span>枪支编号</span>
-        <span>持枪类型</span>
-        <span>操作</span>
-      </div>
-      <div class="list-item"  v-for="(item,index) in dataList" :key="index">
-        <span>{{item.policeName}}</span>
-        <span>{{item.policeNum}}</span>
-        <span>{{item.permitid}}</span>
-        <span>{{item.mechanism_name}}</span>
-        <span>{{item.gunNum}}</span>
-        <span>{{item.bulletType}}</span>
-        <span>
-          <i @click="lookXQ(item,index)" style="cursor:pointer;text-decoration:underline">查看详情</i>
-          <i @click="lookLS(item,index)" style="cursor:pointer;text-decoration:underline">历史轨迹</i>
-          <i @click="lookNEW(item,index)" style="cursor:pointer;text-decoration:underline">最新位置</i>
-        
-        </span>
-      </div>
+    <div class="new_list_wrap" v-show="!keshihua">
+     <div class="new_nodta" v-if="!dataList.length">暂时没有数据</div>
+      <div class="slot-wrap" v-show="dataList.length">
+        <div class="slot-title" style="grid-template-columns: repeat(7,1fr)">
+            <span>警员姓名</span>
+            <span>警号</span>
+            <span>持枪证号</span>
+            <span>单位</span>
+            <span>枪支编号</span>
+            <span>持枪类型</span>
+            <span>操作</span>
+        </div>
+        <div class="slot-item" v-for="(item,index) in dataList" :key="index" style="grid-template-columns: repeat(7,1fr)">
+            <span>{{item.policeName}}</span>
+            <span>{{item.policeNum}}</span>
+            <span>{{item.permitid}}</span>
+            <span>{{item.mechanism_name}}</span>
+            <span>{{item.gunNum}}</span>
+            <span>{{item.bulletType}}</span>
+            <span >
+              <i @click="lookXQ(item,index)" style="cursor:pointer;text-decoration:underline">查看详情</i>
+              <i @click="lookLS(item,index)" style="cursor:pointer;text-decoration:underline">历史轨迹</i>
+              <i @click="lookNEW(item,index)" style="cursor:pointer;text-decoration:underline">最新位置</i>
+            </span>
+        </div>
+    </div>
+      <!--  -->
     </div>
     <div class="alert1" v-show="mapShow">
       <div class="map_wrap">
@@ -95,6 +99,7 @@
         <div class="del2" @click="mapOff">X</div>
       </div>
     </div>
+    <div class="cover" v-show="xiangqingalert"></div>
     <div class="alert" v-if="xiangqingalert">
         <button class="del" @click="close">X</button>
         <div class="leftwrap">
@@ -151,7 +156,7 @@
           <p><i>枪支类型：</i><i>{{xiangqingData.gunType}}</i></p>
         </div>
       </div>
-    <div class="cover" v-show="xiangqingalert"></div>
+    
     <MapMarker v-if="lixianMap" :arr="lixianArr" :title="lixianTitle"  @closeMap="closeMap"/>
   </div>
 </template>
@@ -193,6 +198,10 @@ export default {
     };
   },
   methods: {
+    openalert(item){
+      this.oneDate=item
+      this.getXiangqing(item.id)
+    },
     close(){
       this.xiangqingalert=false
     },
@@ -207,6 +216,7 @@ export default {
       this.toNew(item)
     },
     changeShowType(n){
+     
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -218,10 +228,12 @@ export default {
         this.keshihua=true
         this.pageSize=4
         this.getDataList(this.activeItem.id, 1,4);
+       
       }else{
         this.keshihua=false
         this.pageSize=19
         this.getDataList(this.activeItem.id, 1,19);
+        
       }
       localStorage.setItem('setKeShiHua',this.keshihua)
       

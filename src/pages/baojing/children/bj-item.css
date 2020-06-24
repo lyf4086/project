@@ -176,7 +176,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.cover {
+.cover11 {
   position: fixed;
   z-index: 999;
   top: 0;
@@ -185,7 +185,7 @@
   height: 100vh;
   background: rgba(0, 0, 0, 0.1);
 }
-.cover .alert {
+.cover11 .alert {
   position: absolute;
   width: 50%;
   height: 34.89583333vw;
@@ -197,7 +197,7 @@
   background: url(../../../assets/img/qiangguixiangqing.png) no-repeat;
   background-size: 100% 100%;
 }
-.cover .alert .del {
+.cover11 .alert .del {
   position: absolute;
   right: 0.2rem;
   top: 0.2rem;
@@ -211,7 +211,7 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.cover .alert .close {
+.cover11 .alert .close {
   position: absolute;
   right: 0.95rem;
   bottom: 0.04rem;
@@ -222,7 +222,7 @@
   color: #fff;
   cursor: pointer;
 }
-.cover .alert .chuli {
+.cover11 .alert .chuli {
   position: absolute;
   right: 1.85rem;
   bottom: 0.04rem;
@@ -233,7 +233,7 @@
   color: #fff;
   cursor: pointer;
 }
-.cover .alert .txt {
+.cover11 .alert .txt {
   position: relative;
   width: 80%;
   height: 70%;
@@ -246,7 +246,7 @@
   background: url(../../../assets/img/baojing-bj.png) no-repeat;
   background-size: 100% 100%;
 }
-.cover .alert .txt .text {
+.cover11 .alert .txt .text {
   width: 5.9375vw;
   height: 2.60416667vw;
   line-height: 2.60416667vw;
@@ -255,33 +255,33 @@
   margin-top: 10.5%;
   margin-right: 2.5%;
 }
-.cover .alert .txt .text:nth-child(5) {
+.cover11 .alert .txt .text:nth-child(5) {
   margin-right: 0;
   position: relative;
   top: -3%;
 }
-.cover .alert .txt .text:nth-child(10) {
+.cover11 .alert .txt .text:nth-child(10) {
   margin-right: 0;
 }
-.cover .alert .txt .red {
+.cover11 .alert .txt .red {
   color: red;
   transform: translate3d(0, 0, 0);
 }
-.cover .alert .txt .green {
+.cover11 .alert .txt .green {
   color: green;
 }
-.cover .alert .txt .text:nth-child(9) {
+.cover11 .alert .txt .text:nth-child(9) {
   line-height: 1.04166667vw;
 }
-.cover .alert .txt .text:nth-child(5),
-.cover .alert .txt .text:nth-child(6),
-.cover .alert .txt .text:nth-child(7),
-.cover .alert .txt .text:nth-child(8),
-.cover .alert .txt .text:nth-child(9),
-.cover .alert .txt .text:nth-child(10) {
+.cover11 .alert .txt .text:nth-child(5),
+.cover11 .alert .txt .text:nth-child(6),
+.cover11 .alert .txt .text:nth-child(7),
+.cover11 .alert .txt .text:nth-child(8),
+.cover11 .alert .txt .text:nth-child(9),
+.cover11 .alert .txt .text:nth-child(10) {
   margin-top: 13%;
 }
-.cover .alert .txt .yijian {
+.cover11 .alert .txt .yijian {
   width: 12.5vw;
   height: 3.64583333vw;
   margin: 5vw 0 0 -0.83333333vw;
@@ -291,7 +291,7 @@
   color: #fff;
   overflow: auto;
 }
-.cover .alert .txt .yijian input {
+.cover11 .alert .txt .yijian input {
   width: 80%;
   height: 60%;
   background: none;
@@ -299,7 +299,7 @@
   text-indent: 0.78125vw;
   color: #129fdf;
 }
-.cover .alert .txt .biaoti {
+.cover11 .alert .txt .biaoti {
   width: 12.5vw;
   height: 3.64583333vw;
   box-sizing: border-box;
@@ -308,7 +308,7 @@
   line-height: 1.04166667vw;
   overflow: auto;
 }
-.cover .alert .txt .biaoti textarea {
+.cover11 .alert .txt .biaoti textarea {
   box-sizing: border-box;
   padding: 0.20833333vw;
   border: 1px solid #129fdf;

@@ -59,7 +59,8 @@
     <div class="message-box" v-show="false">
       <p>当前显示 *** {{active_title}} *** 下的枪瞄信息</p>
     </div>
-    <div class="add-del" v-show="ishand">
+    <div class="add-del">
+      <!--  v-show="ishand" -->
       <button @click="alert=true">新增枪瞄</button>
       <button @click="delQiaoMiao">删除枪瞄</button>
       <button @click="modifyMiao">修改枪瞄</button>
@@ -74,39 +75,44 @@
         :activefujigou="active_fujigou"
         :activeyema="active_yema"
         @getAllGun="getAllGun"
+        :showBtn="showBtn"
       ></newContent>
     </div>
-    <div class="change_type">
-      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
-      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    <div class="new_change_type">
+      <button :class="{'active':keshihua}" @click="changeShowType(1)">视图</button>
+      <button :class="{'active':!keshihua}" @click="changeShowType(2)">列表</button>
     </div>
-    <div class="content2" v-show="!keshihua">
-      <div class="none-data" v-if="!qiangmiaoData.length">暂时没有数据</div>
-      <div class="list-title" v-show="qiangmiaoData.length">
-        <input type="checkbox" v-model="checkAll"/>
-        <span>枪瞄编号</span>
-        <span>所属警员</span>
-        <span>枪瞄状态</span>
-        <span>枪瞄类型</span>
-        <span>剩余电量</span>
-        <span>绑定枪支编号</span>
-        <span>充电状态</span>
-        <span>最后定位时间</span>
-        <span>绑定/解绑</span>
-      </div>
-      <div class="list-item"  v-for="(item,index) in qiangmiaoData" :key="index">
-        <input type="checkbox" v-model="item.checked"/>
-        <span style="cursor:pointer;text-decoration:underline" @click="showMap(item)">{{item.IMEI}}</span>
-        <span>{{item.policeuser_name || '暂无'}}</span>
-        <span>{{item.heart==1 ? "在线":"离线"}}</span>
-        <span>{{item.gtypes_name}}</span>
-        <span style="cursor:pointer;text-decoration:underline" @click="dianLiang(item)">{{item.electricity}}%</span>
-        <span>{{item.gun_code || '暂无'}}</span>
-        <span>{{item.ischarging}}</span>
-        <span>{{item.created}}</span>
-        <span v-if="item.gun_id==0" style="cursor:pointer" @click="bangding(item)">绑定</span>
-        <span v-if="item.gun_id>0" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
-      </div>
+    <div class="new_list_wrap" v-show="!keshihua">
+      
+      <div class="new_nodta" v-if="!qiangmiaoData.length">暂时没有数据</div>
+      <div class="slot-wrap" v-if="qiangmiaoData.length">
+        <div class="slot-title" :style="`grid-template-columns:40px repeat(${showBtn?9:8},1fr)`">
+            <span><input type="checkbox" v-model="checkAll"/></span>
+            <span>枪瞄编号</span>
+            <span>所属警员</span>
+            <span>枪瞄状态</span>
+            <span>枪瞄类型</span>
+            <span>剩余电量</span>
+            <span>绑定枪支编号</span>
+            <span>充电状态</span>
+            <span>最后定位时间</span>
+            <span v-if="showBtn">绑定/解绑</span>
+        </div>
+        <div class="slot-item" v-for="(item,index) in qiangmiaoData" :key="index" :style="`grid-template-columns:40px repeat(${showBtn?9:8},1fr)`">
+            <span><input type="checkbox" v-model="item.checked"/></span>
+            <span  style="cursor:pointer;text-decoration:underline" @click="showMap(item)">{{item.IMEI}}</span>
+            <span>{{item.policeuser_name || '暂无'}}</span>
+            <span>{{item.heart==1 ? "在线":"离线"}}</span>
+            <span>{{item.gtypes_name}}</span>
+            <span  style="cursor:pointer;text-decoration:underline" @click="dianLiang(item)">{{item.electricity}}%</span>
+            <span>{{item.gun_code || '暂无'}}</span>
+            <span>{{item.ischarging}}</span>
+            <span>{{item.created}}</span>
+            <span  v-if="showBtn&&item.gun_id==0" style="cursor:pointer" @click="bangding(item)">绑定</span>
+            <span  v-if="showBtn&&item.gun_id>0" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
+        </div>
+    </div>
+      <!--  -->
     </div>
     <div class="cover" v-show="alert||xiugai||tan3||tan2">
       <div class="text-wrap" v-show="alert">
@@ -161,7 +167,6 @@
           <div class="no-data" v-if="allGunList.length==0">该机构下暂时没有枪支信息,请前往添加</div>
           <div :style="{'opacity':e.opacity}" class="item" :key="e.id" v-for="(e,key) in allGunList"  @click="gunListClick(e,key)" >
             枪支编号:{{e.gun_code}} ，类型：{{e.gtype || "无"}}
-            <!-- <input type="checkbox" v-model="e.checked" /> -->
           </div>
         </div>
         <input type="submit" class="btn" @click="submitBt" value="确认绑定" />
@@ -207,6 +212,8 @@ import MapMarker from '@/components/map-marker.vue'
 import GaoDeMap from '@/components/mapalertgaode.vue'
 import breadNav from "@/components/breadnav";
 import newContent from "./children/new-content";
+
+import getPost from '@/server/post'
 export default {
   components: { breadNav, newContent ,MapMarker,GaoDeMap},
   data() {
@@ -263,7 +270,8 @@ export default {
       dianliangData2:'',
       dianlianglist:[],
       active_dianliang:'',
-      moveListTimer1:null
+      moveListTimer1:null,
+      showBtn:false,//特殊按钮的操作权限  默认不可以
     };
   },
   computed:{
@@ -277,6 +285,20 @@ export default {
     }
   },
   methods: {
+    getPost,
+    getQuanXian(){
+      this.getPost({
+        url:'/weixin/project/index.php?m=home&c=Role&a=buts'
+      },(res)=>{
+        if(res.data.code==200){
+          let arr=res.data.data
+          let has=arr.find(n=>n=='1')
+          if(has){
+            this.showBtn=true
+          }
+        }
+      })
+    },
     toAdd(){
       this.$router.push({name:'Addmiaotype'})
     },
@@ -610,6 +632,7 @@ export default {
     },
     close3(){
       this.tan3=false
+      this.xuanZhongGunId=''
     },
      putChange(e) {
       var val = e.target.value;
@@ -1171,7 +1194,7 @@ export default {
           let dataArr = data.data.data.list.map(e => {
             return {
               ...e,
-              opacity: "1",
+              opacity: "0.3",
               checked: false
             };
           });
@@ -1236,6 +1259,8 @@ export default {
       str1:'枪瞄列表',
       str2:'情况汇总'
     })
+
+    this.getQuanXian()
   },
   destroyed(){
     this.$store.commit('huanyuanStr')

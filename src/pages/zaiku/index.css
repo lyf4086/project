@@ -74,6 +74,8 @@
   height: 100%;
 }
 .top-nav .search-wrap {
+  position: relative;
+  z-index: 1;
   width: 40%;
   height: 100%;
   box-sizing: border-box;
@@ -134,11 +136,12 @@
   color: #409EFF;
 }
 .content {
+  box-sizing: border-box;
   width: 88.9%;
-  height: 95%;
+  height: 100%;
   position: absolute;
   right: 0;
-  top: 0.33rem;
+  top: 0;
 }
 @keyframes round {
   0% {
@@ -531,4 +534,14 @@
   border-radius: 50%;
   background: #646262;
   cursor: pointer;
+}
+.none-data {
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 0.2rem;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 1rem auto;
+  border-radius: 0.2rem;
 }

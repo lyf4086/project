@@ -125,7 +125,7 @@ export default {
       let time = start + "," + end;
       let t_mechanism_id = this.t_mechanism_id;
       if (mid != "" && start != "" && end != "") {
-        // console.log(t_mechanism_id, mid, ip_id, time);
+        console.log(t_mechanism_id, mid, ip_id, time);// console.log(t_mechanism_id, mid, ip_id, time);// console.log(t_mechanism_id, mid, ip_id, time);
         // return;
         this.getData(t_mechanism_id, mid, ip_id, time);
       } else {

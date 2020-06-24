@@ -83,6 +83,9 @@
     width: 50%;
     height: 100%;
   }
+  .xx{
+    width: 10%;
+  }
   .check-type{
     width: 10%;
     height: 100%;
@@ -596,6 +599,7 @@
       background: none;
       color: #fff;
       cursor: pointer;
+      
     }
     .txt{
       position: relative;
@@ -732,6 +736,117 @@
       }
 
 
+    }
+  }
+}
+
+.new_bar{
+  position: relative;
+  z-index: 1;
+  width: 86.6%;
+  right:-20/@vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom:1/@vw solid #216492;
+  box-sizing: border-box;
+  padding: 0 0 0 45/@vw;
+  font-size: 14/@vw;
+  color:#e3e8ec;
+  .left{
+    width: 180/@vw;
+    height:100%;
+    display: flex;
+    align-items: center;
+    
+    .icon{
+      width: 20/@vw;
+      height:20/@vw;
+      background: url(../../assets/baojing/message_icon.png) no-repeat;
+      background-size: 100% 100%;
+      margin-right: 6/@vw;
+    }
+  }
+  .right{
+    
+    width: 333/@vw;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 100/@vw 103/@vw 103/@vw;
+    grid-template-rows: 33/@vh;
+    align-content: center;
+    justify-content: space-between;
+    .ck_box{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      .icon{
+        box-sizing: border-box;
+        border:1/@vw solid #559ad0;
+        border-radius: 3/@vw;
+        width: 14/@vw;
+        height:14/@vw;
+        // background: url(../../assets/baojing/xuanze_icon.png) no-repeat;
+        background-size: 100% 100%;
+        margin-right: 4/@vw;
+      }
+    }
+    .ck_box.checked{
+      .icon{
+        background-image: url(../../assets/baojing/xuanze_icon.png);
+      }
+    }
+    .sel_box{
+      width: 100%;
+      height: 100%;
+      select{
+        cursor: pointer;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border:1/@vw solid #559ad0;
+        // background: rgba(28,49,70,0.1);
+        background: #20364e;
+        color: #d2d9e0;
+      }
+      // select{
+      //   box-sizing: border-box;
+      //   height:100%;
+      //   width: 100%;
+      //   font-size: 14/@rem;
+      //   background: #20364e;
+      //   color:#fff;
+      //   border:1/@vw solid #559ad0;
+      //   border-right: none;
+      // }
+    }
+    .chuli{
+      box-sizing: border-box;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border:1/@vw solid rgba(142,207,255,0.5);
+      box-shadow: 4/@vw 0 6/@vw 0 rgba(0,0,0,0.5);
+      background-image: linear-gradient(180deg,rgba(75,139,190,0.24) 0%,rgba(32,89,141,0.00) 100%);
+      display: flex;
+      align-items: center;
+      .icon{
+        width: 18/@vw;
+        height:18/@vw;
+        background: url(../../assets/baojing/yijian.png) no-repeat;
+        background-size: 100% 100%;
+        margin:0 4/@vw 0 12/@vw;
+      }
+      &:hover{
+        background-color: rgba(54,146,201,0.6);
+        border-color: #8ecfff;
+      }
     }
   }
 }

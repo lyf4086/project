@@ -124,7 +124,8 @@ export default {
       }
 
       this.$router.push({
-        name: "NewXiangQing",
+        // name: "NewXiangQing",
+        name:"Item1Left",
         params: { timeObj: this.timeObj, mid: this.mid }
       });
     },
@@ -209,8 +210,10 @@ export default {
 .item_content11:hover {
   box-sizing: border-box;
   z-index: 12;
-  padding: 10px;
-  background-color: #042846;
+  padding: 2px;
+  background-image: url(../../../assets/homepic/item_show.png);
+  background-size: 100% 100%;
+  // background-color: #042846;
   transition: 0.3s;
   transform: translateX(-25%) translateY(-25%) scale(1);
 }
@@ -223,8 +226,10 @@ export default {
 }
 .item_content2:hover {
   box-sizing: border-box;
-  padding: 10px;
-  background-color: #042846;
+  padding: 2px;
+  // background-color: #042846;
+  background: url(../../../assets/homepic/item_show.png) no-repeat;
+  background-size: 100% 100%;
   transition: 0.3s;
   transform: translateX(-30%) translateY(-25%) scale(1);
 }

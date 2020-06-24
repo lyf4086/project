@@ -454,6 +454,7 @@
 }
 .cover {
   position: fixed;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100vw;
@@ -603,11 +604,14 @@
   border-radius: 50%;
   background: url(../../assets/img/qiangzhi-r1.png) no-repeat;
   background-size: 100% 100%;
-  /* animation: round2 2s linear infinite; */
+  animation: round2 2s linear infinite;
 }
-.alert4 .content .r2 .r2Type{
-  width: 9.375vw;
-  height: 9.375vw;
+.alert4 .content img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  max-width: 10.41666667vw;
+  transform: translateX(-50%) translateY(-50%);
 }
 .alert4 .m-list .text {
   background: #284a77;

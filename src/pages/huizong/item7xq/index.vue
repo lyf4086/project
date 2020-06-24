@@ -48,7 +48,6 @@
           <div class="tit">
             <span>警员姓名</span>
             <span>警号</span>
-
             <span>持枪类型</span>
             <span>用途</span>
             <span>借出时间</span>
@@ -59,7 +58,6 @@
               <div class="item" v-for="(item,index) in dataList" :key="index">
                 <span @click="toPerson(item)">{{item.policeName}}</span>
                 <span>{{item.policeNum}}</span>
-
                 <span>{{item.gunType}}</span>
                 <span>{{item.taskType}}</span>
                 <span>{{item.optime}}</span>
@@ -368,6 +366,7 @@ export default {
     this.tt = par.tt;
 
     let timeArr = par.tt.split(",");
+    console.log('timeArr',timeArr)
     this.timeStart = timeArr[0];
     this.timeEnd = timeArr[1];
 

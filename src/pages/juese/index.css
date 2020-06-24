@@ -1,0 +1,178 @@
+.wrap {
+  font-size: 0.83333333vw;
+  color: #fff;
+}
+button {
+  background: rgba(77, 40, 243, 0.5);
+  font-size: 0.83333333vw;
+  color: #fff;
+  padding: 0.05208333vw 0.46875vw;
+  border-radius: 0.26041667vw;
+  cursor: pointer;
+}
+.top {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1.85185185vh 3.125vw;
+}
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  height: 4.07407407vh;
+  border: 0.05208333vw solid #2d8be2;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 10.41666667vw 8fr 3fr;
+  background: rgba(0, 0, 0, 0.1);
+}
+.title span {
+  width: 100%;
+  height: 100%;
+  font-size: 0.83333333vw;
+  font-weight: 400;
+  border-right: 0.05208333vw solid #2d8be2;
+  text-align: center;
+  line-height: 3.88888889vh;
+}
+.item {
+  box-sizing: border-box;
+  width: 100%;
+  height: 3.33333333vh;
+  border: 0.05208333vw solid #2d8be2;
+  border-top: none;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 10.41666667vw 8fr 3fr;
+}
+.item span {
+  width: 100%;
+  height: 100%;
+  font-size: 0.72916667vw;
+  color: #d3d2d2;
+  border-right: 0.05208333vw solid #2d8be2;
+  text-align: center;
+  line-height: 3.14814815vh;
+}
+.role_main {
+  max-height: 72.22222222vh;
+  overflow: auto;
+}
+.role_main::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.role_main::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(9, 94, 221, 0.945);
+  background: rgba(20, 3, 177, 0.9);
+}
+.role_main::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(12, 203, 209, 0.6);
+  border-radius: 0;
+  background: rgba(9, 247, 207, 0.8);
+}
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.6);
+}
+.cover .text-wrap {
+  width: 40%;
+  height: 38%;
+  position: absolute;
+  background: url(../../assets/img/changepass.png) no-repeat;
+  background-size: 100% 100%;
+  box-sizing: border-box;
+  padding: 50px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+.cover .text-wrap .text-title {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin-top: 0.2rem;
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  line-height: 0.38rem;
+}
+.cover .text-wrap .text-content {
+  font-size: 0.16rem;
+  width: 70%;
+  margin: 0.2rem auto 0.5rem;
+}
+.cover .text-wrap .text-content .floor {
+  width: 4rem;
+  height: 0.5rem;
+  margin: 0 auto;
+  display: flex;
+}
+.cover .text-wrap .text-content span {
+  flex: 1;
+  line-height: 0.5rem;
+  text-align: right;
+}
+.cover .text-wrap .text-content input {
+  flex: 3;
+  width: 3rem;
+  height: 0.4rem;
+  box-sizing: border-box;
+  border-radius: 0.05rem;
+  padding-left: 0.2rem;
+  margin-bottom: 0.1rem;
+}
+.cover .text-wrap .text-content .el-select {
+  flex: 3;
+}
+.cover .text-wrap .submit {
+  position: absolute;
+  bottom: 2.77777778vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.18rem;
+  letter-spacing: 0.18rem;
+  width: 1rem;
+  height: 0.3rem;
+  text-align: center;
+  line-height: 0.3rem;
+  text-indent: 0.16rem;
+  background: #185277;
+  color: #fff;
+  border-radius: 0.1rem;
+  cursor: pointer;
+}
+.cover .text-wrap i {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.3rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  background: #fff;
+  color: red;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+.shouquan-content {
+  height: 56%;
+  margin-bottom: 0.92592593vh;
+  background: rgba(29, 28, 28, 0.2);
+}
+ /deep/ .el-input {
+  width: 6rem;
+}
+ /deep/ .el-checkbox {
+  color: #a8a4a4;
+}

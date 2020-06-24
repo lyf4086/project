@@ -28,7 +28,7 @@
           <div
             class="item"
             :class="{selected:item.checked}"
-            v-for="item,index in mec"
+            v-for="(item,index) in mec"
             :key="index"
             @click="jigouSelect(index)"
           >
@@ -54,11 +54,10 @@
           </div>
           <div class="awrap">
             <div class="list-new" id="list-new">
-              <div class="item" v-for="item,index in dataList" :key="index">
+              <div class="item" v-for="(item,index) in dataList" :key="index">
                 <span>{{item.mname}}</span>
                 <span>{{item.vdevSN}}</span>
                 <span>{{item.gun_code}}</span>
-
                 <span>{{item.type}}</span>
                 <span>{{item.gposition}}</span>
               </div>
@@ -243,13 +242,6 @@ export default {
           }
         ]
       };
-
-      Echart.setOption(option);
-    },
-    initEchartRight() {
-      let that = this;
-      let box = document.getElementById("chart2");
-      let Echart = this.$echarts.init(box);
 
       Echart.setOption(option);
     },

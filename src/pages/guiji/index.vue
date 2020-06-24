@@ -254,7 +254,7 @@
       </div>
     </div>
     <!-- 切换航速据模式 -->
-    <div class="change-type" v-if="false" v-show="hasPerson &&oldOrNew!=='old'&& !setWarning &&moveingPersonList.length===1">
+    <div class="change-type" v-if="JSON.stringify($route.query)!='{}'" v-show="hasPerson &&oldOrNew!=='old'&& !setWarning &&moveingPersonList.length===1">
       <div class="btn" :class="{yc:checkTypeIsShow}" @click="changeTypeHandle">
         <i class="fangxiang"></i>
       </div>
@@ -1320,6 +1320,7 @@ return
     }
   },
   activated(){
+
     if(this.areaTimer){//页面激活时候，如果这个定时器开启过，则重新开启
       window.setTimeout(()=>{
         this.overArea(this.delId);

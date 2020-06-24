@@ -395,34 +395,40 @@ export default {
   }
 }
 .item_content {
+  box-sizing: border-box;
+  padding:20/@vw;
   position: relative;
-  
   z-index: 9;
-  width: 1000 / @vw;
+  width: 1050 / @vw;
   height: 700 / @vw;
-  transform: translateX(-22%) translateY(-19%) scale(0.55);
+  transform: translateX(-22%) translateY(-22%) scale(0.55);
 }
 .item_content2 {
+  box-sizing: border-box;
+  padding:30/@vw 50/@vw;
   position: relative;
   z-index: 9;
-  width: 1000 / @vw;
-  height: 700 / @vw;
-  transform: translateX(-20%) translateY(-16%) scale(0.5);
+  width: 1100 / @vw;
+  height: 760 / @vw;
+  transform: translateX(-23%) translateY(-24%) scale(0.5);
 }
 .item_content:hover {
   box-sizing: border-box;
   z-index: 12;
   padding: 10px;
-  background-color: #042846;
+  // background-color: #042846;
+  background-image: url(../../../assets/homepic/item_show.png);
+  background-size: 100% 100%;
   transition: 0.3s;
   transform: translateX(-22%) translateY(-19%) scale(1);
 }
 .item_content2:hover {
   box-sizing: border-box;
-  padding: 10px;
-  background-color: #042846;
+  // background-color: #042846;
+  background-image: url(../../../assets/homepic/item_show.png);
+  background-size: 100% 100%;
   transition: 0.3s;
-  transform: translateX(-29%) translateY(-16%) scale(1);
+  transform: translateX(-35%) translateY(-28%) scale(1);
 }
 
   .item.hover.active .icon_bg{

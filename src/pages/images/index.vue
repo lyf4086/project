@@ -16,7 +16,7 @@
       <span>{{item.type==1?'枪支':'枪瞄'}}</span>
       <span>{{item.name||''}}</span>
       <span>{{item.uptime}}</span>
-      <span @click="showPic(item)" style="cursor:pointer">预览</span>
+      <span  @click="showPic(item)" style="cursor:pointer">预览</span>
     </div>
     <!-- //////////// -->
     <el-pagination

@@ -6,7 +6,7 @@
       </div>
       <div class="item-wrap">
         <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
-        <div class="item" v-for="(item,index) in dataArr" :key="index">
+        <div class="item hvr-float-shadow" v-for="(item,index) in dataArr" :key="index">
           <p class="title">单位：{{item.org_name}}</p>
           <img src="../../../assets/img/qingguitest.png" />
           <p>弹柜名称：{{item.vdevSN}}</p>

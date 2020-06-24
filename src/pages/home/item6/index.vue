@@ -128,25 +128,28 @@ export default {
   box-sizing: border-box;
   z-index: 12;
   padding: 10px;
-  background-color: #042846;
+  // background-color: #042846;
+  background-image: url(../../../assets/homepic/item_show.png);
+  background-size: 100% 100%;
   transition: 0.3s;
   transform: translateX(-22%) translateY(-29%) scale(1);
 }
 .item_content2 {
   box-sizing: border-box;
-  padding-bottom: 20px;
+  padding: 30px;
   position: relative;
-  width: 1100 / @vw;
-  height: 800 / @vw;
-  transform: translateX(-25%) translateY(-20%) scale(0.5);
+  width: 1200 / @vw;
+  height: 900 / @vw;
+  transform: translateX(-28%) translateY(-23%) scale(0.5);
 }
 .item_content2:hover {
   box-sizing: border-box;
   z-index: 12;
-  //   padding: 20px;
-  background-color: #042846;
+  
+  background-image: url(../../../assets/homepic/item_show.png);
+  background-size: 100% 100%;
   transition: 0.3s;
-  transform: translateX(-22%) translateY(-29%) scale(1);
+  transform: translateX(-28%) translateY(-38%) scale(1);
 }
 .move_list {
   width: 520 / @vw;

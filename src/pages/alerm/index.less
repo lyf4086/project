@@ -1,0 +1,171 @@
+@vw:38.4vw;
+@vh:21.6vh;
+
+
+.on_off{
+    position: relative;
+    font-size: 28/@vw;
+    color:#314c69;
+    position: fixed;
+    right:0;
+    bottom: 175/@vh;
+    width: 130/@vw;
+    height:340/@vw;
+    background: url(../../assets/alarm/button.png) no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+    .btn{
+        position: absolute;
+        right:12/@vw;
+        top:50/@vw;
+        width: 36/@vw;
+        height:148/@vw;
+        text-align: center;
+        line-height: 38/@vw;
+        font-weight: 800;
+    }
+    .icon{
+        position: absolute;
+        right:22/@vw;
+        top:210/@vw;
+        width: 18/@vw;
+        height:16/@vw;
+        background: url(../../assets/alarm/zhankai.png) no-repeat;
+        background-size: 100% 100%;
+    }
+}
+.zhankai .icon{
+    // background-image: url(../../assets/alarm/shousuo.png);
+}
+.new_alarm_list{
+    font-size: 28/@vw;
+    color:#f8fdff;
+    box-sizing: border-box;
+    padding: 30/@vw 40/@vw 30/@vw 30/@vw;
+    font-size: 28/@vw;
+    transition: 0.5s;
+    position: absolute;
+    right:0;
+    bottom: 0;
+    width: 666/@vw;
+    height:548/@vw;
+    background: rgba(7, 18, 40, 0.85);
+    box-shadow: 0 0 10/@vw 0 #071228,0 0 12/@vw 0 #0E2256;
+    border-radius: 4/@vw;
+    .btn_change{
+        position: absolute;
+        width: 40/@vw;
+        height: 206/@vw;
+        top:170/@vw;
+        right: 0;
+        border-radius: 4/@vw;
+        background-image: linear-gradient(90deg,rgba(81,147,198,0) 0%,#5193C6 100%);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        cursor: pointer;
+        opacity: 0;
+        i{
+            width: 18/@vw;
+            height:16/@vw;
+            background:url(../../assets/alarm/shousuo.png) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+    .list_wrap{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        .move_list{
+            box-sizing: border-box;
+            position: absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            .item{
+                position: relative;
+                height:96/@vw;
+                border-radius: 4/@vw;
+                border-bottom: 1/@vw solid rgba(255, 255, 255,0.2);
+                display: grid;
+                grid-template-columns: 80/@vw 366/@vw auto;
+                grid-template-rows: 1fr;
+                justify-items: space-around;
+                align-items: center;
+                .num{
+                    box-sizing: border-box;
+                    padding: 0 5/@vw;
+                    min-width: 36/@vw;
+                    max-width: 73/@vw;
+                    overflow: hidden;
+                    height: 36/@vw;
+                    line-height: 36/@vw;
+                    text-align: center;
+                    border-radius: 15/@vw;
+                    background: #3a8cbb;
+                    margin:0 auto;
+                    position: relative;
+                }
+                .number0{
+                    background-color: #ff8660;
+                }
+                .number1{
+                    background-color: #e6a953;
+                }
+                .number2{
+                    background-color: #89b64c;
+                }
+                .text{
+                    font-size: 30/@vw;
+                    letter-spacing: 2/@vw;
+                    cursor: pointer;
+                    position: relative;
+                    white-space: nowrap;
+
+                }
+                button{
+                    background: #ffffff;
+                    color:#ef6769;
+                    line-height: 50/@vw;
+                    border-radius: 5/@vw;
+                    display: none;
+                    cursor: pointer;
+                    position: relative;
+                }
+                .bg{
+                    position: absolute;
+                    top:0;
+                    left:0;
+                    width: 0;
+                    height:100%;
+                    transition: 0.5s;
+                    overflow: hidden;
+                    .clo{
+                        width: 600/@vw;
+                        height:100%;
+                        background-image: linear-gradient(270deg,rgba(224,32,32,0) 0%,#E02022 100%);
+                    }
+                }
+            }
+            .item:hover{
+                .text{
+                    font-size: 34/@vw;
+                }
+                button{
+                    display: block;
+                }
+                .bg{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+.new_alarm_list.guanbi{
+    right:-666/@vw;
+    bottom: 0/@vh;
+}
+.new_alarm_list:hover .btn_change{
+    opacity: 1;
+}

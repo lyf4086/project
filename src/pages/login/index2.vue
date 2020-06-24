@@ -20,19 +20,27 @@
 <script>
 import axios from "axios";
 import md5 from "js-md5";
+import Lock32_Function from './lyfweb'
+import { setTimeout } from 'timers';
 export default {
   data() {
     return {
       username: "",
-      pwd: ""
+      pwd: "",
+      randomNumber:0,
+      keyStr:''
     };
   },
   methods: {
+    Lock32_Function,
     res() {
+      this.$router.go(0)
       this.username = this.pwd = "";
     },
     
     sub() {
+      let rnd=this.randomNumber
+      let randLock32=this.keyStr
       if (!this.username.trim() || !this.pwd.trim()) {
         this.$message({
           message: "用户名或密码不能为空",
@@ -40,17 +48,15 @@ export default {
         });
         return;
       }
-
       var key = this.$store.state.key;
-      var objs = { uname: this.username, pwd: this.pwd };
-
+      var objs = { uname: this.username, pwd: this.pwd ,rnd,randLock32};
       var sign = this.$methods.mkSign(objs, key);
-
       var params = new URLSearchParams();
       params.append("uname", objs.uname);
       params.append("pwd", objs.pwd);
       params.append("sign", sign);
-
+      params.append("rnd", objs.rnd);
+      params.append("randLock32", objs.randLock32);
       this.$axios({
         url:
           this.$store.state.baseURL +
@@ -118,14 +124,26 @@ export default {
           console.log(req);
         });
       
+    },
+    getStr(){
+      let that=this
+      $.ajax({
+        url:that.$store.state.baseURL +'/weixin/project/index.php?m=home&c=Ukey&a=ukey',
+        success:function (res){
+          that.randomNumber=res
+          that.Lock32_Function(res,0)
+        }
+      })
     }
   },
   created() {
+    this.getStr()
     let str = this.$gscookie.getCookie("gun");
     if (str.length) {
       this.$router.push("/indexg/huizong");
     }
     
+
   },
   mounted() {
     this.$refs.put.focus();

@@ -346,7 +346,7 @@
 }
 .alert {
   position: absolute;
-  z-index: 11;
+  z-index: 100;
   width: 57.29166667vw;
   height: 31.25vw;
   top: 0;
@@ -537,7 +537,7 @@
   text-align: center;
   font-size: 0.2rem;
   background: rgba(0, 0, 0, 0.2);
-  margin: 1rem auto;
+  margin: 2.1rem auto;
   border-radius: 0.2rem;
 }
 .change_type {
@@ -654,7 +654,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 99;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.8);

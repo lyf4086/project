@@ -19,7 +19,7 @@
           <span>查看详情</span>
         </div>
         <div class="wrap" v-if="dataList.length">
-          <div class="item" v-for="item,index in dataList" :key="index">
+          <div class="item" v-for="(item,index) in dataList" :key="index">
             <span>{{item.datetime}}</span>
             <span>{{item.number}}</span>
             <span class="more" @click="toMore(item.datetime)">查看详情</span>

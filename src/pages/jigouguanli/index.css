@@ -124,7 +124,7 @@
   background-size: 100% 100%;
   display: flex;
   color: #fff;
-  z-index: 999;
+  z-index: 0;
   align-items: center;
 }
 .page-index /deep/ .el-pagination__total {

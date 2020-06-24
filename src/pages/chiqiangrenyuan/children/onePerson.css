@@ -100,16 +100,16 @@
   animation: warning 0.5s linear infinite;
   background-size: 100% 100%;
 }
-.cover {
+.cover1 {
   position: fixed;
   width: 100vw;
   height: 100vh;
   left: 0;
   top: 0;
-  z-index: 6;
-  background: rgba(0, 0, 0, 0.8);
+  z-index: 68999;
+  background: rgba(0, 0, 200, 0.8);
 }
-.cover .alert {
+.cover1 .alert {
   position: absolute;
   width: 57.29166667vw;
   height: 31.25vw;
@@ -121,7 +121,7 @@
   background: url(../../../assets/img/renyuan-a.png) no-repeat;
   background-size: 100% 100%;
 }
-.cover .alert .del {
+.cover1 .alert .del {
   position: absolute;
   top: 1.5625vw;
   right: 0.52083333vw;
@@ -135,7 +135,7 @@
   color: #fff;
   cursor: pointer;
 }
-.cover .alert .leftwrap {
+.cover1 .alert .leftwrap {
   position: absolute;
   left: 4.16666667vw;
   top: 4.47916667vw;
@@ -143,11 +143,11 @@
   height: 22.91666667vw;
   display: flex;
 }
-.cover .alert .leftwrap .box-l {
+.cover1 .alert .leftwrap .box-l {
   width: 38%;
   height: 100%;
 }
-.cover .alert .leftwrap .box-l .imgwrap {
+.cover1 .alert .leftwrap .box-l .imgwrap {
   position: absolute;
   left: 1.82291667vw;
   top: 2.55208333vw;
@@ -157,10 +157,10 @@
   border-radius: 50%;
   overflow: hidden;
 }
-.cover .alert .leftwrap .box-l .imgwrap img {
+.cover1 .alert .leftwrap .box-l .imgwrap img {
   width: 100%;
 }
-.cover .alert .leftwrap .box-l .btnwrap {
+.cover1 .alert .leftwrap .box-l .btnwrap {
   box-sizing: border-box;
   position: absolute;
   top: 6.09375vw;
@@ -172,7 +172,7 @@
   align-content: space-between;
   flex-wrap: wrap;
 }
-.cover .alert .leftwrap .box-l .btnwrap button {
+.cover1 .alert .leftwrap .box-l .btnwrap button {
   width: 100%;
   height: 1.14583333vw;
   line-height: 1.14583333vw;
@@ -180,53 +180,53 @@
   background: none;
   color: #fff;
 }
-.cover .alert .leftwrap .box-l .btnwrap button:nth-child(3) {
+.cover1 .alert .leftwrap .box-l .btnwrap button:nth-child(3) {
   color: red;
 }
-.cover .alert .leftwrap .box-l .iconwrap1 {
+.cover1 .alert .leftwrap .box-l .iconwrap1 {
   position: absolute;
   top: 14.01041667vw;
   left: 0.52083333vw;
   width: 17%;
   height: 1.5625vw;
 }
-.cover .alert .leftwrap .box-l .iconwrap2 {
+.cover1 .alert .leftwrap .box-l .iconwrap2 {
   position: absolute;
   top: 18.17708333vw;
   left: 0.52083333vw;
   width: 17%;
   height: 1.5625vw;
 }
-.cover .alert .leftwrap .box-r {
+.cover1 .alert .leftwrap .box-r {
   width: 62%;
   height: 100%;
   font-size: 0.72916667vw;
   color: #fff;
 }
-.cover .alert .leftwrap .box-r > div {
+.cover1 .alert .leftwrap .box-r > div {
   box-sizing: border-box;
 }
-.cover .alert .leftwrap .box-r .text1 {
+.cover1 .alert .leftwrap .box-r .text1 {
   height: 5.20833333vw;
   margin-top: 1.04166667vw;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
 }
-.cover .alert .leftwrap .box-r .text1 p {
+.cover1 .alert .leftwrap .box-r .text1 p {
   width: 100%;
   display: flex;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.cover .alert .leftwrap .box-r .text1 p i:nth-child(1) {
+.cover1 .alert .leftwrap .box-r .text1 p i:nth-child(1) {
   flex: 1;
 }
-.cover .alert .leftwrap .box-r .text1 p i:nth-child(2) {
+.cover1 .alert .leftwrap .box-r .text1 p i:nth-child(2) {
   flex: 2.6;
 }
-.cover .alert .leftwrap .box-r .text2 {
+.cover1 .alert .leftwrap .box-r .text2 {
   height: 5.20833333vw;
   margin-top: 1.04166667vw;
   color: #03cbfe;
@@ -234,37 +234,37 @@
   flex-wrap: wrap;
   align-content: space-around;
 }
-.cover .alert .leftwrap .box-r .text2 p {
+.cover1 .alert .leftwrap .box-r .text2 p {
   width: 100%;
   display: flex;
 }
-.cover .alert .leftwrap .box-r .text2 p i:nth-child(1) {
+.cover1 .alert .leftwrap .box-r .text2 p i:nth-child(1) {
   flex: 1.2;
 }
-.cover .alert .leftwrap .box-r .text2 p i:nth-child(2) {
+.cover1 .alert .leftwrap .box-r .text2 p i:nth-child(2) {
   flex: 2;
 }
-.cover .alert .leftwrap .box-r .text3 {
+.cover1 .alert .leftwrap .box-r .text3 {
   height: 3.125vw;
   margin-top: 0.83333333vw;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
 }
-.cover .alert .leftwrap .box-r .text3 p {
+.cover1 .alert .leftwrap .box-r .text3 p {
   width: 100%;
 }
-.cover .alert .leftwrap .box-r .text4 {
+.cover1 .alert .leftwrap .box-r .text4 {
   height: 3.125vw;
   margin-top: 0.83333333vw;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
 }
-.cover .alert .leftwrap .box-r .text4 p {
+.cover1 .alert .leftwrap .box-r .text4 p {
   width: 100%;
 }
-.cover .alert .mes {
+.cover1 .alert .mes {
   position: absolute;
   width: 8.85416667vw;
   height: 3.64583333vw;
@@ -276,21 +276,21 @@
   box-sizing: border-box;
   padding: 0.52083333vw 0;
 }
-.cover .alert .mes p {
+.cover1 .alert .mes p {
   width: 100%;
 }
-.cover .alert .mes p i:nth-child(2) {
+.cover1 .alert .mes p i:nth-child(2) {
   color: #cc713c;
 }
-.cover .alert .mes1 {
+.cover1 .alert .mes1 {
   top: 8.125vw;
   left: 25vw;
 }
-.cover .alert .mes2 {
+.cover1 .alert .mes2 {
   top: 19.21875vw;
   left: 25vw;
 }
-.cover .alert .mes3 {
+.cover1 .alert .mes3 {
   top: 8.85416667vw;
   left: 45.46875vw;
 }

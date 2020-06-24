@@ -1,4 +1,3 @@
-import { resolve } from 'url';
 <template>
   <div class="wrap">
     <div id="sel">
@@ -995,7 +994,7 @@ export default {
       str2: "增长率"
     });
   },
-   destroyed() {
+  destroyed() {
     this.$store.commit("huanyuanStr");
     this.loading.close()
   }

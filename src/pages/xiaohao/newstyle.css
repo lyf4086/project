@@ -1,0 +1,253 @@
+.content {
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 3.51851852vh;
+  font-size: 0.72916667vw;
+  color: #fff;
+}
+.newdatalist {
+  position: absolute;
+  top: 3.51851852vh;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0 0.78125vw;
+  width: 100%;
+  height: calc(100% - 3.5vh);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 4.44444444vh 1fr 1fr;
+  grid-template-areas: 'a a a a a a' '. . . . . .' '. . . . . .';
+  grid-gap: 1px;
+  justify-items: center;
+  align-items: center;
+}
+.tit {
+  box-sizing: border-box;
+  height: 4.44444444vh;
+  padding-left: 2.39583333vw;
+  grid-area: a;
+  display: flex;
+  align-items: center;
+  font-size: 0.9375vw;
+  border-bottom: 0.09259259vh solid #216492;
+  margin: 0 auto;
+  width: 100%;
+}
+.tit::before {
+  content: "";
+  display: inline-block;
+  width: 0.98958333vw;
+  height: 1.94444444vh;
+  margin-right: 0.390625vw;
+  background: url(../../assets/qianggui/icon.png) no-repeat;
+  background-size: 100% 100%;
+}
+.data_item {
+  box-sizing: border-box;
+  width: 10.72916667vw;
+  height: 30vh;
+  border: 0.10416667vw solid rgba(115, 172, 230, 0.27);
+  padding: 0.46296296vh 0.26041667vw;
+  display: grid;
+  grid-template-rows: 2.77777778vh 25.46296296vh;
+  grid-template-columns: 10vw;
+  justify-self: center;
+  align-content: space-between;
+}
+.data_item .top {
+  background: rgba(115, 167, 230, 0.1);
+  font-size: 0.78125vw;
+  text-align: center;
+  line-height: 2.77777778vh;
+  font-weight: bold;
+  color: #8ecfff;
+}
+.data_item .con {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 0.98958333vw;
+  background: rgba(115, 167, 230, 0.1);
+}
+.data_item .con .img_wrap {
+  width: 8.125vw;
+  height: 14.44444444vh;
+  background: url(../../assets/qianggui/dipan.png) no-repeat center bottom;
+  background-size: 8.07291667vw 2.12962963vh;
+  text-align: center;
+  margin-bottom: 0.46296296vh;
+}
+.data_item .con .img_wrap img {
+  width: 5.41666667vw;
+  height: 12.03703704vh;
+  margin-top: 0.92592593vh;
+}
+.data_item .con .text_floor {
+  line-height: 2.31481481vh;
+  font-size: 0.72916667vw;
+}
+.data_item .con .text_floor span {
+  font-weight: bold;
+  color: #85c4f3;
+}
+.data_item .con .look_info {
+  position: absolute;
+  right: -0.3125vw;
+  bottom: -0.55555556vh;
+  width: 5.10416667vw;
+  height: 1.94444444vh;
+  background: url(../../assets/qianggui/xiangqing.png) no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+  line-height: 1.94444444vh;
+  display: none;
+  cursor: pointer;
+}
+.data_item:hover .look_info {
+  display: block;
+}
+.new_xiangqing {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 51.82291667vw;
+  height: 62.03703704vh;
+  background: url(../../assets/qianggui/tanchuang.png) no-repeat;
+  background-size: 100% 100%;
+}
+.new_xiangqing .close {
+  position: absolute;
+  right: 1.30208333vw;
+  top: 1.04166667vw;
+  width: 2.86458333vw;
+  height: 2.34375vw;
+  background: url(../../assets/qianggui/close.png) no-repeat;
+  background-size: 100% 100%;
+}
+.new_xiangqing .quxiao {
+  position: absolute;
+  right: 1.09375vw;
+  bottom: 2.68518519vh;
+  width: 15vw;
+  height: 2.22222222vh;
+  text-indent: 4.42708333vw;
+  color: #fff;
+  line-height: 1.25vw;
+  background: url(../../assets/qianggui/quxiao.png) no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.new_xiangqing .new_tit {
+  height: 1.82291667vw;
+  line-height: 1.82291667vw;
+  text-indent: 2.86458333vw;
+  margin-top: 1.85185185vh;
+  color: #fff;
+}
+.new_xiangqing .new_main {
+  width: 46.875vw;
+  height: 46.2962963vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 1.38888889vh 0 0 2.60416667vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto-fill, 21.75925926vh);
+  justify-items: center;
+  align-items: center;
+}
+.new_xiangqing .new_main .new_item {
+  box-sizing: border-box;
+  width: 9.42708333vw;
+  height: 17.59259259vh;
+  margin: 1.85185185vh 0;
+  border: 0.10416667vw solid #304b67;
+  padding: 0.26041667vw;
+}
+.new_xiangqing .new_main .new_item .full {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(115, 167, 230, 0.1);
+}
+.new_xiangqing .new_main .new_item .full .new_img_wrap {
+  margin: 0 auto;
+  width: 8.85416667vw;
+  height: 7.40740741vh;
+  background: url(../../assets/qianggui/dipan2.png) no-repeat center bottom;
+  background-size: 8.07291667vw 1.48148148vh;
+  margin-bottom: 0.92592593vh;
+  text-align: center;
+}
+.new_xiangqing .new_main .new_item .full .new_img_wrap p {
+  line-height: 4.62962963vh;
+}
+.new_xiangqing .new_main .new_item .full .new_img_wrap img {
+  max-width: 8.85416667vw;
+  height: 6.2962963vh;
+}
+.new_xiangqing .new_main .new_item .full .new_floor {
+  line-height: 2.22222222vh;
+  text-indent: 0.72916667vw;
+}
+.new_xiangqing .new_main .new_item .full .new_floor span {
+  font-weight: bold;
+  color: #8ecfff;
+}
+.new_xiangqing .new_main .new_item .full .zaiwei {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 2.8125vw;
+  height: 1.85185185vh;
+  line-height: 1.85185185vh;
+  text-align: center;
+  color: #333;
+  background: #5dff87;
+}
+.new_xiangqing .new_main .new_item .full .buzaiwei {
+  background: #fef26d;
+}
+.new_main::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 0px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.new_main::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+  background: rgba(34, 3, 117, 0.8);
+}
+.new_main::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(221, 213, 213, 0.6);
+}
+.new_change_type {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 1;
+  top: 4.39814815vh;
+  left: 23.64583333vw;
+  width: 6.5625vw;
+  height: 2.68518519vh;
+  border: 0.05208333vw solid #559ad0;
+  border-radius: 0.15625vw;
+  display: flex;
+}
+.new_change_type button {
+  flex: 1;
+  background: none;
+  border-radius: 0.15625vw;
+  color: #559ad0;
+  font-size: 0.36458333vw;
+}
+.new_change_type .active {
+  background: #559ad0;
+  color: #204e75;
+}

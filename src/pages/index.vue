@@ -119,7 +119,7 @@
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive"></router-view>
     </div>
-    <div class="warning_list" v-show="warningList.length && warningBoxIsShow">
+    <!-- <div  class="warning_list" v-show="warningList.length && warningBoxIsShow">
       <div class="item_wrap" ref="listWrap" id="auto_list">
         <transition
           name="slide-fade"
@@ -136,6 +136,7 @@
       </div>
     </div>
     <div
+     v-if="false"
       class="warning_list_onoff"
       :class="{'has_donghua':!warningBoxIsShow}"
       @click="warningBox"
@@ -143,19 +144,20 @@
     >
       <span>{{warningBoxIsShow ? "隐藏列表" : "显示列表"}}</span>
       <i></i>
-    </div>
+    </div> -->
     <div class="tixing">
       <div id="warning">这里是枪支归还提醒</div>
     </div>
+    <Alarm :list="warningList" @nameClick="nameClick" @doneClick="doneClick"></Alarm>
     <!-- <audio controls="controls" src='https://www.w3school.com.cn/i/horse.ogg' ref="audio"></audio> -->
   </div>
 </template>
 
 <script>
 import { setInterval, clearInterval, setTimeout } from "timers";
-
+import Alarm from './alerm/index'
 export default {
-  
+  components:{Alarm},
   data() {
     return {
       audioSrc:'',
@@ -216,6 +218,7 @@ export default {
         枪库: { road: "/indexg/qiangku", name: "枪库", en: "GUNLIBRARY" },
         录音录像: { road: "/indexg/vidio", name: "录音录像", en: "VIDEO" },
         图片管理: { road: "/indexg/images", name: "图片管理", en: "IMAGES" },
+        角色管理: { road: "/indexg/juese", name: "角色管理", en: "ROLE" }
       },
       list: [],
       mes: null,
@@ -227,11 +230,24 @@ export default {
       loading:null,
       timer11:null,
       timerTishi:null,
-      imgurl:''
+      imgurl:'',
     };
   },
   methods: {
     
+    nameClick(item){//人名点击
+      this.itemClick(item)
+    },
+    doneClick(parmars){//急速处理
+      this.warningList[parmars.index].show = false;
+      let id=parmars.item.alarm_info_id
+      this.warningList.forEach(item=>{
+        if(item.alarm_info_id==id){
+          item.show=false
+        }
+      })
+      this.chuLi(id, "极速处理");
+    },
     playAudio(){
       let audio=document.querySelector('audio')
        audio.currentTime = 0; //从头开始播放提示音
@@ -523,7 +539,6 @@ export default {
                   };
                 });
             this.warningList = Object.assign([],this.warningList,list)          
-
               let obj={};
                 let newArr=[]
                 data.data.data.forEach(item=>{
@@ -601,6 +616,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            console.log('chuli',data.data)
             this.getAllWarningList();
           }
         })
@@ -683,7 +699,6 @@ export default {
     clearInterval(this.timerTishi)
   },
   mounted() {
-    
     // this.timerTishi=setInterval(()=>{
     //   // console.log('开始播放')
     //   this.$store.commit('playAudio','long')
@@ -733,7 +748,7 @@ export default {
       }
     }
     document.addEventListener("click", checkMineMessage);
-
+   
     this.$refs.pass1.onblur = function() {
       let text = this.value;
       let reg = /^[A-Za-z0-9]{6,16}$/;

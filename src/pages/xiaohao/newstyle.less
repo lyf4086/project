@@ -1,0 +1,261 @@
+@vw:38.4vw;
+@vh:21.6vh;
+.content{
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 76/@vh;
+    font-size: 28/@vw;
+    color:#fff;
+}
+.newdatalist{
+    position: absolute;
+    top:76/@vh;
+    left:0;
+    box-sizing: border-box;
+    padding:0 30/@vw;
+    width: 100%;
+    height:calc(100% - 3.5vh);
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: 96/@vh 1fr 1fr;
+    grid-template-areas: 'a a a a a a'
+                        '. . . . . .'
+                        '. . . . . .';
+    grid-gap: 1px;
+    justify-items: center;
+    align-items: center;
+}
+.tit{
+    box-sizing: border-box;
+    height: 96/@vh;
+    padding-left: 92/@vw;
+    grid-area: a;
+    display: flex;
+    align-items: center;
+    font-size: 36/@vw;
+    border-bottom: 2/@vh solid #216492;
+    margin: 0 auto;
+    width: 100%;
+    &::before{
+        content: "";
+        display: inline-block;
+        width: 38/@vw;
+        height:42/@vh;
+        margin-right: 15/@vw;
+        background: url(../../assets/qianggui/icon.png) no-repeat;
+        background-size: 100% 100%;
+    }
+}
+.data_item{
+    box-sizing: border-box;
+    width: 412/@vw;
+    height:648/@vh;
+    border: 4/@vw solid rgba(115,172,230,0.27);
+    padding:10/@vh 10/@vw;
+    display: grid;
+    grid-template-rows: 60/@vh 550/@vh;
+    grid-template-columns: 384/@vw;
+    justify-self: center;
+    align-content: space-between;
+    .top{
+        background: rgba(115, 167, 230,.1);
+        font-size: 30/@vw;
+        text-align: center;
+        line-height: 60/@vh;
+        font-weight: bold;
+        color: #8ecfff;
+    }
+    .con{
+        position: relative;
+        box-sizing: border-box;
+        padding:0 38/@vw;
+        background: rgba(115, 167, 230,.1);
+        .img_wrap{
+            width: 312/@vw;
+            height:312/@vh;
+            background: url(../../assets/qianggui/dipan.png) no-repeat center bottom;
+            background-size: 310/@vw 46/@vh;
+            text-align: center;
+            margin-bottom: 10/@vh;
+            img{
+                width: 208/@vw;
+                height:260/@vh;
+                margin-top: 20/@vh;
+            }
+        }
+        .text_floor{
+            line-height: 50/@vh;
+            font-size: 28/@vw;
+            span{
+                font-weight: bold;
+                color: #85c4f3;
+            }
+        }
+        .look_info{
+            position: absolute;
+            right: -12/@vw;
+            bottom: -12/@vh;
+            width: 196/@vw;
+            height:42/@vh;
+            background: url(../../assets/qianggui/xiangqing.png) no-repeat;
+            background-size: 100% 100%;
+            text-align: center;
+            line-height:42/@vh;
+            display: none;
+            cursor: pointer;
+        }
+    }
+}
+.data_item:hover .look_info{
+    display: block;
+}
+
+.new_xiangqing{
+    position: absolute;
+    top:0;
+    right:0;
+    bottom: 0;
+    left:0;
+    margin:auto;
+    width: 1990/@vw;
+    height:1340/@vh;
+    background: url(../../assets/qianggui/tanchuang.png) no-repeat;
+    background-size: 100% 100%;
+    .close{
+        position: absolute;
+        right: 50/@vw;
+        top:40/@vw;
+        width: 110/@vw;
+        height: 90/@vw;
+        background: url(../../assets/qianggui/close.png) no-repeat;
+        background-size: 100% 100%;
+    }
+    .quxiao{
+        position: absolute;
+        right:42/@vw;
+        bottom: 58/@vh;
+        width:576/@vw;
+        height:48/@vh;
+        text-indent: 170/@vw;
+        color: #fff;
+        line-height: 48/@vw;
+        background: url(../../assets/qianggui/quxiao.png) no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+    }
+    .new_tit{
+        height: 70/@vw;
+        line-height: 70/@vw;
+        text-indent: 110/@vw;
+        margin-top: 40/@vh;
+        color: #fff;
+    }
+    .new_main{
+        width: 1800/@vw;
+        height:1000/@vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin:30/@vh 0 0 100/@vw;
+        
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: repeat(auto-fill,470/@vh);
+        justify-items: center;
+        align-items: center;
+        .new_item{
+            box-sizing: border-box;
+            width: 362/@vw;
+            height:380/@vh;
+            margin: 40/@vh 0;
+            border: 4/@vw solid #304b67;
+            padding:10/@vw;
+            .full{
+                position: relative;
+                width: 100%;
+                height:100%;
+                background: rgba(115, 167, 230,.1);
+                .new_img_wrap{
+                    margin:0 auto;
+                    width: 340/@vw;
+                    height:160/@vh;
+                    background: url(../../assets/qianggui/dipan2.png) no-repeat center bottom;
+                    background-size: 310/@vw 32/@vh;
+                    margin-bottom: 20/@vh;
+                    text-align: center;
+                    p{
+                        line-height: 100/@vh;
+                    }
+                    img{
+                        max-width: 340/@vw;
+                        height: 136/@vh;
+                    }
+                }
+                .new_floor{
+                    line-height: 48/@vh;
+                    text-indent: 28/@vw;
+                    span{
+                        font-weight: bold;
+                        color:#8ecfff
+                    }
+                }
+                .zaiwei{
+                    position: absolute;
+                    right: 0;
+                    bottom:0;
+                    width: 108/@vw;
+                    height:40/@vh;
+                    line-height: 40/@vh;
+                    text-align: center;
+                    color: #333;
+                    background: #5dff87;
+                }
+                .buzaiwei{
+                    background: #fef26d;
+                }
+            }
+        }
+    }
+}
+.new_main::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 0px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  
+  .new_main::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+    background: rgba(34, 3, 117, 0.8);
+  }
+  
+  .new_main::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(221, 213, 213, 0.6);
+  }
+.new_change_type{
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 1;
+    top:95/@vh;
+    left:908/@vw;
+    width: 252/@vw;
+    height:58/@vh;
+    border: 2/@vw solid #559ad0;
+    border-radius: 6/@vw;
+    display: flex;
+    button{
+        flex:1;
+        background: none;
+        border-radius: 6/@vw;
+        color:#559ad0;
+        font-size: 14/@vw;
+    }
+    .active{
+        background: #559ad0;
+        color:#204e75;
+    }
+}

@@ -1,9 +1,9 @@
 <template>
   <div class="qiangmiao-content" ref="main">
-    <div class="none-data" v-if="!data.length">暂时没有数据</div>
+    <div class="new_nodta" v-if="!data.length">暂时没有数据</div>
     <div class="item_list" v-if="data.length">
       <div
-        class="item_gun"
+        class="item_gun hvr-float-shadow"
         v-for="item in data"
         :key="item.gun_id"
         ref="item"
@@ -26,20 +26,22 @@
           <div class="bg2"></div>
           <!-- <div  class="gun" :class="{'long':item.gtype=='95式'||item.gtype=='79式'}"> -->
              <div  class="gun">
+               <div class="bg" v-if="!item.src"></div>
               <img class="gunType" :src="urlBase+item.src" alt="">
             </div>
         </div>
         <div class="right">
           <div class="btn" title="枪锁位">枪锁位：{{item.gposition || '无'}}</div>
           <div class="btn text" title="枪瞄编号">
+            <p v-if="!showBtn">暂无</p>
             <p
-              v-if="item.gunaiming_id!=0"
+              v-if="showBtn&&item.gunaiming_id!=0"
               class="jiebang"
               :title="'IMEI号为：'+item.IMEI+'，点击可解绑'"
               @click="deleteBind(item)"
             >{{item.jm}}</p>
             <p
-              v-if="item.gunaiming_id==0"
+              v-if="showBtn&&item.gunaiming_id==0"
               style="color:#3492c9;text-decoration: underline;"
               @click="bindshow(item)"
             >去绑定枪瞄</p>
@@ -51,7 +53,7 @@
           <div
             class="btn"
             title="点击查看该枪支详情"
-            @click="al4(item.gun_id)"
+            @click="al4(item)"
             style="color:#3492c9;text-decoration: underline;"
           >详情</div>
         </div>
@@ -121,7 +123,7 @@
           <div class="t t8" @click="showList">历史记录</div>
           <div class="r1"></div>
           <div class="r2">
-            <img class="r2Type" :src="urlBase+guns.src" alt="">
+            <!-- <img class="r2Type" :src="urlBase+guns.src" alt=""> -->
           </div>
         </div>
         <div class="m-list" v-show="listShow">
@@ -211,6 +213,9 @@ export default {
       default: function() {
         return false;
       }
+    },
+    showBtn:{
+      type:Boolean
     }
   },
   data() {
@@ -243,9 +248,6 @@ export default {
     showList(){
       this.listShow=!this.listShow
     },
-    childClick(id) {
-      this.al4(id);
-    },
     toXiangQing(item) {
       return;
       this.$router.push({
@@ -266,9 +268,9 @@ export default {
         name: "PersonMessage"
       });
     },
-    al4(gun_id) {
-
-      this.xiangqing(gun_id);
+    al4(item) {
+      this.$emit('openAlert',item)
+     
     },
     close1() {
       this.tan1 = false;
@@ -343,6 +345,7 @@ export default {
     },
     bindclose() {
       this.bindalert = false;
+      this.activeMiaoId=''
     },
     bind(gun_id, miao_id) {
       //....................绑定枪支和枪瞄
@@ -434,7 +437,7 @@ export default {
           let newArr = data.data.data.list.map(e => {
             return {
               ...e,
-              opacity: 1,
+              opacity: '0.3',
               checked: false
             };
           });

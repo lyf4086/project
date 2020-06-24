@@ -1,7 +1,7 @@
 <template>
   <div class="sixitem">
 
-    <div v-show="keshihua" v-for="(item,index) in this.dataList" :key="index" class="one" :class="{'dou':del}">
+    <div v-show="keshihua" v-for="(item,index) in this.dataList" :key="index" class="one hvr-float-shadow" :class="{'dou':del}">
       <div class="text deltext">
         <p>
           <span>机构名称：</span>
@@ -31,7 +31,7 @@
       <button v-if="sync===0" class="change" @click="xiuGaiOneData(item)">修改机构</button>
       <button class="del" v-show="del" @click="queren(item)">X</button>
     </div>
-    <div class="content2" v-show="!keshihua">
+    <div class="content2"  v-show="!keshihua" >
       <div class="list-title" >
         <span>机构名称</span>
         <span>创建时间</span>

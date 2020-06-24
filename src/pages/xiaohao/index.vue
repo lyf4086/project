@@ -52,67 +52,63 @@
             <button>删除人员</button>
     </div>-->
     <div class="content" v-show="keshihua">
-      <Content :dataArr="dataList" :list="liebiao" >
-        {{pageTotal}}
-      </Content>
-    </div>
-    <div class="change_type">
-      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
-      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
-    </div>
-    <div class="content2" v-show="!keshihua">
-      <div class="none-data" v-if="!dataList.length">暂时没有数据</div>
-      <div class="list-title" v-if="dataList.length">
-        <span>单位</span>
-        <span>弹柜名称</span>
-        <span>弹柜类型</span>
-        <span>弹柜编号</span>
-        <span>弹药数量</span>
-        <span>操作</span>
-      </div>
-      <div class="list-item" v-for="(item,index) in dataList" :key="index">
-        <span>{{item.org_name}}</span>
-        <span>{{item.vdevSN}}</span>
-        <span>{{item.vtype}}</span>
-        <span>{{item.vCaption}}</span>
-        <span>{{item.bulletcount}}</span>
-        <span @click="showinfo(item)" style="cursor:pointer;text-decoration:underline">详情</span>
-      </div>
       
-    </div>
-    <div class="alert" style="display:none">
-      <div class="text-wrap">
-        <div class="text-title">新增人员</div>
-        <div class="text-content">
-          <span>名称:</span>
-          <input type="text" />
-
-          <span>编号:</span>
-          <input type="text" />
-
-          <span>枪支数量:</span>
-          <input type="text" />
-
-          <span>警员数量:</span>
-          <input type="text" />
-
-          <span>所属单位:</span>
-          <input type="text" />
-
-          <span>创建日期:</span>
-          <input type="text" />
+      <div class="new_nodta" v-if="!dataList.length">暂时没有数据</div>
+      <div class="newdatalist">
+        <div class="tit">弹柜总量：{{pageTotal}}</div>
+        <div class="data_item hvr-float-shadow" v-for="item in dataList" :key="item.id">
+          <div class="top">{{item.org_name}}</div>
+          <div class="con">
+            <div class="img_wrap">
+              <img src="../../assets/qianggui/guizi1.png" alt="" srcset="">
+            </div>
+            <div class="text_floor">弹柜名称：<span>{{item.vCaption}}</span></div>
+            <div class="text_floor">弹柜类型：<span>{{item.vtype}}</span></div>
+            <div class="text_floor">弹柜编号：<span>{{item.vdevSN}}</span></div>
+            <div class="text_floor">弹药数量：<span>{{item.bulletcount}}</span></div>
+            <div class="look_info" @click="showinfo(item)">查看详情</div>
+          </div>
         </div>
-        <div class="submit">确认</div>
+        
       </div>
     </div>
+    
+    <div class="new_change_type">
+      <button :class="{'active':keshihua}" @click="changeShowType(1)">视图</button>
+      <button :class="{'active':!keshihua}" @click="changeShowType(2)">列表</button>
+    </div>
+    <div class="new_list_wrap" v-show="!keshihua">
+      <div class="new_nodta" v-if="!dataList.length">暂时没有数据</div>
+      <div class="tit2">弹柜总量：{{pageTotal}}</div>
+     
+      <div class="slot-wrap" v-if="dataList.length">
+        <div class="slot-title" style="grid-template-columns: repeat(6,1fr)">
+            <span>单位</span>
+            <span>弹柜名称</span>
+            <span>弹柜类型</span>
+            <span>弹柜编号</span>
+            <span>弹药数量</span>
+            <span>操作</span>
+        </div>
+        <div class="slot-item" v-for="(item,index) in dataList" :key="index" style="grid-template-columns: repeat(6,1fr)">
+            <span>{{item.org_name}}</span>
+            <span>{{item.vdevSN}}</span>
+            <span>{{item.vtype}}</span>
+            <span>{{item.vCaption}}</span>
+            <span>{{item.bulletcount}}</span>
+            <span  @click="showinfo(item)" style="cursor:pointer;text-decoration:underline">详情</span>
+        </div>
+    </div>
+      <!--  -->
+    </div>
+    
     <div class="xiangqing-wrap" v-show="xiangqingshow">
-      <div class="xiangqing">
+      <!-- <div class="xiangqing">
         <p class="title">弹药详情</p>
         <div class="content">
           <div class="cabinet">
             <div class="item item1" v-for="(item,index) in xiangqingData" :key="index">
               <div class="text">
-                <!-- <p>弹药详情</p> -->
                 <p>弹药名称：{{item.bullname}}</p>
                 <p>弹药类型：{{item.bulletType}}</p>
                 <p>消耗数量：{{item.bulletConsumeCount}}</p>
@@ -121,22 +117,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="item item2">
-                        <div class="text">
-                          弹药详情
-                          <div class="line">
-                            <div class="dian"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="item item3">
-                        <div class="text">
-                          弹药详情
-                          <div class="line">
-                            <div class="dian"></div>
-                          </div>
-                        </div>
-            </div>-->
           </div>
           <div class="chassis">
             <div class="up"></div>
@@ -145,12 +125,68 @@
         </div>
         <button class="close" @click="close">取消</button>
         <button class="del" @click="close">X</button>
+      </div> -->
+      <div class="new-xiangqing" v-show="xiangqingshow">
+        <div class="close" @click="close"></div>
+        <div class="quxiao" @click="close">取消</div>
+        <div class="new_tit">弹药详情</div>
+        <div class="new-main">
+          <div class="left">
+            <img src="../../assets/img/qingguitest.png" alt srcset />
+            <div class="dipan"></div>
+          </div>
+          <div class="right">
+            <div class="box_wrap">
+              <div class="box_list" :class="`active${activeNumber}`">
+                <div class="box_item" v-for="(arr,index) in bannerList" :key="index">
+                  <div class="box" v-for="(item,i) in arr" :key="i">
+                    <div class="box_main">
+                      <span>
+                        <div class="icon"></div>
+                      </span>
+                      <span  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                        <i>机构名称</i>
+                        <br />
+                        <strong>{{item.org_name}}</strong>
+                      </span>
+                      <span>
+                        <i>弹药名称</i>
+                        <br />
+                        <strong>{{item.bullname}}</strong>
+                      </span>
+                      <span>
+                        <i>弹药类型</i>
+                        <br />
+                        <strong>{{item.bulletType}}</strong>
+                      </span>
+                      <span>
+                        <i>消耗数量</i>
+                        <br />
+                        <strong>{{item.bulletConsumeCount}}</strong>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="index_wrap">
+              <i
+                @click="newChangeIndex(index)"
+                :class="{'active':activeIndex==index}"
+                v-for="(item,index) in bannerList"
+                :key="index"
+              ></i>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
 @import url(./index.css);
+@import url(./newstyle.css);
+@import url(../zaiku/newxq.css);
 </style>
 <script>
 import breadNav from "@/components/breadnav";
@@ -175,15 +211,41 @@ export default {
       },
       loading:null,
       zhankai:[],
-      pageSize:10,
+      pageSize:12,
       pageTotal:0,
       xiangqingshow:false,
-      xiangqingData:{}
+      xiangqingData:{},
+      activeData: [],
+      indexNum: 0,
+      activeIndex: 0,
+      timer: null,
+      late5: null,
+      activeNumber: 0,
+      bannerList: []
     };
   },
   methods: {
+    newChangeIndex(n) {
+      this.activeNumber = n;
+      this.activeIndex = n;
+      this.autoChange();
+    },
+    autoChange() {
+      clearInterval(this.timer);
+      this.timer = setInterval(() => {
+        this.activeNumber =
+          this.activeNumber >= this.bannerList.length - 1
+            ? 0
+            : ++this.activeNumber;
+        this.activeIndex = this.activeNumber;
+      }, 4000);
+    },
     close(){
+      this.activeData = [];
       this.xiangqingshow = false;
+      this.activeIndex = 0;
+      clearInterval(this.timer);
+      this.timer = null;
     },
     showinfo(index){
       this.loading = this.$loading({
@@ -193,7 +255,6 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       this.xiangqingindex = index;
-      // this.xiangqingshow=true
       this.getXiangQing(index.id);
     },
     currentChange(n){
@@ -215,7 +276,7 @@ export default {
       this.dataList.length=0
       if(n===1){
         this.keshihua=true
-        this.pageSize=10
+        this.pageSize=12
         this.getDataList(this.activeItem.id,1,this.pageSize);
       }else{
         this.keshihua=false
@@ -261,13 +322,24 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
-            this.xiangqingData = data.data.data;
-            if (this.xiangqingData.length) {
-              this.xiangqingshow = true;
-            } else {
-              this.$message("暂无数据");
+           
+             this.loading.close();
+            this.xiangqingData = data.data.data.sort(
+              (a, b) => a.vLabel - b.vLabel
+            );
+            let bannerList = [];
+            let fenshu = Math.ceil(this.xiangqingData.length / 5);
+            for (let i = 0; i < fenshu; i++) {
+              bannerList.push(this.xiangqingData.slice(i * 5, (i + 1) * 5));
             }
-            this.loading.close()
+            this.bannerList = bannerList;
+            this.autoChange();
+            if (!this.xiangqingData.length) {
+              this.$message("暂无数据");
+              this.xiangqingshow = false;
+            } else {
+              this.xiangqingshow = true;
+            }
           }
         })
         .catch(error => {
@@ -302,6 +374,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            // console.log(data.data.data)
             this.dataList = data.data.data;
             this.pageTotal=data.data.total
             this.liebiao = data.data.dat;
@@ -431,7 +504,7 @@ export default {
   mounted() {
     let keshi=localStorage.getItem('setKeShiHua')
      this.keshihua=JSON.parse(keshi) 
-     this.pageSize=this.keshihua?10:19
+     this.pageSize=this.keshihua?12:19
     this.$store.commit('setStr',{
       str1:'弹药管理',
       str2:'消耗列表'

@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="item hvr-float-shadow">
     <div class="imgwrap">
       <img v-if="oneDate.icon" :src="oneDate.icon" alt="警员" />
       <img v-if="!oneDate.icon" src="../../../assets/img/head-icon.png" alt />
@@ -29,7 +29,7 @@
       <p>借出时间：{{oneDate.optime}}</p>
       <p>预期归还时间：{{oneDate.planreturntime}}</p>
     </div>
-    <div class="cover" v-show="xiangqingalert">
+    <div class="cover1" v-show="xiangqingalert">
       <div class="alert" v-if="xiangqingData">
         <button class="del" @click="close">X</button>
         <div class="leftwrap">
@@ -110,8 +110,8 @@ export default {
   },
   methods: {
     openalert(item){
-      this.getXiangqing(item.id)
-      
+      // this.getXiangqing(item.id)
+      this.$emit('openalert',item)
     },
     close(){
       this.xiangqingalert=false
@@ -131,7 +131,7 @@ export default {
         }
       });
     },
-    getXiangqing(id) {
+    getXiangqing(id) {//.次方法停用
       //................获取持枪人员列表信息函数
       var key = this.$store.state.key;
       var objs = { id: id };
@@ -151,7 +151,7 @@ export default {
       })
         .then(data => {
           if (data.status == 200) {
-            
+           
             this.xiangqingalert=true
             this.xiangqingData=data.data
           }

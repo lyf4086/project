@@ -47,119 +47,98 @@
         ref="page"
       ></el-pagination>
     </div>
-    <div class="change_type">
-      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
-      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    
+    <div class="new_change_type">
+      <button :class="{'active':keshihua}" @click="changeShowType(1)">视图</button>
+      <button :class="{'active':!keshihua}" @click="changeShowType(2)">列表</button>
     </div>
     <div class="content" v-show="keshihua">
-      <div class="none-data" v-if="!dataArr.length">暂时没有数据</div>
-      <div class="qianggui-content" v-if="dataArr.length">
-        <div class="title">弹柜总量：{{pageTotal}}</div>
-        <div class="wrap">
-          <div class="list">
-            <div class="item" v-for="(item,index) in dataArr" :key="index">
-              <p>单位：{{item.org_name}}</p>
-              <img src="../../assets/img/qingguitest.png" alt="枪柜" />
-              <p>枪柜类型：{{item.vtype}}</p>
-              <p>枪柜名称：{{item.vdevSN}}</p>
-              <h6 @click="look(item)" style="color:#fff;">&nbsp;&nbsp;&nbsp;&nbsp;</h6>
-              <button v-if="false" @click="openVidio" style="cursor:pointer">查看</button>
+      <div class="new_nodta" v-if="!dataArr.length">暂时没有数据</div>
+      <div class="newdatalist">
+        <div class="tit">枪柜总量：{{pageTotal}}</div>
+        <div class="data_item hvr-float-shadow" v-for="item in dataArr" :key="item.id">
+          <div class="top">{{item.org_name}}</div>
+          <div class="con">
+            <div class="img_wrap">
+              <img src="../../assets/qianggui/guizi1.png" alt="" srcset="">
             </div>
+            <div class="text_floor">枪柜名称：<span>{{item.vCaption}}</span></div>
+            <div class="text_floor">枪柜类型：<span>{{item.vtype}}</span></div>
+            <div class="text_floor">枪柜编号：<span>{{item.vdevSN}}</span></div>
+            <!-- <div class="text_floor">弹药数量：<span>{{item.bulletcount}}</span></div> -->
+            <div class="look_info" @click="look(item)">查看详情</div>
           </div>
-        </div>
-      
-      </div>
-    </div>
-    <div class="content2" v-show="!keshihua">
-      <div class="none-data"  v-if="!dataArr.length">暂时没有数据</div>
-      <div class="list-title"  v-if="dataArr.length">
-        <span>单位</span>
-        <span>枪柜类型</span>
-        <span>枪柜名称</span>
-        <span>操作</span>
-      </div>
-      <div class="list_wrap">
-        <div class="list-item"  v-for="item in dataArr" :key="item.id">
-          <span >{{item.org_name}}</span>
-          <span>{{item.vtype}}</span>
-          <span>{{item.vdevSN}}</span>
-          <span style="cursor:pointer;text-decoration: underline;"  @click="look(item)">查看详情</span>
         </div>
         
       </div>
-      
+    </div>
+    <div class="new_list_wrap" v-show="!keshihua">
+      <div class="new_nodta" v-if="!dataArr.length">暂时没有数据</div>
+      <div class="tit2">枪柜总量：{{pageTotal}}</div>
+      <div class="slot-wrap" v-if="dataArr.length">
+        <div class="slot-title" style="grid-template-columns: repeat(4,1fr)">
+           <span>单位</span>
+          <span>枪柜类型</span>
+          <span>枪柜名称</span>
+          <span>操作</span>
+        </div>
+        <div class="slot-item" v-for="item in dataArr" :key="item.id" style="grid-template-columns: repeat(4,1fr)">
+          <span >{{item.org_name}}</span>
+          <span>{{item.vtype}}</span>
+          <span>{{item.vdevSN}}</span>
+          <span  style="cursor:pointer;text-decoration: underline;"  @click="look(item)">查看详情</span>
+        </div>
+      </div>
+
     </div>
     <div class="xiangqing-wrap" v-show="qiangguishow || vidio">
-          <div class="xiangqing" v-show="qiangguishow">
-            <div class="del" @click="close">X</div>
-            <button class="close" @click="close">取消</button>
-            <div class="content">
-              <div class="nodata" v-if="!xiangqingData.length">暂无数据</div>
-
-              <div
-                class="small"
-                v-for="(item,index) in xiangqingData"
-                :class="{'big':item.gtype=='95式'}"
-                :key="index"
-              >
-                <p>类型：{{item.gtype}}</p>
-                <div class="bg">
-                  <img class="bgImg" v-show="item.src" :src="urlBase+item.src" alt="">
-                  <div class="nopic" v-show="!item.src">空</div>
-                </div>
-                <!-- <div class="text">
-                  <div class="a">aaa</div>
-                  <div class="b">bbb</div>
-                </div> -->
-                <!-- <div class="text" v-if="item.child">
-                  <div class="a" title="警号">{{item.child.police_number}}</div>
-                  <div class="b" title="持枪人">{{item.child.uname ? item.child.uname :''}}</div>
-                  <div class="c" title="枪支证号" v-show="item.gun_code">{{item.gun_code}}</div>
-                  <div
-                    class="d"
-                    title="手机号"
-                    v-show="item.child.mobile"
-                  >{{item.child.mobile ?item.child.mobile:''}}</div>
-                </div> -->
-                <div class="data">{{item.nStauts==1? "在位 ":"不在位 "}}
-                  <span>,&nbsp;锁位：{{item.vLabel}}号</span>
-                </div>
+      
+      <div class="new_xiangqing" v-show="qiangguishow">
+        <div class="close" @click="close" style="cursor:pointer"></div>
+        <div class="quxiao" @click="close">取消</div>
+        <div class="new_tit">{{showName}}</div>
+        <!-- <div class="new_main">
+          <div class="new_item" v-for="(item,index) in xiangqingData" :key="index">
+            <div class="full">
+              <div class="new_img_wrap">
+                <img v-if="item.src" :src="urlBase+item.src" alt="">
+                <img v-if="!item.src" src="../../assets/qianggui/empty.png" alt="">
               </div>
+              <div class="new_floor">类型：<span>{{item.gtype}}</span></div>
+              <div class="new_floor">编号：<span>{{item.gun_code}}</span></div>
+              <div class="new_floor">锁位：<span>{{item.vLabel}}</span></div>
+              <div class="zaiwei" :class="{'buzaiwei':item.nStauts==2}">{{item.nStauts==1?'在位':'不在位'}}</div>
             </div>
           </div>
-          <div class="vidio" v-show="vidio">
-            <button class="close" @click="closeVidio">关闭</button>
+        </div> -->
+        <div class="edit_mian">
+          <div class="edit_item" v-for="(item,index) in xiangqingData" :key="index">
+            <div class="edit_full">
+              <div class="edit_state" :class="item.nStauts==2?'buzai':''"></div>
+              <div class="edit_img_wrap">
+                <img v-if="item.src" :src="urlBase+item.src" alt="">
+                <img v-if="!item.src" src="../../assets/qianggui/empty.png" alt="">
+              </div>
+              <div class="edit_floor">
+                类型：<i>{{item.gtype}}</i>
+              </div>
+              <div class="edit_floor">
+                编号：<i>{{item.gun_code}}</i>
+              </div>
+              <div class="edit_number">{{item.vLabel}}号</div>
+            </div>
           </div>
         </div>
-    <div class="alert" style="display:none">
-      <div class="text-wrap">
-        <div class="text-title">新增人员</div>
-        <div class="text-content">
-          <span>名称:</span>
-          <input type="text" />
-
-          <span>编号:</span>
-          <input type="text" />
-
-          <span>枪支数量:</span>
-          <input type="text" />
-
-          <span>警员数量:</span>
-          <input type="text" />
-
-          <span>所属单位:</span>
-          <input type="text" />
-
-          <span>创建日期:</span>
-          <input type="text" />
-        </div>
-        <div class="submit">确认</div>
-      </div>
+        <!--  -->
+      </div>   
     </div>
+   
   </div>
 </template>
 <style scoped>
 @import url(./index.css);
+@import url(./info_edit.css);
+@import url(../xiaohao/newstyle.css);
 </style>
 <script>
 import breadNav from "@/components/breadnav";
@@ -191,7 +170,8 @@ export default {
       zhankai:[],
       pageTotal:0,
       page:1,
-      pageSize:0
+      pageSize:0,
+      showName:''
     };
   },
   methods: {
@@ -204,8 +184,8 @@ export default {
       this.dataArr.length=0
       if(n===1){
         this.keshihua=true
-        this.pageSize=10
-        this.getDataList(this.activeItem.id, 1,10);
+        this.pageSize=12
+        this.getDataList(this.activeItem.id, 1,12);
       }else{
         this.keshihua=false
         this.pageSize=19
@@ -379,6 +359,8 @@ export default {
       this.getDataList(item.id,1,this.pageSize);
     },
     look(index) {
+      console.log(index)
+      this.showName=index.vdevSN
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -482,7 +464,7 @@ export default {
     let keshi=localStorage.getItem('setKeShiHua')
      this.keshihua=JSON.parse(keshi) 
     
-     this.pageSize=this.keshihua?10:19
+     this.pageSize=this.keshihua?12:19
      this.getDataList(null,1,this.pageSize);
     this.$store.commit('setStr',{
       str1:'各机构',

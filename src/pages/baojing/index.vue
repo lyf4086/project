@@ -46,7 +46,7 @@
     </div>
     <div class="page-index">
       <el-pagination
-        :page-size="keshihua ? 8:17"
+        :page-size="keshihua ? 15:19"
         :pager-count="9"
         layout="total,prev, pager, next"
         @current-change="currentChange"
@@ -54,54 +54,91 @@
         ref="page"
       ></el-pagination>
     </div>
-    <div class="change_type">
+    <!-- <div class="change_type">
       <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
       <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    </div> -->
+    <div class="new_change_type">
+      <button :class="{'active':keshihua}" @click="changeShowType(1)">视图</button>
+      <button :class="{'active':!keshihua}" @click="changeShowType(2)">列表</button>
+    </div>
+    <div class="new_bar">
+      <div class="left">
+        <div class="icon"></div>
+        消息总数：{{dataTotal}}
+      </div>
+      <div v-if="!showBtn"></div>
+      <div class="right" v-if="showBtn">
+        <div class="ck_box" :class="{checked:selectAll}" @click="piliangchuli">
+          <div class="icon"></div>
+          批量选择
+        </div>
+        <div class="sel_box">
+          <select v-model="chulistate" @change="changeSate">
+            <option value="1">全部</option>
+            <option value="2">未处理</option>
+            <option value="3">已处理</option>
+          </select>
+        </div>
+        <div class="chuli hvr-sweep-to-right" @click="dealAll">
+          <div class="icon"></div>
+          一键处理
+        </div>
+      </div>
     </div>
     <div class="content" v-show="keshihua">
       <!-- <Content/> -->
-      <div class="none-data" v-if="!list.length">暂时没有数据</div>
-      <Item v-for="(item,index) in list" 
+      <div class="new_nodta" v-if="!list.length">暂时没有数据</div>
+      <!-- <Item v-for="(item,index) in list" 
         :item="item" :key="index" 
         @changeOneData="changeOneData" 
         @showNew="showNew"
         @showAlert="showAlert"
         @chulihuidiao="chulihuidiao"
-      />
-        
+        @showxiangqing="showxiangqing"
+      /> -->
+        <new-content :list="list"
+          @showNew="showNew"
+          @showAlert="showAlert"
+          @showxiangqing="showxiangqing"
+        ></new-content>
     </div>
-    <div class="content2" v-show="!keshihua" >
-      <div class="none-data" v-if="!list.length">暂时没有数据</div>
-      <div class="title-child" v-show="list.length">
-        <span><input type="checkbox" v-show="false"/></span>
-        <span>姓名</span>
-        <span>警号</span>
-        <span>所属机构</span>
-        <span>时间</span>
-        <span>报警类型</span>       
-        <span>枪支编号</span>
-        <span>枪瞄编号</span>
-        <span>是否处理</span>
-        <span>最新位置</span>
-        <span>报警位置</span>
-        <span>详情</span>
-      </div>
-      <div class="item-child" v-for="(item,index) in list" :key="index">
-        <span><input type="checkbox" v-model="item.checked" :disabled="!!item.desc ||item.types=='001'" /></span>
-        <span>{{item.policeuser.policeuser_name}}</span>
-        <span>{{item.policeuser.police_number}}</span>
-        <span>{{item.mechanism_name}}</span>
-        <span>{{changeTime(item.created)}}</span>
-        <span>{{item.type}}</span>
-        <span>{{item.gun.gun_code}}</span>
-        <span>{{item.IMEI}}</span>
-        <span>{{item.desc? "已处理" : "未处理"}}</span>
-        <span @click="showNew(item)">最新位置</span>
-        <span @click="showAlert({id:item.alarm_info_id,name:item.policeuser.policeuser_name,type:item.type})">报警位置</span>
-        <span @click="showMore(item)">详情 </span>
-      </div>
+    <div class="new_list_wrap" v-show="!keshihua" >
+      <div class="new_nodta" v-if="!list.length">暂时没有数据</div>
+      
+      <div class="slot-wrap" v-show="list.length">
+        <div class="slot-title" style="grid-template-columns:40px repeat(11,1fr)">
+            <span style=""><input type="checkbox" v-show="false"/></span>
+            <span>姓名</span>
+            <span>警号</span>
+            <span>所属机构</span>
+            <span>时间</span>
+            <span>报警类型</span>       
+            <span>枪支编号</span>
+            <span>枪瞄编号</span>
+            <span>是否处理</span>
+            <span>最新位置</span>
+            <span>报警位置</span>
+            <span>详情</span>
+        </div>
+        <div class="slot-item" v-for="(item,index) in list" :key="index" style="grid-template-columns:40px  repeat(11,1fr)">
+            <span><input type="checkbox" v-model="item.checked" :disabled="!!item.desc ||item.types=='001'" /></span>
+            <span>{{item.policeuser.policeuser_name}}</span>
+            <span>{{item.policeuser.police_number}}</span>
+            <span>{{item.mechanism_name}}</span>
+            <span>{{changeTime(item.created)}}</span>
+            <span>{{item.type}}</span>
+            <span>{{item.gun.gun_code}}</span>
+            <span>{{item.IMEI}}</span>
+            <span>{{item.desc? "已处理" : "未处理"}}</span>
+            <span style="cursor:pointer;text-decoration:underline" @click="showNew(item)">最新位置</span>
+            <span style="cursor:pointer;text-decoration:underline"  @click="showAlert({id:item.alarm_info_id,name:item.policeuser.policeuser_name,type:item.type})">报警位置</span>
+            <span style="cursor:pointer;text-decoration:underline"  @click="showMore(item)">详情 </span>
+        </div>
     </div>
-    <div class="check_type">
+    <!--  -->
+    </div>
+    <div class="check_type" v-if="false">
       <div class="all" @click="dealAll">
         <span></span>
         一键处理
@@ -184,10 +221,14 @@ import MapMarker from '@/components/map-marker.vue'//此为离线地图弹窗
 import GaoDeMap from '@/components/mapalertgaode.vue'
 import GaoDeMarkers from '@/components/gaode-mark-arr.vue'
 import LiXianMarkers from '@/components/lixian-mark-arr.vue'
+
+import newContent from './children/new-content'
+import getPost from '@/server/post'
 export default {
-  components: { breadNav, Item ,GaoDeMap,MapMarker,GaoDeMarkers,LiXianMarkers},
+  components: { breadNav, Item ,GaoDeMap,MapMarker,GaoDeMarkers,LiXianMarkers,newContent},
   data() {
     return {
+      chulistate:'1',
       titleStr:'',
       textarea:'',
       currentNodeKey: "",
@@ -227,10 +268,47 @@ export default {
       alertMessage:null,
       keshihua:'',
       xiangqing:false,
-      mes:{}
+      mes:{},
+      selectAll:false,
+      showBtn:false,////特殊按钮的操作权限  默认不可以
     };
   },
   methods: {
+    getPost,
+    getQuanXian(){
+      this.getPost({
+        url:'/weixin/project/index.php?m=home&c=Role&a=buts'
+      },(res)=>{
+        if(res.data.code==200){
+          let arr=res.data.data
+          let has=arr.find(n=>n=='3')
+          if(has){
+            this.showBtn=true
+          }
+        }
+      })
+    },
+    changeSate(){
+      let state=this.chulistate
+      if(state==1){
+        this.quanbu()
+      }else if(state==2){
+        this.noDeal()
+      }else{
+        this.dealed()
+      }
+    },
+    piliangchuli(){
+      this.selectAll=!this.selectAll
+      this.list.forEach(item=>{
+        if(!item.desc && item.types!='08'&&item.type!='逾期报警'){
+          item.checked=this.selectAll
+        }
+      })
+    },
+    showxiangqing(item){
+      this.showMore(item)
+    },
     closeXiangqing(){
       this.mes={}
     },
@@ -276,7 +354,7 @@ export default {
         this.keshihua=false
       }
       localStorage.setItem('setKeShiHua',this.keshihua)
-      let num=this.keshihua?8:17
+      let num=this.keshihua?15:19
       this.getDataList(this.activeMechanismId, 1,num)
       this.$refs.page.internalCurrentPage = 1;
     },
@@ -288,7 +366,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       this.list=[]
-      let num=this.keshihua ?8:17
+      let num=this.keshihua ?15:19
       this.getDataList(
         this.activeMechanismId,
         1,
@@ -302,7 +380,7 @@ export default {
     },
     chulihuidiao(){
       let yeMa = this.activeYeMa || 1;
-      let num=this.keshihua ?8:17
+      let num=this.keshihua ?15:19
       this.getDataList(this.activeItem.mechanism_id, yeMa, num,this.warningType);
     },
     showNew(item){
@@ -368,7 +446,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       this.list=[]
-      let num=this.keshihua?8:17
+      let num=this.keshihua?15:19
       if (this.search) {
         this.getDataList(
           this.activeMechanismId,
@@ -422,7 +500,7 @@ export default {
       this.textArea = "";
     },
     noDeal() {
-      let num=this.keshihua ?8:17
+      let num=this.keshihua ?15:19
       this.message = "";
       this.state = 1; //未处理
       this.getDataList(
@@ -438,7 +516,7 @@ export default {
     dealed() {
       this.message = "";
       this.state = 2; //已处理
-      let num=this.keshihua ?8:17
+      let num=this.keshihua ?15:19
       this.getDataList(
         this.activeItem.mechanism_id,
         1,
@@ -467,7 +545,7 @@ export default {
     quanbu() {
       this.message = "";
       this.state = "";
-      let num=this.keshihua ?8:17
+      let num=this.keshihua ?15:19
       this.getDataList(this.activeItem.mechanism_id, 1, num,this.warningType);
     },
     getTreeList(isCreate = true) {
@@ -502,7 +580,7 @@ export default {
           this.rootId = data.data.data.list[0].root_id;
           this.activeItem = data.data.data.list[0];
           if (isCreate) {
-            let num=this.keshihua?8:17
+            let num=this.keshihua?15:19
             this.getDataList(this.activeItem.id, 1, num);
           }
         })
@@ -543,7 +621,7 @@ export default {
           console.log(error);
         });
     },
-    getDataList(mechanismId, p = 1, ps = 8, selValue, putValue, state,tid="") {
+    getDataList(mechanismId, p = 1, ps = 15, selValue, putValue, state,tid="") {
       // ......................获取报警列表
       this.loading = this.$loading({
         lock: true,
@@ -605,6 +683,7 @@ export default {
                 index: i
               };
             });
+            console.log(this.list)
             this.beiYongList = this.list;
             this.dataTotal = data.data.data.psum * 1;
             
@@ -647,7 +726,7 @@ export default {
               message: "处理完成"
             });
             let yeMa = this.activeYeMa || 1;
-            let num=this.keshihua ?8:17
+            let num=this.keshihua ?15:19
             this.getDataList(this.activeItem.mechanism_id, yeMa, num);
           }
         })
@@ -669,7 +748,7 @@ export default {
       this.putValue = "";
       this.active_title = item.mechanism_name;
       this.activeItem = item; //记录当前激活的树形菜单子项
-      let num=this.keshihua?8:17
+      let num=this.keshihua?15:19
       this.getDataList(item.mechanism_id, 1, num);
       this.warningType=''
     },
@@ -696,11 +775,11 @@ export default {
       this.serach = true;
       this.message = this.putValue;
       this.list.length ? (this.$refs.page.internalCurrentPage = 1) : null;
-      let num=this.keshihua ?8:17
+      let num=this.keshihua ?15:19
       this.getDataList(
         this.activeMechanismId,
         1,
-        8,
+        15,
         this.selValue,
         this.putValue,
         this.state
@@ -722,7 +801,7 @@ export default {
     this.activeItem =treeData[0];
     let keshi=localStorage.getItem('setKeShiHua')
       this.keshihua=JSON.parse(keshi) 
-    let num=this.keshihua?8:17
+    let num=this.keshihua?15:19
     this.getDataList(this.activeItem.id, 1, num);
 
 
@@ -762,7 +841,7 @@ export default {
 
     if (obj.one) {
       //....单个人的报警信息跳转过来的
-      let num=this.keshihua?8:17
+      let num=this.keshihua?15:19
       this.getTreeList(false);
       this.getDataList(
         obj.org_id || obj.mechanism_id,
@@ -790,7 +869,7 @@ export default {
     }
   },
   mounted() {
-    
+    this.getQuanXian()
     this.$store.commit('setStr',{
       str1:'报警列表',
       str2:'情况汇总'

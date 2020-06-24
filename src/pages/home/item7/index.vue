@@ -126,17 +126,19 @@ export default {
 
 .item_content2{
     box-sizing: border-box;
-    padding-top: 10px;
+    padding: 30/@vw 20/@vw;
      position: relative;
-    width:1200/@vw;
-    height:800/@vw;
-    transform: translateX(-22%) translateY(-20%) scale(0.5);
+    width:1250/@vw;
+    height:900/@vw;
+    transform: translateX(-25%) translateY(-23%) scale(0.5);
 }
 .item_content2:hover{
     box-sizing: border-box;
     z-index: 12;
-    background-color: #042846;
+    // background-color: #042846;
+    background-image: url(../../../assets/homepic/item_show.png);
+  background-size: 100% 100%;
     transition: 0.3s;
-    transform: translateX(-36%) translateY(-29%) scale(1);
+    transform: translateX(-43%) translateY(-38%) scale(1);
 }
 </style>

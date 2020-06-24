@@ -31,6 +31,8 @@
   border-bottom: 0.01rem solid #244f75;
 }
 .danyao-xiaohao .top-list .item-wrap {
+  box-sizing: border-box;
+  padding-top: 10px;
   height: 96%;
   width: 100%;
   display: flex;
@@ -40,10 +42,10 @@
 }
 .danyao-xiaohao .top-list .item-wrap .item {
   width: 18.5%;
-  height: 3.36rem;
+  height: 31.48148148vh;
   background: rgba(0, 0, 0, 0.1) url(../../../assets/img/zaiku-item.png) no-repeat;
   background-size: 100% 100%;
-  margin: 1% 0.6%;
+  margin: 0.1% 0.6%;
   font-size: 0.16rem;
   line-height: 0.26rem;
   box-sizing: border-box;
@@ -57,7 +59,10 @@
 .danyao-xiaohao .top-list .item-wrap .item img {
   width: 0.9rem;
   margin-left: 25%;
-  margin-top: 0.2rem;
+  margin-top: 0.92592593vh;
+}
+.danyao-xiaohao .top-list .item-wrap .item p {
+  line-height: 2.40740741vh;
 }
 .danyao-xiaohao .top-list .item-wrap .item h6 {
   position: absolute;

@@ -1,0 +1,104 @@
+@vw:38.4vw;
+@vh:21.6vh;
+
+.edit_mian{
+    width: 1800/@vw;
+    height:1050/@vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin:30/@vh 0 0 100/@vw;
+    // background: rgba(158, 156, 156,0.3);
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(auto-fill,336/@vh);
+    justify-items: center;
+    align-items: center;
+    .edit_item{
+        box-sizing: border-box;
+        width: 299/@vw;
+        height:283/@vh;
+        margin: 25/@vh 0;
+        border: 4/@vw solid #304b67;
+        padding: 10/@vh 10/@vw;
+        .edit_full{
+            position: relative;
+            width: 100%;
+            height:100%;
+            background: rgba(115, 167, 230,.1);
+            .edit_state{
+                position: absolute;
+                top:0;
+                right:0;
+                width: 64/@vw;
+                height:28/@vh;
+                background: url(../../assets/qianggui/zaiwei_zai.png) no-repeat;
+                background-size: 100% 100%;
+            }
+            .edit_state.buzai{
+                background-image: url(../../assets/qianggui/zaiwei_buzai.png);
+            }
+            .edit_img_wrap{
+                width: 240/@vw;
+                height:100/@vh;
+                margin: 0 auto 10/@vh;
+                background: url(../../assets/qianggui/path.png) no-repeat center bottom;
+                background-size: 100% 32/@vh;
+                text-align: center;
+                overflow: hidden;
+                img{
+                    width: 70%;
+                    margin-top: 10/@vh;
+                }
+            }
+            .edit_floor{
+                box-sizing: border-box;
+                padding: 0 18/@vw;
+                line-height: 45/@vh;
+                color: #fff;
+                i{
+                    font-weight: 700;
+                    color: #8ecfff;
+                }
+            }
+            .edit_number{
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height:48/@vh;
+                line-height: 48/@vh;
+                color: #fff;
+                text-align: center;
+                background: url(../../assets/qianggui/jihao.png) no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+    }
+}
+
+.edit_mian::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 0px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+  }
+  
+  .edit_mian::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(63, 4, 173, 0.5);
+    background: rgba(34, 3, 117, 0.8);
+  }
+  
+  .edit_mian::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(221, 213, 213, 0.6);
+  }
+
+
+
+
+
+
+

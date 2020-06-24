@@ -360,7 +360,7 @@
   align-items: center;
   border-width: 0.05208333vw 0;
   border-style: solid;
-  border-color: cornflowerblue;
+  border-color: #467FAC;
 }
 .content2 .list-title input {
   flex: 1;
@@ -370,7 +370,7 @@
   line-height: 3.33333333vh;
   flex: 3;
   text-align: center;
-  border-left: 0.05208333vw solid cornflowerblue;
+  border-left: 0.05208333vw solid #467FAC;
 }
 .content2 .list-title span:nth-last-child(1) {
   flex: 5;
@@ -386,7 +386,7 @@
   align-items: center;
   border-width: 0 0 0.05208333vw;
   border-style: solid;
-  border-color: cornflowerblue;
+  border-color: #467FAC;
 }
 .content2 .list-item input {
   flex: 1;
@@ -398,7 +398,7 @@
   color: #fff;
   flex: 3;
   text-align: center;
-  border-left: 0.05208333vw solid cornflowerblue;
+  border-left: 0.05208333vw solid #467FAC;
 }
 .content2 .list-item .btns {
   flex: 5;

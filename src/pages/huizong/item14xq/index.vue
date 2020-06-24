@@ -376,7 +376,11 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
     let par = this.$route.params;
-    let timearr = par.tt.split(",");
+    if(JSON.stringify(par)=="{}"){
+      this.$router.go(-1)
+      return
+    }
+    let timearr = par.tt.length?par.tt.split(","):null;
     this.mid = par.mid;
     this.timeStart = timearr[0];
     this.timeEnd = timearr[1];

@@ -52,8 +52,10 @@
 @import url("./index.css");
 </style>
 <script>
-import getData from "./post";
+import getData from "@/server/post";
+
 export default {
+  components:{},
   data() {
     return {
       mtype: "",

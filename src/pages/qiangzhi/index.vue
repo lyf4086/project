@@ -64,49 +64,44 @@
         :isRemoving="isRemoving"
         ref="myChild"
         :activeYeMa="active_yema"
+        @openAlert="openAlert"
+        :showBtn="showBtn"
       />
     </div>
-    <div class="change_type">
-      <button title="可视化" :class="{'active':keshihua}" @click="changeShowType(1)"></button>
-      <button title="列表" :class="{'active':!keshihua}" @click="changeShowType(2)"></button>
+    <div class="new_change_type" style="z-index:1">
+      <button :class="{'active':keshihua}" @click="changeShowType(1)">视图</button>
+      <button :class="{'active':!keshihua}" @click="changeShowType(2)">列表</button>
     </div>
-    <div class="content2" v-show="!keshihua">
-      <div class="none-data" v-if="!activeDataList.length">暂时没有数据</div>
-      <!-- <div class="item" v-for="(item,index) in activeDataList" :key="index">
-        <input type="checkbox"  v-model="item.checked">
-        <span><i>枪支编号:</i>{{item.gun_code}}</span>
-        <span><i>枪支类型：</i>{{item.gtype||"暂无"}}</span>
-        <span><i>所属机构：</i>{{item.mechanism_name}}</span>
-        <span><i>枪柜编号：</i>{{item.guncabinet_code||'无'}}</span>
-        <span><i>枪锁位：</i>{{item.gposition || '无'}}</span>
-        <span><i>枪瞄编号：</i>{{item.jm}}</span>
-        <span><i>持枪警员：</i>{{item.policeuser_name ||"暂无"}}</span>
-      </div>-->
-      <div class="list-title" v-show="activeDataList.length">
-        <input type="checkbox" v-model="checkAll" />
-        <span>枪支编号</span>
-        <span>枪支类型</span>
-        <span>所属机构</span>
-        <span>枪柜编号</span>
-        <span>枪锁位</span>
-        <span>枪瞄编号</span>
-        <span>持枪警员</span>
-        <span>绑定/解绑</span>
-        <span>详情</span>
-      </div>
-      <div class="list-item" v-for="(item,index) in activeDataList" :key="index">
-        <input type="checkbox" v-model="item.checked" />
-        <span>{{item.gun_code}}</span>
-        <span>{{item.gtype||"暂无"}}</span>
-        <span>{{item.mechanism_name}}</span>
-        <span>{{item.guncabinet_code||'无'}}</span>
-        <span>{{item.gposition || '无'}}</span>
-        <span>{{item.IMEI}}</span>
-        <span @click="toPersonMessage(item)" style="cursor:pointer">{{item.policeuser_name ||"暂无"}}</span>
-        <span v-if="!item.IMEI" style="cursor:pointer" @click="bangding(item)">绑定</span>
-        <span v-if="item.IMEI" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
-        <span style="cursor:pointer;text-decoration:underline" @click="showXiangQing(item)">详情</span>
-      </div>
+    <div class="new_list_wrap" v-show="!keshihua">
+      <div class="new_nodta" v-if="!activeDataList.length">暂时没有数据</div>
+      <div class="slot-wrap" v-show="activeDataList.length">
+        <div class="slot-title" :style="`grid-template-columns:40px repeat(${showBtn?9:8},1fr)`">
+            <span><input type="checkbox" v-model="checkAll" /></span>
+            <span>枪支编号</span>
+            <span>枪支类型</span>
+            <span>所属机构</span>
+            <span>枪柜编号</span>
+            <span>枪锁位</span>
+            <span>枪瞄编号</span>
+            <span>持枪警员</span>
+            <span v-if="showBtn">绑定/解绑</span>
+            <span>操作</span>
+        </div>
+        <div class="slot-item" v-for="(item,index) in activeDataList" :key="index" :style="`grid-template-columns:40px repeat(${showBtn?9:8},1fr)`">
+            <span><input type="checkbox" v-model="item.checked" /></span>
+            <span>{{item.gun_code}}</span>
+            <span>{{item.gtype||"暂无"}}</span>
+            <span>{{item.mechanism_name}}</span>
+            <span>{{item.guncabinet_code||'无'}}</span>
+            <span>{{item.gposition || '无'}}</span>
+            <span>{{item.IMEI}}</span>
+            <span  @click="toPersonMessage(item)" style="cursor:pointer">{{item.policeuser_name ||"暂无"}}</span>
+            <span  v-if="showBtn&&!item.IMEI" style="cursor:pointer" @click="bangding(item)">绑定</span>
+            <span  v-if="showBtn&&item.IMEI" style="color:red;cursor:pointer" @click="jiebang(item)">解绑</span>
+            <span  style="cursor:pointer;text-decoration:underline" @click="showXiangQing(item)">详情</span>
+        </div>
+    </div>
+      <!--  -->
     </div>
     <div class="alert" v-show="alert||xiugai">
       <div class="text-wrap" v-show="alert">
@@ -173,29 +168,7 @@
 
         <button class="sub-wrap" @click="subChange">确认修改</button>
       </div>
-      <!--  <div class="bingbox" v-show="bindalert">
-        <button class="close" @click="bindclose">X</button>
-        <p style="display:none">{{activeJigouId}}</p>
-        <input
-          type="text"
-          class="text"
-          placeholder="请输入枪瞄ID"
-          v-model="activeMiaoId"
-          @input="putChange"
-        />
-        <div class="m-item-wrap">
-          <div class="no-data" v-if="allMiaoList.length==0">该机构下暂时没有枪瞄数据</div>
-          <div
-            class="m-item"
-            v-for="(item,index) in allMiaoList"
-            :key="index"
-            :style="{'opacity':item.opacity}"
-          >
-            <span @click="miaoSpanClick(item,index)" title="IMEI">{{item.IMEI}}</span>
-          </div>
-        </div>
-        <button class="sub" @click="subBind">确认绑定</button>
-      </div>-->
+      
     </div>
     <!-- 详情弹窗 -->
     <div class="cover" v-if="tan4">
@@ -213,8 +186,9 @@
           <div class="t t8" @click="showList">历史记录</div>
           <div class="r1"></div>
           <div class="r2">
-              <img class="r2Type" :src="urlBase+guns.src" alt="">
+              
           </div>
+          <img class="r2Type" :src="urlBase+guns.src" alt="">
         </div>
         <div class="m-list" v-show="listShow">
           <div class="text" v-if="xiangqingList.length">
@@ -243,7 +217,7 @@
       </div>
       
     </div>
-    <div class="bind-cover" v-if="bindalert">
+    <div class="bind-cover" v-if="bindalert"  style="z-index:2">
         <div class="bingbox" v-show="bindalert">
           <button class="close" @click="bindclose">X</button>
           <p style="display:none">{{activeJigouId}}</p>
@@ -278,6 +252,8 @@ import LeftNav from "@/components/leftnav";
 import Content from "./children/content";
 import breadNav from "@/components/breadnav";
 import { setTimeout } from "timers";
+
+import getPost from '@/server/post'
 export default {
   components: { LeftNav, Content, breadNav },
   data() {
@@ -325,7 +301,8 @@ export default {
       zhankai: [],
       tan4: false,
       listShow: false,
-      xiangqingList: [1, 2]
+      xiangqingList: [1, 2],
+      showBtn:false,////特殊按钮的操作权限  默认不可以
     };
   },
   computed: {
@@ -339,6 +316,23 @@ export default {
     }
   },
   methods: {
+    getPost,
+    getQuanXian(){
+      this.getPost({
+        url:'/weixin/project/index.php?m=home&c=Role&a=buts'
+      },(res)=>{
+        if(res.data.code==200){
+          let arr=res.data.data
+          let has=arr.find(n=>n=='2')
+          if(has){
+            this.showBtn=true
+          }
+        }
+      })
+    },
+    openAlert(item){
+      this.xiangqing(item.gun_id);
+    },
     showXiangQing(item) {
       this.xiangqing(item.gun_id);
     },
@@ -362,6 +356,7 @@ export default {
     },
     bindclose() {
       this.bindalert = false;
+      this.activeMiaoId=''
       this.allMiaoList.forEach(e => (e.opacity = "0.3"));
     },
     subBind() {
@@ -399,6 +394,7 @@ export default {
       })
         .then(data => {
           if (data.data.code == 200) {
+            console.log(data.data.history)
             this.xiangqingList = data.data.history;
             this.guns = data.data.guns;
             this.tan4 = true;
@@ -536,7 +532,7 @@ export default {
           let newArr = data.data.data.list.map(e => {
             return {
               ...e,
-              opacity: 1,
+              opacity: '0.3',
               checked: false
             };
           });
@@ -1099,6 +1095,7 @@ export default {
       str1: "枪支列表",
       str2: "情况汇总"
     });
+    this.getQuanXian()
   },
   destroyed() {
     this.$store.commit("huanyuanStr");

@@ -32,7 +32,9 @@
   border-bottom: 0.01rem solid #244f75;
 }
 .danyao-zaiku .top-list .item-wrap {
-  height: 96%;
+  box-sizing: border-box;
+  padding-top: 10px;
+  height: 93%;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -51,10 +53,10 @@
 }
 .danyao-zaiku .top-list .item-wrap .item {
   width: 18%;
-  height: 3.36rem;
-  background: rgba(0, 0, 0, 0.1) url(../../../assets/img/zaiku-item.png) no-repeat;
+  height: 31.48148148vh;
+  background: rgba(12, 12, 12, 0.1) url(../../../assets/img/zaiku-item.png) no-repeat;
   background-size: 100% 100%;
-  margin: 0 1% 0.8% 1%;
+  margin: 0 1% 0.5% 1%;
   font-size: 0.16rem;
   line-height: 0.26rem;
   box-sizing: border-box;
@@ -68,7 +70,10 @@
 .danyao-zaiku .top-list .item-wrap .item img {
   width: 0.9rem;
   margin-left: 25%;
-  margin-top: 0.2rem;
+  margin-top: 1.85185185vh;
+}
+.danyao-zaiku .top-list .item-wrap .item p {
+  line-height: 2.40740741vh;
 }
 .danyao-zaiku .top-list .item-wrap .item h6 {
   position: absolute;

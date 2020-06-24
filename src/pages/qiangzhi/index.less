@@ -521,6 +521,7 @@
 
 .cover{
   position: fixed;
+  z-index: 999;
   top:0;
   left:0;
   width:100vw;
@@ -595,6 +596,7 @@
     transform: rotate(-360deg)
   }
 }
+
 
 .alert4 {
   width: 50%;
@@ -681,6 +683,14 @@
       background: url(../../assets/img/qiangzhi-r1.png) no-repeat;
       background-size: 100% 100%;
       animation: round2 2s linear infinite;
+      
+    }
+    img{
+      position: absolute;
+      left:50%;
+      top:50%;
+      max-width: 200/@vw;
+      transform: translateX(-50%) translateY(-50%) ;
     }
   }
   .m-list{

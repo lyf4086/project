@@ -4,7 +4,7 @@
       <item1 class="item"></item1>
       <item2 class></item2>
       <item3 class="item"></item3>
-      <item4 class></item4>
+      <item4 class="hvr-shadow"></item4>
       <item5 class="item item5"></item5>
     </div>
     <div class="down">
@@ -16,6 +16,7 @@
 
 <style lang="less" scoped>
 @import url("./index.css");
+
 </style>
 <script>
 import Item1 from "./item1/index";

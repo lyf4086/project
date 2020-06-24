@@ -1,0 +1,122 @@
+.new-main {
+  width: 48.95833333vw;
+  height: 49.07407407vh;
+  margin: 1.01851852vh auto;
+  display: grid;
+  grid-template-columns: 850fr 1030fr;
+  grid-template-rows: 1fr;
+}
+.new-main .left {
+  text-align: center;
+}
+.new-main .left img {
+  margin-top: 4.62962963vh;
+  width: 13.02083333vw;
+  height: 35.18518519vh;
+}
+.new-main .left .dipan {
+  width: 20.83333333vw;
+  height: 12.96296296vh;
+  background: url(../../assets/qianggui/cengdie_bottom.png) no-repeat;
+  background-size: 100% 100%;
+  margin: -5.55555556vh auto;
+}
+.new-main .right {
+  box-sizing: border-box;
+  padding-right: 1.77083333vw;
+  padding-top: 1.38888889vh;
+  display: grid;
+  grid-template-rows: 1fr 2.31481481vh;
+  grid-template-columns: 1fr;
+}
+.new-main .right .box_wrap {
+  position: relative;
+  overflow: hidden;
+}
+.new-main .right .box_wrap .box_list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 100%;
+  display: flex;
+  transition: 0.2s;
+}
+.new-main .right .box_wrap .box_list .box_item {
+  width: 25vw;
+  height: 7.82407407vh;
+}
+.new-main .right .box_wrap .box_list .box_item .box {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.46296296vh 0.26041667vw;
+  border: 0.10416667vw solid rgba(115, 172, 230, 0.27);
+  margin-top: 0.46296296vh;
+}
+.new-main .right .box_wrap .box_list .box_item .box .box_main {
+  width: 100%;
+  height: 100%;
+  background: rgba(115, 172, 230, 0.27);
+  display: grid;
+  grid-template-columns: 4.94791667vw repeat(4, 1fr);
+  grid-template-rows: 1fr;
+}
+.new-main .right .box_wrap .box_list .box_item .box span {
+  box-sizing: border-box;
+  padding-top: 0.92592593vh;
+}
+.new-main .right .box_wrap .box_list .box_item .box span i {
+  font-size: 0.72916667vw;
+  line-height: 1.94444444vh;
+}
+.new-main .right .box_wrap .box_list .box_item .box span strong {
+  line-height: 2.59259259vh;
+  font-size: 0.88541667vw;
+  font-weight: bold;
+  color: #6ffeff;
+}
+.new-main .right .box_wrap .box_list .box_item .box span:nth-child(1) {
+  padding-top: 0;
+}
+.new-main .right .box_wrap .box_list .box_item .box span:nth-child(1) .icon {
+  width: 2.34375vw;
+  height: 2.34375vw;
+  background: url(../../assets/qianggui/danyao_icon.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 10% auto;
+}
+.new-main .right .box_wrap .active1 {
+  left: -25vw;
+}
+.new-main .right .box_wrap .active2 {
+  left: -50vw;
+}
+.new-main .right .box_wrap .active3 {
+  left: -75vw;
+}
+.new-main .right .box_wrap .active4 {
+  left: -100vw;
+}
+.new-main .right .box_wrap .active5 {
+  left: -125vw;
+}
+.new-main .right .box_wrap .active6 {
+  left: -150vw;
+}
+.new-main .right .index_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+}
+.new-main .right .index_wrap i {
+  width: 0.52083333vw;
+  height: 0.52083333vw;
+  border-radius: 50%;
+  background: #204762;
+  margin: 0 0.33854167vw;
+  cursor: pointer;
+}
+.new-main .right .index_wrap .active {
+  background: #3392c8;
+}
